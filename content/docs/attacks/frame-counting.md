@@ -17,3 +17,8 @@ menu = "main"
 ## Frame Couting
 
 fdsfsdsfdfsd
+
+{{< details "Title" open >}}
+## Markdown content
+Lorem markdownum insigne...
+{{< /details >}}
