@@ -4,5 +4,6 @@ title = "XS-Leaks Wiki"
 enableGitInfo = true
 
 [taxonomies]
+  category = "Category"
   attack = "Attacks"
   defense = "Defenses"
