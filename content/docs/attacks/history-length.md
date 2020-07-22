@@ -1,15 +1,14 @@
 +++
-title = "Frame Couting"
+title = "History Length"
 description = ""
 date = "2020-07-21"
 attacks = [
     "dom property",
-    "second example",
 ]
 defenses = [
-    "XFO",
+    "",
 ]
 menu = "main"
 +++
 
-## olaolaolaa
+saddsadasdasdasdsadasdsadsadasdsadsasad

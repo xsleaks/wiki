@@ -1,4 +1,8 @@
-baseURL = "http://example.org/"
+baseURL = "https://xsleaks.github.io/"
 languageCode = "en-us"
 title = "XS-Leaks Wiki"
 enableGitInfo = true
+
+[taxonomies]
+  attack = "Attacks"
+  defense = "Defenses"
