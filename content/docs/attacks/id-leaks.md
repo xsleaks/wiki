@@ -4,15 +4,26 @@ description = ""
 date = "2020-07-21"
 category = "attacks"
 attacks = [
-    "dom property",
-    "second example",
+    "same-site cookies",
+    "sec-fetch metadata",
 ]
 defenses = [
-    "nothing really",
+    "same-site cookies",
 ]
 menu = "main"
 +++
 
 ## Description
 
-Using iframes can be useful in a lot of ways, and they don’t necessarily bring any risk when used properly. However in particular case
+Using iframes can be useful in a lot of ways, and they don’t necessarily bring any risk when used properly. However in particular case [^1] [^2]: 
+
+
+### iframes
+### Portal Element
+
+
+## References
+
+[^1]: Leaking IDs using focus, [link](https://portswigger.net/research/xs-leak-leaking-ids-using-focus)
+
+[^2]: Detecting IDs using Portal, [link](https://portswigger.net/research/xs-leak-detecting-ids-using-portal)
