@@ -26,7 +26,7 @@ Similarly to the [Frame Counting Attack]({{< ref "../attacks/frame-counting.md" 
 #### Case Scenarios
 
 - An online bank decides to redirect wealthy users to unmissable stock opportunities, by triggering a navigation to a reserved space in the website when users are consulting the account balance. If this is only done to a specific group of users, it becomes easy for an attacker to verify this situation and leak the "client status" of the user.
-- TODO: I need better examples
+<!--TODO(manuelvsousa): Add better examples-->
 
 ## Real World Example
 
