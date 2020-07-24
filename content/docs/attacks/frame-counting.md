@@ -22,7 +22,7 @@ One of the accessible attributes is `window.length` which provides the number of
 
 ### Why is this a problem?
 
-Websites use `frames` (or `iframes`) all the time, and they don’t necessarily bring any risk when used by developers. However, cases where a website makes the use of `frames` depending on user-provided information, for example, through a `GET` request, it might be possible for an attacker to infer that information by triggering changes on the `GET` request and listen to those changes by checking the value of `window.length`. 
+Websites commonly use frames (or `iframes`) and this doesn't necessarily imply security issues.  There are however cases where a website might change the amount of frames in a page depending on some user information. This could happen for example in a page that changes layout depending on the `GET` parameters and the victim data. It might be possible for an attacker to infer information on the victim by navigating a frame or a window with different `GET` requests and checking the value of `window.length` afterwards.
 
 
 #### Specific Case Scenarios
@@ -55,7 +55,7 @@ A Vulnerability reported to Facebook used this technique to leak user-related in
 
 ## How can I protect my applications?
 
-Fixing this XS-Leak is tricky as an attacker can get a `window` reference from different ways. 
+Fixing this XS-Leak is complicated as an attacker can get a `window` reference in different ways. 
 
 To stop attackers from abusing this XS-Leak on pages through `iframes` developers use the following protections:
 
@@ -69,7 +69,7 @@ In case a developer must allow others to frame its pages, [this defensive guidel
 To stop attackers from abusing this XS-Leak on pages through `window.opener` and `window.open` developers can use the following protection:
 
 - {{< hint info >}}
-Deploy [Cross-Origin-Opener-Policy]({{< ref "../defenses/opt-in/coop.md" >}}) on the web application to control who is allowed to have a `window` reference on a page.
+Deploy [Cross-Origin-Opener-Policy]({{< ref "../defenses/opt-in/coop.md" >}}) on the web application to prevent cross-origin `window` references.
 {{< /hint >}}
 
 
