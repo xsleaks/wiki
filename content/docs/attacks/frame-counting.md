@@ -59,7 +59,7 @@ Fixing this XS-Leak is complicated as an attacker can get a `window` reference i
 To stop attackers from abusing this XS-Leak on pages through `iframes` developers should use the following protections:
 
 - {{< hint info >}}
-Forbidd cross-origin pages from framing pages using [framing protections]({{< ref "../defenses/opt-in/xfo.md" >}}).
+Forbid cross-origin pages from framing pages using [framing protections]({{< ref "../defenses/opt-in/xfo.md" >}}).
 {{< /hint >}}
 - {{< hint danger >}}
 In case a developer must allow others to frame its pages, [this defensive guideline]({{< ref "../defenses/design-protections/defensive-design.md" >}}) should be considered to avoid the introduction of this XS-Leak.
