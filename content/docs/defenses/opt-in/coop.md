@@ -6,6 +6,4 @@ category = "defenses"
 menu = "main"
 +++
 
-## coop
-
 https://web.dev/coop-coep/

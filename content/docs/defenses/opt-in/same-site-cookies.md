@@ -6,7 +6,4 @@ category = "defenses"
 menu = "main"
 +++
 
-## same site cookies
-
-
 https://web.dev/samesite-cookies-explained/

@@ -6,7 +6,4 @@ category = "defenses"
 menu = "main"
 +++
 
-## sec-fetch
-
-
 https://web.dev/fetch-metadata/
