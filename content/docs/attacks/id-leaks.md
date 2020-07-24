@@ -11,6 +11,7 @@ defenses = [
     "same-site cookies",
 ]
 menu = "main"
+bookHidden = true
 +++
 
 ## Description
