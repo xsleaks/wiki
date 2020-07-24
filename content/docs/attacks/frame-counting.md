@@ -63,7 +63,7 @@ To stop attackers from abusing this XS-Leak on pages through `iframes` developer
 Forbidd cross-origin pages from framing pages using [framing protections]({{< ref "../defenses/opt-in/xfo.md" >}}).
 {{< /hint >}}
 - {{< hint danger >}}
-In case a developer must allow others to frame its pages, [this defensive guideline]({{< ref "../defenses/opt-in/xfo.md" >}}) should be considered to avoid the introduction of this XS-Leak.
+In case a developer must allow others to frame its pages, [this defensive guideline]({{< ref "../defenses/design-protections/defensive-design.md" >}}) should be considered to avoid the introduction of this XS-Leak.
 {{< /hint >}}
 
 To stop attackers from abusing this XS-Leak on pages through `window.opener` and `window.open` developers can use the following protection:

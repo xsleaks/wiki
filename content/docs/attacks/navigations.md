@@ -38,11 +38,11 @@ A vulnerability reported to Twitter, used this XS-Leak to leak the contents of p
 Developers are encouraged to apply generic XS-Leaks mitigations to prevent attackers from making authenticated cross-site requests. There are a couple of mechanisms that can be applied:
 
 - {{< hint info >}}
-Implement [Same-Site Cookies]({{< ref "../defenses/opt-in/coop.md" >}}) on web applications to force browsers to send cookies only if the request comes from same-site.
+Implement [Same-Site Cookies]({{< ref "../defenses/opt-in/same-site-cookies.md" >}}) on web applications to force browsers to send cookies only if the request comes from same-site (strict mode).
 {{< /hint >}}
 
 - {{< hint info >}}
-Process [Fetch-Metadata Headers]({{< ref "../defenses/opt-in/coop.md" >}}) to get more information about the context in which requests are made. This allows applications to make better decisions when responding to certain requests.
+Process [Fetch-Metadata Headers]({{< ref "../defenses/opt-in/sec-fetch.md" >}}) to get more information about the context in which requests are made. This allows applications to make better decisions when responding to certain requests.
 {{< /hint >}}
 
 To stop attackers from abusing this XS-Leak using `iframes` developers can use the following protections:
@@ -51,7 +51,7 @@ To stop attackers from abusing this XS-Leak using `iframes` developers can use t
 Forbidd cross-origin pages from framing pages using [framing protections]({{< ref "../defenses/opt-in/xfo.md" >}}).
 {{< /hint >}}
 - {{< hint danger >}}
-In case a developer must allow others to frame its pages, [this defensive guideline]({{< ref "../defenses/opt-in/xfo.md" >}}) should be considered to avoid the introduction of this XS-Leak.
+In case a developer must allow others to frame its pages, [this defensive guideline]({{< ref "../defenses/design-protections/defensive-design.md" >}}) should be considered to avoid the introduction of this XS-Leak.
 {{< /hint >}}
 
 Finally, to stop attackers from abusing this XS-Leak on pages using **other** `window` references, developers can use the following protection:
