@@ -35,7 +35,7 @@ A vulnerability reported to Twitter, used this XS-Leak to leak the contents of p
 
 ## How can I protect my applications?
 
-Developers are encouraged to follow the generic XS-Leaks mitigations to prevent attackers from making authenticated cross-site requests. There are a couple of mechanisms that can be applied:
+Developers are encouraged to apply generic XS-Leaks mitigations to prevent attackers from making authenticated cross-site requests. There are a couple of mechanisms that can be applied:
 
 - {{< hint info >}}
 Implement [Same-Site Cookies]({{< ref "../defenses/opt-in/coop.md" >}}) on web applications to force browsers to send cookies only if the request comes from same-site.
