@@ -17,7 +17,7 @@ menu = "main"
 
 Detecting if a cross-site page triggered a navigation can be useful to an attacker. This can be done in two ways:
 - Using an `iframe` and counting the number of times the `onload` event is triggered.
-- Checking the value of `History.length`, accessible through a `window` reference, gives the number of entries in the history of a victim, triggered by `History.pushState` or regular navigations.
+- Checking the value of `History.length`, accessible through a `window` reference, gives the number of entries in the history of a victim either changed by `History.pushState` or regular navigations.
 
 ### Why is this a problem?
 
