@@ -30,7 +30,7 @@ Similarly to the [Frame Counting Attack]({{< ref "../attacks/frame-counting.md" 
 
 ## Real World Example
 
-A vulnerability reported to Twitter, used this XS-Leak to leak the contents of private tweets using [XS-Search](https://todo). This attack was possible because the page would only trigger a navigation depending on whether there were results to the user query [^1].
+A vulnerability reported to Twitter used this technique to leak the contents of private tweets using [XS-Search](https://TODO). This attack was possible because the page would only trigger a navigation depending on whether there were results to the user query [^1].
 
 
 ## How can I protect my applications?
