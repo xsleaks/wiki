@@ -27,7 +27,7 @@ Websites commonly use frames (or `iframes`) and this doesn't necessarily imply s
 
 #### Specific Case Scenarios
 
-- A website lets a user search for user information in a search engine, if the page structure has a different number of `iframes` depending on whether there are results to the user query, an attacker could use the [XS-Search]({/TODO) technique to leak those secrets.
+- A website lets a user search for user information in a search engine, if the page structure has a different number of `iframes` depending on whether there are results to the user query, an attacker could use the [XS-Search]({https://TODO) technique to leak those secrets.
 - A website structures the user profile page differently based on gender or other PII. An attacker can easily leak this information by just opening the page and counting frames.
 
 ### Attack alternatives

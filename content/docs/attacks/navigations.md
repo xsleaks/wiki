@@ -21,7 +21,7 @@ Detecting if a cross-site page triggered a navigation can be useful to an attack
 
 ### Why is this a problem?
 
-Similarly to the [Frame Counting Attack]({{< ref "../attacks/frame-counting.md" >}}), making Navigations are only a problem when they are triggered based on user private information. The main problem is the lack of consistency in pages to always have the same behavior.
+Similarly to the [Frame Counting Attack]({{< ref "../attacks/frame-counting.md" >}}), triggering navigations can be problem when they are done depending on user private information. The main problem is the lack of consistency in pages to always have the same behavior.
 
 #### Case Scenarios
 
