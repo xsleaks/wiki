@@ -16,7 +16,7 @@ menu = "main"
 
 ## Introduction
 
-`window` references allow cross-origin pages to get access to some attributes about other pages and these references come in use when using `iframe`, `window.opener`, and `window.open`. They provide limited information about the window to respect the Same-origin policy and run in a different browsing context. 
+`window` references allow cross-origin pages to get access to some attributes of other pages. These references become available when using or allowing `iframe` and `window.open`. They provide some information (although limited) about the window as they still respect the Same Origin Policy.
 
 One of the accessible attributes is `window.length` which provides the number of frames in the window. This attribute can give valuable information about a page to an attacker.
 
