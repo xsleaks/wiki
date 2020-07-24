@@ -69,7 +69,7 @@ In case a developer must allow others to frame its pages, [this defensive guidel
 To stop attackers from abusing this XS-Leak on pages through `window.opener` and `window.open` developers can use the following protection:
 
 - {{< hint info >}}
-Deploy [Cross-Origin-Opener-Policy]({{< ref "../defenses/opt-in/coop.md" >}}) on the web application to control who is allowed to have a `window` reference on a page.
+Deploy [Cross-Origin-Opener-Policy]({{< ref "../defenses/opt-in/coop.md" >}}) on the web application to prevent cross-origin `window` references.
 {{< /hint >}}
 
 
