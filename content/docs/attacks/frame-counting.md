@@ -57,7 +57,7 @@ A Vulnerability reported to Facebook used this technique to leak user-related in
 
 Fixing this XS-Leak is complicated as an attacker can get a `window` reference in different ways. 
 
-To stop attackers from abusing this XS-Leak on pages through `iframes` developers use the following protections:
+To stop attackers from abusing this XS-Leak on pages through `iframes` developers should use the following protections:
 
 - {{< hint info >}}
 Forbidd cross-origin pages from framing pages using [framing protections]({{< ref "../defenses/opt-in/xfo.md" >}}).
