@@ -65,7 +65,7 @@ Forbidd cross-origin pages from framing pages using [framing protections]({{< re
 In case a developer must allow others to frame its pages, [this defensive guideline]({{< ref "../defenses/design-protections/defensive-design.md" >}}) should be considered to avoid the introduction of this XS-Leak.
 {{< /hint >}}
 
-To stop attackers from abusing this XS-Leak on pages through `window.opener` and `window.open` developers can use the following protection:
+To stop attackers from abusing this XS-Leak on pages through `window.opener` and `window.open` developers should use the following protection:
 
 - {{< hint info >}}
 Deploy [Cross-Origin-Opener-Policy]({{< ref "../defenses/opt-in/coop.md" >}}) on the web application to prevent cross-origin `window` references.

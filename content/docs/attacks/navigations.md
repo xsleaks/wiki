@@ -35,7 +35,7 @@ A vulnerability reported to Twitter used this technique to leak the contents of 
 
 ## How can I protect my applications?
 
-Developers are encouraged to apply generic XS-Leaks mitigations to prevent attackers from making authenticated cross-site requests. There are a couple of mechanisms that can be applied:
+Developers are encouraged to apply generic XS-Leaks mitigations to prevent attackers from preforming authenticated cross-site requests. There are a couple of mechanisms that can be applied:
 
 - {{< hint info >}}
 Implement [Same-Site Cookies]({{< ref "../defenses/opt-in/same-site-cookies.md" >}}) on web applications to force browsers to send cookies only if the request comes from same-site (strict mode).
@@ -45,7 +45,7 @@ Implement [Same-Site Cookies]({{< ref "../defenses/opt-in/same-site-cookies.md" 
 Process [Fetch-Metadata Headers]({{< ref "../defenses/opt-in/sec-fetch.md" >}}) to get more information about the context in which requests are made. This allows applications to make better decisions when responding to certain requests.
 {{< /hint >}}
 
-To stop attackers from abusing this XS-Leak using `iframes` developers can use the following protections:
+To stop attackers from abusing this XS-Leak using `iframes` developers should use the following protections:
 
 - {{< hint info >}}
 Forbidd cross-origin pages from framing pages using [framing protections]({{< ref "../defenses/opt-in/xfo.md" >}}).
@@ -54,7 +54,7 @@ Forbidd cross-origin pages from framing pages using [framing protections]({{< re
 In case a developer must allow others to frame its pages, [this defensive guideline]({{< ref "../defenses/design-protections/defensive-design.md" >}}) should be considered to avoid the introduction of this XS-Leak.
 {{< /hint >}}
 
-Finally, to stop attackers from abusing this XS-Leak on pages using **other** `window` references, developers can use the following protection:
+Finally, to stop attackers from abusing this XS-Leak on pages using **other** `window` references, developers should use the following protection:
 
 - {{< hint info >}}
 Deploy [Cross-Origin-Opener-Policy]({{< ref "../defenses/opt-in/coop.md" >}}) on the web application to control who is allowed to have a `window` reference on a page.
