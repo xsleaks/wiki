@@ -55,7 +55,7 @@ A Vulnerability reported to Facebook used this technique to leak user-related in
 
 ## How can I protect my applications?
 
-Fixing this XS-Leak is tricky as an attacker can get a `window` reference from different ways. 
+Fixing this XS-Leak is complicated as an attacker can get a `window` reference in different ways. 
 
 To stop attackers from abusing this XS-Leak on pages through `iframes` developers use the following protections:
 
