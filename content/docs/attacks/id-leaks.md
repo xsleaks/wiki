@@ -14,7 +14,7 @@ menu = "main"
 bookHidden = true
 +++
 
-## Description
+## Explanation
 
 TODO [^1] [^2]: 
 
