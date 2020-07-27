@@ -12,7 +12,7 @@ defenses = [
 menu = "main"
 +++
 
-## Introduction
+## Explanation
 
 The `id` attribute is widely used to identify some `HTML` elements. Unfortunately, these `ids` can be leaked by leveraging the `focus` event and the `URL` fragment. There are two alternatives to complete this attack:
 
@@ -22,15 +22,15 @@ The `id` attribute is widely used to identify some `HTML` elements. Unfortunatel
 
 ### Why is this a problem?
 
-Sometimes web applications set `id` attributes in `focusable` elements that may lead to user information disclosure. These `ids` can be direct information related to the user (i.e a secret), or information associated with a user state (i.e account status).
+Sometimes web applications set `id` attributes in `focusable` elements that may lead to user information disclosure. These `ids` either be direct information related to the user (i.e a secret) or information associated with a user state (i.e account status).
 
-#### Specific Case Scenarios
+#### Case Scenarios
 
 - A bank allows its clients to generate 4 digit One-Time PINs (OTP) in the browser application to authenticate sessions on the mobile. The bank did a couple of mistakes and put the 4 digit OTP as the `id` of a `button`, used to show the PIN to the client. The attacker notices it can make a `GET` request to that endpoint, and by targeting clients with this XS-Leak, it might be possible to compromise their accounts.
-- A web application uses a specific set of predefined `ids` and `HTML` elements when an account has a premium status. The attacker can detect whether a specific `id` is present in the victim's page, and leak the account status.
+- A web application uses a specific set of predefined `ids` and `HTML` elements when an account has a premium status. The attacker can detect whether a specific `id` is present in the victim's page and leak the account status.
 
 
-## How can I protect my applications?
+## Defense
 
 To stop attackers from abusing this XS-Leak on pages through `iframes` developers should use the following protections:
 
