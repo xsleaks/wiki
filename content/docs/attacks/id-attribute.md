@@ -32,20 +32,16 @@ Sometimes web applications set `id` attributes in `focusable` elements that may 
 
 ## Defense
 
-To stop attackers from abusing this XS-Leak on pages through `iframes` developers should use the following protections:
-
-- {{< hint info >}}
-Forbid cross-origin pages from framing pages using [framing protections]({{< ref "../defenses/opt-in/xfo.md" >}}).
-{{< /hint >}}
-- {{< hint danger >}}
-In case a developer must allow others to frame its pages, [this defensive guideline]({{< ref "../defenses/design-protections/defensive-design.md" >}}) should be considered to avoid the introduction of this XS-Leak.
-{{< /hint >}}
-
-To stop attackers from abusing this XS-Leak on pages through `portal` developers should use the [generic XS-Leak Protections](TODO) to prevent attackers from performing cross-site requests with user cookies. 
+| Attack Alternative  | [Same-Site Cookies]({{< ref "../defenses/opt-in/same-site-cookies.md" >}})  | [Fetch Metadata]({{< ref "../defenses/opt-in/sec-fetch.md" >}})  | [COOP]({{< ref "../defenses/opt-in/coop.md" >}})  |  [Framing Protections]({{< ref "../defenses/opt-in/xfo.md" >}}) |
+|:-------------------:|:------------------:|:---------------:|:-----:|:--------------------:|
+| iframe              |         ✔️         |      ✔️         |  ❌   |          ✔️         |
+| portal              |         ✔️         |      ✔️         |  ❌   |          ❌         |
 
 {{< hint warning >}}
 The [`portal`](https://web.dev/hands-on-portals/) element is only available on Chromium-based browsers under a preference flag. The corresponding specification is still under active discussion.
 {{< /hint >}}
+
+
 
 ## References
 
