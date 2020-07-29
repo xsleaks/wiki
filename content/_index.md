@@ -6,22 +6,22 @@ bookToc: false
 
 # What are XS-Leaks?
 
-XS-Leaks are a class of vulnerabilities that have been present on the web for a long time, gaining new attention at the end of 2018 when a formal name was assigned and a [repository](https://github.com/xsleaks/xsleaks/wiki/Browser-Side-Channels) of some of them was created. This class of vulnerabilities are considered Browser Side-channel Attacks as most of them exploit behaviors **inherent to the design of the web**, thus increasing the complexity around their mitigation.
+XS-Leaks are a class of vulnerabilities that have been present on the web for a long time, gaining new attention at the end of 2018 when a formal name was assigned and a [repository](https://github.com/xsleaks/xsleaks/wiki/Browser-Side-Channels) of some of them was created. This class of vulnerabilities are considered Browser Side-channel Attacks and most of them exploit behaviors **inherent to the design of the web**, which increases the complexity around their mitigation.
 
 ## Why are XS-Leaks Hard?
 
-- The cause of most XS-Leaks is **inherent to the design of the web**. Applications can be vulnerable to some XS-Leaks without introducing them.
+- The cause of most XS-Leaks is **inherent to the design of the web**. Applications can be vulnerable to some XS-Leaks without explicitly introducing them.
 - Unlike common vulnerabilities such as `XSS`, with very specific taxonomies and attack consequences, XS-Leaks are an aggregation of several attack vectors with totally different implications.
 - XS-Leaks are very application behavior dependent, so their consequences can't be generalized.
-- It's hard to fix XS-Leaks. Mitigating one XS-Leak can be irrelevant if all the others are possible to exploit. To be effective against most of them, applications must combine different types of Defense Mechanisms.
+- It's hard to fix XS-Leaks. Mitigating one XS-Leak can be irrelevant if all the others are possible to exploit. To be effective against most of them, applications must combine different types of [Defense Mechanisms]({{< ref "../docs/defenses/" >}}).
 
 ## The Principle of XS-Leaks
 
 When `attacker.com` makes a request to `bank.com`, the browser will attach user cookies along with the request. The `Same-origin policy` is enforced and stop `attacker.com` from getting the contents of `bank.com`, and the principle of XS-Leaks is to go around this protection to **infer** Private Identifiable Information (PII) by watching the behavior of secondary events/channels (e.g Browser Cache, Request Timing).
 
-The type of leaked information is **always** application dependent, and varies depending on the features of the application and how it behaves in specific situations.
+Leaked information is **always** application dependent, varies depending on the features of the application and how it behaves in specific situations.
 
-There are several XS-Leaks, and they can have distinct origins:
+There are several types of XS-Leaks, and they have distinct origins:
 
 - [`HTML` APIs]({{< ref "frame-counting.md" >}}) that allow attackers to access powerful information about a page
 - Browser Features which unintendedly introduced XS-Leaks
