@@ -17,7 +17,18 @@ XS-Leaks are a class of vulnerabilities that have been present on the web for a 
 
 ## The Principle of XS-Leaks
 
-`Same-origin policy`
+When `attacker.com` makes a request to `bank.com`, the browser will attach user cookies along with the request. The `Same-origin policy` is enforced and stop `attacker.com` from getting the contents of `bank.com`, and the principle of XS-Leaks is to go around this protection to **infer** Private Identifiable Information (PII) by watching the behavior of secondary events/channels (e.g Browser Cache, Request Timing).
+
+The type of leaked information is **always** application dependent, and varies depending on the features of the application and how it behaves in specific situations.
+
+There are several XS-Leaks, and they can have distinct origins:
+
+- [`HTML` APIs]({{< ref "frame-counting.md" >}}) that allow attackers to access powerful information about a page
+- Browser Features which unintendedly introduced XS-Leaks
+- Browser Bugs
+- Inherent Web Platform Features (or a combination of them)
+
+<!--TODO(manuelvsousa): Change this to TAG references-->
 
 # About the Wiki
 
