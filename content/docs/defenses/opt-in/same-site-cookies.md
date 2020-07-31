@@ -9,11 +9,13 @@ menu = "main"
 
 ## Explanation
 
-`Same-Site Cookies` are one of the most impactful Security Mechanisms towards fixing security issues that evolve `cross-site` requests. This mechanism allows applications to add a special classification to cookies, forcing browsers to only append cookies in requests which comes from the `same-site` [^1]. This type of cookies has two modes: `Lax` and `Strict`.
+`Same-Site Cookies` are one of the most impactful Security Mechanisms towards fixing security issues that evolve `cross-site` requests. This mechanism allows applications to add a special classification to cookies, forcing browsers to only append cookies in requests which comes from `same-site` [^1]. This type of cookies has two modes: `Lax` and `Strict`.
 
 ### Lax V.s Strict Mode
 
-The only difference between `Lax` and `Strict` is that `Lax` mode allows cookies to be added in requests triggered by top-level navigations. If `bank.com` sets `Same-Site=Lax` and `attacker.com` makes a request using the `fetch API`, cookies won't be sent. Unfortunately, if the attacker navigates the user away with `window.open()` (which triggers a top-level navigation) the cookies will be sent and the attacker gains control over that window which allows some XS-Leaks to be exploited.
+The only difference between `Lax` and `Strict` is that `Lax` mode allows cookies to be added in requests triggered by top-level navigations. If `bank.com` sets `Same-Site=Lax` and `attacker.com` makes a request using the `fetch API`, cookies won't be sent. Similarly, `bank.com` is allowed to make requests to itself since they come from `same-site`.
+
+Unfortunately, if the attacker navigates the user away with `window.open()` (which triggers a top-level navigation) the cookies will be sent and the attacker gains control over that window, being able to still exploit some XS-Leaks.
 
 
 ## Considerations
@@ -32,7 +34,7 @@ Anyone interested in deploying this mechanism in web applications should take a 
 |:-----------------------------------------------------------------:|:------------------:|:---------------:|:-----:|
 | [Frame Counting]({{< ref "../../attacks/frame-counting.md" >}})   |         ❌         |      ✔️         |  ❌   |
 | [Navigations]({{< ref "../../attacks/navigations.md" >}})         |         ❌         |      ✔️         |  ❌   |
-| [ID Leaks]({{< ref "../../attacks/id-leaks.md" >}})               |         ❓         |      ✔️         |  ❌   |
+| [ID Leaks]({{< ref "../../attacks/id-leaks.md" >}})               |         ❔         |      ✔️         |  ❌   |
 
 [^1]: SameSite cookies explained, [link](https://web.dev/samesite-cookies-explained/)
 [^2]: Bypass SameSite Cookies Default to Lax and get CSRF [link](https://medium.com/@renwa/bypass-samesite-cookies-default-to-lax-and-get-csrf-343ba09b9f2b)
