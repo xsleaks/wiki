@@ -13,15 +13,11 @@ menu = "main"
 
 ### Lax V.s Strict Mode
 
-The only difference between `Lax` and `Strict` is that `Lax` mode allows cookies to be added in requests triggered by top-level navigations. If `bank.com` sets `Same-Site=Lax` and `attacker.com` makes a request using the `fetch API`, cookies won't be sent. Similarly, `bank.com` is allowed to make requests to itself since they come from `same-site`.
-
-Unfortunately, if the attacker navigates the user away with `window.open()` (which triggers a top-level navigation) the cookies will be sent and the attacker gains control over that window, being able to still exploit some XS-Leaks.
-
+The only difference between `Lax` and `Strict` is that `Lax` mode allows cookies to be added in requests triggered by top-level navigations. If `bank.com` sets `Same-Site=Lax` and `attacker.com` makes a request using the `fetch API`, cookies won't be sent. Similarly, `bank.com` is allowed to make requests to itself since they come from `same-site`. Unfortunately, if the attacker navigates the user away with `window.open()` (which triggers a top-level navigation) the cookies will be sent and the attacker gains control over that window, being able to still exploit some XS-Leaks.
 
 ## Considerations
 
-`Same-Site Cookies` are an extraordinary protection but they are not bulletproof [^2] nor they can fix everything. To complete the defense strategy against XS-Leaks, users should consider implementing [other protections]({{< ref "coop.md" >}}), for instance, to stop an attacker from controlling pages using a window reference even if `Same-Site Cookies` are in use.
-
+`Same-Site Cookies` are not bulletproof [^2] nor they can fix everything. To complete the defense strategy against XS-Leaks, users should consider implementing [other protections]({{< ref "coop.md" >}}), for instance, to stop an attacker from controlling pages using a window reference even if `Same-Site Cookies` are in use.
 
 
 ## Deploy

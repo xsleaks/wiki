@@ -21,7 +21,7 @@ These [techniques]({{< ref "design-protections/_index.md" >}}) should be seen as
 
 Browsers actively discuss how to incorporate [new mitigations]({{< relref "_index.md#browser-intrinsic" >}}) transparent to both users and developers, that help mitigate some of the XS-Leaks mentioned in this Wiki.
 
-{{< hint allow >}}
+{{< hint info >}}
 Can be highly effective. The biggest advantage is that it transparently protects applications and users, and should not require extra efforts from developers.
 {{< /hint >}}
 
@@ -29,7 +29,7 @@ Can be highly effective. The biggest advantage is that it transparently protects
 
 These [Defense Mechanisms]({{< ref "opt-in/_index.md" >}}) allow applications to address a group of similar XS-Leaks as one. By deploying these protections an application can decide how requests to itself are made and make more intelligent decisions when something wrong is about to happen.
 
-{{< hint allow >}}
+{{< hint info >}}
 Deploying a combination of [Opt-in Defense Mechanisms]({{< ref "opt-in/_index.md" >}}) should be the **default strategy**. Not only they protect against XS-Leaks but also against other vulnerabilities such as XSSI, Clickjacking, CSRF, etc.
 {{< /hint >}}
 
