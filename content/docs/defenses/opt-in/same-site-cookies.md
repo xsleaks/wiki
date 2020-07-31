@@ -20,7 +20,7 @@ Unfortunately, if the attacker navigates the user away with `window.open()` (whi
 
 ## Considerations
 
-`Same-Site Cookies` are an extraordinary protection but they are not bulletproof [^2] nor they can fix everything. To complete the defense strategy against XS-Leaks, users should consider implementing [other protections]({{< ref "coop.md" >}}), for instance, to stop an attacker from controlling pages with `Same-Site Cookies` with window references.
+`Same-Site Cookies` are an extraordinary protection but they are not bulletproof [^2] nor they can fix everything. To complete the defense strategy against XS-Leaks, users should consider implementing [other protections]({{< ref "coop.md" >}}), for instance, to stop an attacker from controlling pages using a window reference even if `Same-Site Cookies` are in use.
 
 
 
