@@ -27,8 +27,10 @@ There are several types of XS-Leaks, and they have distinct origins:
 - Browser Features which unintendedly introduced XS-Leaks
 - Browser Bugs
 - Inherent Web Platform Features (or a combination of them)
+- Hardware Limitations
 
 <!--TODO(manuelvsousa): Change this to TAG references-->
+<!--TODO(manuelvsousa): Change hardware limitation with reference to socket exhaustion pool-->
 
 # About the Wiki
 
