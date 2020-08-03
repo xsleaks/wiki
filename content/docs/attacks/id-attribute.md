@@ -27,7 +27,7 @@ Sometimes web applications set `id` attributes in `focusable` elements that may 
 #### Case Scenarios
 
 - A bank allows its clients to generate 4 digit One-Time PINs (OTP) in the browser application to authenticate sessions on the mobile. The bank did a couple of mistakes and put the 4 digit OTP as the `id` of a `button`, used to show the PIN to the client. The attacker notices it can make a `GET` request to that endpoint, and by targeting clients with this XS-Leak, it might be possible to compromise their accounts.
-- A web application uses a specific set of predefined `ids` and `HTML` elements when an account has a premium status. The attacker can detect whether a specific `id` is present in the victim's page and leak the account status.
+- A web application uses a specific set of predefined `ids` and `HTML` elements when an account has a premium status or the user is of a certain gender. The attacker can detect whether a specific `id` is present in the victim's page and leak the account information.
 
 
 ## Defense
