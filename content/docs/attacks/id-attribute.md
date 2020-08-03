@@ -22,7 +22,7 @@ The `id` attribute is widely used to identify some `HTML` elements. Unfortunatel
 
 ### Why is this a problem?
 
-Sometimes web applications set `id` attributes in `focusable` elements that may lead to user information disclosure. These `ids` either be direct information related to the user (i.e a secret) or information associated with a user state (i.e account status).
+Sometimes web applications set `id` attributes in `focusable` elements that may lead to user information disclosure. These `ids` can either be direct information related to the user (i.e a secret) or information associated with a user state (i.e account status).
 
 #### Case Scenarios
 
