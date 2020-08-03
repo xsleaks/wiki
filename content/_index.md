@@ -23,7 +23,7 @@ Leaked information is **always** application dependent, varies depending on the 
 
 There are several types of XS-Leaks, and they have distinct origins:
 
-- [`HTML` APIs]({{< ref "frame-counting.md" >}}) that allow attackers to access powerful information about a page
+- [`HTML` APIs]({{< ref "frame-counting.md" >}}) that allow attackers to access information about a page
 - Browser Features which unintendedly introduced XS-Leaks
 - Browser Bugs
 - Inherent Web Platform Features (or a combination of them)
