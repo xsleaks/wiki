@@ -37,7 +37,7 @@ Implement [Same-Site Cookies]({{< ref "../defenses/opt-in/same-site-cookies.md" 
 {{< /hint >}}
 
 - {{< hint info >}}
-Process [Fetch-Metadata Headers]({{< ref "../defenses/opt-in/sec-fetch.md" >}}) to get more information about the context in which requests are made. This allows applications to make better decisions when responding to certain requests.
+Process [Fetch-Metadata Headers]({{< ref "../defenses/opt-in/fetch-metadata.md" >}}) to get more information about the context in which requests are made. This allows applications to make better decisions when responding to certain requests.
 {{< /hint >}}
 
 To stop attackers from abusing this XS-Leak using `iframes` developers should use the following protections:
