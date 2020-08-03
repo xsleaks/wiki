@@ -9,7 +9,7 @@ menu = "main"
 
 ## Explanation
 
-Fetch Metadata Headers are sent by browsers in every request or navigation made by a page. These Headers intend to provide context on how the request/navigation was initiated, so that applications, upon receiving them, are able to make smarter decisions on how to respond to them. This allows applications to behave differently when they sense insecure situations (i.e cross-origin requests)[^1].
+Fetch Metadata Headers are sent by browsers in every request or navigation made by a page. These Headers intend to provide context on how the request/navigation was initiated, so that applications upon receiving them, are able to make smarter decisions on how to respond to them. This allows applications to behave differently when they sense insecure situations (i.e cross-origin requests)[^1].
 
 ## Considerations
 
@@ -24,16 +24,14 @@ Check out this [web.dev](https://web.dev/fetch-metadata/) article to learn more 
 
 ## XS-Leaks Mitigation Overview
 
-|                           XS-Leak                                 |    Fetch Metadata Mitigation   |  Full Mitigation   |
-|:-----------------------------------------------------------------:|:------------------------------:|:-------------------:
-| [Frame Counting]({{< ref "../../attacks/frame-counting.md" >}})   |         ✔️                     |         ✔️
-| [Navigations]({{< ref "../../attacks/navigations.md" >}})         |         ✔️                     |         ✔️
-| [ID Leaks]({{< ref "../../attacks/id-leaks.md" >}})               |         ✔️                     |         ✔️
+|                           XS-Leak                                 |  Full Mitigation   |
+|:-----------------------------------------------------------------:|:-------------------:
+| [Frame Counting]({{< ref "../../attacks/frame-counting.md" >}})   |         ✔️
+| [Navigations]({{< ref "../../attacks/navigations.md" >}})         |         ✔️
+| [ID Leaks]({{< ref "../../attacks/id-leaks.md" >}})               |         ✔️
 
 ### Table Caption
 
-- **Fetch Metadata Mitigation** -  At least one attack alternative of the XS-Leak relies on `iframes`
-- **Full Mitigation** - Fully mitigates an XS-Leak if fully implemented in all application endpoints. *See warning in [Considerations]({{< ref "fetch-metadata.md#considerations" >}})*
-
+- **Full Mitigation** - Fully mitigates an XS-Leak if fully implemented in all application endpoints. *See limitations in [Considerations]({{< ref "fetch-metadata.md#considerations" >}})*
 
 [^1]: Protect your resources from web attacks with Fetch Metadata, [link](https://web.dev/fetch-metadata/)

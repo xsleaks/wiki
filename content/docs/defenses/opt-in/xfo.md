@@ -32,5 +32,5 @@ Deploy framing protections is particularly straightforward, and depend whether a
 
 ### Table Caption
 
-- **Framing Protections** -  At least one attack alternative of the XS-Leak relies on `iframes`
-- **Full Mitigation** -  Does not fully mitigate an XS-Leak if an alternative attack vector that does not rely on the of `iframes`
+- **Framing Protections** - At least one attack alternative of the XS-Leak relies on `iframes`
+- **Full Mitigation** - Does not fully mitigate an XS-Leak if an alternative attack vector that does not rely on the of `iframes`
