@@ -6,7 +6,7 @@ bookToc: false
 
 # What are XS-Leaks?
 
-XS-Leaks are a class of vulnerabilities that have been present on the web for a long time, gaining new attention at the end of 2018 when a formal name was assigned and a [repository](https://github.com/xsleaks/xsleaks/wiki/Browser-Side-Channels) of some of them was created. This class of vulnerabilities are considered Browser Side-channel Attacks and most of them exploit behaviors **inherent to the design of the web**, which increases the complexity around their mitigation.
+XS-Leaks are a class of vulnerabilities that have been present on the web for a long time, gaining new attention at the end of 2018 when a formal name was assigned and a [repository](https://github.com/xsleaks/xsleaks/wiki/Browser-Side-Channels) of some of them was created. These vulnerabilities are Browser Side-channel Attacks and most of them exploit behaviors **inherent to the design of the web**, which increases the complexity around their mitigation.
 
 ## Why are XS-Leaks Hard to fix?
 
