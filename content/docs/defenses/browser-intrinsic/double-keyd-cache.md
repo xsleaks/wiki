@@ -8,7 +8,7 @@ menu = "main"
 
 ## Explanation
 
-Cache probing attacks have been present on the web for a long time mainly because browsers HTTP cache is shared across all the websites visited by a user, allowing attackers to interact with it and extract private information from other origins.
+[Cache probing attacks](https://TODO) have been present on the web for a long time mainly because browsers HTTP cache is shared across all the websites visited by a user, allowing attackers to interact with it and extract private information from other origins.
 
 <!--TODO(manuelvsousa): Add reference to cache probing attacks-->
 
@@ -33,7 +33,7 @@ Several XS-Leaks resulted in browser features triggering changes in fundamental 
 
 ### First Party Isolation
 
-First Party Isolation is a [Browser Extension](https://addons.mozilla.org/en-US/firefox/addon/first-party-isolation/) built by Mozilla which restricts access to cookies and persistent data (e.g cache) per domain.
+First Party Isolation is a [Browser Extension](https://addons.mozilla.org/en-US/firefox/addon/first-party-isolation/) for Firefox which restricts access to cookies and persistent data (e.g cache) per domain.
 
 ## Considerations
 
