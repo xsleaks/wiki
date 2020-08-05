@@ -8,11 +8,11 @@ menu = "main"
 
 ## Explanation
 
-Cache probing attacks have been present on the web for a long time mainly because browsers HTTP cache is shared across all the websites a user visits, allowing attackers to interact with the cache and extract private information from other origins.
+Cache probing attacks have been present on the web for a long time mainly because browsers HTTP cache is shared across all the websites visited by a user, allowing attackers to interact with it and extract private information from other origins.
 
 <!--TODO(manuelvsousa): Add reference to cache probing attacks-->
 
-There is not much applications can do stop these attacks, [apart for some workarounds]({{< ref "../design-protections/subresource-protections.md" >}}) which come with tradeoffs. Browsers however have been planning a defense mechanism to segregate the cached resources per origin/site, making it impossible to attackers pages to interact with cached contents of different origins[^1] [^2] [^3]. Specifically, browsers tested `top-frame origin` and URL as keys for the cache. Triple Keyed has also been considered by browsers.
+There is not much applications can do stop these attacks, [apart for some workarounds]({{< ref "../design-protections/subresource-protections.md" >}}) which come with tradeoffs. Browsers, however, have been planning a defense mechanism to segregate the cached resources per origin/site, making it impossible to attackers pages to interact with cached contents of different origins[^1] [^2] [^3]. Specifically, browsers tested caching with double keys such as `top-frame origin` and URL, however, other keys and strategies (triple keys) have also been considered.
 
 [Chrome](https://bugs.chromium.org/p/chromium/issues/detail?id=910708) and [Firefox](https://bugzilla.mozilla.org/show_bug.cgi?id=1590107) are still studying an implementation for a Keyed Cache while [Safari](https://bugs.webkit.org/show_bug.cgi?id=110269) already runs a version of it since 2013.
 
@@ -37,7 +37,7 @@ First Party Isolation is a [Browser Extension](https://addons.mozilla.org/en-US/
 
 ## Considerations
 
-Partitioned HTTP caches are a promising security feature that will eventually land in browsers. These partitioning strategies will might spread to other browser resources which help to mitigate resilient attack vectors like the [Socket Exhaustion XS-Leak](https://TODO).
+Partitioned HTTP caches are a promising security feature that will eventually land in browsers. These partitioning strategies will mitigate all the XS-Leaks leveraging browsers caches and might spread to other browser resources which help mitigate resilient attack vectors like the [Socket Exhaustion XS-Leak](https://TODO).
 
 <!--TODO(manuelvsousa): Add socket exhaustion ?-->
 
