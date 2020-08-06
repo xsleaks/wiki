@@ -30,7 +30,7 @@ Anyone interested in deploying this mechanism in web applications should take a 
 |:-----------------------------------------------------------------:|:-----:|:------:|:------:|
 | [Frame Counting]({{< ref "../../attacks/frame-counting.md" >}})   |   ❌  |   ❌   |  ✔️   |
 | [Navigations]({{< ref "../../attacks/navigations.md" >}})         |   ❌  |   ❌   |  ✔️   |
-| [ID Leaks]({{< ref "../../attacks/id-leaks.md" >}})               |   ❌  |   ❔   |  ✔️   |
+| [ID Leaks]({{< ref "../../attacks/id-leaks.md" >}})               |   ❌  |   ❓  |  ✔️   |
 
 [^1]: SameSite cookies explained, [link](https://web.dev/samesite-cookies-explained/)
 [^2]: Bypass SameSite Cookies Default to Lax and get CSRF [link](https://medium.com/@renwa/bypass-samesite-cookies-default-to-lax-and-get-csrf-343ba09b9f2b)
