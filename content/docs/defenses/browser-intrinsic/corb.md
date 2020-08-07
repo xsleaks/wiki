@@ -9,15 +9,15 @@ menu = "main"
 
 ## Explanation
 
-Cross-Origin Read Blocking (CORB) is a browser defense mechanism that prevents attackers from loading certain cross-origin resources in a situation that does not make sense[^1]. For instance, if an attacker tries to load an  HTML, XML, or JSON as an `img` or `script` tag, CORB will prevent this from happening. To classify resource types CORB uses the `Content-Type` header (and `nosniff`), but when this is not possible, it sniffs the contents of the resources to infer the type.
+Cross-Origin Read Blocking (CORB) is a browser defense mechanism that prevents attackers from loading certain cross-origin resources in a situation that does not make sense[^1]. This protection was created to prevent speculative side-channel attacks such as Spectre which allow attackers to read the memory of its process. CORB aims to prevent attackers from loading cross-origin contents into its own process, which might contain private data. For instance, if an attacker tries to load an  HTML, XML, or JSON as an `img` or `script` tag, CORB will prevent this from happening. To classify resource types CORB uses the `Content-Type` header but when it senses a page is serving content under the wrong `Content-Type` (e.g `text/plain`) it looks to the start of the resource to apply with the correct classification, thus protecting the resource.
 
-An important complement of CORB is the [Cross-Origin Resource Policy (CORP)]({{< ref "../opt-in/corp.md" >}}) which allow applications to **opt in to protection** against other resource requests that might not be covered automatically by CORB itself.
-
+{{< hint info >}}
 Chrome is the only browser with CORB deployed.
+{{< /hint >}}
 
-## CORB and XS-Leaks
-
-Some XS-Leaks [timing attacks](https://TODO) and [size leaks](https://TODO) rely on loading `HTML` resources on `tags` that are not appropriate to those contents. Some attacks rely on this tags to . Alternatively, if an attacker tries to use the `video` or `audio` tag and its properties to infer the size of an HTML page, CORB should block.
+{{< hint info >}}
+An important complement of CORB is the [Cross-Origin Resource Policy (CORP)]({{< ref "../opt-in/corp.md" >}}).
+{{< /hint >}}
 
 
 ## Considerations
