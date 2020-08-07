@@ -17,7 +17,7 @@ menu = "main"
 
 Detecting if a cross-site page triggered a navigation can be useful to an attacker. This can be done in two ways:
 - Using an `iframe` and counting the number of times the `onload` event is triggered.
-- Checking the value of `History.length`, accessible through any `window` reference, gives the number of entries in the history of a victim either changed by `History.pushState` or regular navigations.
+- Checking the value of `History.length`, accessible through any `window` reference, gives the number of entries in the history of a victim either changed by `History.pushState` or regular navigations. To get the value of `History.length` an attacker changes the location of the `window` reference with the target website, changes back to same-origin, and finally reads the value.
 
 ### Why is this a problem?
 
@@ -33,8 +33,8 @@ Similarly to the [Frame Counting Attack]({{< ref "../attacks/frame-counting.md" 
 | Attack Alternative  | [Same-Site Cookies]({{< ref "../defenses/opt-in/same-site-cookies.md" >}})  | [Fetch Metadata]({{< ref "../defenses/opt-in/sec-fetch.md" >}})  | [COOP]({{< ref "../defenses/opt-in/coop.md" >}})  |  [Framing Protections]({{< ref "../defenses/opt-in/xfo.md" >}}) |
 |:----------------------------------:|:--------------------------:|:---------------:|:-----:|:--------------------:|
 | iframe                             |         ✔️                 |      ✔️         |  ❌   |          ✔️         |
-| History.length (iframe)            |         ✔️                 |      ✔️         |  ✔️   |          ❌         |
-| History.length (window.open)       |         ✔️ (If Strict)     |      ✔️         |  ❌  |           ✔️          |
+| `History.length` (iframe)          |         ✔️                 |      ✔️         |  ❌   |          ✔️         |
+| `History.length` (window.open)     |         ✔️ (If Strict)     |      ✔️         |  ✔️   |           ❌        |
 
 
 ## Real World Example
