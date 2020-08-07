@@ -7,7 +7,7 @@ title: "Defense Mechanisms"
 # Defense Mechanisms
 
 
-Defending against all [XS-Leaks Attack Vectors]({{< ref "../attacks/" >}}) is not a trivial task. Each one of them affects different web and browser components and has its quirks. Some Bug Bounty programs, such as Google VRP even stopped receiving and paying for new XS-Leaks reports since they believe it's not feasible to prepare a [particular and unique bugfix]({{< relref "_index.md#application-design" >}}) for each report [^1]. Instead, Google and other companies believe the right approach towards fixing XS-Leaks is to invest time and human power into proposing [new large scale mitigations]({{< relref "_index.md#opt-in-mechanisms" >}}), so that applications can use them to and fix considerable chunks of XS-Leaks.
+Defending against all [XS-Leaks Attack Vectors]({{< ref "../attacks/" >}}) is not a trivial task. Each one of them affects different web and browser components and has its quirks. Some Bug Bounty programs, such as Google VRP even stopped receiving and paying for new XS-Leaks reports since they believe it's not feasible to prepare a [particular and unique bugfix]({{< relref "_index.md#application-design" >}}) for each report [^1]. Instead, Google and other companies believe the right approach towards fixing XS-Leaks is to invest time and human power into proposing [new large scale mitigations and changes to the web platform]({{< relref "_index.md#opt-in-mechanisms" >}}), so that applications can use them to fix considerable chunks of XS-Leaks.
 
 ## Application Design
 
