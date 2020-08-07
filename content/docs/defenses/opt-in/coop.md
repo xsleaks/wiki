@@ -15,7 +15,7 @@ Exploiting XS-Leaks with `window` references is seen as the last available optio
 - A page sets [Framing Protections]({{< ref "xfo.md" >}})
 - A page sets [`Same-Site Cookies` with `Lax` Mode]({{< ref "same-site-cookies.md" >}}) (navigating a `window` triggers a top-level navigation)
 
-To prevent entrusted origins from gaining arbitrary `window` references to a page, applications can deploy Cross-Origin-Opener-Policy (COOP)[^1]. With COOP, applications are in control of who is allowed to have a reference to its pages, thus mitigating XS-Leaks which make use of such windows.
+To prevent untrusted origins from gaining arbitrary `window` references to a page, applications can deploy Cross-Origin-Opener-Policy (COOP)[^1]. With COOP, applications are in control of who is allowed to have a reference to their pages, thus mitigating XS-Leaks which make use of such techiniques.
 
 ## Considerations
 
