@@ -27,7 +27,7 @@ Browser Intrinsic mechanisms can be highly effective. The biggest advantage is t
 
 ## Opt-in Mechanisms
 
-These [Defense Mechanisms]({{< ref "opt-in/_index.md" >}}) allow applications to address a group of similar XS-Leaks as one. By deploying these protections an application can decide how requests to itself are made and make more intelligent decisions when something wrong is about to happen.
+These [Defense Mechanisms]({{< ref "opt-in/_index.md" >}}) allow applications to address classes of similar XS-Leaks at once. By deploying these protections an application can instruct browsers to behave in a more secure way or it can leverage some additional information to block potential attacks.
 
 {{< hint info >}}
 Deploying a combination of [Opt-in Defense Mechanisms]({{< ref "opt-in/_index.md" >}}) should be the **default strategy**. Not only they protect against XS-Leaks but also against other vulnerabilities such as XSSI, Clickjacking, CSRF, etc.
