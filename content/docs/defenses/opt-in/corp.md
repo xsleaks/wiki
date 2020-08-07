@@ -9,9 +9,9 @@ menu = "main"
 
 ## Explanation
 
-Cross-Origin-Resource-Policy (CORP) response header is a complement of [Cross-Origin Read Blocking]({{< ref "../browser-intrinsic/corb.md" >}}) (CORB). CORP allows applications to **opt in to protection** against other resource requests that might not be covered automatically by CORB itself[^1]. Applications can define which origins are allowed to read its resources.
+Cross-Origin-Resource-Policy (CORP) response header is a complement of [Cross-Origin Read Blocking]({{< ref "../browser-intrinsic/corb.md" >}}) (CORB). CORP allows applications to **opt in to protection** in resources that might not be covered automatically by CORB[^1]. Applications can define which origins are allowed to read their resources.
 
-If an application sets a certain resource CORP Header as `same-site`, an attacker, which is in a different origin is incapable of reading that resource.
+If an application sets a certain resource CORP Header as `same-site`, an attacker is incapable of reading that resource because it's in a different origin.
 
 ## Considerations
 
