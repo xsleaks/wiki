@@ -22,7 +22,7 @@ These [techniques]({{< ref "design-protections/_index.md" >}}) should be seen as
 Browsers vendors actively discuss how to implement [new mechanisms]({{< relref "_index.md#browser-intrinsic" >}}) to help mitigate some of the XS-Leaks mentioned in this Wiki. They always try to make such mechanisms as transparent as possible to users and developers but this is not always possible.
 
 {{< hint info >}}
-Can be highly effective. The biggest advantage is that it transparently protects applications and users, and should not require extra efforts from developers.
+Browser Intrinsic mechanisms can be highly effective. The biggest advantage is that it transparently protects applications and users, and should not require extra efforts from developers.
 {{< /hint >}}
 
 ## Opt-in Mechanisms
