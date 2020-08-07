@@ -14,7 +14,7 @@ Defending against all [XS-Leaks Attack Vectors]({{< ref "../attacks/" >}}) is no
 Application Design [techniques]({{< ref "design-protections/_index.md" >}}) allow developers to better use certain `HTML APIs` known to easily introduce XS-Leaks. This type of techniques helps develop temporary measures when [opt in mechanisms]({{< relref "_index.md#opt-in-mechanisms" >}}) can't be enforced on the application right away.
 
 {{< hint warning >}}
-These [techniques]({{< ref "design-protections/_index.md" >}}) should be seen as **temporary solutions**, before  [opt in mechanisms]({{< relref "_index.md#opt-in-mechanisms" >}}) are deployed. Only useful in particular situations, and should not be the default strategy.
+Application Design [techniques]({{< ref "design-protections/_index.md" >}}) should be seen as **temporary solutions**, before  [opt in mechanisms]({{< relref "_index.md#opt-in-mechanisms" >}}) are deployed. They are useful in particular situations, and should not be the default strategy.
 {{< /hint >}}
 
 ## Browser Intrinsic
