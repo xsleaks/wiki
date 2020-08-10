@@ -21,7 +21,7 @@ To prevent untrusted origins from gaining arbitrary `window` references to a pag
 
 Implementing COOP in applications can often be overlooked by Developers and Security Engineers who are not familiar with such topics. Nonetheless, it’s important to highlight the importance of this Defense Mechanism as it is the **only way** to prevent attackers from exploiting XS-Leaks which makes use of `window` references (unless Same-Site Cookies Strict Mode can be widely deployed).
 
-## Deploy
+## Deployment
 
 Check out this [web.dev](https://web.dev/why-coop-coep/) article to learn more about the advantages of this protection and how to deploy it.
 
