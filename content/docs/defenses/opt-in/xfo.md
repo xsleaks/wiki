@@ -18,7 +18,7 @@ A considerable number of XS-Leaks use certain properties of `iframes` to be succ
 
 This protection is very effective against XS-Leaks which rely on `iframes` and can be easily implemented without breaking anything. This protection not only protects applications of some XS-Leaks but also from attacks like Clickjacking.
 
-## Deploy
+## Deployment
 
 Deploy framing protections is particularly straightforward, and depend whether applications need to allow cross-origin pages to iframe. Check out this [web.dev](https://web.dev/same-origin-policy/) article to learn more about the the advantages of this header.
 
