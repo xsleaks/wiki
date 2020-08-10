@@ -20,7 +20,7 @@ This protection is very effective against XS-Leaks which rely on `iframes` and c
 
 ## Deployment
 
-Deploy framing protections is particularly straightforward, and depend whether applications need to allow cross-origin pages to iframe. Check out this [web.dev](https://web.dev/same-origin-policy/) article to learn more about the the advantages of this header.
+Deploying framing protections is usually straightforward as many applications do not require to be embedded cross-origin in an iframe. Check out this [web.dev](https://web.dev/same-origin-policy/) article to learn more about the the advantages of this header.
 
 ## XS-Leaks Mitigation Overview
 
