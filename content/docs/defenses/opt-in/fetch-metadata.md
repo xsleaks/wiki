@@ -18,7 +18,7 @@ Its success is dependent on the application coverage and deployment correctness.
 
 Nevertheless, minding the limitations, this mechanism can be very effective again cross-origin attacks if applied correctly. It also protects applications against attacks like `XSSI` and `Clickjacking` and `CSRF`. 
 
-## Deploy
+## Deployment
 
 Check out this [web.dev](https://web.dev/fetch-metadata/) article to learn more about the advantages of this protection and how to deploy it.
 
