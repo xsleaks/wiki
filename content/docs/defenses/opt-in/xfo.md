@@ -16,7 +16,7 @@ A considerable number of XS-Leaks use certain properties of `iframes` to be succ
 
 ## Considerations
 
-This protection is very effective against XS-Leaks which rely on `iframes` and can be easily implemented without breaking anything. This protection not only protects applications of some XS-Leaks but also from attacks like Clickjacking.
+This protection is very effective against XS-Leaks which rely on `iframes` and can be easily implemented without breaking the vast majority of applications. This mechanism not only protects from some XS-Leaks but also from attacks like Clickjacking.
 
 ## Deployment
 
