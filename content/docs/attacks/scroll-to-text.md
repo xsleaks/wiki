@@ -15,10 +15,9 @@ menu = "main"
 
 ## Explanation
 
-`Scroll to Text Fragment` is a new web platform feature that allows users to create a link to any part of the web page text. The fragment `#:~:text=` carries a text snippet that is highlighted by the browser, and calls the user's attention by focusing the window to that part.
-This issue is very similar to the [Scroll to CSS Selector](https://TODO) XS-Leak.
+`Scroll to Text Fragment` is a new web platform feature that allows users to create a link to any part of a web page text. The fragment `#:~:text=` carries a text snippet that is highlighted by the browser, and calls the user's attention by focusing the window to that part. This feature can introduce a new XS-Leak if attackers are able to detect when this behavior occurs. This issue is very similar to the [Scroll to CSS Selector](https://TODO) XS-Leak.
 
-In early discussions of this new feature some security problems, including attack vectors of XS-Leaks[^1].lallalalalalla [^3] [^4] [^5]
+In early discussions for the specification of this feature, several XS-Leaks would arise if the functionality were released [^1]. The specification considers various attack scenarios [^3], so does some research from Google [^4]. These are some of the **possible** XS-Leaks browsers would need to avoid when implementing the specification:
 
 - adsdbasjdnask
 - asdb asbkjdbaskjdas
