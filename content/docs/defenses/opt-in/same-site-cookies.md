@@ -22,7 +22,7 @@ The only difference between `Lax` and `Strict` is that `Lax` mode allows cookies
 
 ## Deployment
 
-Anyone interested in deploying this mechanism in web applications should take a careful look in this [web.dev](https://web.dev/samesite-cookie-recipes/) article.
+Anyone interested in deploying this mechanism in web applications should take a careful look at this [web.dev](https://web.dev/samesite-cookie-recipes/) article.
 
 ## XS-Leaks Mitigation Overview
 
