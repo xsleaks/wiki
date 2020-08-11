@@ -9,7 +9,7 @@ menu = "main"
 
 ## Explanation
 
-`Same-Site Cookies` are one of the most impactful Security Mechanisms towards fixing security issues that evolve `cross-site` requests. This mechanism allows applications to add a special classification to cookies, forcing browsers to only append cookies in requests which comes from `same-site` [^1]. This type of cookies has two modes: `Lax` and `Strict`.
+`Same-Site Cookies` are one of the most impactful Security Mechanisms towards fixing security issues that involve `cross-site` requests. This mechanism allows applications to add a special restriction to cookies, forcing browsers to only append them in requests that are issued `same-site` [^1]. This type of cookies has two modes: `Lax` and `Strict`.
 
 ### Lax V.s Strict
 
@@ -34,4 +34,3 @@ Anyone interested in deploying this mechanism in web applications should take a 
 
 [^1]: SameSite cookies explained, [link](https://web.dev/samesite-cookies-explained/)
 [^2]: Bypass SameSite Cookies Default to Lax and get CSRF [link](https://medium.com/@renwa/bypass-samesite-cookies-default-to-lax-and-get-csrf-343ba09b9f2b)
-
