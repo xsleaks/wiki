@@ -9,7 +9,7 @@ menu = "main"
 
 ## Explanation
 
-Fetch Metadata Headers are sent by browsers in every request or navigation made by a page. These Headers intend to provide context on how the request/navigation was initiated, so that applications upon receiving them, are able to make smarter decisions on how to respond to them. This allows applications to behave differently when they sense insecure situations (i.e cross-origin requests)[^1].
+Fetch Metadata Headers are sent by browsers in every request or navigation made by a page. These Headers provide context on how every request/navigation was initiated, so that applications are able to make more informed decisions on how to respond to them. This allows servers to behave differently when they detect potential attacks (i.e. unexpected cross-origin requests)[^1].
 
 ## Considerations
 
