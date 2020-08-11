@@ -16,7 +16,7 @@ Fetch Metadata Headers are sent by browsers in every request or navigation made 
 Fetch Metadata Headers are an **in-depth Defense Mechanism** and should **not be seen as a replacement** for mechanisms such as [Same-Site Cookies]({{< ref "same-site-cookies.md" >}}), [Cross-Origin-Opener-Policy]({{< ref "coop.md" >}}) or [Framing Protections]({{< ref "xfo.md" >}}). Even though it shares some capabilities with these mechanisms (i.e act differently upon cross-site requests), **it does not provide a safe default**. 
 Its success is dependent on the application coverage and deployment correctness.
 
-Nevertheless, minding the limitations, this mechanism can be very effective again cross-origin attacks if applied correctly. It also protects applications against attacks like `XSSI` and `Clickjacking` and `CSRF`. 
+Nevertheless, minding the limitations, this mechanism can be very effective against cross-origin attacks if applied correctly. It also protects applications against attacks like `XSSI`, `Clickjacking` and `CSRF`. 
 
 ## Deployment
 
