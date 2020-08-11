@@ -8,7 +8,7 @@ menu = "main"
 
 ## Explanation
 
-A considerable number of XS-Leaks use certain properties of `iframes` to be successful. If an attacker is unable to embed the contents of a page as an `iframe` then the attack may no longer be possible. To mitigate XS-Leaks which rely on this object, pages can forbid or select which origins can embed its pages. This is possible by using the [X-Frame-Options Header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options) or the [CSP frame-ancestors directive](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/frame-ancestors).
+A considerable number of XS-Leaks relies on some properties of `iframes`. If an attacker is unable to embed the contents of a page as an `iframe` then the attack may no longer be possible. To mitigate XS-Leaks which rely on this object, pages can forbid or select which origins can embed them. This is possible by using the [X-Frame-Options Header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options) or the [CSP frame-ancestors directive](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/frame-ancestors).
 
 {{< hint warning >}}
 [X-Frame-Options Header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options) is obsolete and was replaced by the [CSP frame-ancestors directive](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/frame-ancestors).
