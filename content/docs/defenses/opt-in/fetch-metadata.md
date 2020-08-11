@@ -32,6 +32,6 @@ Check out this [web.dev](https://web.dev/fetch-metadata/) article to learn more 
 
 ### Table Caption
 
-- **Full Mitigation** - Fully mitigates an XS-Leak if fully implemented in all application endpoints. *See limitations in [Considerations]({{< ref "fetch-metadata.md#considerations" >}})*
+- **Full Mitigation** - Fully mitigates some XS-Leaks if correctly implemented in all application endpoints. *See limitations in [Considerations]({{< ref "fetch-metadata.md#considerations" >}})*
 
 [^1]: Protect your resources from web attacks with Fetch Metadata, [link](https://web.dev/fetch-metadata/)
