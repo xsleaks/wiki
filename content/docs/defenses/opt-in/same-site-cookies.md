@@ -17,7 +17,7 @@ The only difference between `Lax` and `Strict` is that `Lax` mode allows cookies
 
 ## Considerations
 
-`Same-Site Cookies` are not bulletproof [^2] nor they can fix everything. To complete the defense strategy against XS-Leaks, users should consider implementing [other protections]({{< ref "coop.md" >}}), for instance, to stop an attacker from controlling pages using a window reference even if `Same-Site Cookies` are in use.
+`Same-Site Cookies` are not bulletproof [^2] nor they can fix everything. To complete the defense strategy against XS-Leaks users should consider implementing [other protections]({{< ref "coop.md" >}}), for instance, to stop an attacker from controlling pages using a window reference even if `Same-Site Cookies` are in use.
 
 
 ## Deployment
