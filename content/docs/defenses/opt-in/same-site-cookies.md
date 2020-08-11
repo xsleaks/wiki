@@ -13,7 +13,7 @@ menu = "main"
 
 ### Lax V.s Strict
 
-The only difference between `Lax` and `Strict` is that `Lax` mode allows cookies to be added in requests triggered by top-level navigations. If `bank.com` sets `Same-Site=Lax` and `attacker.com` makes a request using the `fetch API`, cookies won't be sent. Similarly, `bank.com` is allowed to make requests to itself since they come from `same-site`. Unfortunately, if the attacker navigates the user away with `window.open` (which triggers a top-level navigation) the cookies will be sent and the attacker gains control over that window, being able to still exploit some XS-Leaks.
+The only difference between `Lax` and `Strict` is that `Lax` mode allows cookies to be added to requests triggered by top-level navigations. If `bank.com` sets `Same-Site=Lax` and `attacker.com` makes a request using the `fetch API` cookies won't be sent. `bank.com`, instead, is allowed to make requests to itself since they are `same-site`. Unfortunately, if the attacker navigates the user with `window.open` (which triggers a top-level navigation) the cookies will be sent and the attacker would have a reference to that window, making them able to exploit some XS-Leaks.
 
 ## Considerations
 
