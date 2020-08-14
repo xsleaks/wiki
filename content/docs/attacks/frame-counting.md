@@ -49,22 +49,11 @@ setTimeout(() => {
 
 ## Defense
 
-Fixing this XS-Leak is complicated as an attacker can get a `window` reference in different ways. 
+| Attack Alternative  | [Same-Site Cookies]({{< ref "../defenses/opt-in/same-site-cookies.md" >}})  | [Fetch Metadata]({{< ref "../defenses/opt-in/sec-fetch.md" >}})  | [COOP]({{< ref "../defenses/opt-in/coop.md" >}})  |  [Framing Protections]({{< ref "../defenses/opt-in/xfo.md" >}}) |
+|:-------------------:|:------------------:|:---------------:|:-----:|:--------------------:|
+| iframe              |         ✔️         |      ✔️         |  ❌   |          ✔️         |
+| window.open         |         ✔️ (If Strict)         |      ✔️         |  ✔️   |          ❌         |
 
-To stop attackers from abusing this XS-Leak on pages through `iframes` developers should use the following protections:
-
-- {{< hint info >}}
-Forbid cross-origin pages from framing pages using [framing protections]({{< ref "../defenses/opt-in/xfo.md" >}}).
-{{< /hint >}}
-- {{< hint danger >}}
-In case a developer must allow others to frame its pages, [this defensive guideline]({{< ref "../defenses/design-protections/defensive-design.md" >}}) should be considered to avoid the introduction of this XS-Leak.
-{{< /hint >}}
-
-To stop attackers from abusing this XS-Leak on pages through `window.opener` and `window.open` developers should use the following protection:
-
-- {{< hint info >}}
-Deploy [Cross-Origin-Opener-Policy]({{< ref "../defenses/opt-in/coop.md" >}}) on the web application to prevent cross-origin `window` references.
-{{< /hint >}}
 
 ## Real World Example
 

@@ -17,7 +17,7 @@ menu = "main"
 
 Detecting if a cross-site page triggered a navigation can be useful to an attacker. This can be done in two ways:
 - Using an `iframe` and counting the number of times the `onload` event is triggered.
-- Checking the value of `History.length`, accessible through a `window` reference, gives the number of entries in the history of a victim either changed by `History.pushState` or regular navigations.
+- Checking the value of `History.length`, accessible through any `window` reference, gives the number of entries in the history of a victim either changed by `History.pushState` or regular navigations. To get the value of `History.length` an attacker changes the location of the `window` reference with the target website, changes back to same-origin, and finally reads the value.
 
 ### Why is this a problem?
 
@@ -30,30 +30,11 @@ Similarly to the [Frame Counting Attack]({{< ref "../attacks/frame-counting.md" 
 
 ## Defense
 
-Developers are encouraged to apply generic XS-Leaks mitigations to prevent attackers from preforming authenticated cross-site requests. There are a couple of mechanisms that can be applied:
-
-- {{< hint info >}}
-Implement [Same-Site Cookies]({{< ref "../defenses/opt-in/same-site-cookies.md" >}}) on web applications to force browsers to send cookies only if the request comes from same-site (strict mode).
-{{< /hint >}}
-
-- {{< hint info >}}
-Process [Fetch-Metadata Headers]({{< ref "../defenses/opt-in/fetch-metadata.md" >}}) to get more information about the context in which requests are made. This allows applications to make better decisions when responding to certain requests.
-{{< /hint >}}
-
-To stop attackers from abusing this XS-Leak using `iframes` developers should use the following protections:
-
-- {{< hint info >}}
-Forbid cross-origin pages from framing pages using [framing protections]({{< ref "../defenses/opt-in/xfo.md" >}}).
-{{< /hint >}}
-- {{< hint danger >}}
-In case a developer must allow others to frame its pages, [this defensive guideline]({{< ref "../defenses/design-protections/defensive-design.md" >}}) should be considered to avoid the introduction of this XS-Leak.
-{{< /hint >}}
-
-Finally, to stop attackers from abusing this XS-Leak on pages using **other** `window` references, developers should use the following protection:
-
-- {{< hint info >}}
-Deploy [Cross-Origin-Opener-Policy]({{< ref "../defenses/opt-in/coop.md" >}}) on the web application to control who is allowed to have a `window` reference on a page.
-{{< /hint >}}
+| Attack Alternative  | [Same-Site Cookies]({{< ref "../defenses/opt-in/same-site-cookies.md" >}})  | [Fetch Metadata]({{< ref "../defenses/opt-in/sec-fetch.md" >}})  | [COOP]({{< ref "../defenses/opt-in/coop.md" >}})  |  [Framing Protections]({{< ref "../defenses/opt-in/xfo.md" >}}) |
+|:----------------------------------:|:--------------------------:|:---------------:|:-----:|:--------------------:|
+| iframe                             |         ✔️                 |      ✔️         |  ❌   |          ✔️         |
+| `History.length` (iframe)          |         ✔️                 |      ✔️         |  ❌   |          ✔️         |
+| `History.length` (window.open)     |         ✔️ (If Strict)     |      ✔️         |  ✔️   |           ❌        |
 
 ## Real World Example
 
