@@ -36,7 +36,6 @@ Similarly to the [Frame Counting Attack]({{< ref "../attacks/frame-counting.md" 
 | `History.length` (iframe)          |         ✔️                 |      ✔️         |  ❌   |          ✔️         |
 | `History.length` (window.open)     |         ✔️ (If Strict)     |      ✔️         |  ✔️   |           ❌        |
 
-
 ## Real World Example
 
 A vulnerability reported to Twitter used this technique to leak the contents of private tweets using [XS-Search](https://TODO). This attack was possible because the page would only trigger a navigation depending on whether there were results to the user query [^1].
