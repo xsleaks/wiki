@@ -23,7 +23,7 @@ There is not much applications can do stop these attacks, [apart for some workar
 
 ### Intelligent Tracking Prevention
 
-[Intelligent Tracking Prevention](https://webkit.org/tracking-prevention/) (ITP) is a privacy feature part of WebKit. It's a conjunction of several tracking prevention features against malicious trackers, containing a partitioned HTTP Cache which originated from the initial [WebKit Keyed cache from 2013](https://bugs.webkit.org/show_bug.cgi?id=110269). The used keys for the cache are the top frame's eTLD+1 and the origin of each fetched subresource.
+[Intelligent Tracking Prevention](https://webkit.org/tracking-prevention/) (ITP) is a privacy feature part of WebKit. It's a conjunction of several tracking prevention features containing a partitioned HTTP Cache which originated from the initial [WebKit Keyed cache from 2013](https://bugs.webkit.org/show_bug.cgi?id=110269). The used keys for the cache are the top frame's eTLD+1 and the origin of each fetched subresource.
 {{< hint warning >}}
 Several XS-Leaks resulted in browser features triggering changes in fundamental web platform features. One of those XS-Leaks abused ITP features which could lead to private information leaks.
 {{< /hint >}}
@@ -57,7 +57,6 @@ Partitioned HTTP caches are a promising security feature that will eventually la
 [^1]: Double-keyed HTTP cache, [link](https://github.com/whatwg/fetch/issues/904)
 [^2]: Explainer - Partition the HTTP Cache, [link](https://github.com/shivanigithub/http-cache-partitioning)
 [^3]: Client-Side Storage Partitioning, [link](https://privacycg.github.io/storage-partitioning/)
-
 
 
 
