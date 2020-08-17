@@ -25,7 +25,7 @@ In early discussions for the specification of this feature, several XS-Leaks wou
 Apart from browsers implementation, these issues are also application dependent, not feasible all the time. Nevertheless, XS-Leaks [Defense Mechanisms](({{< ref "../defenses/" >}})) should be applied to reduce the attack surface of possible exploitation.
 
 {{< hint warning >}}
-`Scroll to Text Fragment` is only available on Chrome. Its draft specification is under active discussion.
+`Scroll to Text Fragment` is only available in Chrome. Its draft specification is under active discussion.
 {{< /hint >}}
 
 ### Why is this a problem?
