@@ -15,7 +15,7 @@ menu = "main"
 
 ## Explanation
 
-`Scroll to Text Fragment` (STTF) is a new web platform feature that allows users to create a link to any part of a web page text. The fragment `#:~:text=` carries a text snippet that is highlighted by the browser, and calls the user's attention by scrolling the window to focus the specified text (fragment navigation). This feature can introduce a new XS-Leak if attackers are able to detect when this behavior occurs. This issue is very similar to the [Scroll to CSS Selector](https://TODO) XS-Leak.
+`Scroll to Text Fragment` (STTF) is a new web platform feature that allows users to create a link to any part of a web page text. The fragment `#:~:text=` carries a text snippet that is highlighted and brought in the viewport by the browser. This feature can introduce a new XS-Leak if attackers are able to detect when this behavior occurs. This issue is very similar to the [Scroll to CSS Selector](https://TODO) XS-Leak.
 
 In early discussions for the specification of this feature, several XS-Leaks would arise with a naive implementation [^1]. The specification considers various attack scenarios [^3], so does some research from Google [^4]. These are some of the **possible** XS-Leaks browsers would need to be aware of when implementing this feature:
 
