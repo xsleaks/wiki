@@ -48,7 +48,7 @@ Partitioned HTTP caches are a promising security feature that will eventually la
 | [Navigations]({{< ref "../../attacks/navigations.md" >}})         |         ❌                   |         ❌
 | [ID Leaks]({{< ref "../../attacks/id-attribute.md" >}})           |         ❌                   |         ❌
 
-### Table Caption
+### Table Legend
 
 - **Partitioned Cache Protection** - At least one attack alternative of the XS-Leak can be mitigated if the defense mechanism would exist
 - **Full Mitigation** - Fully mitigates an XS-Leak if the defense mechanism would exist
@@ -57,4 +57,3 @@ Partitioned HTTP caches are a promising security feature that will eventually la
 [^1]: Double-keyed HTTP cache, [link](https://github.com/whatwg/fetch/issues/904)
 [^2]: Explainer - Partition the HTTP Cache, [link](https://github.com/shivanigithub/http-cache-partitioning)
 [^3]: Client-Side Storage Partitioning, [link](https://privacycg.github.io/storage-partitioning/)
-
