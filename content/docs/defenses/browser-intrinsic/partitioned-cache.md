@@ -8,7 +8,7 @@ menu = "main"
 
 ## Explanation
 
-[Cache probing attacks](https://TODO) have been present on the web for a long time mainly because browsers HTTP cache is shared across all the websites visited by a user, allowing attackers to interact with it and extract private information from other origins.
+[Cache probing attacks](https://TODO) have been present on the web for a long time mainly because browsers HTTP cache is shared across all the websites visited by a user, allowing attackers to interact with it and infer private information from other origins.
 
 <!--TODO(manuelvsousa): Add reference to cache probing attacks-->
 
@@ -57,7 +57,6 @@ Partitioned HTTP caches are a promising security feature that will eventually la
 [^1]: Double-keyed HTTP cache, [link](https://github.com/whatwg/fetch/issues/904)
 [^2]: Explainer - Partition the HTTP Cache, [link](https://github.com/shivanigithub/http-cache-partitioning)
 [^3]: Client-Side Storage Partitioning, [link](https://privacycg.github.io/storage-partitioning/)
-
 
 
 
