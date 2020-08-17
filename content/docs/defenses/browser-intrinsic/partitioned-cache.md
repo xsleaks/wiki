@@ -12,7 +12,7 @@ menu = "main"
 
 <!--TODO(manuelvsousa): Add reference to cache probing attacks-->
 
-There is not much applications can do stop these attacks, [apart for some workarounds]({{< ref "../design-protections/subresource-protections.md" >}}) which come with tradeoffs. Browsers, however, have been planning a defense mechanism to segregate the cached resources per origin/site, making it impossible to attackers pages to interact with cached contents of different origins[^1] [^2] [^3]. Specifically, browsers tested caching with double keys such as `top-frame origin` and URL, however, other keys and strategies (triple keys) have also been considered.
+There is not much applications can do stop these attacks, [apart for some workarounds]({{< ref "../design-protections/subresource-protections.md" >}}) which come with tradeoffs. Browsers, however, have been planning a defense mechanism to segregate the cached resources per origin/site, making it impossible for attackers pages to interact with cached contents of different origins[^1] [^2] [^3]. Specifically, browsers tested caching with double keys such as `top-frame origin` and URL, however, other keys and strategies (triple keys) have also been considered.
 
 [Chrome](https://bugs.chromium.org/p/chromium/issues/detail?id=910708) and [Firefox](https://bugzilla.mozilla.org/show_bug.cgi?id=1590107) are still studying an implementation for a Keyed Cache while [Safari](https://bugs.webkit.org/show_bug.cgi?id=110269) already runs a version of it since 2013.
 
@@ -57,6 +57,5 @@ Partitioned HTTP caches are a promising security feature that will eventually la
 [^1]: Double-keyed HTTP cache, [link](https://github.com/whatwg/fetch/issues/904)
 [^2]: Explainer - Partition the HTTP Cache, [link](https://github.com/shivanigithub/http-cache-partitioning)
 [^3]: Client-Side Storage Partitioning, [link](https://privacycg.github.io/storage-partitioning/)
-
 
 
