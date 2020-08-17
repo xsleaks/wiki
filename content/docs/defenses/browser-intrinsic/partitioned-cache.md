@@ -36,7 +36,7 @@ First Party Isolation is a [Browser Extension](https://addons.mozilla.org/en-US/
 
 ## Considerations
 
-Partitioned HTTP caches are a promising security feature that will eventually land in browsers. These partitioning strategies will mitigate all the XS-Leaks leveraging browsers caches and might spread to other browser resources which help mitigate resilient attack vectors like the [Socket Exhaustion XS-Leak](https://TODO).
+Partitioned HTTP caches are a promising security feature that will eventually land in browsers. These partitioning strategies will mitigate all the XS-Leaks leveraging browsers caches and might be extended to other browser resources which help mitigate resilient attack vectors like the [Socket Exhaustion XS-Leak](https://TODO).
 
 <!--TODO(manuelvsousa): Add socket exhaustion ?-->
 
@@ -57,5 +57,4 @@ Partitioned HTTP caches are a promising security feature that will eventually la
 [^1]: Double-keyed HTTP cache, [link](https://github.com/whatwg/fetch/issues/904)
 [^2]: Explainer - Partition the HTTP Cache, [link](https://github.com/shivanigithub/http-cache-partitioning)
 [^3]: Client-Side Storage Partitioning, [link](https://privacycg.github.io/storage-partitioning/)
-
 
