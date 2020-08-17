@@ -23,7 +23,7 @@ An important complement of CORB is the [Cross-Origin Resource Policy (CORP)]({{<
 ## Considerations
 
 {{< hint danger >}}
-CORB introduced a [new set of XS-Leaks](https://TODO) as attackers are able to observe when a request is blocked or allowed by CORB. This could lead to information leaks if CORB blocks certain requests dependent on user information.
+CORB introduced a [new set of XS-Leaks](https://TODO) since attackers are able to observe when a request is blocked or allowed by CORB. This leads to information leaks when CORB blocks certain requests depending on user information the attacker is after.
 {{< /hint >}}
 
 [^1]: Cross-Origin Read Blocking for Web Developers, [link](https://www.chromium.org/Home/chromium-security/corb-for-developers)
