@@ -12,7 +12,7 @@ menu = "main"
 
 <!--TODO(manuelvsousa): Add reference to cache probing attacks-->
 
-There is not much applications can do stop these attacks, [apart for some workarounds]({{< ref "../design-protections/subresource-protections.md" >}}) which come with tradeoffs. Browsers, however, have been planning a defense mechanism to segregate the cached resources per origin/site, making it impossible for attackers pages to interact with cached contents of different origins[^1] [^2] [^3]. Specifically, browsers tested caching with double keys such as `top-frame origin` and URL, however, other keys and strategies (triple keys) have also been considered.
+Considering Opt-in solutions, applications can use the [`Vary` Header combined with `Fetch-Metadata`](https://TODO) to restrict the cache usage to a certain group of origins or use [some workarounds]({{< ref "../design-protections/subresource-protections.md" >}}) to protect resources, which come with tradeoffs. Browsers, however, have been planning a defense mechanism to segregate the cached resources per origin/site, making it impossible for attackers pages to interact with cached contents of different origins[^1] [^2] [^3]. Specifically, browsers tested caching with double keys such as `top-frame origin` and URL, however, other keys and strategies (triple keys) have also been considered.
 
 [Chrome](https://bugs.chromium.org/p/chromium/issues/detail?id=910708) and [Firefox](https://bugzilla.mozilla.org/show_bug.cgi?id=1590107) are still discussing an implementation for a Multi-Keyed Cache while [Safari](https://bugs.webkit.org/show_bug.cgi?id=110269) already runs a version of it since 2013.
 
