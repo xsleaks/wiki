@@ -13,12 +13,14 @@ defenses = [
 menu = "main"
 +++
 
-## Explanation
 
-
+dsaadssadasd
+dasdsaasddsaadsdasads
 ### Why is this a problem?
 
 
 
 #### Case Scenarios
 
+https://gruss.cc/files/fantastictimers.pdf
+https://github.com/tc39/ecmascript_sharedmem/blob/master/issues/TimingAttack.md
