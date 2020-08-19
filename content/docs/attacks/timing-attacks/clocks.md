@@ -13,12 +13,26 @@ defenses = [
 menu = "main"
 +++
 
+## Explanation
 
 dsaadssadasd
-dasdsaasddsaadsdasads
-### Why is this a problem?
+### Explicit V.s Implicit Clocks
 
 
+## Explicit Clocks
+
+## Implicit Clocks
+
+### SharedArrayBuffer
+
+```javascript
+var buffer = new SharedArrayBuffer(16);
+var counter = new Worker("counter.js");
+counter.postMessage([buffer],[buffer]);
+var arr = new UintArray(buffer);
+[...]
+timestamp = arr[0];
+```
 
 #### Case Scenarios
 
