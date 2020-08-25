@@ -36,19 +36,17 @@ microsecond precision in all major browsers, to mitigate some [XS-Leaks](httos:/
 
 ### SharedArrayBuffer
 
- dsadassaddsa asfxd[^1]
+With the introduction of `Web Workers`, new mechanisms to exchange data between threads were created. `SharedArrayBuffer`, one of those mechanisms, provides memory sharing between the main thread and a worker thread. Attackers can create an implicit clock using a `Worker` and use `SharedArrayBuffer` as the tunnel to consult this clock. Since the `Worker` has its own thread, the clock consists of a simple infinite loop iterating over a structure shared with the main thread. This clock does not provide a time measurement, but rather a measurement on how fast the worker thread increments.
 
 ```javascript
+// -------- Main Thread clock creation -------- 
 var buffer = new SharedArrayBuffer(16);
 var counter = new Worker("counter.js");
 counter.postMessage([buffer],[buffer]);
 var arr = new UintArray(buffer);
 relative_time = arr[0];
-```
 
-`counter.js`
-
-```javascript
+// -------- Web Worker counter.js -------- 
 self.onmessage = function(event){
   var[buffer] = event.data ;
   var arr = newUintArray(buffer);
@@ -56,8 +54,8 @@ self.onmessage = function(event){
     arr[0]++;
   }
 }
-```
 
+```
 {{< hint info >}}
 `SharedArrayBuffer` was removed from browsers with the appearance of [Spectre](https://spectreattack.com/). Later in 2020, it was reintroduced, but now requiring documents to be in a [secure context](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer) to make use of the API. This requirement prevents `SharedArrayBuffer` from being used as an implicit clock.
 {{< /hint >}}
