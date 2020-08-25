@@ -65,7 +65,7 @@ self.onmessage = function(event){
 `SharedArrayBuffer` was removed from browsers with the appearance of [Spectre](https://spectreattack.com/). Later in 2020, it was reintroduced, but now requiring documents to be in a [secure context](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer) to make use of the API. This requirement prevents `SharedArrayBuffer` from being used as an implicit clock.
 {{< /hint >}}
 
-### Other Implicit Clocks
+### Other Clocks
 
 There are a considerable amount of APIs attackers can abuse to create implicit clocks: [Broadcast Channel API](https://developer.mozilla.org/en-US/docs/Web/API/Broadcast_Channel_API), [Message Channel API](https://developer.mozilla.org/en-US/docs/Web/API/MessageChannel), CSS animations and others [^2].
 
