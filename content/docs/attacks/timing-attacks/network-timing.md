@@ -54,7 +54,7 @@ g.onerror = g.onload = ()=>{
 
 ### Cross-window Timing Attacks
 
-If a page sets [Framing Protections](https://TODO), an attacker can still measure a page full load by navigating the victim with `window.open`.
+If a page sets [Framing Protections](https://TODO), an attacker can still measure a page full load (i.e including subresources) by navigating the victim with `window.open`.
 
 ```javascript
 let w=0, z=0, v=performance.now();
@@ -70,13 +70,13 @@ onmessage=()=>{
   }
 };
 postMessage('','*');
-w=open('//www.google.com/robots.txt');
+w=open('//mail.com/search?q=foo');
 ```
 
 
 ### Timeless Timing Attacks
 
-dsadsadsadsadsa [^3]
+[^3]
 
 
 <!--TODO(manuelvsousa): Add case scenarios -->
@@ -85,10 +85,10 @@ dsadsadsadsadsa [^3]
 
 | Attack Alternative  | [Same-Site Cookies]({{< ref "../../defenses/opt-in/same-site-cookies.md" >}})  | [Fetch Metadata]({{< ref "../../defenses/opt-in/sec-fetch.md" >}})  | [Cross-Origin-Opener-Policy]({{< ref "../../defenses/opt-in/coop.md" >}})  |  [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}) |
 |:-------------------:|:------------------:|:---------------:|:-----:|:--------------------:|
-| Modern Timing Attacks              |         ✔️         |      ✔️         |  ❌   |          ✔️         |
-| Frame Timing |         ✔️       |      ✔️         |  ❌   |          ❌         |
-| Cross-window Timing  |         ✔️ (if Strict)       |      ✔️         |  ❌   |          ❌         |
-| Timeless Timing  |         ✔️ (if Strict)       |      ✔️         |  ❌   |          ❌         |
+| Modern Timing Attacks              |         ✔️         |      ✔️         |  ❌   |          ❌         |
+| Frame Timing |         ✔️       |      ✔️         |  ❌   |          ✔️
+| Cross-window Timing  |         ✔️ (if Strict)       |      ✔️         |  ✔️   |          ❌         |
+| Timeless Timing  |         ❌       |      ❌         |  ❌   |          ❌         |
 
 [^1]: Exposing Private Information by Timing Web Applications. [link](https://crypto.stanford.edu/~dabo/papers/webtiming.pdf)
 [^2]: The Clock is Still Ticking: Timing Attacks in the Modern Web. [link](https://tom.vg/papers/timing-attacks_ccs2015.pdf)
