@@ -26,7 +26,7 @@ Considering Opt-in solutions, applications can use the [`Vary` Header combined w
 [Intelligent Tracking Prevention](https://webkit.org/tracking-prevention/) (ITP) is a privacy feature part of WebKit. It's a conjunction of several tracking prevention features containing a partitioned HTTP Cache which originated from the initial [WebKit Keyed cache from 2013](https://bugs.webkit.org/show_bug.cgi?id=110269). The used keys for the cache are the top frame's eTLD+1 and the origin of each fetched subresource.
 
 {{< hint warning >}}
-Researchers found out attackers [could abuse some ITP features](https://TODO) to infer to private user data.
+Researchers found out attackers [could abuse some ITP features](https://TODO) to infer private user data.
 {{< /hint >}}
 
 <!--TODO(manuelvsousa): ADD ITP XS-Leak here -->
