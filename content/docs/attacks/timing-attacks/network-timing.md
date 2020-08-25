@@ -25,7 +25,7 @@ Learn more about the different types of clocks in the [Clocks Article]({{< ref "
 
 ## Modern Web Timing Attacks
 
-(`performance.now()`)[https://dsadasdas] API [^2]
+[`performance.now()`]({{< ref "clocks.md#performancenow" >}}) API [^2]
 
 ```javascript
 let before = performance.now()
@@ -38,7 +38,6 @@ let request_time = performance.now() - before
 {{< /hint >}}
 
 ## Frame Timing
-
 
 
 ```html
@@ -84,12 +83,13 @@ dsadsadsadsadsa [^4]
 
 ## Defense
 
-<!-- | Attack Alternative  | [Same-Site Cookies]({{< ref "../../defenses/opt-in/same-site-cookies.md" >}})  | [Fetch Metadata]({{< ref "../../defenses/opt-in/sec-fetch.md" >}})  | [Cross-Origin-Opener-Policy]({{< ref "../../defenses/opt-in/coop.md" >}})  |  [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}) |
+| Attack Alternative  | [Same-Site Cookies]({{< ref "../../defenses/opt-in/same-site-cookies.md" >}})  | [Fetch Metadata]({{< ref "../../defenses/opt-in/sec-fetch.md" >}})  | [Cross-Origin-Opener-Policy]({{< ref "../../defenses/opt-in/coop.md" >}})  |  [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}) |
 |:-------------------:|:------------------:|:---------------:|:-----:|:--------------------:|
-| iframe              |         ✔️         |      ✔️         |  ❌   |          ✔️         |
-| cross-window timing |         ✔️ (if Strict)       |      ✔️         |  ❌   |          ❌         | -->
-
-
+| Modern Timing Attacks              |         ✔️         |      ✔️         |  ❌   |          ✔️         |
+| Frame Timing |         ✔️ (if Strict)       |      ✔️         |  ❌   |          ❌         |
+| Cross-window timing  |         ✔️ (if Strict)       |      ✔️         |  ❌   |          ❌         |
+| Network Timing  |         ✔️ (if Strict)       |      ✔️         |  ❌   |          ❌         |
+| Network Timing 2  |         ✔️ (if Strict)       |      ✔️         |  ❌   |          ❌         |
 
 [^1]: Exposing Private Information by Timing Web Applications. [link](https://crypto.stanford.edu/~dabo/papers/webtiming.pdf)
 [^2]: The Clock is Still Ticking: Timing Attacks in the Modern Web. [link](https://tom.vg/papers/timing-attacks_ccs2015.pdf)
