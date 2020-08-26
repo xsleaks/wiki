@@ -76,8 +76,17 @@ w=open('//mail.com/search?q=foo');
 
 ### Timeless Timing Attacks
 
-[^3]
+Other attacks do not consider the notion of time to perform a timing attack [^3]. Timeless attacks consist of fitting two `HTTP` requests in a single packet, the baseline and the attacked request, to guarantee they arrive at the same time to the server. The server *will* process the requests concurrently, and return a response based on their execution time as soon as possible. One of the two requests will arrive first, allowing the attacker to get the timing difference by comparing both requests.
 
+The advantage of this technique is the independence on network jitter and delays, something that is **always** present in the remaining techniques.
+
+{{< hint warning >}}
+The original research needs to be adapted to work in a browser since it handles all network-specific tasks.
+{{< /hint >}}
+
+{{< hint warning >}}
+This attack is limited to specific versions of HTTP and joint scenarios. It makes certain assumptions and has requirements regarding server behaviors.
+{{< /hint >}}
 
 <!--TODO(manuelvsousa): Add case scenarios -->
 
@@ -88,8 +97,8 @@ w=open('//mail.com/search?q=foo');
 | Modern Timing Attacks              |         ✔️         |      ✔️         |  ❌   |          ❌         |
 | Frame Timing |         ✔️       |      ✔️         |  ❌   |          ✔️
 | Cross-window Timing  |         ✔️ (if Strict)       |      ✔️         |  ✔️   |          ❌         |
-| Timeless Timing  |         ❌       |      ❌         |  ❌   |          ❌         |
+| Timeless Timing  |         ✔️        |      ✔️         |  ❌   |          ❌         |
 
 [^1]: Exposing Private Information by Timing Web Applications. [link](https://crypto.stanford.edu/~dabo/papers/webtiming.pdf)
-[^2]: The Clock is Still Ticking: Timing Attacks in the Modern Web. [link](https://tom.vg/papers/timing-attacks_ccs2015.pdf)
+[^2]: The Clock is Still Ticking: Timing Attacks in the Modern Web - Section 4.3.3, [link](https://tom.vg/papers/timing-attacks_ccs2015.pdf)
 [^3]: Timeless Timing Attacks: Exploiting Concurrency to Leak Secrets over Remote Connections. [link](https://www.usenix.org/system/files/sec20-van_goethem.pdf)
