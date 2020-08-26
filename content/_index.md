@@ -13,7 +13,7 @@ XS-Leaks are a class of vulnerabilities that have been present on the web for a 
 - The cause of most XS-Leaks is **inherent to the design of the web**. Applications can be vulnerable to some XS-Leaks without explicitly introducing them.
 - Unlike common vulnerabilities such as `XSS`, with very specific taxonomies and attack consequences, XS-Leaks are an aggregation of several attack vectors with different implications.
 - XS-Leaks are application behavior dependent, so their consequences can't be generalized.
-- It's hard to fix XS-Leaks. Mitigating one XS-Leak can be irrelevant if all the others are possible to exploit. To be effective against most of them, applications must combine different types of [Defense Mechanisms]({{< ref "../docs/defenses/" >}}).
+- Mitigating one XS-Leak can be irrelevant if all the others are possible to exploit. To be effective against most of them, applications must combine different types of [Defense Mechanisms]({{< ref "../docs/defenses/" >}}).
 
 ## The Principle of XS-Leaks
 
