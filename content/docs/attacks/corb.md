@@ -30,11 +30,11 @@ The implications of this attack are similar to the [Error-based](https://TODO) a
 
 ## Defense
 
-There is no clear solution on the browser side to mitigate this issue [^1]. Particularly to this XS-Leak, developers can add a `CSRF` token to the vulnerable endpoints or deploy [CORP](https://TODO).
+There is no clear solution on the browser side to mitigate this issue [^1]. Developers, however, can deploy [CORP](https://TODO) in application endpoints to obtain similar CORB protections. To prevent attackers from abusing this XS-Leak, generic XS-Leaks defense mechanisms are also effective.
 
-| Attack Alternative  | [Same-Site Cookies]({{< ref "../defenses/opt-in/same-site-cookies.md" >}})  | [Fetch Metadata]({{< ref "../defenses/opt-in/sec-fetch.md" >}})  | [COOP]({{< ref "../defenses/opt-in/coop.md" >}})  |  [Framing Protections]({{< ref "../defenses/opt-in/xfo.md" >}}) |  [CSRF Protections]({{< ref "../defenses/opt-in/xfo.md" >}}) |  [CORP](https://TODO)
-|:-------------------:|:------------------:|:---------------:|:-----:|:--------------------:|:--------------------:|:--------------------:|
-| iframe              |         ✔️         |      ✔️         |  ❌   |          ❌         |         ✔️          |         ✔️            |
+| Attack Alternative  | [Same-Site Cookies]({{< ref "../defenses/opt-in/same-site-cookies.md" >}})  | [Fetch Metadata]({{< ref "../defenses/opt-in/sec-fetch.md" >}})  | [COOP]({{< ref "../defenses/opt-in/coop.md" >}})  |  [Framing Protections]({{< ref "../defenses/opt-in/xfo.md" >}}) |  [CORP](https://TODO)
+|:-------------------:|:------------------:|:---------------:|:-----:|:--------------------:|:--------------------:|
+| iframe              |         ✔️         |      ✔️         |  ❌   |          ❌         |        ✔️            |
 
 
 
