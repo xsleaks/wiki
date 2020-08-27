@@ -1,10 +1,16 @@
 # XS-Leaks Wiki
 
+## Build Locally
 
-## How to compile
+### Requirements
 
-`hugo server --theme book`
+- Hugo 0.68 or higher
+- Hugo **extended** version
 
-## How to generate static files
+### Run locally
+
+`hugo server --minify`
+
+### Generate static files
 
 `hugo --theme=book --buildDrafts`
