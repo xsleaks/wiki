@@ -28,7 +28,7 @@ Deploying framing protections is usually straightforward as many applications do
 |:-----------------------------------------------------------------:|:------------------------:|:-------------------:
 | [Frame Counting]({{< ref "../../attacks/frame-counting.md" >}})   |         ✔️               |         ❌
 | [Navigations]({{< ref "../../attacks/navigations.md" >}})         |         ✔️               |         ❌
-| [ID Leaks]({{< ref "../../attacks/id-leaks.md" >}})               |         ✔️               |         ❌
+| [ID Leaks]({{< ref "../../attacks/id-attribute.md" >}})               |         ✔️               |         ❌
 
 ### Table Caption
 
