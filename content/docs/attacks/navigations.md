@@ -30,7 +30,7 @@ Similarly to the [Frame Counting Attack]({{< ref "../attacks/frame-counting.md" 
 
 ## Defense
 
-| Attack Alternative  | [Same-Site Cookies]({{< ref "../defenses/opt-in/same-site-cookies.md" >}})  | [Fetch Metadata]({{< ref "../defenses/opt-in/sec-fetch.md" >}})  | [COOP]({{< ref "../defenses/opt-in/coop.md" >}})  |  [Framing Protections]({{< ref "../defenses/opt-in/xfo.md" >}}) |
+| Attack Alternative  | [Same-Site Cookies]({{< ref "../defenses/opt-in/same-site-cookies.md" >}})  | [Fetch Metadata]({{< ref "../defenses/opt-in/fetch-metadata.md" >}})  | [COOP]({{< ref "../defenses/opt-in/coop.md" >}})  |  [Framing Protections]({{< ref "../defenses/opt-in/xfo.md" >}}) |
 |:----------------------------------:|:--------------------------:|:---------------:|:-----:|:--------------------:|
 | iframe                             |         ✔️                 |      ✔️         |  ❌   |          ✔️         |
 | `History.length` (iframe)          |         ✔️                 |      ✔️         |  ❌   |          ✔️         |
