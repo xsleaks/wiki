@@ -34,7 +34,7 @@ This attack is highly harder in Browsers with process isolation mechanisms in pl
 {{< /hint >}}
 
 {{< hint info >}}
-In browsers with process isolation mechanisms, [Service Workers]({{< ref "execution-timing.md#service-workers-1" >}}) can be abused to obtain the execution timing measurement.
+In browsers with process isolation mechanisms, [Service Workers]({{< ref "execution-timing.md#service-workers" >}}) can be abused to obtain the execution timing measurement.
 {{< /hint >}}
 
 ### CSS & IntersectionObserver
@@ -45,31 +45,33 @@ dsadsasaddasdsasad [^4]
 
 ## JavaScript Execution
 
-### Service Workers
+### Timing the Event Loop
 
 dsadsasaddasdsasad [^3]
 
-### Service Workers & Navigations
+### Service Workers
 
-[Service Workers](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API) can be abused by attackers to measure the timing of javascript execution in certain circumstances [^5]. They serve as `proxy` between the browser and the network and allow applications to intercept any network requests made by the main thread (document). This feature is useful to offer offline solutions in web applications.
+[Service Workers](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API) can be abused by attackers to measure the timing of javascript execution in certain scenarios [^5]. They serve as a `proxy` between the browser and the network and allow applications to intercept any network requests made by the main thread (document). This feature is useful to offer offline solutions in web applications.
 
-To make a timing measurement and attacker can preform the following steps:
-1. The attacker resisters a service worker in one of its domain (attacker.com).
+To make a timing measurement an attacker can perform the following steps:
+
+1. The attacker registers a service worker in one of its domains (attacker.com).
 2. In the main document, the attacker issues a navigation to the target website and starts a [clock](https://TODO).
-2. The Service worker will caught the request preformed in 2., save the current time when the request is received and returns a 204 (No Content) response back to the page
+3. The Service Worker will catch the request performed in step 2, check the [clock](https://TODO) and return a 204 (No Content) response to the main document.
+4. The Execution timing is the subtraction of the time registered in 3. with the time registered in 2.
 
+The navigation won't actually happen, but by timing how long the browser took to navigate to the Service Worker it's possible to time the page execution.
 
+<!--TODO(manuelvsousa): This can also be used to detect a navigation. Maybe we should add it to the navigations article as well? -->
 
 ## Defense
 
 | Attack Alternative  | [Same-Site Cookies]({{< ref "../../defenses/opt-in/same-site-cookies.md" >}})  | [Fetch Metadata]({{< ref "../../defenses/opt-in/fetch-metadata.md" >}})  | [Cross-Origin-Opener-Policy]({{< ref "../../defenses/opt-in/coop.md" >}})  |  [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}) |
 |:-------------------:|:------------------:|:---------------:|:-----:|:--------------------:|
-| jQuery              |         ✔️         |      ✔️         |  ❌   |          ✔️         |
-| portal              |         ✔️         |      ✔️         |  ❌   |          ❌         |
-
-{{< hint warning >}}
-The [`portal`](https://web.dev/hands-on-portals/) element is only available on Chromium-based browsers under a preference flag. The corresponding specification is still under active discussion.
-{{< /hint >}}
+| CSS/jQuery              |         ✔️         |      ✔️         |  ❌   |          ✔️         |
+| CSS/IntersectionObserver              |         ✔️         |      ✔️         |  ❌   |          ❌         |
+| Event Loop             |         ✔️         |      ✔️         |  ❌   |          ❌         |
+| Service Workers             |         ✔️         |      ✔️         |  ❌   |          ❌         |
 
 
 [^1]: Loophole: Timing Attacks on Shared Event Loops in Chrome, [link](https://www.usenix.org/system/files/conference/usenixsecurity17/sec17-vila.pdf)
