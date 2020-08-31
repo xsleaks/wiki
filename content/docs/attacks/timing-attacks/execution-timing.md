@@ -27,17 +27,19 @@ The following selector will spend more time running if a `main` tag with `id='si
 $("*:has(*:has(*:has(*)) *:has(*:has(*:has(*))) *:has(*:has(*:has(*)))) main[id='site-main']")
 ```
 
-This delay happens as the expression is compared from right to left, so if the first selector does not exist and fails to evaluate (`main[id='site-main']`), the rest of the selector which increases timing on purpose, is ignored. This attack can be used to steal secrets from a page like CSRF tokens.
+This delay happens as the expression is compared from right to left, so if the first selector does not exist and fails to evaluate (`main[id='site-main']`), the rest of the selector which increases timing on purpose, is ignored. By measuring how much time it takes to navigate, attackers may be able to steal secrets from a page like CSRF tokens.
 
 {{< hint warning >}}
-This attack is no longer possible in Browsers with process isolation mechanisms in place. This mechanism is only present in Chromium-Based browsers with [Site Isolation](https://www.chromium.org/Home/chromium-security/site-isolation) and *soon* in Firefox with [Project Fission](https://wiki.mozilla.org/Project_Fission).
+This attack is highly harder in Browsers with process isolation mechanisms in place. Such mechanisms are only present in Chromium-Based browsers with [Site Isolation](https://www.chromium.org/Home/chromium-security/site-isolation) and *soon* in Firefox under [Project Fission](https://wiki.mozilla.org/Project_Fission).
 {{< /hint >}}
 
 {{< hint info >}}
-[Service Workers]({{< ref "execution-timing.md#service-workers-1" >}})  can be abused to 
+In browsers with process isolation mechanisms, [Service Workers]({{< ref "execution-timing.md#service-workers-1" >}}) can be abused to obtain the execution timing measurement.
 {{< /hint >}}
 
 ### CSS & IntersectionObserver
+
+
 dsadsasaddasdsasad [^4]
 
 
@@ -47,15 +49,22 @@ dsadsasaddasdsasad [^4]
 
 dsadsasaddasdsasad [^3]
 
-### Service Workers
+### Service Workers & Navigations
 
-dasdsadasads [^5]
+[Service Workers](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API) can be abused by attackers to measure the timing of javascript execution in certain circumstances [^5]. They serve as `proxy` between the browser and the network and allow applications to intercept any network requests made by the main thread (document). This feature is useful to offer offline solutions in web applications.
+
+To make a timing measurement and attacker can preform the following steps:
+1. The attacker resisters a service worker in one of its domain (attacker.com).
+2. In the main document, the attacker issues a navigation to the target website and starts a [clock](https://TODO).
+2. The Service worker will caught the request preformed in 2., save the current time when the request is received and returns a 204 (No Content) response back to the page
+
+
 
 ## Defense
 
 | Attack Alternative  | [Same-Site Cookies]({{< ref "../../defenses/opt-in/same-site-cookies.md" >}})  | [Fetch Metadata]({{< ref "../../defenses/opt-in/fetch-metadata.md" >}})  | [Cross-Origin-Opener-Policy]({{< ref "../../defenses/opt-in/coop.md" >}})  |  [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}) |
 |:-------------------:|:------------------:|:---------------:|:-----:|:--------------------:|
-| iframe              |         ✔️         |      ✔️         |  ❌   |          ✔️         |
+| jQuery              |         ✔️         |      ✔️         |  ❌   |          ✔️         |
 | portal              |         ✔️         |      ✔️         |  ❌   |          ❌         |
 
 {{< hint warning >}}
