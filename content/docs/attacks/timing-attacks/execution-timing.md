@@ -74,9 +74,9 @@ In browsers with process isolation mechanisms, [Service Workers]({{< ref "execut
 
 | Attack Alternative  | [Same-Site Cookies]({{< ref "../../defenses/opt-in/same-site-cookies.md" >}})  | [Fetch Metadata]({{< ref "../../defenses/opt-in/fetch-metadata.md" >}})  | [Cross-Origin-Opener-Policy]({{< ref "../../defenses/opt-in/coop.md" >}})  |  [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}) |
 |:-------------------:|:------------------:|:---------------:|:-----:|:--------------------:|
-| CSS Selectors              |         ✔️         |      ✔️         |  ❌   |          ✔️         |
-| Event Loop             |         ✔️         |      ✔️         |  ❌   |          ❌         |
-| Service Workers             |         ✔️         |      ✔️         |  ❌   |          ❌         |
+| CSS Selectors              |         ✔️         |      ✔️         |  ✔️   |          ❌         |
+| Event Loop             |         ✔️         |      ✔️         |  ✔️   |          ❌         |
+| Service Workers             |         ✔️         |      ✔️         |  ✔️   |          ❌         |
 
 
 [^1]: Loophole: Timing Attacks on Shared Event Loops in Chrome, [link](https://www.usenix.org/system/files/conference/usenixsecurity17/sec17-vila.pdf)
