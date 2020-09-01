@@ -26,7 +26,7 @@ JavaScript concurrency model is based on a [single-threaded event loop](https://
 Some attacks abuse this model to steal secrets from a cross-origin page:
 
 - When an attacker controls a string that is compared to a secret in a different origin, it might be possible to measure the comparison time of those strings [^2].
-- An attacker might be able to infer how long code from a different origin takes to run, by measuring how long it takes to run next in the event pool [^3]. The attacker keeps sending events to the event loop with fixed properties, which will eventually be dispatched if the pool is empty. Other origins will dispatch events to the same pool, and this is where an attacker infers the timing difference by detecting if a delay occurred with one of its tasks.
+- An attacker might be able to infer how long code from a different origin takes to run, by measuring how long it takes to run next in the event pool [^1]. The attacker keeps sending events to the event loop with fixed properties, which will eventually be dispatched if the pool is empty. Other origins will dispatch events to the same pool, and this is where an attacker infers the timing difference by detecting if a delay occurred with one of its tasks.
 
 {{< hint warning >}}
 This attack is no longer possible in Browsers with process isolation mechanisms in place. Such mechanisms are only present in Chromium-Based browsers with [Site Isolation](https://www.chromium.org/Home/chromium-security/site-isolation) and *soon* in Firefox under [Project Fission](https://wiki.mozilla.org/Project_Fission).
@@ -35,7 +35,7 @@ This attack is no longer possible in Browsers with process isolation mechanisms 
 ### Service Workers
 <!--TODO(manuelvsousa): This text is wrong -->
 
-[Service Workers](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API) can be abused by attackers to measure the timing of javascript execution in certain scenarios [^5]. They serve as a `proxy` between the browser and the network and allow applications to intercept any network requests made by the main thread (document). This feature is useful to offer offline solutions in web applications.
+[Service Workers](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API) can be abused by attackers to measure the timing of javascript execution in certain scenarios [^4]. They serve as a `proxy` between the browser and the network and allow applications to intercept any network requests made by the main thread (document). This feature is useful to offer offline solutions in web applications.
 
 To make a timing measurement an attacker can perform the following steps:
 
@@ -49,9 +49,7 @@ The navigation won't actually happen, but by timing how long the browser took to
 <!--TODO(manuelvsousa): This can also be used to detect a navigation. Maybe we should add it to the navigations article as well? -->
 
 
-## CSS Selectors
-
-### jQuery & Short-circuiting
+## CSS Selectors Short-circuit Timing
 
 Attackers can abuse CSS selectors and `short-circuit` evaluation of expressions, received in an `URL` hash and evaluated by JQuery (`jQuery(location.hash)`)[^3].
 
@@ -71,19 +69,12 @@ This attack is no longer possible in Browsers with process isolation mechanisms 
 In browsers with process isolation mechanisms, [Service Workers]({{< ref "execution-timing.md#service-workers" >}}) can be abused to obtain the execution timing measurement.
 {{< /hint >}}
 
-### CSS & IntersectionObserver
-
-
-dsadsasaddasdsasad [^4]
-
-
 
 ## Defense
 
 | Attack Alternative  | [Same-Site Cookies]({{< ref "../../defenses/opt-in/same-site-cookies.md" >}})  | [Fetch Metadata]({{< ref "../../defenses/opt-in/fetch-metadata.md" >}})  | [Cross-Origin-Opener-Policy]({{< ref "../../defenses/opt-in/coop.md" >}})  |  [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}) |
 |:-------------------:|:------------------:|:---------------:|:-----:|:--------------------:|
-| CSS/jQuery              |         ✔️         |      ✔️         |  ❌   |          ✔️         |
-| CSS/IntersectionObserver              |         ✔️         |      ✔️         |  ❌   |          ❌         |
+| CSS Selectors              |         ✔️         |      ✔️         |  ❌   |          ✔️         |
 | Event Loop             |         ✔️         |      ✔️         |  ❌   |          ❌         |
 | Service Workers             |         ✔️         |      ✔️         |  ❌   |          ❌         |
 
@@ -91,6 +82,5 @@ dsadsasaddasdsasad [^4]
 [^1]: Loophole: Timing Attacks on Shared Event Loops in Chrome, [link](https://www.usenix.org/system/files/conference/usenixsecurity17/sec17-vila.pdf)
 [^2]: Matryoshka - Web Application Timing Attacks (or.. Timing Attacks against JavaScript Applications in Browsers), [link](https://sirdarckcat.blogspot.com/2014/05/matryoshka-web-application-timing.html)
 [^3]: A timing attack with CSS selectors and Javascript, [link](https://blog.sheddow.xyz/css-timing-attack/)
-[^4]: Restrictions for scroll-to-CSS-selector (PUBLIC), [link](https://docs.google.com/document/d/15HVLD6nddA0OaI8Dd0ayBP2jlGw5JpRD-njAyY1oNZo/edit#heading=h.wds2qckm3kh5)
-[^5]: Security: XS-Search + XSS Auditor = Not Cool, [link](https://bugs.chromium.org/p/chromium/issues/detail?id=922829)
+[^4]: Security: XS-Search + XSS Auditor = Not Cool, [link](https://bugs.chromium.org/p/chromium/issues/detail?id=922829)
 
