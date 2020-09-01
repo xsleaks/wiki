@@ -30,7 +30,12 @@ microsecond precision in all modern browsers, to mitigate some [XS-Leaks](httos:
 [^2]: Reduce precision of performance.now() to 20us (Gecko). [link](https://bugzilla.mozilla.org/show_bug.cgi?id=1427870)
 [^3]: Reduce resolution of performance.now to prevent timing attacks (Blink). [link](https://bugs.chromium.org/p/chromium/issues/detail?id=506723)
 {{< /hint >}}
-<!--TODO(manuelvsousa): Change references to actual wiki articles-->
+<!--TODO(manuelvsousa): Change references to actual wiki articles, and enumerate specificly as per https://github.com/xsleaks/wiki/pull/9#pullrequestreview-479831958-->
+
+
+{{< hint info >}}
+`SharedArrayBuffer` was removed from browsers with the appearance of [Spectre](https://spectreattack.com/). Later in 2020, it was reintroduced, but now requiring documents to be in a [secure context](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer) to make use of the API. This requirement prevents `SharedArrayBuffer` from being used as an implicit clock.
+{{< /hint >}}
 
 ### Date API
 
