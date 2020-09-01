@@ -30,11 +30,11 @@ microsecond precision in all modern browsers, to mitigate some [XS-Leaks](httos:
 [^2]: Reduce precision of performance.now() to 20us (Gecko). [link](https://bugzilla.mozilla.org/show_bug.cgi?id=1427870)
 [^3]: Reduce resolution of performance.now to prevent timing attacks (Blink). [link](https://bugs.chromium.org/p/chromium/issues/detail?id=506723)
 {{< /hint >}}
-<!--TODO(manuelvsousa): Change references to actual wiki articles, and enumerate specificly as per https://github.com/xsleaks/wiki/pull/9#pullrequestreview-479831958-->
+<!--TODO(manuelvsousa): Change references to actual wiki articles, and enumerate specifically as per https://github.com/xsleaks/wiki/pull/9#pullrequestreview-479831958-->
 
 
 {{< hint info >}}
-`SharedArrayBuffer` was removed from browsers with the appearance of [Spectre](https://spectreattack.com/). Later in 2020, it was reintroduced, but now requiring documents to be in a [secure context](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer) to make use of the API. This requirement prevents `SharedArrayBuffer` from being used as an implicit clock.
+Browsers are considering [restricting this API](https://developer.mozilla.org/en-US/docs/Web/API/Performance/now) to documents which do not share a browsing context group with cross-origin documents. This will require an application interested in the API to explicitly opt-in to [COOP](https://TODO) and [COEP](https://TODO).
 {{< /hint >}}
 
 ### Date API
@@ -77,4 +77,5 @@ There are a considerable amount of APIs attackers can abuse to create implicit c
 [^1]: Shared memory: Side-channel information leaks, [link](https://github.com/tc39/ecmascript_sharedmem/blob/master/issues/TimingAttack.md)
 [^2]: Fantastic Timers and Where to Find Them: High-Resolution Microarchitectural Attacks in JavaScript, [link](https://gruss.cc/files/fantastictimers.pdf)
 [^3]: Exposing Private Information by Timing Web Applications, [link](http://crypto.stanford.edu/~dabo/papers/webtiming.pdf)
+
 
