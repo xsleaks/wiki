@@ -22,10 +22,6 @@ Connection Pool
 
 
 
-1. The attackers blocks a
-
-
-
 
 {{< hint info >}}
 Similarly to [partitioned caches](https://TODO), some browsers are considering extending the principle of split per site/origin the quotas for [socket pools](https://github.com/whatwg/fetch/issues/904#issuecomment-509275330).
