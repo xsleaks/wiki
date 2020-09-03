@@ -9,14 +9,18 @@ menu = "main"
 
 ## Explanation
 
-Cross-Origin Read Blocking (CORB) is a browser defense mechanism that prevents attackers from loading certain cross-origin resources in impossible scenarios [^1]. This protection was created to prevent speculative side-channel attacks such as Spectre which allow attackers to read the memory of their own process. CORB aims to prevent attackers from loading cross-origin contents which might contain sensitive information into an attacker controlled process. For instance, if an attacker tries to load an  HTML, XML, or JSON as an `img` or `script` tag, CORB will prevent this from happening. To classify resource types CORB uses the `Content-Type` header but when it detects a page does not serve a `nosniff` header it detects if the resource is worth protecting by looking at the beginning of the response body.
+Cross-Origin Read Blocking (CORB) is a browser defense mechanism that prevents attackers from loading certain cross-origin resources in unlikely scenarios [^1]. This protection was created to prevent speculative side-channel attacks such as Spectre which allow attackers to read the memory of their own process. CORB aims to prevent attackers from loading cross-origin contents which might contain sensitive information into an attacker-controlled process. For instance, if an attacker tries to load an  HTML, XML, or JSON as an `img` or `script` tag, CORB will prevent this from happening. To classify resource types CORB uses the `Content-Type` header but when it detects a page does not serve a `nosniff` header it detects if the resource is worth protecting by looking at the beginning of the response body.
 
 {{< hint info >}}
 Chrome is the only browser with CORB deployed.
 {{< /hint >}}
 
 {{< hint info >}}
-An important complement of CORB is the [Cross-Origin Resource Policy (CORP)]({{< ref "../opt-in/corp.md" >}}).
+[Cross-Origin Resource Policy (CORP)]({{< ref "../opt-in/corp.md" >}}) is a protection with enforces and extends CORB automatically offers.
+{{< /hint >}}
+
+{{< hint warning >}}
+Firefox is the only browser with CORP deployed.
 {{< /hint >}}
 
 

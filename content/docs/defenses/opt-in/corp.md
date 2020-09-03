@@ -15,7 +15,7 @@ Firefox is the only browser with CORP deployed.
 {{< /hint >}}
 
 {{< hint info >}}
-[Cross-Origin Read Blocking (CORB)]({{< ref "../browser-intrinsic/corb.md" >}}), a similar protection, is an no-opt protection based on heuristics to prevent attackers from loading certain cross-origin resources in impractical scenarios.
+[Cross-Origin Read Blocking (CORB)]({{< ref "../browser-intrinsic/corb.md" >}}), a similar protection, is an no-opt protection based on heuristics to prevent attackers from loading certain cross-origin resources in unlikely scenarios.
 {{< /hint >}}
 
 {{< hint warning >}}
