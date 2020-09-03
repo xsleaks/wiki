@@ -30,14 +30,22 @@ The implications of this attack are similar to the [Error-based](https://TODO) a
 
 ## Defense
 
-There is no clear solution on the browser side to mitigate this issue [^1]. Developers, however, can deploy [CORP](https://TODO) in application resources to opt-in to obtain similar CORB protections. To prevent attackers from abusing this XS-Leak, generic XS-Leaks defense mechanisms are also effective.
+
+| [Same-Site Cookies]({{< ref "../defenses/opt-in/same-site-cookies.md" >}})  | [Fetch Metadata](https://TODO)  | [Cross-Origin-Opener-Policy]({{< ref "../defenses/opt-in/coop.md" >}})  |  [Framing Protections]({{< ref "../defenses/opt-in/xfo.md" >}}) |
+|:------------------:|:---------------:|:-----:|:--------------------:|
+|         ✔️         |      ✔️         |  ❌   |          ❌         |
+
 
 {{< hint info >}}
-Chromium is the only browser currently implementing [CORB](https://TODO). With the [default rollout](https://www.chromium.org/updates/same-site) of [Same-Site cookies](https://TODO) this attack becomes fairly powerless.
+Chromium is the only browser currently implementing [CORB](https://TODO). With the [default rollout](https://www.chromium.org/updates/same-site) of [Same-Site cookies](https://TODO) this attack becomes fairly **powerless**.
 {{< /hint >}}
 
 {{< hint info >}}
-This issue is known by the Chromium, and is might remain unfixed [^1]. While remaining an issue, CORB itself did not introduce anything that was not observable before, using XS-Leaks like [error-events](https://TODO).
+This issue is known by the Chromium, and is might remain [unfixed](https://docs.google.com/document/d/1kdqstoT1uH5JafGmRXrtKE4yVfjUVmXitjcvJ4tbBvM/edit?ts=5f2c8004). While remaining an issue, CORB itself did not introduce anything that was not observable before, using XS-Leaks like [error-events](https://TODO).
+{{< /hint >}}
+
+{{< hint info >}}
+Developers can deploy [CORP](https://TODO) in application resources to opt-in to obtain similar CORB protections. To prevent attackers from abusing this XS-Leak, generic XS-Leaks defense mechanisms are also effective.
 {{< /hint >}}
 
 [^1]: CORB vs side channels, [link](https://docs.google.com/document/d/1kdqstoT1uH5JafGmRXrtKE4yVfjUVmXitjcvJ4tbBvM/edit?ts=5f2c8004)
