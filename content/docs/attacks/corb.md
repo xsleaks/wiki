@@ -15,9 +15,9 @@ menu = "main"
 
 ## Explanation
 
-[Cross-Origin Read Blocking](({{< ref "../defenses/browser-intrinsic/corb.md" >}})) (CORB) is a web platform security feature to reduce the impact of speculative side-channel attacks such as Spectre. Unfortunately, the principle of blocking certain types of requests introduced new types of XS-Leaks.
+[Cross-Origin Read Blocking](({{< ref "../defenses/browser-intrinsic/corb.md" >}})) (CORB) is a web platform security feature to reduce the impact of speculative side-channel attacks such as Spectre. Unfortunately, the principle of blocking certain types of requests introduced a new type of XS-Leaks.
 
-An attacker tries to embed a cross-origin resource in a `script` tag which returns `200 OK` with `text/html` as `Content-Type` and a `nosniff` Header, in order to protect sensitive contents from entering the attacker's process, `CORB` will replace the original response with an empty one. Since an empty response is **valid** JavaScript, the `onerror` event won't be fired and `onload` will fire instead. This behavior is unfortunate, as the response could contain something other than JavaScript, considering a non-CORB environment would trigger an error. On the other hand, if the request returns something other than `200 OK` the `onerror` event will fire, and the same would happen in a non-CORB environment. This introduces an XS-Leaks as these situations are now distinguishable.
+An attacker tries to embed a cross-origin resource in a `script` tag which returns `200 OK` with `text/html` as `Content-Type` and a `nosniff` Header, in order to protect sensitive contents from entering the attacker's process, `CORB` will replace the original response with an empty one. Since an empty response is **valid** JavaScript, the `onerror` event won't be fired and `onload` will fire instead. This behavior is unfortunate, as the response could contain something other than JavaScript, considering a non-CORB environment would trigger an error. On the other hand, if the request returns something other than `200 OK` the `onerror` event will fire, and the same would happen in a non-CORB environment. This introduces an XS-Leak as these situations are now distinguishable.
 
 
 ### Why is this a problem?
@@ -30,16 +30,14 @@ The implications of this attack are similar to the [Error-based](https://TODO) a
 
 ## Defense
 
-There is no clear solution on the browser side to mitigate this issue [^1]. Developers, however, can deploy [CORP](https://TODO) in application endpoints to obtain similar CORB protections. To prevent attackers from abusing this XS-Leak, generic XS-Leaks defense mechanisms are also effective.
+There is no clear solution on the browser side to mitigate this issue [^1]. Developers, however, can deploy [CORP](https://TODO) in application resources to opt-in to obtain similar CORB protections. To prevent attackers from abusing this XS-Leak, generic XS-Leaks defense mechanisms are also effective.
 
-| Attack Alternative  | [Same-Site Cookies]({{< ref "../defenses/opt-in/same-site-cookies.md" >}})  | [Fetch Metadata]({{< ref "../defenses/opt-in/sec-fetch.md" >}})  | [COOP]({{< ref "../defenses/opt-in/coop.md" >}})  |  [Framing Protections]({{< ref "../defenses/opt-in/xfo.md" >}}) |  [CORP](https://TODO)
-|:-------------------:|:------------------:|:---------------:|:-----:|:--------------------:|:--------------------:|
-| iframe              |         ✔️         |      ✔️         |  ❌   |          ❌         |        ✔️            |
+{{< hint info >}}
+Chromium is the only browser currently implementing [CORB](https://TODO). With the [default rollout](https://www.chromium.org/updates/same-site) of [Same-Site cookies](https://TODO) this attack becomes fairly powerless.
+{{< /hint >}}
 
-
-
-{{< hint warning >}}
-[CORP](https://TODO) must be applied in **all** endpoints for defense completeness and to avoid introducing similar issues like [CORP XS-Leaks](https://TODO).
+{{< hint info >}}
+This issue is known by the Chromium, and is might remain unfixed [^1]. While remaining an issue, CORB itself did not introduce anything that was not observable before, using XS-Leaks like [error-events](https://TODO).
 {{< /hint >}}
 
 [^1]: CORB vs side channels, [link](https://docs.google.com/document/d/1kdqstoT1uH5JafGmRXrtKE4yVfjUVmXitjcvJ4tbBvM/edit?ts=5f2c8004)

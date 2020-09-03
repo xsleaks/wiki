@@ -21,4 +21,6 @@ A webpage will introduce an XS-Leak if `CORP` is enforced based on user data. If
 
 ## Defense
 
-To avoid this issue, web sites should guarantee `CORP` is deployed in all endpoints and application behaviors.
+{{< hint warning >}}
+To avoid this issue, applications should guarantee `CORP` is deployed in all endpoints and application behaviors.
+{{< /hint >}}
