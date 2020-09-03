@@ -22,7 +22,7 @@ In early discussions for the specification of this feature, it was showed severa
 - A web page that embeds an attacker-controlled iframe might allow the attacker to determine whether a scroll to the text has occurred. This can be done using the [`IntersectionObserver`](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) API [^2] [^3] [^4].
 - An attacker can, by embedding the page as an `iframe`, detect if the paged scrolled to the text by listening to the `blur` of the parent document. This approach is similar to the [ID Attribute XS-Leak]({{< ref "id-attribute.md" >}}). This scenario is mitigated in Chrome implementation [^5] as it only allows the fragment navigation to occur in top-level navigations.
 
-Apart from browsers implementation, these issues are also application dependent, not feasible all the time. Nevertheless, XS-Leaks [Defense Mechanisms](({{< ref "../defenses/" >}})) should be applied to reduce the attack surface of possible exploitation.
+Apart from browsers implementation, these issues are also application dependent, not feasible all the time. Nevertheless, XS-Leaks [Defense Mechanisms](({{< ref "../../defenses/" >}})) should be applied to reduce the attack surface of possible exploitation.
 
 {{< hint warning >}}
 `Scroll to Text Fragment` is only available in Chrome. Its [draft](https://wicg.github.io/scroll-to-text-fragment/) specification is under active discussion.
