@@ -21,6 +21,8 @@ A webpage will introduce an XS-Leak if `CORP` is enforced based on user data. If
 
 ## Defense
 
-{{< hint warning >}}
-To avoid this issue, applications should guarantee `CORP` is deployed in all endpoints and application behaviors.
-{{< /hint >}}
+An application can avoid this XS-Leak if it guarantees `CORP` is deployed in all application resources. However, the generic security mechanism that are able to invalidate cross-site requests based on user sessions can also prevent this attack.
+
+| [Same-Site Cookies]({{< ref "../defenses/opt-in/same-site-cookies.md" >}})  | [Fetch Metadata](https://TODO)  | [Cross-Origin-Opener-Policy]({{< ref "../defenses/opt-in/coop.md" >}})  |  [Framing Protections]({{< ref "../defenses/opt-in/xfo.md" >}}) |
+|:------------------:|:---------------:|:-----:|:--------------------:|
+|         ✔️         |      ✔️         |  ❌   |          ❌         |
