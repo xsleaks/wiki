@@ -37,6 +37,14 @@ Attackers can abuse the principle of the `STTF` to leak private information abou
 - A user is logged in its National Health System website, where its possible to access information about the user past diseases and health problems. An attacker can lure the user to one of its pages and use `STTF` to possibly infer specific deceases of the user. The attacker will know the user suffers "Diabetes" if it detects a page scroll.
 
 
+## Defense
+
+| Attack Alternative  | [Same-Site Cookies]({{< ref "../../defenses/opt-in/same-site-cookies.md" >}})  | [Fetch Metadata](https://TODO)  | [Cross-Origin-Opener-Policy]({{< ref "../../defenses/opt-in/coop.md" >}})  |  [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}) |
+|:-------------------:|:------------------:|:---------------:|:-----:|:--------------------:|
+| IntersectionObserver (iframes)|         ✔️         |      ✔️         |  ❌   |          ✔️         |
+| IntersectionObserver (portals)|         ✔️         |      ✔️         |  ❌   |          ❓         |
+| Lazy Loading        |         ✔️         |      ✔️         |  ❌   |          ❌         |
+
 [^1]: Privacy concerns with proposal through inducing network requests, [link](https://github.com/WICG/scroll-to-text-fragment/issues/76)
 [^2]: Possible side-channel information leak using IntersectionObserver, [link](https://github.com/WICG/scroll-to-text-fragment/issues/79)
 [^3]: Text Fragments - Security and Privacy, [link](https://wicg.github.io/scroll-to-text-fragment/#security-and-privacy)
