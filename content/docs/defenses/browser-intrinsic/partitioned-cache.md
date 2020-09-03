@@ -12,7 +12,7 @@ menu = "main"
 
 <!--TODO(manuelvsousa): Add reference to cache probing attacks-->
 
-Considering Opt-in solutions, applications can use the [`Vary` Header combined with `Fetch-Metadata`](https://TODO) to prevent cross-origin fetches to be affected by the site cache or use [some workarounds]({{< ref "../design-protections/subresource-protections.md" >}}) to protect resources, which come with downsides. Browsers, however, have been planning a defense mechanism to segregate the cached resources per origin/site, making it impossible for attackers pages to interact with cached contents of different origins[^1] [^2] [^3]. Specifically, browsers tested caching with finer grained keys such as the tuple <`top-frame origin`, URL> or even triples of values.
+Considering Opt-in solutions, applications can use the [`Vary` Header combined with `Fetch-Metadata`](https://TODO) to prevent cross-origin fetches to be affected by the site cache or use [some workarounds]({{< ref "../design-protections/subresource-protections.md" >}}) to protect resources, which come with downsides. Browsers, however, have been planning a defense mechanism to segregate the cached resources per origin/site, making it impossible for attackers pages to interact with cached contents of different origins[^1] [^2] [^3]. Specifically, browsers tested caching with finer-grained keys such as the tuple <`top-frame origin`, URL> or even triples of values.
 
 {{< hint info >}}
 Chrome [^1] and Firefox [^2] are still discussing an implementation for a Multi-Keyed Cache while Safari [^3] already runs a version of it since 2013.
