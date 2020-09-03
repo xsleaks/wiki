@@ -16,9 +16,6 @@ Considering Opt-in solutions, applications can use the [`Vary` Header combined w
 
 [Chrome](https://bugs.chromium.org/p/chromium/issues/detail?id=910708) and [Firefox](https://bugzilla.mozilla.org/show_bug.cgi?id=1590107) are still discussing an implementation for a Multi-Keyed Cache while [Safari](https://bugs.webkit.org/show_bug.cgi?id=110269) already runs a version of it since 2013.
 
-
-<!--TODO(manuelvsousa): Add socket exhaustion ?-->
-
 ## Relevant Projects
 
 ### Intelligent Tracking Prevention
