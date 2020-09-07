@@ -22,6 +22,9 @@ This side-channel allows attackers to infer information from a cross-site reques
 - Resource Size
 - The computation time in the backend
 - Amount of sub-resources
+- [Cache status](https://TODO)
+
+<!--TODO(manuelvsousa): Add cross reference to cache attacks in the wiki -->
 
 {{< hint info >}}
 Learn more about the different types of clocks in the [Clocks Article]({{< ref "clocks.md" >}}).
