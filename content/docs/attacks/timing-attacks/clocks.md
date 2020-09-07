@@ -13,7 +13,7 @@ defenses = [
 menu = "main"
 +++
 
-There are two types of clocks: Implicit and Explicit clocks. Explicit clocks are the ones developers use to get direct timing measurements and such mechanisms are offered **explicitly** by the browser.  Implicit clocks on the other hand, misuse particular web features to create unintended clocks which offer a relative timing.
+We can distinguish two types of clocks - Explicit and Implicit. Explicit clocks are the ones developers use to get direct timing measurements and such mechanisms are offered **explicitly** by the browser. Implicit clocks on the other hand, misuse particular web features to create unintended clocks which offer a relative timing.
 
 
 ## Explicit Clocks
