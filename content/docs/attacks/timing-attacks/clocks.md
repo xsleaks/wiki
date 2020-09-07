@@ -39,7 +39,7 @@ Browsers are considering [restricting this API](https://developer.mozilla.org/en
 
 ### Date API
 
-The [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) API is the oldest API present in browsers to obtain timing measurements. It allows developers to get dates, and get Unix timestamps with `Date.now()`. These measurements are much less precise compared to [performance.now()](https://developer.mozilla.org/en-US/docs/Web/API/Performance/now). Previous attacks prior to the introduction of modern browsers used to leverage this API [^3].
+The [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) API is the oldest API present in browsers to obtain timing measurements. It allows developers to get dates, and get Unix timestamps with `Date.now()`. These measurements are much less precise compared to [performance.now()](https://developer.mozilla.org/en-US/docs/Web/API/Performance/now). Before the introduction of newer APIs attacks used to leverage this instead [^3].
 
 
 ## Implicit Clocks
@@ -77,5 +77,4 @@ There are a considerable amount of APIs attackers can abuse to create implicit c
 [^1]: Shared memory: Side-channel information leaks, [link](https://github.com/tc39/ecmascript_sharedmem/blob/master/issues/TimingAttack.md)
 [^2]: Fantastic Timers and Where to Find Them: High-Resolution Microarchitectural Attacks in JavaScript, [link](https://gruss.cc/files/fantastictimers.pdf)
 [^3]: Exposing Private Information by Timing Web Applications, [link](http://crypto.stanford.edu/~dabo/papers/webtiming.pdf)
-
 
