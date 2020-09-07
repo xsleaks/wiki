@@ -17,15 +17,6 @@ To classify resource types CORB uses the `Content-Type` header if `nosniff` is s
 Chrome is the only browser with CORB deployed.
 {{< /hint >}}
 
-{{< hint info >}}
-[Cross-Origin Resource Policy (CORP)]({{< ref "../opt-in/corp.md" >}}) is a protection with enforces and extends CORB automatically offers.
-{{< /hint >}}
-
-{{< hint warning >}}
-Firefox is the only browser with CORP deployed.
-{{< /hint >}}
-
-
 ## Considerations
 
 {{< hint warning >}}
