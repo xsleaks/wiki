@@ -11,10 +11,6 @@ Cross-Origin-Resource-Policy (CORP) response header enforces [Cross-Origin Read 
 If an application sets a certain resource CORP Header as `same-site` or `same-origin`, an attacker origin is incapable of reading that resource because is not part of the CORP group of origins.
 
 {{< hint info >}}
-Firefox is the only browser with CORP deployed.
-{{< /hint >}}
-
-{{< hint info >}}
 [Cross-Origin Read Blocking (CORB)]({{< ref "../browser-intrinsic/corb.md" >}}), a similar protection, is an no-opt protection based on heuristics to prevent attackers from loading certain cross-origin resources in unlikely scenarios.
 {{< /hint >}}
 
