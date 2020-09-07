@@ -34,7 +34,7 @@ microsecond precision in all modern browsers, to mitigate [some](httos://TODO) X
 
 
 {{< hint info >}}
-Browsers are considering [restricting this API](https://developer.mozilla.org/en-US/docs/Web/API/Performance/now) to documents which do not share a browsing context group with cross-origin documents. This will require an application interested in the API to explicitly opt-in to [COOP](https://TODO) and [COEP](https://TODO).
+Since Firefox 79, this API can be used with [full resolution](https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/Releases/79) in documents which do not share a browsing context group with cross-origin documents. This will require an application interested in the API to explicitly opt-in to [COOP](https://TODO) and [COEP](https://TODO).
 {{< /hint >}}
 
 ### Date API
