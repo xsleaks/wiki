@@ -23,7 +23,7 @@ To attack this limit, attackers can abuse the network socket pool in the followi
 
 
 {{< hint info >}}
-Similarly to [partitioned caches](https://TODO), some browsers are considering extending the principle of split per site/origin the quotas for [socket pools](https://github.com/whatwg/fetch/issues/904#issuecomment-509275330).
+Similarly to [partitioned caches](https://TODO), some browsers are considering extending the principle of split per site/origin the quotas for [socket pools](https://bugzilla.mozilla.org/show_bug.cgi?id=1572544).
 {{< /hint >}}
 
 ## Defense
