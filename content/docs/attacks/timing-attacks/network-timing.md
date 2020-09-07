@@ -15,7 +15,7 @@ menu = "main"
 
 Network Timing side-channels have been present on the web since its beginning [^1]. These attacks gained different levels of impact over time, gaining new attention with the beginning of the modern web when browsers started shipping high precision timers like [performance.now()]({{< ref "clocks.md#performancenow" >}}).
 
-To obtain timing measurements attackers must use a [clock]({{< ref "clocks.md" >}}), either an implicit or explicit one. These clocks are usually interchangeable and only vary in accuracy. For simplicity, this article will only address the `performance.now()` API, an explicit clock present in all modern browsers.
+To obtain timing measurements attackers must use a [clock]({{< ref "clocks.md" >}}), either an implicit or explicit one. These clocks are usually interchangeable and only vary in accuracy and availability. For simplicity, this article will only address the `performance.now()` API, an explicit clock present in all modern browsers.
 
 This side-channel allows attackers to infer information from a cross-site request based on how much time it takes to complete a request [^2]. The timing measurement may vary based on a user state and it's usually connected to:
 
