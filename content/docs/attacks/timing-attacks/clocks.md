@@ -24,7 +24,7 @@ The [performance.now()](https://developer.mozilla.org/en-US/docs/Web/API/Perform
 
 {{< hint info >}}
 `performance.now()` API got its accuracy reduced from a range of nanoseconds to a
-microsecond precision in all modern browsers, to mitigate some [XS-Leaks](httos://TODO) [^1] [^2] [^3].
+microsecond precision in all modern browsers, to mitigate [some](httos://TODO) XS-Leaks [^1] [^2] [^3].
 
 [^1]: Reduce resolution of performance.now (Webkit). [link](https://bugs.webkit.org/show_bug.cgi?id=146531)
 [^2]: Reduce precision of performance.now() to 20us (Gecko). [link](https://bugzilla.mozilla.org/show_bug.cgi?id=1427870)
