@@ -20,12 +20,13 @@ menu = "main"
 In early discussions for the specification of this feature, it was showed several XS-Leaks could be introduced with a naive implementation [^1]. The specification considers various attack scenarios [^3], so does some research from Google [^4]. These are some of the **possible** XS-Leaks browsers would need to be aware of when implementing this feature:
 
 - An attacker can, by embedding the page as an `iframe`, detect if the paged scrolled to the text by listening to the `blur` of the parent document. This approach is similar to the [ID Attribute XS-Leak]({{< ref "id-attribute.md" >}}). This scenario is mitigated in Chrome implementation [^5] as it only allows the fragment navigation to occur in top-level navigations.
+- 
 
 ## Current Issues
 
 During the development process of STTF new attacks and tricks to detect a fragment navigation are still found. Some of them still work:
 
-- A web page that embeds an attacker-controlled iframe might allow the attacker to determine whether a scroll to the text has occurred. This can be done using the [`IntersectionObserver`](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) API [^2] [^3] [^4]. This attack also works using [web portals](https://web.dev/hands-on-portals/).
+- A web page that embeds an attacker-controlled iframe might allow the attacker to determine whether a scroll to the text has occurred. This can be done using the [`IntersectionObserver`](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) API [^2] [^3] [^4].
 - If a page contains images with [Lazy Loading](https://web.dev/native-lazy-loading/), an attacker might known if a fragment navigation occurred by checking whether an image was cached in the browser by [probing the Cache](https://TODO) (only if the image appears after the navigation). This occurs because [Lazy Loading](https://web.dev/native-lazy-loading/) images are only fetched (and cached) when they appear in the viewport.
 
 {{< hint warning >}}
@@ -33,7 +34,7 @@ During the development process of STTF new attacks and tricks to detect a fragme
 {{< /hint >}}
 
 {{< hint info >}}
-`Scroll to Text Fragment` XS-Leaks only allow attackers to extract 1 bit of information as its matching mechanism is based on words.
+`Scroll to Text Fragment` XS-Leaks allow attackers to extract 1 bit of information at a time as it's only possible to observe whether a group of words is present in a page. This occurs as STTF matching mechanism is based on words, so it attackers won't be able to leak character by character information.
 {{< /hint >}}
 
 ## Why is this a problem?
@@ -50,7 +51,6 @@ Attackers can abuse the principle of the `STTF` to leak private information abou
 | Attack Alternative  | [Same-Site Cookies]({{< ref "../../defenses/opt-in/same-site-cookies.md" >}})  | [Fetch Metadata](https://TODO)  | [Cross-Origin-Opener-Policy]({{< ref "../../defenses/opt-in/coop.md" >}})  |  [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}) |
 |:-------------------:|:------------------:|:---------------:|:-----:|:--------------------:|
 | IntersectionObserver (iframes)|         ✔️         |      ✔️         |  ❌   |          ✔️         |
-| IntersectionObserver (portals)|         ✔️         |      ✔️         |  ❌   |          ❓[*](https://github.com/WICG/portals/issues/232)         |
 | Lazy Loading        |         ✔️         |      ✔️         |  ❌   |          ❌         |
 
 [^1]: Privacy concerns with proposal through inducing network requests, [link](https://github.com/WICG/scroll-to-text-fragment/issues/76)
