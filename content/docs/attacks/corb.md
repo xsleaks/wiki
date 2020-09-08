@@ -41,7 +41,7 @@ Chromium is the only browser currently implementing [CORB](https://TODO). With t
 {{< /hint >}}
 
 {{< hint info >}}
-This issue is known by the Chromium, and is might remain [unfixed](https://docs.google.com/document/d/1kdqstoT1uH5JafGmRXrtKE4yVfjUVmXitjcvJ4tbBvM/edit?ts=5f2c8004). While remaining an issue, CORB itself did not introduce anything that was not observable before, using XS-Leaks like [error-events](https://TODO).
+This issue is known by Chromium, and is might remain [unfixed](https://docs.google.com/document/d/1kdqstoT1uH5JafGmRXrtKE4yVfjUVmXitjcvJ4tbBvM/edit?ts=5f2c8004). While remaining an issue, CORB itself did not introduce anything that was not observable before, for example, using XS-Leaks like [error-events](https://TODO).
 {{< /hint >}}
 
 {{< hint info >}}
