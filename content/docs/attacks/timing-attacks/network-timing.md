@@ -79,6 +79,15 @@ postMessage('','*');
 w=open('//mail.com/search?q=foo');
 ``` -->
 
+The snippet below shows how make this measurement and works as follows:
+
+1. The attacker creates an infinite loop of `postMessage` broadcasts to itself while opening a window to the target website (lines 15, 2, 7). The clock is started (line 14).
+2. When the window is created, its location [will be `about:blank`](https://developer.mozilla.org/en-US/docs/Web/API/Window/open) until the target page starts loading.
+3. In the infinite loop, the logic clause (line 4) will be `true` while the opened window remains in `about:blank` as its document it's still accessible from the attacker's origin.
+4. When the window starts loading, the location will change from `about:blank` to the target's origin.
+5. The attacker's origin won't have access to the document of the opened window as per Same-Origin Policy. When this occurs, the logic clause (line 4) will fail and throw a `DOMException`.
+6. The attacker catches the Exception and stops the clock. The timing difference can tell the attacker if the string `foo` was found between the victim's emails.
+
 {{< highlight javascript "linenos=table,linenostart=1" >}}
 let w = 0, end = 0, begin = 0;
 onmessage=()=>{
@@ -96,15 +105,6 @@ postMessage('','*');
 begin = performance.now();
 w = open('//mail.com/search?q=foo');
 {{< / highlight >}}
-
-The snippet above shows how make this measurement and works as follows:
-
-1. The attacker creates an infinite loop of `postMessage` broadcasts to itself while opening a window to the target website (lines 15, 2, 7). The clock is started (line 14).
-2. When the window is created, its location [will be `about:blank`](https://developer.mozilla.org/en-US/docs/Web/API/Window/open) until the target page starts loading.
-3. In the infinite loop, the logic clause (line 4) will be `true` while the opened window remains in `about:blank` as its document it's still accessible from the attacker's origin.
-4. When the window starts loading, the location will change from `about:blank` to the target's origin.
-5. The attacker's origin won't have access to the document of the opened window as per Same-Origin Policy. When this occurs, the logic clause (line 4) will fail and throw a `DOMException`.
-6. The attacker catches the Exception and stops the clock. The timing difference can tell the attacker if the string `foo` was found between the victim's emails.
 
 ### Timeless Timing Attacks
 
