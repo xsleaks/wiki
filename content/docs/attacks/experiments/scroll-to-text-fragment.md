@@ -19,7 +19,7 @@ menu = "main"
 
 In early discussions for the specification of this feature, it was showed several XS-Leaks could be introduced with a naive implementation [^1]. The specification considers various attack scenarios [^3], so does some research from Google [^4]. These are some of the **possible** XS-Leaks browsers would need to be aware of when implementing this feature:
 
-- An attacker can, by embedding a page as an `iframe`, detect whether the paged scrolled to the text by listening to the `onblur` of the parent document. This approach is similar to the [ID Attribute XS-Leak]({{< ref "id-attribute.md" >}}). This scenario is mitigated in Chrome implementation [^5] as it only allows the fragment navigation to occur in top-level navigations.
+- An attacker can, by embedding a page as an `iframe`, detect whether the paged scrolled to the text by listening to the `onblur` of the parent document. This approach is similar to the [ID Attribute XS-Leak]({{< ref "id-attribute.md" >}}). This scenario is mi    tigated in Chrome implementation [^5] as it only allows the fragment navigation to occur in top-level navigations.
 
 ## Current Issues
 
@@ -49,7 +49,7 @@ Attackers can abuse the principle of the `STTF` to leak private information abou
 
 | Attack Alternative  | [Same-Site Cookies]({{< ref "../../defenses/opt-in/same-site-cookies.md" >}})  | [Fetch Metadata](https://TODO)  | [Cross-Origin-Opener-Policy]({{< ref "../../defenses/opt-in/coop.md" >}})  |  [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}) |
 |:-------------------:|:------------------:|:---------------:|:-----:|:--------------------:|
-| IntersectionObserver (iframes)|         ✔️         |      ✔️         |  ❌   |          ✔️         |
+| IntersectionObserver (iframes)|         ❌         |      ❌         |  ❌   |          ❌         |
 | Lazy Loading        |         ✔️         |      ✔️         |  ❌   |          ❌         |
 
 [^1]: Privacy concerns with proposal through inducing network requests, [link](https://github.com/WICG/scroll-to-text-fragment/issues/76)
