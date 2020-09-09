@@ -55,7 +55,7 @@ Partitioned HTTP caches are a promising security feature that will eventually la
 
 ### Table Legend
 
-- **Partitioned Cache Protection** - At least one attack alternative of the XS-Leak can be mitigated if the defense mechanism would exist
+- **Partitioned Cache Protection** - At least one attack alternative of the XS-Leak can be mitigated
 - **Full Mitigation** - Fully mitigates an XS-Leak if the defense mechanism would exist
 
 
