@@ -36,7 +36,7 @@ The [performance.now()]({{< ref "clocks.md#performancenow" >}}) API can be used 
 
 ```javascript
 let before = performance.now()
-await fetch("//mail.com/search?q=foo")
+await fetch("https://target-website.com")
 let request_time = performance.now() - before
 ```
 
@@ -48,7 +48,7 @@ This mechanism allows an attacker to measure a page full load which includes sub
 <iframe name=f id=g></iframe>
 <script>
 before = performance.now();
-f.location = '//mail.com/search?q=foo';
+f.location = 'https://target-website.com';
 g.onerror = g.onload = ()=>{
     console.log('time was', performance.now() - before)
 };
@@ -59,26 +59,6 @@ g.onerror = g.onload = ()=>{
 
 If a page sets [Framing Protections](https://TODO), an attacker can still measure a page full load (i.e including subresources) by navigating the victim with `window.open`.
 
-The snippet bellow shows how make this measurement.
-
-
-<!-- ```javascript
-let w=0, z=0, v=performance.now();
-onmessage=()=>{
-  try{
-    if(w && w.document.cookie){
-      // still same origin
-    }
-    postMessage('','*');
-  }catch(e){
-    z=performance.now();
-    console.log('time to load was', z - v);
-  }
-};
-postMessage('','*');
-w=open('//mail.com/search?q=foo');
-``` -->
-
 The snippet below shows how make this measurement and works as follows:
 
 1. The attacker creates an infinite loop of `postMessage` broadcasts to itself while opening a window to the target website (lines 15, 2, 7). The clock is started (line 14).
@@ -86,7 +66,7 @@ The snippet below shows how make this measurement and works as follows:
 3. In the infinite loop, the logic clause (line 4) will be `true` while the opened window remains in `about:blank` as its document it's still accessible from the attacker's origin.
 4. When the window starts loading, the location will change from `about:blank` to the target's origin.
 5. The attacker's origin won't have access to the document of the opened window as per Same-Origin Policy. When this occurs, the logic clause (line 4) will fail and throw a `DOMException`.
-6. The attacker catches the Exception and stops the clock. The timing difference can tell the attacker if the string `foo` was found between the victim's emails.
+6. The attacker catches the Exception and stops the clock.
 
 {{< highlight javascript "linenos=table,linenostart=1" >}}
 let w = 0, end = 0, begin = 0;
