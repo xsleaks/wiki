@@ -15,10 +15,6 @@ menu = "main"
 
 Measuring the time of JavaScript execution in a browser can be give attackers information when certain events are triggered, and how long some operations take. 
 
-
-
-## JavaScript Execution
-
 ### Timing the Event Loop
 
 JavaScript concurrency model is based on a [single-threaded event loop](https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop) which means it can only run one task at a time. If some time-consuming task blocks the event loop, the user senses a freeze on a page, as a result of the UI thread being blocked. Other tasks must wait until the blocking one completes its task. 
@@ -33,23 +29,23 @@ This attack is no longer possible in Browsers with process isolation mechanisms 
 {{< /hint >}}
 
 ### Service Workers
-<!--TODO(manuelvsousa): This text is wrong -->
 
 [Service Workers](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API) can be abused by attackers to measure the timing of javascript execution in certain scenarios [^4]. They serve as a `proxy` between the browser and the network and allow applications to intercept any network requests made by the main thread (document). This feature is useful to offer offline solutions in web applications.
 
 To make a timing measurement an attacker can perform the following steps:
 
 1. The attacker registers a service worker in one of its domains (attacker.com).
-2. In the main document, the attacker issues a navigation to the target website and starts a [clock](https://TODO).
-3. The Service Worker will catch the request performed in step 2, check the [clock](https://TODO) and return a 204 (No Content) response to the main document.
-4. The Execution timing is the subtraction of the time registered in 3. with the time registered in 2.
+2. In the main document, the attacker issues a navigation (window.open) to the target website.
+3. When the navigation completes, the attacker will starts a [clock](https://TODO) and navigate the reference obtained in step 2 to a page caught by the service worker.
+4. When the request performed in step 3 arrives to the Service Worker the attacker checks the [clock](https://TODO) and return a 204 (No Content) response.
+5. The Execution timing is the subtraction of the time registered in step 4 with the time registered in 3.
 
 The navigation won't actually happen, but by timing how long the browser took to navigate to the Service Worker it's possible to time the page execution.
 
 <!--TODO(manuelvsousa): This can also be used to detect a navigation. Maybe we should add it to the navigations article as well? -->
 
 
-## CSS Selectors Short-circuit Timing
+### CSS Selectors Short-circuit Timing
 
 Attackers can abuse CSS selectors and `short-circuit` evaluation of expressions, received in an `URL` hash and evaluated by JQuery (`jQuery(location.hash)`)[^3].
 
