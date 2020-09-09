@@ -49,21 +49,13 @@ The navigation won't actually happen, but by timing how long the browser took to
 
 Attackers can abuse CSS selectors and `short-circuit` evaluation of expressions, received in an `URL` hash and evaluated by JQuery (`jQuery(location.hash)`)[^3].
 
-The following selector will spend more time running if a `main` tag with `id='site-main'` exists:
+The attacker is able to inject CSS and control the execution time with the following selector will spend more time running if a `main` tag with `id='site-main'` exists:
 
 ```javascript
 $("*:has(*:has(*:has(*)) *:has(*:has(*:has(*))) *:has(*:has(*:has(*)))) main[id='site-main']")
 ```
 
 This delay happens as the expression is compared from right to left, so if the first selector does not exist and fails to evaluate (`main[id='site-main']`), the rest of the selector which increases timing on purpose, is ignored. By measuring how much time it takes to navigate, attackers may be able to steal secrets from a page like CSRF tokens.
-
-{{< hint warning >}}
-This attack is no longer possible in Browsers with process isolation mechanisms in place. Such mechanisms are only present in Chromium-Based browsers with [Site Isolation](https://www.chromium.org/Home/chromium-security/site-isolation) and *soon* in Firefox under [Project Fission](https://wiki.mozilla.org/Project_Fission).
-{{< /hint >}}
-
-{{< hint info >}}
-In browsers with process isolation mechanisms, [Service Workers]({{< ref "execution-timing.md#service-workers" >}}) can be abused to obtain the execution timing measurement.
-{{< /hint >}}
 
 
 ## Defense
