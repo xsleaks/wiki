@@ -57,7 +57,7 @@ g.onerror = g.onload = ()=>{
 
 ### Cross-window Timing Attacks
 
-If a page sets [Framing Protections](https://TODO), an attacker can still measure a page full load (i.e including subresources) by navigating the victim with `window.open`.
+If a page sets [Framing Protections](https://TODO) an attacker can still measure a page full load (i.e including subresources) by navigating the victim with `window.open`. This is due to the fact that opening windows is not affected by framing protections.
 
 The snippet below shows how make this measurement and works as follows:
 
