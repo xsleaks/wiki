@@ -7,9 +7,11 @@ menu = "main"
 bookHidden = true
 +++
 
-This section should focus on defensive design techniques used by companies to prevent XS-Leaks from happening. This could be:
+This section should focus on defensive design techniques used by companies to prevent XS-Leaks from happening. Some ideas:
 
 - The way applications they use iframes to display information based on a user query (search system)
-- How they use Fetch Metadata with Vary headers to prevent cache probing attacks
+- How applications use Fetch Metadata with Vary headers to prevent cache probing attacks and what problems might occur with improper deployments. Are there any drawbacks of deploying this?
 - How to ensure all application endpoints implement certain Headers to have the same behavior across different states.
-- Strategies used by companies to mitigate reported XS-Leaks, as a short-term solution before deploying web platform security features.
+- Quick strategies to mitigate reported XS-Leaks, as a short-term solution before deploying web platform security features.
+
+If you want to contribute please check https://github.com/xsleaks/wiki/issues/17
