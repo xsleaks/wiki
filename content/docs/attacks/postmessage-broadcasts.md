@@ -14,12 +14,12 @@ menu = "main"
 +++
 
 
-Applications often use [postMessage broadcasts](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage) to provide information to any interested origin. Apart from the obvious security issues, for instance, providing sensitive information to **any** origin, other problems might occur if a legitimate postMessage broadcast is not properly deployed.
+Applications often use [postMessage broadcasts](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage) to provide information to any interested origin. Apart from the obvious security issues, for instance, providing sensitive information to **any** origin, other problems might occur if a legitimate postMessage broadcast is not properly deployed [^1].
 
-If a broadcast happens based on user information, attackers might be able to leak that information if they can distinguish requests. There are multiple ways applications can be inconsistent with broadcasts:
+If a broadcast happens based on user information, attackers might be able to leak that information if they can distinguish requests. There are multiple ways applications can be inconsistent with broadcasts based on user information:
 
-- Based on user information, an application send different broadcasted messages.
-- Based on user information, an application sends a broadcast, or no broadcast.
+- An application send different broadcasted messages.
+- An application sends a broadcast, or no broadcast.
 
 ## Defense
 
