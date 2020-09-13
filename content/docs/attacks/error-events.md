@@ -14,30 +14,17 @@ menu = "main"
 +++
 
 
-When a website triggers a request to a server, this request will be received and processed by that server. When received it will decide whether the request should succeed (e.g 200 OK) or fail (e.g 404 NOT FOUND) based on the provided context. When a request fail an [error event](https://developer.mozilla.org/en-US/docs/Web/API/Element/error_event) will be fired and handled by the developer when necessary, with a proper listener. This is extended to situations where
+When a website triggers a request to a server, this request will be received and processed by that server. When received it will decide whether the request should succeed (e.g 200 OK) or fail (e.g 404 NOT FOUND) based on the provided context. When a request fails an [error event](https://developer.mozilla.org/en-US/docs/Web/API/Element/error_event) will be fired and handled by the application when necessary, with a proper listener. This often occurs when embedding resources in `image`, `script` and other tags or generic requests (fetch). These errors are also extended to situations where the parser fails, for example, trying to embed `HTML` content as an image.
 
-The misuse of errors connected with user information, can introduce information leaks since attackers are able distinguish whether a cross-site request fails or succeeds. For example, attackers can detect whether a user is logged into a service by checking if the user has access to resources only available to authenticated users [^3]. There are multiple alternatives to infer such behaviors:
+The misuse of errors connected with user information, can introduce information leaks since attackers are able distinguish whether a cross-site request fails or succeeds. For example, attackers can detect whether a user is logged into a service by checking if the user has access to resources only available to authenticated users [^3]. The main principle of an Error Events Attack is checking if a user has access to a specific resource [^3]. The impact of this alternative may vary depending on the application but it often leads to sophisticated attacks [^1].
 
-- Checking if a user has access to a specific resource [^3]. The impact of this alternative may vary depending on the application but it often leads to sophisticated attacks [^1]
-- Checking if By checking if a user has loaded a specific resource in the past (by forcing an HTTP error unless the resource is cached) [^5].
-
-### Cache Probing with Error Events
-
-[Fetch Metadata]({{< ref "../defenses/opt-in/fetch-metadata.md#fetch-metadata--cache-probing-attacks" >}}) 
-
-
-{{< hint warning >}}
-The [`portal`](https://web.dev/hands-on-portals/) element is only available on Chromium-based browsers under a preference flag. The corresponding specification is still under active discussion.
-{{< /hint >}}
-
+The principle of leaking information with error events can be abstracted and applied with a variety XS-Leaks. For example, one of [Cache Probing](https://TODO) alternatives use error events to detect if a certain image was cached by the browser.
 
 ## Defense
 
 | Attack Alternative  | [Same-Site Cookies]({{< ref "../defenses/opt-in/same-site-cookies.md" >}})  | [Fetch Metadata]({{< ref "../defenses/opt-in/fetch-metadata.md" >}})  | [COOP]({{< ref "../defenses/opt-in/coop.md" >}})  |  [Framing Protections]({{< ref "../defenses/opt-in/xfo.md" >}}) |
 |:----------------------------------:|:--------------------------:|:---------------:|:-----:|:--------------------:|
 | iframe                             |         ✔️                 |      ✔️         |  ❌   |          ✔️         |
-| `History.length` (iframe)          |         ✔️                 |      ✔️         |  ❌   |          ✔️         |
-| `History.length` (window.open)     |         ✔️ (If Strict)     |      ✔️         |  ✔️   |           ❌        |
 
 
 ## Real World Example
