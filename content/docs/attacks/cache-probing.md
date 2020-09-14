@@ -39,13 +39,13 @@ An attacker wants to know whether a user visited a certain social network.
 |:---------------------------------:|:-------------------------------------:|:---------------------------------------:|
 |        ✔️ (if strict)             |                  ✔️                   |   ❓[*](https://TODO-referdeploysectioninsubresourceprotection)   | 
 
-- If a resource can be fetched only with user authentication, [Same-Site Cookies](https://TODO) (Strict) can be considered to protect that resource from being abused.
-- [Vary: Sec-Fetch-Site]({{< ref "../defenses/opt-in/fetch-metadata.md#fetch-metadata--cache-probing-attacks" >}}) allows applications to force cache segregation by a group of origins. It does not enforce full segregation, since some resources come from Content delivery networks and used by multiple websites.
-- [Subresource Protections]({{< ref "../defenses/design-protections/subresource-protections.md" >}}) allow application to set random tokens in URLs to make them unpredictable to attackers. Useful for both authenticated and unauthenticated subresources.
+- If a resource can be fetched with user authentication, [Same-Site Cookies](https://TODO) (Strict) should be considered to protect that resource from being abused by an attacker origin.
+- [Vary: Sec-Fetch-Site]({{< ref "../defenses/opt-in/fetch-metadata.md#fetch-metadata--cache-probing-attacks" >}}) allows applications to force cache segregation by a group of origins. It does not enforce full segregation, since some resources come from external origins of Content Delivery Networks, shared across multiple websites. Nevertheless, it's good protection against Cache Probing attacks.
+- [Subresource Protections]({{< ref "../defenses/design-protections/subresource-protections.md" >}}) allow application to set random tokens in URLs to make them unpredictable from attackers. Useful for both authenticated and unauthenticated subresources.
 
 ### No-opt Defense Mechanisms
 
-[Paritioned Caches](https://TODO), a no-opt feature implemented in browsers can help mitigate this attack by creating a unique cache for each origin. Application do not have to opt-in to enforce this cache.
+[Paritioned Caches](https://TODO), a no-opt feature implemented in browsers create a unique cache for each origin. This protection prevents an attacker origin to interfere with cached resources of other origins. Applications do not have to opt-in to enforce this cache.
 
 {{< hint warning >}}
 Partitioned Caches are not available in most browsers by default, so applications cannot rely on them yet.
