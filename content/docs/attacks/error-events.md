@@ -16,13 +16,13 @@ menu = "main"
 
 When a website triggers a request to a server (e.g fetch, HTML tags), this request will be received and processed by that server. When received the server will decide whether the request should succeed (e.g 200) or fail (e.g 404) based on the provided context. When it fails an [error event](https://developer.mozilla.org/en-US/docs/Web/API/Element/error_event) will be fired and handled by the application when necessary, with a proper listener. These errors are also extended to situations where the parser fails, for example, trying to embed `HTML` content as an image.
 
-The misuse of errors connected with user information, can introduce information leaks since attackers are able distinguish whether a cross-site request fails or succeeds. For example, attackers can detect whether a user is logged into a service by checking if the user has access to resources only available to authenticated users [^3]. The main principle of an Error Events Attack is checking if a user has access to a specific resource [^3]. The impact of this alternative may vary depending on the application but it often leads to sophisticated attacks [^1].
+The misuse of errors connected with user information can introduce information leaks since attackers are able to distinguish whether a cross-site request fails or succeeds. For example, attackers can detect whether a user is logged into a service by checking if the user has access to resources only available to authenticated users [^3]. The main principle of an Error Events Attack is checking if a user has access to a specific resource [^3]. The impact of this alternative may vary depending on the application but it often leads to sophisticated attacks [^1].
 
-The principle of leaking information with error events can be abstracted and applied with a variety XS-Leaks. For example, one of [Cache Probing](https://TODO) alternatives use error events to detect if a certain image was cached by the browser.
+The principle of leaking information with error events can be abstracted and applied with a variety XS-Leaks. For example, one of [Cache Probing](https://TODO) alternatives uses error events to detect if a certain image was cached by the browser.
 
 ## Defense
 
-The mitigation of this XS-Leak often varies on how applications handle certain resources, and ends in the adoption of consistent behaviors as much as possible. In specific scenarios, applications might use [Subresource Protections](https://TODO) to prevent attackers from predicting an URL and go forward with an attack. 
+The mitigation of this XS-Leak often varies on how applications handle certain resources and ends in the adoption of consistent behaviors as much as possible. In specific scenarios, applications might use [Subresource Protections](https://TODO) to prevent attackers from predicting an URL and go forward with an attack. 
 
 Finally, without applying bigger changes in the logic of applications, generic web platform security features could be deployed to mitigate this XS-Leak at a larger scale.
 
@@ -33,7 +33,7 @@ Finally, without applying bigger changes in the logic of applications, generic w
 
 ## Real World Example
 
-1. A bug abused a Twitter API endpoint where only a specified user would have access to it. This endpoint would cause an error to every Twitter user, but the owner. An attacker exploit this difference to deanonymize a user with one of its pages [^3]. Similarly, another bug abused an image authentication mechanism of private messages to achieve the same attack  [^2] [^1].
+1. A bug abused a Twitter API endpoint where only a specified user would have access to it. This endpoint would cause an error to every Twitter user, but the owner. An attacker exploits this difference to deanonymize a user with one of its pages [^3]. Similarly, another bug abused an image authentication mechanism of private messages to achieve the same attack  [^2] [^1].
 
 ## References
 
