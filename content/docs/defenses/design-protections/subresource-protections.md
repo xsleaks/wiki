@@ -7,7 +7,7 @@ menu = "main"
 +++
 
 
-The principle of protecting subresources is the same as protecting endpoints from [CSRF attacks](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html). The difference from CSRF protections is that in the case of XS-Leaks, only GET requests are the ones worth protecting. To apply this protection, applications can append a (cryptographically strong) pseudorandom value, unique to each request/session, to make the URL of a subresource unpredictable to an attacker.
+The principle of protecting subresources is the same as protecting endpoints from [CSRF attacks](https://owasp.org/www-community/attacks/csrf). The difference from [CSRF protections](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html)is that in the case of XS-Leaks, only GET requests are the ones worth protecting. To apply this protection, applications can append a (cryptographically strong) pseudorandom value, unique to each request/session, to make the URL of a subresource unpredictable to an attacker.
 
 ## Deployment
 
