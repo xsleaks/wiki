@@ -1,7 +1,6 @@
 +++
 title = "Cache Probing"
 description = ""
-date = "2020-07-21"
 category = "attacks"
 attacks = [
     "dom property",
@@ -34,17 +33,31 @@ An attacker wants to know whether a user visited a certain social network.
 
 ## Defense
 
-| [Paritioned Cache](https://TODO)   | [Vary: Sec-Fetch-Site]({{< ref "../defenses/opt-in/fetch-metadata.md#fetch-metadata--cache-probing-attacks" >}})  | [Subresource Protections]({{< ref "../defenses/design-protections/subresource-protections.md" >}}) |
+### Opt-in Defense Mechanisms
+
+| [Same-Site Cookies](https://TODO)   | [Vary: Sec-Fetch-Site]({{< ref "../defenses/opt-in/fetch-metadata.md#fetch-metadata--cache-probing-attacks" >}})  | [Subresource Protections]({{< ref "../defenses/design-protections/subresource-protections.md" >}}) |
 |:---------------------------------:|:-------------------------------------:|:---------------------------------------:|
-|                ✔️                 |                  ✔️                   |                   ❓[*](https://TODO-referdeploysectioninsubresourceprotection)                   | 
+|        ✔️ (if strict)             |                  ✔️                   |   ❓[*](https://TODO-referdeploysectioninsubresourceprotection)   | 
+
+- If a resource can be fetched only with user authentication, [Same-Site Cookies](https://TODO) (Strict) can be considered to protect that resource from being abused.
+- [Vary: Sec-Fetch-Site]({{< ref "../defenses/opt-in/fetch-metadata.md#fetch-metadata--cache-probing-attacks" >}}) allows applications to force cache segregation by a group of origins. It does not enforce full segregation, since some resources come from Content delivery networks and used by multiple websites.
+- [Subresource Protections]({{< ref "../defenses/design-protections/subresource-protections.md" >}}) allow application to set random tokens in URLs to make them unpredictable to attackers. Useful for both authenticated and unauthenticated subresources.
+
+### No-opt Defense Mechanisms
+
+[Paritioned Caches](https://TODO), a no-opt feature implemented in browsers can help mitigate this attack by creating a unique cache for each origin. Application do not have to opt-in to enforce this cache.
+
+{{< hint warning >}}
+Partitioned Caches are not available in most browsers by default, so applications cannot rely on them yet.
+{{< /hint >}}
 
 ## Real World Example
 
-1. Multiple Cache probing attacks were reported to Google, allowing attackers to leak user private information with this technique. For example, an attacker using the [Error Events Cache Probing](https://TODO) could detect wether a user watched a specific YouTube Video by checking if the video thumbnail ended up in browser cache [^3].
+1. An attacker using the [Error Events Cache Probing](https://TODO) could detect wether a user watched a specific YouTube Video by checking if the video thumbnail ended up in browser cache [^3].
 
 ## References
 
 [^1]: Abusing HTTP Status Codes to Expose Private Information, [link](https://www.grepular.com/Abusing_HTTP_Status_Codes_to_Expose_Private_Information)
 [^2]: HTTP Cache Cross-Site Leaks, [link](http://sirdarckcat.blogspot.com/2019/03/http-cache-cross-site-leaks.html)
-[^3]: Mass XS-Search using Cache Attack, [link](https://terjanq.github.io/Bug-Bounty/Google/cache-attack-06jd2d2mz2r0/index.html)
+[^3]: Mass XS-Search using Cache Attack, [link](https://terjanq.github.io/Bug-Bounty/Google/cache-attack-06jd2d2mz2r0/index.html#VIII-YouTube-watching-history)
 [^4]: Timing Attacks on Web Privacy, [link](http://www.cs.jhu.edu/~fabian/courses/CS600.424/course_papers/webtiming.pdf)
