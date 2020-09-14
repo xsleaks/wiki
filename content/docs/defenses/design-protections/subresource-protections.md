@@ -13,6 +13,6 @@ The principle of protecting subresources is the same as protecting endpoints fro
 
 This protection might work in some scenarios but it has some disadvantages:
 
-- Hard to deploy as it requires substantial changes in the code base. It might break the desired behavior of the feature.
-- It will break bookmarks, and other permanent references.
+- Hard to deploy as it requires substantial changes in the codebase. It might break the desired behavior of the feature.
+- It will break bookmarks and other permanent references.
 
