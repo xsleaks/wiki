@@ -18,7 +18,7 @@ When a user visits a website, some resources such as images, scripts, and HTML c
 
 A variation to the original concept was published and abused [Error Events](https://TODO-REFFERSUBSECTIONBELLOW) to perform more accurate and impactful attacks, including tricks to purge resources from the cache (to make better inferences).
 
-### Attack Principle
+## Attack Principle
 
 An attacker wants to know whether a user visited a certain social network.
 
@@ -26,10 +26,25 @@ An attacker wants to know whether a user visited a certain social network.
 2. The user visits an attacker-controlled page which will fetch a resource that is usually fetched by the social network. 
 3. Using a [Network Timing XS-Leak](https://TODO), the attacker page can infer the difference from a request coming from the cache (step 1 happened) or coming from a network request based on the request timing (step 1 did not happen). The delay will be significantly lower in a request served from the cache.
 
-### Cache Probing with Error Events
+## Cache Probing with Error Events
+
+Caching probing with Error Events, adds a new trick with involves purging
+
+[Error Events](https://TODO-REFFERSUBSECTIONBELLOW) [^2]
 
 
+- Setting an overlong referrer 
 
+### Forcing an error
+
+To invalidate a resource from the cache the attacker must force the server to return an error when fetching that subresource. There are a couple of ways to achieve this:
+
+- By performing a request with a [overlong referrer](https://lists.archive.carbon60.com/apache/users/316239) and `'cache':'reload'`. Browsers [capped]((https://github.com/whatwg/fetch/issues/903)) the length of referrer, to prevent some server engines from returning an error.
+- By performing a `POST` `no-cors` (Works in Firefox).
+- Request Header such as Content-Type, Accept, Accept-Language, etc that may cause the server to fail (more application dependent).
+- Other request properties like URL parameters (more application dependent).
+
+Often, some of these alternatives might be subject to a [browser bug](https://bugs.chromium.org/p/chromium/issues/detail?id=959789#c9).
 
 ## Defense
 
@@ -37,7 +52,7 @@ An attacker wants to know whether a user visited a certain social network.
 
 | [Same-Site Cookies](https://TODO)   | [Vary: Sec-Fetch-Site]({{< ref "../defenses/opt-in/fetch-metadata.md#fetch-metadata--cache-probing-attacks" >}})  | [Subresource Protections]({{< ref "../defenses/design-protections/subresource-protections.md" >}}) |
 |:---------------------------------:|:-------------------------------------:|:---------------------------------------:|
-|        ✔️ (if strict)             |                  ✔️                   |   ❓[*](https://TODO-referdeploysectioninsubresourceprotection)   | 
+|        ✔️ (if strict)             |                  ✔️                   |   ✔️ & ❌ [*](https://TODO-referdeploysectioninsubresourceprotection)   | 
 
 - If a resource can be fetched with user authentication, [Same-Site Cookies](https://TODO) (Strict) should be considered to protect that resource from being abused by an attacker origin.
 - [Vary: Sec-Fetch-Site]({{< ref "../defenses/opt-in/fetch-metadata.md#fetch-metadata--cache-probing-attacks" >}}) allows applications to force cache segregation by a group of origins. It does not enforce full segregation, since some resources come from external origins of Content Delivery Networks, shared across multiple websites. Nevertheless, it's good protection against Cache Probing attacks.
