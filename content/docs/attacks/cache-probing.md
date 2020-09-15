@@ -28,23 +28,21 @@ An attacker wants to know whether a user visited a certain social network.
 
 ## Cache Probing with Error Events
 
-Caching probing with Error Events, adds a new trick with involves purging
+Cache Probing with [Error Events](https://TODO-REFFERSUBSECTIONBELLOW) [^2] allows more accurate and impactful attacks. Instead of relying on timing measurements, they leverage [Error Events](https://TODO-REFFERSUBSECTIONBELLOW) and some server behaviors to detect whether a resource was cached. It also uses a trick to invalidate resources from the cache. The attack works as follows:
 
-[Error Events](https://TODO-REFFERSUBSECTIONBELLOW) [^2]
+1. [Invalidate the resource]({{< ref "#invalidate-the-cache" >}}) from the browser cache. This step is required to make sure the attack will not consider a resource previously cached in another visit.
+2. Preform a request to load subresources of the target website. This can be done by navigating to the target website with `<link rel=prerender..`, embedding the website in an `iframe` or navigating away with `window.open`.
+3. An attacker performs a request with an [overlong referrer](https://lists.archive.carbon60.com/apache/users/316239), forcing the server to fail when receiving the request. If the resource was cached in step 2, this request will succeed and fail otherwise.
 
-
-- Setting an overlong referrer 
-
-### Forcing an error
+### Invalidate the cache
 
 To invalidate a resource from the cache the attacker must force the server to return an error when fetching that subresource. There are a couple of ways to achieve this:
 
-- By performing a request with a [overlong referrer](https://lists.archive.carbon60.com/apache/users/316239) and `'cache':'reload'`. Browsers [capped]((https://github.com/whatwg/fetch/issues/903)) the length of referrer, to prevent some server engines from returning an error.
-- By performing a `POST` `no-cors` (Works in Firefox).
-- Request Header such as Content-Type, Accept, Accept-Language, etc that may cause the server to fail (more application dependent).
-- Other request properties like URL parameters (more application dependent).
+- By performing a request with a [overlong referrer](https://lists.archive.carbon60.com/apache/users/316239) and `'cache':'reload'`. Browsers [capped]((https://github.com/whatwg/fetch/issues/903)) the length of the referrer, to prevent some server engines from failing when computing the request.
+- Request Headers such as Content-Type, Accept, Accept-Language, etc that may cause the server to fail (more application dependent).
+- Other request properties.
 
-Often, some of these alternatives might be subject to a [browser bug](https://bugs.chromium.org/p/chromium/issues/detail?id=959789#c9).
+Often, some of these alternatives might be considered a [browser bug](https://bugs.chromium.org/p/chromium/issues/detail?id=959789#c9).
 
 ## Defense
 
