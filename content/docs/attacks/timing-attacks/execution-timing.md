@@ -15,7 +15,7 @@ menu = "main"
 
 Measuring the time of JavaScript execution in a browser can be give attackers information when certain events are triggered, and how long some operations take. 
 
-### Timing the Event Loop
+## Timing the Event Loop
 
 JavaScript concurrency model is based on a [single-threaded event loop](https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop) which means it can only run one task at a time. If some time-consuming task blocks the event loop, the user senses a freeze on a page, as a result of the UI thread being blocked. Other tasks must wait until the blocking one completes its task. 
 
@@ -28,7 +28,7 @@ Some attacks abuse this model to steal secrets from a cross-origin page:
 This attack is no longer possible in Browsers with process isolation mechanisms in place. Such mechanisms are only present in Chromium-Based browsers with [Site Isolation](https://www.chromium.org/Home/chromium-security/site-isolation) and *soon* in Firefox under [Project Fission](https://wiki.mozilla.org/Project_Fission).
 {{< /hint >}}
 
-### Service Workers
+## Service Workers
 
 [Service Workers](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API) can be abused by attackers to measure the timing of javascript execution in certain scenarios [^4]. They serve as a `proxy` between the browser and the network and allow applications to intercept any network requests made by the main thread (document). This feature is useful to offer offline solutions in web applications.
 
@@ -44,13 +44,13 @@ The navigation won't actually happen, but by timing how long the browser took to
 
 <!--TODO(manuelvsousa): This can also be used to detect a navigation. Maybe we should add it to the navigations article as well? -->
 
-### CSS Injections
+## CSS Injections
 
 Certain XS-Leaks can be preformed if a CSS Injection is possible [^6]. Among the different CSS Injection vectors, the most noticeable one is abusing CSS Selectors. They can be used as an expression to match certain HTML elements. The selector `input[value^="a"]` will be matched if the value of an `input` tag with starts with the character "a". If a match occurs, attackers could then trigger a request to one of their websites using background, @import, etc to leak that occurrence. The matching process can be easily brute-forced, and extended to the full string.
 
 The attacker is able to inject CSS and control the execution time with the following selector will spend more time running if a `main` tag with `id='site-main'` exists:
 
-#### jQuery, CSS Selectors & Short-circuit Timing
+### jQuery, CSS Selectors & Short-circuit Timing
 
 Attackers can abuse another interesting behavior of CSS selectors which is `short-circuit` evaluation of expressions. This expression is received in an `URL` hash and evaluated if the page uses (`jQuery(location.hash)`) [^3].
 
@@ -68,17 +68,17 @@ This attack is no longer possible in Browsers with process isolation mechanisms 
 In browsers with process isolation mechanisms, [Service Workers]({{< ref "execution-timing.md#service-workers" >}}) can be abused to obtain the execution timing measurement or tricks like [Busy Event Loop tricks]({{< ref "#busy-event-loop" >}}) to circumvent Site Isolation.
 {{< /hint >}}
 
-### ReDoS
+## ReDoS
 
 Regular Expression Denial of Service (ReDoS) it's an attack which result in a Denial of Service in applications that allow Regex as user input [^2] [^5]. The DoS results from an injected Regex that would run in exponential time. Some attacks applied this principle into leaking information: The attacker's injection cause a DoS if the Regex matches a character in some secret and computes quickly otherwise. This could happen in both client and server side.
 
-#### Busy Event Loop
+### Busy Event Loop
 
 Attackers can make the [event loop busy](https://gist.github.com/terjanq/60b4ae4ce7491a0f3104e62e2ab07c87#file-iframes-html-L11-L33) with a long computation Regex. This is a trick to circumvent Site Isolation as an attacker origin can mess with the execution of another website. The attack works as follows:
 
-1. Navigating the target website away with `window.open` or inside an iframe (if [Framing Protections] are **not** in place).
-2. Waiting for the long computation to start.
-3. Load the target website inside an iframe (regardless of any [Framing Protections]). An attacker can detect if step 1 is still computing by checking if the iframe started loading (onload). Since both navigations occurred within same-site, they run in the same thread and share the same event loop, as Site Isolation is not enforced.
+1. Navigate the target website away with `window.open` or inside an iframe (if [Framing Protections](https://TODO) are **not** in place).
+2. Wait for the long computation to start.
+3. Load the target website inside an iframe (regardless of any [Framing Protections](https://TODO)). An attacker can detect if step 1 is still computing by checking if the iframe started loading (onload). Since both navigations occurred within same-site, they run in the same thread and share the same event loop, as Site Isolation is not enforced. The
 
 ## Defense
 
