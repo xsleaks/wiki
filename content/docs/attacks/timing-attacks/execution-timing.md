@@ -44,9 +44,9 @@ The navigation won't actually happen, but by timing how long the browser took to
 
 <!--TODO(manuelvsousa): This can also be used to detect a navigation. Maybe we should add it to the navigations article as well? -->
 
-### CSS Injection
+### CSS Injections
 
-Certain XS-Leaks can be preformed if a CSS Injection is possible [^5]. Among the different CSS Injection vectors, the most noticeable one is abusing CSS Selectors. They can be used as an expression to match certain HTML elements. The selector `input[value^="a"]` will be matched if the value of an `input` tag with starts with the character "a". If a match occurs, attackers could then trigger a request to one of their websites using background, @import, etc to leak that occurrence. The matching process can be easily brute-forced, and extended to the full string.
+Certain XS-Leaks can be preformed if a CSS Injection is possible [^6]. Among the different CSS Injection vectors, the most noticeable one is abusing CSS Selectors. They can be used as an expression to match certain HTML elements. The selector `input[value^="a"]` will be matched if the value of an `input` tag with starts with the character "a". If a match occurs, attackers could then trigger a request to one of their websites using background, @import, etc to leak that occurrence. The matching process can be easily brute-forced, and extended to the full string.
 
 The attacker is able to inject CSS and control the execution time with the following selector will spend more time running if a `main` tag with `id='site-main'` exists:
 
@@ -68,20 +68,31 @@ This attack is no longer possible in Browsers with process isolation mechanisms 
 In browsers with process isolation mechanisms, [Service Workers]({{< ref "execution-timing.md#service-workers" >}}) can be abused to obtain the execution timing measurement or tricks like [Busy Event Loop tricks]({{< ref "#busy-event-loop" >}}) to circumvent Site Isolation.
 {{< /hint >}}
 
+### ReDoS
 
+Regular Expression Denial of Service (ReDoS) it's an attack which result in a Denial of Service in applications that allow Regex as user input [^2] [^5]. The DoS results from an injected Regex that would run in exponential time. Some attacks applied this principle into leaking information: The attacker's injection cause a DoS if the Regex matches a character in some secret and computes quickly otherwise.
+
+#### Busy Event Loop
+
+Attackers can make the [event loop busy](https://gist.github.com/terjanq/60b4ae4ce7491a0f3104e62e2ab07c87#file-iframes-html-L11-L33) with a long computation Regex. This is a trick to circumvent Site Isolation as an attacker origin can mess with the execution of another website. The attack works as follows:
+
+1. Navigating the target website away with `window.open` or inside an iframe (if [Framing Protections] are **not** in place).
+2. Waiting for the long computation to start.
+3. Load the target website inside an iframe (regardless of any [Framing Protections]). An attacker can detect if step 1 is still computing by checking if the iframe started loading (onload). Since both navigations occurred within same-site, they run in the same thread and share the same event loop, as Site Isolation is not enforced.
 
 ## Defense
 
 | Attack Alternative  | [Same-Site Cookies]({{< ref "../../defenses/opt-in/same-site-cookies.md" >}})  | [Fetch Metadata]({{< ref "../../defenses/opt-in/fetch-metadata.md" >}})  | [COOP]({{< ref "../../defenses/opt-in/coop.md" >}})  |  [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}) |
 |:-------------------:|:------------------:|:---------------:|:-----:|:--------------------:|
-| CSS Selectors              |         ✔️         |      ✔️         |  ❌   |          ❌         |
-| Event Loop             |         ✔️         |      ✔️         |  ✔️   |          ❌         |
+| T. Event Loop             |         ✔️         |      ✔️         |  ✔️   |          ❌         |
 | Service Workers             |         ✔️         |      ✔️         |  ✔️   |          ❌         |
+| jQuery             |         ✔️         |      ✔️         |  ✔️   |          ❌         |
+| ReDoS             |         ✔️         |      ✔️         |  ✔️   |          ❌         |
 | Busy Event Loop             |         ✔️         |      ✔️         |  ✔️   |          ✔️         |
 
 [^1]: Loophole: Timing Attacks on Shared Event Loops in Chrome, [link](https://www.usenix.org/system/files/conference/usenixsecurity17/sec17-vila.pdf)
 [^2]: Matryoshka - Web Application Timing Attacks (or.. Timing Attacks against JavaScript Applications in Browsers), [link](https://sirdarckcat.blogspot.com/2014/05/matryoshka-web-application-timing.html)
 [^3]: A timing attack with CSS selectors and Javascript, [link](https://blog.sheddow.xyz/css-timing-attack/)
 [^4]: Security: XS-Search + XSS Auditor = Not Cool, [link](https://bugs.chromium.org/p/chromium/issues/detail?id=922829)
-[^4]: A Rough Idea of Blind Regular Expression Injection Attack, [link](https://diary.shift-js.info/blind-regular-expression-injection/)
-[^5]: CSS Injection Primitives, [link](https://x-c3ll.github.io/posts/CSS-Injection-Primitives/)
+[^5]: A Rough Idea of Blind Regular Expression Injection Attack, [link](https://diary.shift-js.info/blind-regular-expression-injection/)
+[^6]: CSS Injection Primitives, [link](https://x-c3ll.github.io/posts/CSS-Injection-Primitives/)
