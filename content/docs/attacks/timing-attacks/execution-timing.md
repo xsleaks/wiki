@@ -36,9 +36,9 @@ To make a timing measurement an attacker can perform the following steps:
 
 1. The attacker registers a service worker in one of its domains (attacker.com).
 2. In the main document, the attacker issues a navigation (window.open) to the target website.
-3. When the navigation completes, the attacker will start a [clock](https://TODO) and navigate the reference obtained in step 2 to a page caught by the service worker.
-4. When the request performed in step 3 arrives to the Service Worker the attacker checks the [clock](https://TODO) and return a 204 (No Content) response.
-5. The Execution timing is the subtraction of the time registered in step 4 with the time registered in 3.
+3. When the navigation starts loading the attacker will navigate the reference obtained in step 2 to a page caught by the service worker.
+4. When the request performed in step 3 arrives to the Service Worker it will make the request return a 204 (No Content) response.
+5. TODO @empijei <!--TODO(empijei): Can you complete this step? -->
 
 The navigation won't actually happen, but by timing how long the browser took to navigate to the Service Worker it's possible to time the page execution.
 
@@ -78,7 +78,7 @@ Attackers can make the [event loop busy](https://gist.github.com/terjanq/60b4ae4
 
 1. Navigate the target website away with `window.open` or inside an iframe (if [Framing Protections](https://TODO) are **not** in place).
 2. Wait for the long computation to start.
-3. Load the target website inside an iframe (regardless of any [Framing Protections](https://TODO)). An attacker can detect if step 1 is still computing by checking if the iframe started loading (onload). Since both navigations occurred within same-site, they run in the same thread and share the same event loop, as Site Isolation is not enforced. The
+3. Load the target website inside an iframe (regardless of any [Framing Protections](https://TODO)). An attacker can detect if step 1 is still computing by checking if the iframe started loading (onload). Since both navigations occurred within same-site, they run in the same thread and share the same event loop (they can block each other), as Site Isolation is not enforced.
 
 ## Defense
 
