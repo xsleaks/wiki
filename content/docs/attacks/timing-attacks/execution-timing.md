@@ -44,16 +44,29 @@ The navigation won't actually happen, but by timing how long the browser took to
 
 <!--TODO(manuelvsousa): This can also be used to detect a navigation. Maybe we should add it to the navigations article as well? -->
 
+### ReDoS
 
-### jQuery, CSS Selector & Short-circuit Timing
+[^2]
+[^4]
 
-Attackers can abuse CSS selectors and `short-circuit` evaluation of expressions, received in an `URL` hash and evaluated by jQuery (`jQuery(location.hash)`)[^3].
+### CSS Injection
+
+Certain XS-Leaks can be preformed if a CSS Injection is possible [^5]. Among the different CSS Injection vectors, the most noticeable one is abusing CSS Selectors. They can be used as an expression to match certain HTML elements. The selector `input[value^="a"]`
 
 The attacker is able to inject CSS and control the execution time with the following selector will spend more time running if a `main` tag with `id='site-main'` exists:
 
 ```javascript
 $("*:has(*:has(*:has(*)) *:has(*:has(*:has(*))) *:has(*:has(*:has(*)))) main[id='site-main']")
 ```
+
+#### ReDoS
+
+
+#### jQuery, CSS Selector & Short-circuit Timing
+
+Attackers can abuse CSS selectors and `short-circuit` evaluation of expressions, received in an `URL` hash and evaluated by jQuery (`jQuery(location.hash)`)[^3].
+
+
 
 This delay happens as the expression is compared from right to left, so if the first selector does not exist and fails to evaluate (`main[id='site-main']`), the rest of the selector which increases timing on purpose, is ignored. By measuring how much time it takes to navigate, attackers may be able to steal secrets from a page like CSRF tokens.
 
@@ -64,6 +77,10 @@ This attack is no longer possible in Browsers with process isolation mechanisms 
 {{< hint info >}}
 In browsers with process isolation mechanisms, [Service Workers]({{< ref "execution-timing.md#service-workers" >}}) can be abused to obtain the execution timing measurement.
 {{< /hint >}}
+
+#### Busy Event Loop
+
+[lalalla](https://gist.github.com/terjanq/60b4ae4ce7491a0f3104e62e2ab07c87#file-iframes-html-L11-L33)
 
 ## Defense
 
@@ -78,6 +95,5 @@ In browsers with process isolation mechanisms, [Service Workers]({{< ref "execut
 [^2]: Matryoshka - Web Application Timing Attacks (or.. Timing Attacks against JavaScript Applications in Browsers), [link](https://sirdarckcat.blogspot.com/2014/05/matryoshka-web-application-timing.html)
 [^3]: A timing attack with CSS selectors and Javascript, [link](https://blog.sheddow.xyz/css-timing-attack/)
 [^4]: Security: XS-Search + XSS Auditor = Not Cool, [link](https://bugs.chromium.org/p/chromium/issues/detail?id=922829)
-<!-- [^4]: A Rough Idea of Blind Regular Expression Injection Attack, [link](https://diary.shift-js.info/blind-regular-expression-injection/) -->
-
-
+[^4]: A Rough Idea of Blind Regular Expression Injection Attack, [link](https://diary.shift-js.info/blind-regular-expression-injection/)
+[^5]: CSS Injection Primitives, [link](https://x-c3ll.github.io/posts/CSS-Injection-Primitives/)
