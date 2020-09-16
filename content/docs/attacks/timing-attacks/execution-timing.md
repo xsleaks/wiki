@@ -44,52 +44,40 @@ The navigation won't actually happen, but by timing how long the browser took to
 
 <!--TODO(manuelvsousa): This can also be used to detect a navigation. Maybe we should add it to the navigations article as well? -->
 
-### ReDoS
-
-[^2]
-[^4]
-
 ### CSS Injection
 
-Certain XS-Leaks can be preformed if a CSS Injection is possible [^5]. Among the different CSS Injection vectors, the most noticeable one is abusing CSS Selectors. They can be used as an expression to match certain HTML elements. The selector `input[value^="a"]`
+Certain XS-Leaks can be preformed if a CSS Injection is possible [^5]. Among the different CSS Injection vectors, the most noticeable one is abusing CSS Selectors. They can be used as an expression to match certain HTML elements. The selector `input[value^="a"]` will be matched if the value of an `input` tag with starts with the character "a". If a match occurs, attackers could then trigger a request to one of their websites using background, @import, etc to leak that occurrence. The matching process can be easily brute-forced, and extended to the full string.
 
 The attacker is able to inject CSS and control the execution time with the following selector will spend more time running if a `main` tag with `id='site-main'` exists:
+
+#### jQuery, CSS Selectors & Short-circuit Timing
+
+Attackers can abuse another interesting behavior of CSS selectors which is `short-circuit` evaluation of expressions. This expression is received in an `URL` hash and evaluated if the page uses (`jQuery(location.hash)`) [^3].
 
 ```javascript
 $("*:has(*:has(*:has(*)) *:has(*:has(*:has(*))) *:has(*:has(*:has(*)))) main[id='site-main']")
 ```
 
-#### ReDoS
-
-
-#### jQuery, CSS Selector & Short-circuit Timing
-
-Attackers can abuse CSS selectors and `short-circuit` evaluation of expressions, received in an `URL` hash and evaluated by jQuery (`jQuery(location.hash)`)[^3].
-
-
-
-This delay happens as the expression is compared from right to left, so if the first selector does not exist and fails to evaluate (`main[id='site-main']`), the rest of the selector which increases timing on purpose, is ignored. By measuring how much time it takes to navigate, attackers may be able to steal secrets from a page like CSRF tokens.
+A timing attack is possible because the expression is compared from right to left, so if the selector `main[id='site-main']` does not match and fails to evaluate, the other parts of the selector (`*:has(*:has(*:has(*))))`) which take longer to execute, are ignored (just like the `and` operator but backwards).
 
 {{< hint warning >}}
 This attack is no longer possible in Browsers with process isolation mechanisms in place. Such mechanisms are only present in Chromium-Based browsers with [Site Isolation](https://www.chromium.org/Home/chromium-security/site-isolation) and *soon* in Firefox under [Project Fission](https://wiki.mozilla.org/Project_Fission).
 {{< /hint >}}
 
 {{< hint info >}}
-In browsers with process isolation mechanisms, [Service Workers]({{< ref "execution-timing.md#service-workers" >}}) can be abused to obtain the execution timing measurement.
+In browsers with process isolation mechanisms, [Service Workers]({{< ref "execution-timing.md#service-workers" >}}) can be abused to obtain the execution timing measurement or tricks like [Busy Event Loop tricks]({{< ref "#busy-event-loop" >}}) to circumvent Site Isolation.
 {{< /hint >}}
 
-#### Busy Event Loop
 
-[lalalla](https://gist.github.com/terjanq/60b4ae4ce7491a0f3104e62e2ab07c87#file-iframes-html-L11-L33)
 
 ## Defense
 
-| Attack Alternative  | [Same-Site Cookies]({{< ref "../../defenses/opt-in/same-site-cookies.md" >}})  | [Fetch Metadata]({{< ref "../../defenses/opt-in/fetch-metadata.md" >}})  | [Cross-Origin-Opener-Policy]({{< ref "../../defenses/opt-in/coop.md" >}})  |  [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}) |
+| Attack Alternative  | [Same-Site Cookies]({{< ref "../../defenses/opt-in/same-site-cookies.md" >}})  | [Fetch Metadata]({{< ref "../../defenses/opt-in/fetch-metadata.md" >}})  | [COOP]({{< ref "../../defenses/opt-in/coop.md" >}})  |  [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}) |
 |:-------------------:|:------------------:|:---------------:|:-----:|:--------------------:|
 | CSS Selectors              |         ✔️         |      ✔️         |  ❌   |          ❌         |
 | Event Loop             |         ✔️         |      ✔️         |  ✔️   |          ❌         |
 | Service Workers             |         ✔️         |      ✔️         |  ✔️   |          ❌         |
-
+| Busy Event Loop             |         ✔️         |      ✔️         |  ✔️   |          ✔️         |
 
 [^1]: Loophole: Timing Attacks on Shared Event Loops in Chrome, [link](https://www.usenix.org/system/files/conference/usenixsecurity17/sec17-vila.pdf)
 [^2]: Matryoshka - Web Application Timing Attacks (or.. Timing Attacks against JavaScript Applications in Browsers), [link](https://sirdarckcat.blogspot.com/2014/05/matryoshka-web-application-timing.html)
