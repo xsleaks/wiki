@@ -70,7 +70,7 @@ In browsers with process isolation mechanisms, [Service Workers]({{< ref "execut
 
 ### ReDoS
 
-Regular Expression Denial of Service (ReDoS) it's an attack which result in a Denial of Service in applications that allow Regex as user input [^2] [^5]. The DoS results from an injected Regex that would run in exponential time. Some attacks applied this principle into leaking information: The attacker's injection cause a DoS if the Regex matches a character in some secret and computes quickly otherwise.
+Regular Expression Denial of Service (ReDoS) it's an attack which result in a Denial of Service in applications that allow Regex as user input [^2] [^5]. The DoS results from an injected Regex that would run in exponential time. Some attacks applied this principle into leaking information: The attacker's injection cause a DoS if the Regex matches a character in some secret and computes quickly otherwise. This could happen in both client and server side.
 
 #### Busy Event Loop
 
@@ -84,11 +84,11 @@ Attackers can make the [event loop busy](https://gist.github.com/terjanq/60b4ae4
 
 | Attack Alternative  | [Same-Site Cookies]({{< ref "../../defenses/opt-in/same-site-cookies.md" >}})  | [Fetch Metadata]({{< ref "../../defenses/opt-in/fetch-metadata.md" >}})  | [COOP]({{< ref "../../defenses/opt-in/coop.md" >}})  |  [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}) |
 |:-------------------:|:------------------:|:---------------:|:-----:|:--------------------:|
-| T. Event Loop             |         ✔️         |      ✔️         |  ✔️   |          ❌         |
-| Service Workers             |         ✔️         |      ✔️         |  ✔️   |          ❌         |
-| jQuery             |         ✔️         |      ✔️         |  ✔️   |          ❌         |
-| ReDoS             |         ✔️         |      ✔️         |  ✔️   |          ❌         |
-| Busy Event Loop             |         ✔️         |      ✔️         |  ✔️   |          ✔️         |
+| T. Event Loop       |         ✔️         |      ✔️         |  ❌   |          ❌         |
+| Service Workers     |         ✔️         |      ✔️         |  ❌   |          ❌         |
+| jQuery              |         ✔️         |      ✔️         |  ❌   |          ❌         |
+| ReDoS               |         ✔️         |      ✔️         |  ❌   |          ❌         |
+| Busy Event Loop     |         ✔️         |      ✔️         |  ❌   |          ✔️         |
 
 [^1]: Loophole: Timing Attacks on Shared Event Loops in Chrome, [link](https://www.usenix.org/system/files/conference/usenixsecurity17/sec17-vila.pdf)
 [^2]: Matryoshka - Web Application Timing Attacks (or.. Timing Attacks against JavaScript Applications in Browsers), [link](https://sirdarckcat.blogspot.com/2014/05/matryoshka-web-application-timing.html)
