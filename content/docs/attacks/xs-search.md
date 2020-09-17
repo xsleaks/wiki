@@ -22,8 +22,7 @@ Cross-Site Search (XS-Search) is an important attack and principle in the family
 
 This attack requires multiple timing measurements to be accurate, something which can be improved with [Inflation Techniques](https://TODO) and statistical analysis. Also, instead of brute-forcing letter by letter, attackers can search specific words or sentences to leak only the occurrence of results.
 
-The most important part of this attack is its [principle](https://TODO), as it can be applied in a different number of XS-Leaks depending on what a page does. For example
-
+The most important part of this attack is its [principle](https://TODO), as it can be applied in a different number of XS-Leaks.
 
 ### Inflation Techniques
 
@@ -32,11 +31,9 @@ The inflation techniques of XS-Search are used to increase de accuracy of the at
 - If a search system reflects certain GET parameters into the response when returning results, it will increase the size of the response. This will make the request more distinguishable because the time to prepare the response and send it over the network will grow substantially.
 - Force the server to perform more computation work before returning a response. This can be possible in search systems offering some query language (e.g exclude terms in Gmail).
 
-
 ## Extended Principle
 
-While considering the original Research around XS-Search an XS-Leak, the principle of the attack extends to other XS-Leaks.
-
+While considering the original Research around XS-Search an XS-Leak itself, the principle of the attack extends to other XS-Leaks. This is important because other XS-Leaks can abuse the principle with higher levels of impact and reliability. For example, if the number of frames in a page vary based on search results, this attack principle could be applied with a [Frame Counting](https://TODO) XS-Leak, which is much more accurate then timing measurements.
 
 
 ## Defense
