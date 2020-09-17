@@ -13,20 +13,98 @@ defenses = [
 menu = "main"
 +++
 
-## Explanation
-
-Detecting if a cross-site page triggered a navigation can be useful to an attacker. This can be done in two ways:
+Detecting if a cross-site page triggered a navigation can be useful to an attacker.  This can be done in two ways:
 - Using an `iframe` and counting the number of times the `onload` event is triggered.
 - Checking the value of `History.length`, accessible through any `window` reference, gives the number of entries in the history of a victim either changed by `History.pushState` or regular navigations. To get the value of `History.length` an attacker changes the location of the `window` reference with the target website, changes back to same-origin, and finally reads the value.
 
-### Why is this a problem?
+## Download Trigger
 
-Similarly to the [Frame Counting Attack]({{< ref "../attacks/frame-counting.md" >}}), triggering navigations can be problem when they are done depending on user private information. The main problem is the lack of consistency in pages to always have the same behavior.
+When endpoints set [`Content-Disposition: attachment`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition) Header, it forces the browser to download the response as an attachment. Detecting if this behavior occurred might allow attackers to leak private information, considering it as a state
 
-#### Case Scenarios
+### Download bar
 
-- An online bank decides to redirect wealthy users to unmissable stock opportunities by triggering a navigation to a reserved space in the website when users are consulting the account balance. If this is only done to a specific group of users, it becomes possible for an attacker to leak the "client status" of the user.
+In Chromium-based browsers when a file is downloaded, a preview of the download process appears in a bar at the bottom, integrated into the browser window. By monitoring the window height attackers could detect whether the "download bar" opened.
+
+
+```javascript
+
+// Any Window reference (can also be done using an iframe in some cases)
+const tab = window.opener;
+
+// The current window height
+const screenHeight = window.innerHeight;
+
+// The size of the chrome download bar on mac os x
+const downloadsBarSize = 49;
+
+tab.location = 'https://target';
+
+setTimeout(() => {
+    let margin = screenHeight - window.innerHeight;
+    if (margin === downloadsBarSize) {
+       return console.log('downloads bar detected');
+    }
+}, 5 * 1000);
+```
+
+{{< hint info >}}
+This attack is only possible in Chromium-based browsers.
+{{< /hint >}}
+
+### Download Non-Navigation
+
+Another way to test for the [`Content-Disposition: attachment`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition) Header is to check if a navigation occurred. If a page load triggers a download, it will not trigger a navigation. 
+
+1. Open an attacker origin with `window.open` and save the window reference.
+2. Navigate the saved reference to the endpoint that might download.
+3. After a timeout, check if the window is still same-origin
+
+The snippet presented in [Cross-Window Timing](httpps://TODO) XS-Leak can be slightly adapted to detect this behavior.
+
+#### Download Non-Navigation (without timeout)
+
+
+
+There is another way to detect whether the download attempt happened without using any timeouts, that can be helpful to perform hundreds of requests at the same time without worrying about unprecise timings. The observation is that even though the download attempt doesn't trigger an onload event the window still "waits" for the resource to be downloaded. Therefore, one could include an iframe inside an iframe to detect window.onload, and then since download doesn't trigger navigation the iframe will point to about:blank, hence, it is possible to differentiate the origin.
+
+
+```javascript
+onmessage = e => console.log(e.data);
+var ifr = document.createElement('iframe');
+var url = 'https://victim.com/might_download';
+ifr.src = `data:text/html,\
+            <iframe id='i' src="${url}" ></iframe>
+            <script>onload=()=>{
+                try{
+                    i.contentWindow.location.href;
+                    top.postMessage('download attempt','*');
+                }catch(e){
+                    top.postMessage('no download','*');
+                }
+            }%3c/script>`;
+ifr.onload = ()=>{ifr.remove();}
+document.body.appendChild(ifr);
+```
+
+dsasdsaddsadsadsasda
+adsadssdadsasad
+<!-- 
+## Case Scenarios
+
+- An online bank decides to redirect wealthy users to unmissable stock opportunities by triggering a navigation to a reserved space in the website when users are consulting the account balance. If this is only done to a specific group of users, it becomes possible for an attacker to leak the "client status" of the user. -->
 <!--TODO(manuelvsousa): Add better examples-->
+<!--TODO(manuelvsousa): evaluate if we are keeping case scenarios in the wiki-->
+
+
+## Server-Side Redirects
+
+### Inflation
+
+This allows an attacker detect whether a certain URL redirected.
+
+<!-- ### CSP Violations -->
+<!--TODO(manuelvsousa): I will discuss CSP violations with @lweichselbaum to know if it's still thing-->
+
 
 ## Defense
 
