@@ -99,7 +99,6 @@ document.body.appendChild(outer);
 
 ### Inflation
 
-
 A server-side redirect can be detected from a cross-origin page when the destination URL increase in size and reflects a user input, either in the form of a query string parameter or a path. The following technique relies on the fact it is possible to induce an error in most web-servers by overloading the request parameters/path. Since the redirect increases the size of the URL, it can be detected by sending exactly one character less than the server maximum capacity, that way, if the size increases the server will respond with an error code which can be detected from a cross-origin page using common DOM APIs.
 
 <!-- ### CSP Violations -->
@@ -111,8 +110,11 @@ A server-side redirect can be detected from a cross-origin page when the destina
 | Attack Alternative  | [Same-Site Cookies]({{< ref "../defenses/opt-in/same-site-cookies.md" >}})  | [Fetch Metadata]({{< ref "../defenses/opt-in/fetch-metadata.md" >}})  | [COOP]({{< ref "../defenses/opt-in/coop.md" >}})  |  [Framing Protections]({{< ref "../defenses/opt-in/xfo.md" >}}) |
 |:----------------------------------:|:--------------------------:|:---------------:|:-----:|:--------------------:|
 | iframe                             |         ✔️                 |      ✔️         |  ❌   |          ✔️         |
+| Download bar                       |         ✔️                 |      ✔️         |  ✔️   |          ✔️         |
+| Download Navigation (w/ timeout)   |         ✔️ (If Strict)     |      ✔️         |  ❌   |          ❌         |
+| Download Navigation (no timeout)   |         ✔️                 |      ✔️         |  ✔️   |          ✔️         |
 | `History.length` (iframe)          |         ✔️                 |      ✔️         |  ❌   |          ✔️         |
-| `History.length` (window.open)     |         ✔️ (If Strict)     |      ✔️         |  ✔️   |           ❌        |
+| `History.length` (window.open)     |         ✔️ (If Strict)     |      ✔️         |  ✔️   |          ❌         |
 
 ## Real World Example
 
