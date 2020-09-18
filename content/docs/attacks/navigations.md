@@ -67,7 +67,9 @@ The following snippet can do a more precise measurement, without relying on time
 
 1. Include an iframe (inner) inside an iframe (outer). The inner iframe embeds the target website.
 2. If the target website triggers a download the inner iframe origin will **remain** `about:blank` (downloads don’t navigate).
-3. To detect step 2, the inner iframe verifies if `i.contentWindow.location.href` (line 8) is still accessible. Otherwise, if a navigation occurs, both iframes will be in different origins which means the outer iframe it will trigger a `DOMException` when accessing to i.contentWindow.location.href`, as Same-Origin Policy is enforced.
+3. The outer iframe waits until `onload` triggers. The observation is that even though the download attempt doesn't trigger an `onload` event the window still "waits" for the resource to be downloaded.
+4. If a navigation occurs, the inner iframe will change origin's and both will now be different. 
+5. Finally, the outer iframe verifies if `i.contentWindow.location.href` (line 8) is accessible, only possible if both iframes share the same origin (Same-Origin Policy is enforced). If both iframes are in different origins, a `DOMException` will be thrown, meaning a navigation occurred.
 
 {{< highlight javascript "linenos=table,linenostart=1" >}}
 onmessage = e => console.log(e.data);
@@ -75,6 +77,7 @@ var outer = document.createElement('iframe');
 var url = 'https://target';
 outer.src = `data:text/html,\
             <iframe id='inner' src="${url}" ></iframe>
+            <!-- onload is part of outer iframe -->
             <script>onload=()=>{
                 try {
                     i.contentWindow.location.href;
