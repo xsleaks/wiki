@@ -15,7 +15,7 @@ menu = "main"
 
 Another way to measure the network timing of a request consists of abusing the socket pool of a browser [^1]. Browsers use sockets to communicate with servers and since the Operating System and the hardware it runs on have limited resources, browsers have to impose a limit.
 
-To attack this limit, attackers can abuse the network socket pool in the following way:
+To exploit the existence of this limit attackers can:
 1. The Attacker check the Browser has a limit of {{< katex>}}256{{< /katex >}} global sockets.
 2. The Attacker blocks {{< katex>}}255{{< /katex >}} sockets for a long period of time (sleep) by performing {{< katex>}}255{{< /katex >}} requests to different hosts.
 3. The Attacker will use the {{< katex>}}256^{th}{{< /katex >}} socket by performing a request to the target page.
