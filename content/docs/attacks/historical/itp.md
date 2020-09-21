@@ -19,7 +19,7 @@ menu = "main"
 
 To classify whether a website had tracking capabilities, ITP collected statistics on resource loads as well as user interactions in websites such as clicks, taps, or text entries.  Based on the classification of these statistics, ITP would give a strike to a website if it is believed to have tracking capabilities. After 3 strikes a website would be put on a deny list, and have a different treatment by the browser in certain requests.
 
-### Problems
+### Issues
 
 One of the issues of ITP was that attackers could interact with it to arbitrarily enforce certain behaviors. For example, one could force ITP to give a strike to a domain and check if the domain entered the deny list. Some of the attacks leveraging ITP consisted in:
 
