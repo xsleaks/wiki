@@ -39,7 +39,7 @@ Chromium is the only browser currently implementing [CORB](https://TODO). With t
 {{< /hint >}}
 
 {{< hint info >}}
-This issue is known by Chromium, and while it might remain unfixed [^1], its impact is highly reduced by the [default rollout of Same-Site Cookies](https://TODO) in Chromium-based browsers.
+This issue is known by Chromium, and while it might remain unfixed [^1], its impact is highly reduced by the [rollout of Same-Site Cookies by default](https://blog.chromium.org/2020/05/resuming-samesite-cookie-changes-in-july.html) in Chromium-based browsers.
 {{< /hint >}}
 
 {{< hint info >}}
