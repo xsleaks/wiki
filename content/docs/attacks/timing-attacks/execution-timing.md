@@ -76,7 +76,7 @@ Regular Expression Denial of Service (ReDoS) it's an attack which result in a De
 
 Attackers can make the [event loop busy](https://gist.github.com/terjanq/60b4ae4ce7491a0f3104e62e2ab07c87#file-iframes-html-L11-L33) with a long computation Regex. This is a trick to circumvent Site Isolation as an attacker origin can mess with the execution of another website. The attack works as follows:
 
-1. Navigate the target website away with `window.open` or inside an iframe (if [Framing Protections](https://TODO) are **not** in place).
+1. Navigate the target website in a separate window with `window.open` or inside an iframe (if [Framing Protections](https://TODO) are **not** in place).
 2. Wait for the long computation to start.
 3. Load the target website inside an iframe (regardless of any [Framing Protections](https://TODO)). An attacker can detect if step 1 is still computing by checking if the iframe started loading (onload). Since both navigations occurred within same-site, they run in the same thread and share the same event loop (they can block each other), as Site Isolation is not enforced.
 
