@@ -2,13 +2,12 @@
 title = "WebKit - ITP"
 description = ""
 date = "2020-07-21"
-category = "attacks"
+category = "historical"
 attacks = [
     "dom property",
 ]
 defenses = [
-    "same-site cookies",
-    "sec-fetch metadata",
+    "TODO"
 ]
 menu = "main"
 +++
