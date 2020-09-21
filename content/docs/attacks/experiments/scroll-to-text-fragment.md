@@ -33,7 +33,7 @@ During the development process of STTF new attacks and tricks to detect a fragme
 {{< /hint >}}
 
 {{< hint info >}}
-`Scroll to Text Fragment` XS-Leaks allow attackers to extract 1 bit of information at a time as it's only possible to observe whether a group of words is present in a page. This occurs as STTF matching mechanism is based on words, so it attackers won't be able to leak character by character information.
+`Scroll to Text Fragment` XS-Leaks allow attackers to extract 1 bit of information at a time as it's only possible to observe whether a group of words is present in a page. This occurs as STTF matching mechanism is based on words, so attackers won't be able to leak information character by character.
 {{< /hint >}}
 
 ## Why is this a problem?
