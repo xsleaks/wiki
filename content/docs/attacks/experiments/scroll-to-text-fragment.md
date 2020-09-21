@@ -38,7 +38,7 @@ During the development process of STTF new attacks and tricks to detect a fragme
 
 ## Why is this a problem?
 
-Attackers can abuse the principle of the `STTF` to leak private information about the user, since its highly connected with the contents of a web page.
+Attackers can abuse `STTF` to leak private information about the user since its highly connected with the contents of a web page.
 
 ### Case Scenarios
 
