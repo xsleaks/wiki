@@ -13,7 +13,7 @@ defenses = [
 menu = "main"
 +++
 
-Another way to measure the network timing of a request consists of abusing the socket pool of a browser [^1]. Browsers use sockets to communicate, and since the Operating System and the hardware where it runs have limited resources, browsers have to impose a limit.
+Another way to measure the network timing of a request consists of abusing the socket pool of a browser [^1]. Browsers use sockets to communicate with servers and since the Operating System and the hardware it runs on have limited resources, browsers have to impose a limit.
 
 To attack this limit, attackers can abuse the network socket pool in the following way:
 1. The Attacker check the Browser has a limit of {{< katex>}}256{{< /katex >}} global sockets.
