@@ -13,7 +13,7 @@ defenses = [
 menu = "main"
 +++
 
-Measuring the time of JavaScript execution in a browser can be give attackers information when certain events are triggered, and how long some operations take. 
+Measuring the time of JavaScript execution in a browser can give attackers information on when certain events are triggered, and how long some operations take. 
 
 ## Timing the Event Loop
 
