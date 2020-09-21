@@ -42,7 +42,7 @@ Attackers can abuse the principle of the `STTF` to leak private information abou
 
 ### Case Scenarios
 
-- A user is logged in its National Health System website, where its possible to access information about the user past diseases and health problems. An attacker can lure the user to one of its pages and use `STTF` to possibly infer specific deceases of the user. The attacker will know the user suffers "Diabetes" if it detects a page scroll.
+- A user is logged in its National Health System website, where its possible to access information about the user past diseases and health problems. An attacker can lure the user to one of its pages and use `STTF` to possibly infer specific deceases of the user. For example an attacker would find out if the victim suffers of a disease if they detects a page scroll when searching for that pathology name.
 
 
 ## Defense
