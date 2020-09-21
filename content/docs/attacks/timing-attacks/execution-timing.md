@@ -36,7 +36,7 @@ To make a timing measurement an attacker can perform the following steps:
 
 1. The attacker registers a service worker in one of its domains (attacker.com).
 2. In the main document, the attacker issues a navigation (window.open) to the target website.
-3. When the navigation starts loading the attacker will navigate the reference obtained in step 2 to a page caught by the service worker.
+3. When the navigation starts loading the attacker will navigate the reference obtained in step 2 to a page handled by the service worker.
 4. When the request performed in step 3 arrives to the Service Worker it will make the request return a 204 (No Content) response.
 5. TODO @empijei <!--TODO(empijei): Can you complete this step? -->
 
