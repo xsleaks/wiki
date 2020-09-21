@@ -26,7 +26,7 @@ In early discussions for the specification of this feature, it was showed severa
 During the development process of STTF new attacks and tricks to detect a fragment navigation are still found. Some of them still work:
 
 - A web page that embeds an attacker-controlled iframe might allow the attacker to determine whether a scroll to the text has occurred. This can be done using the [`IntersectionObserver`](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) API [^2] [^3] [^4].
-- If a page contains images with [Lazy Loading](https://web.dev/native-lazy-loading/), an attacker might known if a fragment navigation occurred by checking whether an image was cached in the browser by [probing the Cache](https://TODO) (only if the image appears after the navigation). This occurs because [Lazy Loading](https://web.dev/native-lazy-loading/) images are only fetched (and cached) when they appear in the viewport.
+- If a page contains images with [Lazy Loading](https://web.dev/native-lazy-loading/) an attacker might known if a fragment navigation that included an image occurred by checking whether it was [cached in the browser](https://TODO). This occurs because [Lazy Loading](https://web.dev/native-lazy-loading/) images are only fetched (and cached) when they appear in the viewport.
 
 {{< hint warning >}}
 `Scroll to Text Fragment` is only available in Chrome. Its [draft](https://wicg.github.io/scroll-to-text-fragment/) specification is under active discussion.
