@@ -18,6 +18,14 @@ menu = "main"
 An attacker tries to embed a cross-origin resource in a `script` tag which returns `200 OK` with `text/html` as `Content-Type` and a `nosniff` Header, in order to protect sensitive contents from entering the attacker's process, `CORB` will replace the original response with an empty one. Since an empty response is **valid** JavaScript, the `onerror` event won't be fired and `onload` will fire instead. This behavior is unfortunate, as the response could contain something other than JavaScript, considering a non-CORB environment would trigger an error. On the other hand, if the request returns something other than `200 OK` the `onerror` event will fire, and the same would happen in a non-CORB environment. This introduces an XS-Leak as these situations are now distinguishable.
 
 
+## Detect `nosniff`
+
+CORB could also allow attackers do detect when the `nosniff` Header is present in the request. The example bellow shows two different states that could occur, and allow an attacker to distinguish both:
+
+1. CORB will prevent an attacker page which embeds a resource as a `script` if the resource is served with `text/html` as `Content-Type` along with the `nosniff` Header. 
+2. If the resource does not set `nosniff` and CORB [fails](https://chromium.googlesource.com/chromium/src/+/master/services/network/cross_origin_read_blocking_explainer.md#what-types-of-content-are-protected-by-corb) to infer the `Content-Type` of the page (which remains `text/html`), a `SyntaxError` will be fired since the contents can't be parsed as valid JavaScript. This error can be caught by listening to `window.onerror` as `script` tags only trigger error events in [certain conditions](https://developer.mozilla.org/en-US/docs/Web/API/HTMLScriptElement).
+
+
 ### Why is this a problem?
 
 The implications of this attack are similar to the [Error-based](https://TODO) and [CORP](https://TODO) XS-Leaks. This issue allows attackers to get a **difference** from the same request, which occurs depending on the targeted user.
