@@ -13,7 +13,7 @@ defenses = [
 menu = "main"
 +++
 
-[Cross-Origin Read Blocking](({{< ref "../defenses/browser-intrinsic/corb.md" >}})) (CORB) is a web platform security feature to reduce the impact of speculative side-channel attacks such as Spectre. Unfortunately, the principle of blocking certain types of requests introduced a new type of XS-Leaks.
+[Cross-Origin Read Blocking](({{< ref "../defenses/browser-intrinsic/corb.md" >}})) (CORB) is a web platform security feature to reduce the impact of speculative side-channel attacks such as Spectre. Unfortunately, the principle of blocking certain types of requests introduced a new type of XS-Leaks. Nevertheless, the introduced XS-Leaks are much less problematic than the issues actively protected by CORB (e.g Spectre).
 
 An attacker tries to embed a cross-origin resource in a `script` tag which returns `200 OK` with `text/html` as `Content-Type` and a `nosniff` Header, in order to protect sensitive contents from entering the attacker's process, `CORB` will replace the original response with an empty one. Since an empty response is **valid** JavaScript, the `onerror` event won't be fired and `onload` will fire instead. This behavior is unfortunate, as the response could contain something other than JavaScript, considering a non-CORB environment would trigger an error. On the other hand, if the request returns something other than `200 OK` the `onerror` event will fire, and the same would happen in a non-CORB environment. This introduces an XS-Leak as these situations are now distinguishable.
 
