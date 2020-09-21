@@ -45,7 +45,7 @@ This issue is known by Chromium, and is might remain [unfixed](https://docs.goog
 {{< /hint >}}
 
 {{< hint info >}}
-Developers can deploy [CORP](https://TODO) in application resources to opt-in to obtain similar CORB protections. To prevent attackers from abusing this XS-Leak, generic XS-Leaks defense mechanisms are also effective.
+Developers can deploy [CORP](https://TODO) in application resources to force a protection similar to CORB that does not inspect responses to decide when to act. To prevent attackers from abusing this XS-Leak, generic XS-Leaks defense mechanisms are also effective.
 {{< /hint >}}
 
 [^1]: CORB vs side channels, [link](https://docs.google.com/document/d/1kdqstoT1uH5JafGmRXrtKE4yVfjUVmXitjcvJ4tbBvM/edit?ts=5f2c8004)
