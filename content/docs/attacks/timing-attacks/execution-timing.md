@@ -38,7 +38,7 @@ To make a timing measurement an attacker can perform the following steps:
 2. In the main document, the attacker issues a navigation (window.open) to the target website and instructs the Service Worker to start a timer.
 3. When the navigation starts loading the attacker will navigate the reference obtained in step 2 to a page handled by the service worker.
 4. When the request performed in step 3 arrives to the Service Worker it will return a 204 (No Content) response, which will abort the navigation.
-5. TODO @empijei <!--TODO(empijei): Can you complete this step? -->
+5. At this point the Service Worker will collect a measurement from the timer started in step 2. This measurement will be affected by how long JavaScript blocked the navigation for.
 
 The navigation won't actually happen, but by timing how long the browser took to navigate to the Service Worker it's possible to time the page execution.
 
