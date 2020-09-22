@@ -16,7 +16,7 @@ The principle of Cache Probing consists of detecting whether some resource was c
 
 When a user visits a website, some resources such as images, scripts, and HTML content are fetched and later cached by the browser (under certain conditions). This optimization will make next navigations faster, as the browser will serve those resources from disk memory and avoid possible high latency requests. So, when a user visits a website, some images and resources will eventually be stored in the cache. If an attacker can detect if one of those resources is stored in the cache, it can be enough to leak whether the user accessed that website in the past. 
 
-A variation to the original concept was published and abused [Error Events](https://TODO-REFFERSUBSECTIONBELLOW) to perform more accurate and impactful attacks, including tricks to invalidate resources from the cache (to make better inferences).
+A variation of the original concept abused [Error Events](https://TODO-REFFERSUBSECTIONBELLOW) to perform more accurate and impactful attacks, including tricks to invalidate resources from the cache (to make better inferences).
 
 ## Attack Principle
 
