@@ -7,7 +7,7 @@ menu = "main"
 bookHidden = true
 +++
 
-This section should focus on defensive design techniques used by companies to prevent XS-Leaks from happening. Some ideas:
+This section should focus on defensive design techniques to prevent XS-Leaks from happening. Some ideas:
 
 - The way applications they use iframes to display information based on a user query (search system)
 - How applications use Fetch Metadata with Vary headers to prevent cache probing attacks and what problems might occur with improper deployments. Are there any drawbacks of deploying this?
