@@ -33,7 +33,7 @@ Finally, without applying bigger changes in the logic of applications, generic w
 
 ## Real World Example
 
-1. A bug abused a Twitter API endpoint where only a specified user would have access to it. This endpoint would cause an error to every Twitter user, but the owner. An attacker exploits this difference to deanonymize a user with one of its pages [^3]. Similarly, another bug abused an image authentication mechanism of private messages to achieve the same attack  [^2] [^1].
+1. A bug abused a Twitter API endpoint where only a specified user would have access to it. This endpoint would cause an error to every Twitter user but the owner. An attacker could exploit this difference to deanonymize a user with one of its pages [^3]. Similarly, another bug abused an image authentication mechanism of private messages to achieve the same goal  [^2] [^1].
 
 ## References
 
