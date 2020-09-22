@@ -42,7 +42,10 @@ To make a timing measurement an attacker can perform the following steps:
 
 Since the navigation won't actually happen, steps from 3 to 5 can be repeated to get more measurements on successive JavaScript execution timings.
 
-<!--TODO(manuelvsousa): This can also be used to detect a navigation. Maybe we should add it to the navigations article as well? -->
+
+### Detect a Navigation
+
+Abusing Service Workers with the attack [described above]({{< ref "#service-workers" >}}), specifically in step 5, an attacker could detect whether navigating the hash triggered a navigation on another site [^4].
 
 ## CSS Injections
 
