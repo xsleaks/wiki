@@ -18,7 +18,7 @@ When a website triggers a request to a server (e.g fetch, HTML tags), this reque
 
 The misuse of errors connected with user information can introduce information leaks since attackers are able to distinguish whether a cross-site request fails or succeeds. For example, attackers can detect whether a user is logged into a service by checking if the user has access to resources only available to authenticated users [^3]. The main principle of an Error Events Attack is checking if a user has access to a specific resource [^3]. The impact of this alternative may vary depending on the application but it often leads to sophisticated attacks [^1].
 
-The principle of leaking information with error events can be abstracted and applied with a variety XS-Leaks. For example, one of [Cache Probing](https://TODO) alternatives uses error events to detect if a certain image was cached by the browser.
+The principle of leaking information with error events can be abstracted and applied to a variety XS-Leaks. For example one of [Cache Probing](https://TODO) alternatives uses error events to detect if a certain image was cached by the browser.
 
 ## Defense
 
