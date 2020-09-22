@@ -33,7 +33,7 @@ Cache Probing with [Error Events](https://TODO-REFFERSUBSECTIONBELLOW) [^2] allo
 
 1. [Invalidate the resource]({{< ref "#invalidate-the-cache" >}}) from the browser cache. This step is required to make sure the attack will not consider a resource previously cached in another visit.
 2. Preform a request to load subresources of the target website. This can be done by navigating to the target website with `<link rel=prerender..`, embedding the website in an `iframe` or navigating away with `window.open`.
-3. An attacker performs a request with an [overlong referrer](https://lists.archive.carbon60.com/apache/users/316239), forcing the server to fail when receiving the request. If the resource was cached in step 2, this request will succeed and fail otherwise.
+3. An attacker performs a request with an [overlong referrer](https://lists.archive.carbon60.com/apache/users/316239) which will usually make the server fail when receiving the request. If the resource was cached in step 2, this request will succeed instead.
 
 ### Invalidate the cache
 
