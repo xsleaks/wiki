@@ -25,7 +25,7 @@ An attacker wants to know whether a user visited a certain social network.
 
 1. A user visits a social network and some of the subresources will be cached. This step might not happen depending on the user behavior.
 2. The user visits an attacker-controlled page which will fetch a resource that is usually fetched by that social network. 
-3. Using a [Network Timing XS-Leak](https://TODO), the attacker page can infer the difference from a request coming from the cache (step 1 happened) or coming from a network request based on the request timing (step 1 did not happen). The delay will be significantly lower in a request served from the cache.
+3. Using a [Network Timing XS-Leak](https://TODO), the attacker page can detect the difference from a response coming from the cache (step 1 happened) or coming from the network (step 1 did not happen). The delay will be significantly lower in a request served from the cache.
 
 ## Cache Probing with Error Events
 
