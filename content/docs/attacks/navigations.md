@@ -80,7 +80,7 @@ outer.src = `data:text/html,\
             <!-- onload is part of outer iframe -->
             <script>onload=()=>{
                 try {
-                    i.contentWindow.location.href;
+                    inner.contentWindow.location.href;
                     top.postMessage('download attempt','*');
                 } catch(e) {
                     top.postMessage('no download','*');
