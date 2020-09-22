@@ -39,7 +39,7 @@ Cache Probing with [Error Events](https://TODO-REFFERSUBSECTIONBELLOW) [^2] allo
 
 To invalidate a resource from the cache the attacker must force the server to return an error when fetching that subresource. There are a couple of ways to achieve this:
 
-- By performing a request with a [overlong referrer](https://lists.archive.carbon60.com/apache/users/316239) and `'cache':'reload'`. Browsers [capped]((https://github.com/whatwg/fetch/issues/903)) the length of the referrer, to prevent some server engines from failing when computing the request.
+- By performing a request with an [overlong referrer](https://lists.archive.carbon60.com/apache/users/316239) and `'cache':'reload'`. This might not work as browsers [capped]((https://github.com/whatwg/fetch/issues/903)) the length of the referrer to prevent this.
 - Request Headers such as Content-Type, Accept, Accept-Language, etc that may cause the server to fail (more application dependent).
 - Other request properties.
 
