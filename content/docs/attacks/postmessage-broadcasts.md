@@ -23,7 +23,7 @@ If a broadcast happens based on user information, attackers might be able to lea
 
 ## Defense
 
-There is no clear solution to mitigate this XS-Leak, as it depends deeply on the purpose of doing a postMessage broadcast. Applications should limit postMessage communications to a group of known origins and when this is not possible, they should standardize the same behavior across different states to prevent attacks from inferring a distinction from two different requests.
+There is no clear solution to mitigate this XS-Leak, as it depends deeply on the purpose of doing a postMessage broadcast. Applications should limit postMessage communications to a group of known origins and, when this is not possible, they should have the same behavior even when in different states to prevent attackers from inferring any information.
 
 ## References
 
