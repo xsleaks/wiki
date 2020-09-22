@@ -8,7 +8,6 @@ attacks = [
 ]
 defenses = [
     "",
-    "",
 ]
 menu = "main"
 +++
