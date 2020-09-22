@@ -34,7 +34,7 @@ const tab = window.opener;
 // The current window height
 const screenHeight = window.innerHeight;
 
-// The size of the chrome download bar on mac os x
+// The size of the chrome download bar on, for example, mac os x
 const downloadsBarSize = 49;
 
 tab.location = 'https://target';
