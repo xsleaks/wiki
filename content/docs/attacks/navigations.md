@@ -63,7 +63,7 @@ The snippet presented in the [Cross-Window Timing](httpps://TODO) XS-Leak can be
 
 #### Download Navigation (without timeout)
 
-The following snippet can do a more precise measurement, without relying on timeouts and imprecise timings. The attack works as follows:
+The following snippet can obtain a more precise measurement without relying on timeouts and imprecise timings. The attack works as follows:
 
 1. Include an iframe (inner) inside an iframe (outer). The inner iframe embeds the target website.
 2. If the target website triggers a download the inner iframe origin will **remain** `about:blank` (downloads don’t navigate).
