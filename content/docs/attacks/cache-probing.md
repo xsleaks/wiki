@@ -25,7 +25,7 @@ An attacker wants to know whether a user visited a certain social network.
 
 1. A user visits a social network and some of the subresources will be cached. This step might not happen depending on the user behavior.
 2. The user visits an attacker-controlled page which will fetch a resource that is usually fetched by that social network. 
-3. Using a [Network Timing XS-Leak](https://TODO), the attacker page can infer the difference from a request coming from the cache (step 1 happened) or coming from a network request based on the request timing (step 1 did not happen). The delay will be significantly lower in a request served from the cache.
+3. Using a [Network Timing XS-Leak](https://TODO), the attacker page can detect the difference from a response coming from the cache (step 1 happened) or coming from the network (step 1 did not happen). The delay will be significantly lower in a request served from the cache.
 
 ## Cache Probing with Error Events
 
@@ -33,17 +33,17 @@ Cache Probing with [Error Events](https://TODO-REFFERSUBSECTIONBELLOW) [^2] allo
 
 1. [Invalidate the resource]({{< ref "#invalidate-the-cache" >}}) from the browser cache. This step is required to make sure the attack will not consider a resource previously cached in another visit.
 2. Preform a request to load subresources of the target website. This can be done by navigating to the target website with `<link rel=prerender..`, embedding the website in an `iframe` or navigating away with `window.open`.
-3. An attacker performs a request with an [overlong referrer](https://lists.archive.carbon60.com/apache/users/316239), forcing the server to fail when receiving the request. If the resource was cached in step 2, this request will succeed and fail otherwise.
+3. An attacker performs a request with an [overlong referrer](https://lists.archive.carbon60.com/apache/users/316239) which will usually make the server fail when receiving the request. If the resource was cached in step 2, this request will succeed instead.
 
 ### Invalidate the cache
 
 To invalidate a resource from the cache the attacker must force the server to return an error when fetching that subresource. There are a couple of ways to achieve this:
 
-- By performing a request with a [overlong referrer](https://lists.archive.carbon60.com/apache/users/316239) and `'cache':'reload'`. Browsers [capped]((https://github.com/whatwg/fetch/issues/903)) the length of the referrer, to prevent some server engines from failing when computing the request.
+- By performing a request with an [overlong referrer](https://lists.archive.carbon60.com/apache/users/316239) and `'cache':'reload'`. This might not work as browsers [capped]((https://github.com/whatwg/fetch/issues/903)) the length of the referrer to prevent this.
 - Request Headers such as Content-Type, Accept, Accept-Language, etc that may cause the server to fail (more application dependent).
 - Other request properties.
 
-Often, some of these alternatives might be considered a [browser bug](https://bugs.chromium.org/p/chromium/issues/detail?id=959789#c9).
+Often some of these alternatives might be considered a [browser bug](https://bugs.chromium.org/p/chromium/issues/detail?id=959789#c9).
 
 ## Defense
 
@@ -57,9 +57,9 @@ Often, some of these alternatives might be considered a [browser bug](https://bu
 - [Vary: Sec-Fetch-Site]({{< ref "../defenses/opt-in/fetch-metadata.md#fetch-metadata--cache-probing-attacks" >}}) allows applications to force cache segregation by a group of origins. It does not enforce full segregation, since some resources come from external origins of Content Delivery Networks, shared across multiple websites. Nevertheless, it's good protection against Cache Probing attacks.
 - [Subresource Protections]({{< ref "../defenses/design-protections/subresource-protections.md" >}}) allow application to set random tokens in URLs to make them unpredictable from attackers. Useful for both authenticated and unauthenticated subresources.
 
-### No-opt Defense Mechanisms
+### Default Defense Mechanisms
 
-[Paritioned Caches](https://TODO), a no-opt feature implemented in browsers create a unique cache for each origin. This protection prevents an attacker origin to interfere with cached resources of other origins. Applications do not have to opt-in to enforce this cache.
+[Paritioned Caches](https://TODO), a feature implemented in browsers to create a unique cache for each origin. This protection prevents an attacker origin to interfere with cached resources of other origins. Applications do not have to opt-in to enforce this.
 
 {{< hint warning >}}
 Partitioned Caches are not available in most browsers by default, so applications cannot rely on them yet.
