@@ -14,7 +14,7 @@ menu = "main"
 +++
 
 
-When a website triggers a request to a server (e.g fetch, HTML tags), this request will be received and processed by that server. When received the server will decide whether the request should succeed (e.g 200) or fail (e.g 404) based on the provided context. When it fails an [error event](https://developer.mozilla.org/en-US/docs/Web/API/Element/error_event) will be fired and handled by the application when necessary, with a proper listener. These errors are also extended to situations where the parser fails, for example, trying to embed `HTML` content as an image.
+When a webpage issues a request to a server (e.g fetch, HTML tags), this request will be received and processed by that server. When received the server will decide whether the request should succeed (e.g 200) or fail (e.g 404) based on the provided context. When a response has an error status an [error event](https://developer.mozilla.org/en-US/docs/Web/API/Element/error_event) will be fired by the browser for the page to handle. These errors are also extended to situations where the parser fails, for example, trying to embed `HTML` content as an image.
 
 The misuse of errors connected with user information can introduce information leaks since attackers are able to distinguish whether a cross-site request fails or succeeds. For example, attackers can detect whether a user is logged into a service by checking if the user has access to resources only available to authenticated users [^3]. The main principle of an Error Events Attack is checking if a user has access to a specific resource [^3]. The impact of this alternative may vary depending on the application but it often leads to sophisticated attacks [^1].
 
