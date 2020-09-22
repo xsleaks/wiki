@@ -49,7 +49,7 @@ Abusing Service Workers with the attack [described above]({{< ref "#service-work
 
 ## CSS Injections
 
-Certain XS-Leaks can be preformed if a CSS Injection is possible [^6]. Among the different CSS Injection vectors, the most noticeable one is abusing CSS Selectors. They can be used as an expression to match certain HTML elements. The selector `input[value^="a"]` will be matched if the value of an `input` tag with starts with the character "a". If a match occurs, attackers could then trigger a request to one of their websites using background, @import, etc to leak that occurrence. The matching process can be easily brute-forced, and extended to the full string.
+Certain XS-Leaks can be preformed if a CSS Injection is possible [^6]. Among the different CSS Injection vectors, the most noticeable one is abusing CSS Selectors. They can be used as an expression to match certain HTML elements. The selector `input[value^="a"]` will be matched if the value of an `input` tag starts with the character "a". If a match occurs, attackers could then trigger a request to one of their websites using background, @import, etc to leak that occurrence. The matching process can be easily brute-forced, and extended to the full string.
 
 The attacker is able to inject CSS and control the execution time with the following selector will spend more time running if a `main` tag with `id='site-main'` exists:
 
