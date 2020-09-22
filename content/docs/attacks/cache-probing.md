@@ -57,7 +57,7 @@ Often some of these alternatives might be considered a [browser bug](https://bug
 - [Vary: Sec-Fetch-Site]({{< ref "../defenses/opt-in/fetch-metadata.md#fetch-metadata--cache-probing-attacks" >}}) allows applications to force cache segregation by a group of origins. It does not enforce full segregation, since some resources come from external origins of Content Delivery Networks, shared across multiple websites. Nevertheless, it's good protection against Cache Probing attacks.
 - [Subresource Protections]({{< ref "../defenses/design-protections/subresource-protections.md" >}}) allow application to set random tokens in URLs to make them unpredictable from attackers. Useful for both authenticated and unauthenticated subresources.
 
-### No-opt Defense Mechanisms
+### Default Defense Mechanisms
 
 [Paritioned Caches](https://TODO), a no-opt feature implemented in browsers create a unique cache for each origin. This protection prevents an attacker origin to interfere with cached resources of other origins. Applications do not have to opt-in to enforce this cache.
 
