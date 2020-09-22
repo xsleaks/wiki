@@ -40,7 +40,7 @@ To make a timing measurement an attacker can perform the following steps:
 4. When the request performed in step 3 arrives to the Service Worker it will return a 204 (No Content) response, which will abort the navigation.
 5. At this point the Service Worker will collect a measurement from the timer started in step 2. This measurement will be affected by how long JavaScript blocked the navigation for.
 
-The navigation won't actually happen, but by timing how long the browser took to navigate to the Service Worker it's possible to time the page execution.
+Since the navigation won't actually happen, steps from 3 to 5 can be repeated to get more measurements on successive JavaScript execution timings.
 
 <!--TODO(manuelvsousa): This can also be used to detect a navigation. Maybe we should add it to the navigations article as well? -->
 
