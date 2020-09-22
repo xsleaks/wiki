@@ -59,7 +59,7 @@ Another way to test for the [`Content-Disposition: attachment`](https://develope
 2. Navigate the saved reference to the endpoint that might download.
 3. After a timeout, check if the window is still same-origin
 
-The snippet presented in [Cross-Window Timing](httpps://TODO) XS-Leak can be slightly adapted to detect this behavior.
+The snippet presented in the [Cross-Window Timing](httpps://TODO) XS-Leak can be slightly adapted to detect this behavior.
 
 #### Download Navigation (without timeout)
 
