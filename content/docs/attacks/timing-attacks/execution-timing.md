@@ -73,6 +73,10 @@ In browsers with process isolation mechanisms, [Service Workers]({{< ref "execut
 
 ## ReDoS
 
+{{< hint requirement >}}
+This group of XS-Leaks requires an injection of Regex Expressions on the target page.
+{{< /hint >}}
+
 Regular Expression Denial of Service (ReDoS) it's an attack which result in a Denial of Service in applications that allow Regex as user input [^2] [^5]. The DoS results from an injected Regex that would run in exponential time. Some attacks applied this principle into leaking information: The attacker's injection cause a DoS if the Regex matches a character in some secret and computes quickly otherwise. This could happen in both client and server side.
 
 ### Busy Event Loop
