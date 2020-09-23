@@ -102,7 +102,7 @@ document.body.appendChild(outer);
 
 ### Inflation
 
-A server-side redirect can be detected from a cross-origin page when the destination URL increase in size and reflects a user input, either in the form of a query string parameter or a path. The following technique relies on the fact it is possible to induce an error in most web-servers by overloading the request parameters/path. Since the redirect increases the size of the URL, it can be detected by sending exactly one character less than the server maximum capacity, that way, if the size increases the server will respond with an error code which can be detected from a cross-origin page using common DOM APIs.
+A server-side redirect can be detected from a cross-origin page when the destination URL increase in size and reflects a user input, either in the form of a query string parameter or a path. The following technique relies on the fact that it is possible to induce an error in most web-servers by generating big requests parameters/paths. Since the redirect increases the size of the URL, it can be detected by sending exactly one character less than the server maximum capacity. That way if the size increases the server will respond with an error code which can be detected from a cross-origin page using common DOM APIs.
 
 <!-- ### CSP Violations -->
 <!--TODO(manuelvsousa): I will discuss CSP violations with @lweichselbaum to know if it's still thing-->
