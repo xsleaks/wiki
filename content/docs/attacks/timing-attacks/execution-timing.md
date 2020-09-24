@@ -17,12 +17,12 @@ Measuring the time of JavaScript execution in a browser can give attackers infor
 
 ## Timing the Event Loop
 
-JavaScript concurrency model is based on a [single-threaded event loop](https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop) which means it can only run one task at a time. If, for example, some time-consuming task blocks the event loop, the user can perceive a freeze on a page as a result of the UI thread being starved. Other tasks must wait until the blocking one runs to conclusion. 
+JavaScript concurrency model is based on a [single-threaded event loop](https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop) which means it can only run one task at a time. If, for example, some time-consuming task blocks the event loop, the user can perceive a freeze on a page as a result of the UI thread being starved. Other tasks must wait until the blocking one runs to conclusion. Each browser implement different [process model](https://www.chromium.org/developers/design-documents/process-models), which means some web sites might run in different threads (and event loops) depending on their interactions.
 
 Some attacks exploit this model to steal secrets from a cross-origin page:
 
-- When an attacker can steal a secret controls a string that is compared to a secret in a different origin, it might be possible to measure the comparison time of those strings [^2].
-- An attacker might be able to infer how long code from a different origin takes to run, by measuring how long it takes to run next in the event pool [^1]. The attacker keeps sending events to the event loop with fixed properties, which will eventually be dispatched if the pool is empty. Other origins will dispatch events to the same pool, and this is where an attacker infers the timing difference by detecting if a delay occurred with one of its tasks.
+- Infer how long code from a different origin takes to run, by measuring how long it takes to run next in the event pool [^1] [^2]. The attacker keeps sending events to the event loop with fixed properties, which will eventually be dispatched if the pool is empty. Other origins will dispatch events to the same pool, and this is where an attacker infers the timing difference by detecting if a delay occurred with one of its tasks.
+- Steal a secret from a cross-origin page if the said secret is being compared by an attacker-controlled string. The leak is a result of comparing timing differences in the event loop of a char-by-char string comparison [^2] (using the previous technique). In browsers without process isolation, cross-window communications between different origins will run in the same thread, thus sharing the same event loop.
 
 {{< hint warning >}}
 This attack is no longer possible in Browsers with process isolation mechanisms in place. Such mechanisms are only present in Chromium-Based browsers with [Site Isolation](https://www.chromium.org/Home/chromium-security/site-isolation) and *soon* in Firefox under [Project Fission](https://wiki.mozilla.org/Project_Fission).
