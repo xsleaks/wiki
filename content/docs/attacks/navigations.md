@@ -92,13 +92,6 @@ The attack works as follows:
 4. If a navigation occurs, the inner iframe will change origin's and both will now be different. 
 5. Finally, the outer iframe verifies if `i.contentWindow.location.href` (line 8) is accessible, only possible if both iframes share the same origin (Same-Origin Policy is enforced). If both iframes are in different origins, a `DOMException` will be thrown, meaning a navigation occurred.
 
-<!-- 
-## Case Scenarios
-
-- An online bank decides to redirect wealthy users to unmissable stock opportunities by triggering a navigation to a reserved space in the website when users are consulting the account balance. If this is only done to a specific group of users, it becomes possible for an attacker to leak the "client status" of the user. -->
-<!--TODO(manuelvsousa): Add better examples-->
-<!--TODO(manuelvsousa): evaluate if we are keeping case scenarios in the wiki-->
-
 
 ## Server-Side Redirects
 
@@ -108,6 +101,14 @@ A server-side redirect can be detected from a cross-origin page when the destina
 
 <!-- ### CSP Violations -->
 <!--TODO(manuelvsousa): I will discuss CSP violations with @lweichselbaum to know if it's still thing-->
+
+
+
+
+## Case Scenarios
+
+- An online bank decides to redirect wealthy users to unmissable stock opportunities by triggering a navigation to a reserved space in the website when users are consulting the account balance. If this is only done to a specific group of users, it becomes possible for an attacker to leak the "client status" of the user.
+- 
 
 
 ## Defense
@@ -128,3 +129,4 @@ A vulnerability reported to Twitter used this technique to leak the contents of 
 ## References
 
 [^1]: Protected tweets exposure through the url, [link](https://hackerone.com/reports/491473)
+[^2]: XS-Searching Google’s bug tracker to find out vulnerable source code, [link](https://medium.com/@luanherrera/xs-searching-googles-bug-tracker-to-find-out-vulnerable-source-code-50d8135b7549)
