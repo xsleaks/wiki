@@ -21,7 +21,7 @@ JavaScript concurrency model is based on a [single-threaded event loop](https://
 
 Some attacks exploit this model to steal secrets from a cross-origin page:
 
-- When an attacker controls a string that is compared to a secret in a different origin, it might be possible to measure the comparison time of those strings [^2].
+- When an attacker can steal a secret controls a string that is compared to a secret in a different origin, it might be possible to measure the comparison time of those strings [^2].
 - An attacker might be able to infer how long code from a different origin takes to run, by measuring how long it takes to run next in the event pool [^1]. The attacker keeps sending events to the event loop with fixed properties, which will eventually be dispatched if the pool is empty. Other origins will dispatch events to the same pool, and this is where an attacker infers the timing difference by detecting if a delay occurred with one of its tasks.
 
 {{< hint warning >}}
@@ -48,6 +48,10 @@ Since the navigation won't actually happen, steps from 3 to 5 can be repeated to
 Abusing Service Workers with the attack [described above]({{< ref "#service-workers" >}}), specifically in step 5, an attacker could detect whether navigating the hash triggered a navigation on another site [^4].
 
 ## CSS Injections
+
+{{< hint requirement >}}
+This group of XS-Leaks requires a CSS Injection on the target page.
+{{< /hint >}}
 
 Certain XS-Leaks can be preformed if a CSS Injection is possible [^6]. Among the different CSS Injection vectors, the most noticeable one is abusing CSS Selectors. They can be used as an expression to match certain HTML elements. The selector `input[value^="a"]` will be matched if the value of an `input` tag starts with the character "a". If a match occurs, attackers could then trigger a request to one of their websites using background, @import, etc to leak that occurrence. The matching process can be easily brute-forced, and extended to the full string.
 
