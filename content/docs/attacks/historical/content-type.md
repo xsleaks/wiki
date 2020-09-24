@@ -26,7 +26,7 @@ Considering the snippet below, `not_loaded` would be rendered if the returned `C
 
 An attacker could leak the `Content-Type` and Status Codes of a website by detecting whether the object rendered, which will happen when [all the conditions]({{< ref "#root-cause" >}}) are met. The attacker could check the values of `clientHeight` and `clientWidth` which will likely be different than 0 when the object renderers (and returned status `200`). Since `typeMustMatch` requires the server to return status `200` to load a resource, it would be possible to detect error pages, similarly to [Error Events](https://TODO) XS-Leaks.
 
-The example below shows how to detect this behavior by embedding an object inside an iframe, and checking the values of `clientHeight` and `clientWidth` when the `iframe` triggers the `onload` event.
+The example below shows how to detect this behavior by embedding an object inside an iframe and checking the values of `clientHeight` and `clientWidth` when the `iframe` triggers the `onload` event.
 
 
 ```javascript
