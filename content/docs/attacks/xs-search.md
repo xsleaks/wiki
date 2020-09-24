@@ -22,7 +22,7 @@ Cross-Site Search (XS-Search) is an important attack and principle in the family
 
 This attack requires multiple timing measurements to be accurate, something which can be improved with [Inflation Techniques](https://TODO) and statistical analysis. Secondly, instead of brute-forcing letter by letter, attackers can search specific words or sentences to leak only the occurrence of results.
 
-The most important part of this attack is its [principle](https://TODO), as it can be applied in a different number of XS-Leaks.
+The most important part of this attack is its principle, as it can be applied in a different number of XS-Leaks.
 
 ### Inflation Techniques
 
