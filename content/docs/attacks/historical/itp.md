@@ -24,7 +24,7 @@ To classify whether a website had tracking capabilities, ITP collected statistic
 One of the issues of ITP was that attackers could interact with it to arbitrarily enforce certain behaviors. For example, one could force ITP to give a strike to a domain and check if the domain entered the deny list. Some of the attacks leveraging ITP consisted in:
 
 - Checking if a website was put in the deny list, or how many strikes left are needed to put a website on the deny list could allow an attacker, leaking user’s browsing habits.
-- An attacker could use [XS-Search](https://TODO) to attack a Search System if it includes any **cross-site resource** when results are present, but omits that same resource when no results were found. Attackers could create force ITP to give 2 strikes to the **cross-site resource**, and after triggering a request to the search system, check if the resource was put in the deny list.
+- An attacker could use [XS-Search](https://TODO) to attack a Search System if it includes any **cross-site resource** when results are present, but omits that same resource when no results were found. Attackers could force ITP to give 2 strikes to the **cross-site resource** and, after triggering a request to the search system, check if the resource was put in the deny list.
 
 ## Fix
 
