@@ -17,7 +17,7 @@ menu = "main"
 
 ## Root Cause
 
-To classify whether a website had tracking capabilities, ITP collected statistics on resource loads as well as user interactions in websites such as clicks, taps, or text entries.  Based on the classification of these statistics, ITP would give a strike to a website if it is believed to have tracking capabilities. After 3 strikes a website would be put on a deny list, and have a different treatment by the browser in certain requests.
+To classify whether a website had tracking capabilities, ITP collected statistics on resource loads as well as user interactions in websites such as clicks, taps, or text entries.  Based on the classification of these statistics, ITP would give a strike to a website if it is believed to have tracking capabilities. After 3 strikes a website would be put on a deny list and have a different treatment by the browser in certain requests.
 
 ### Issues
 
