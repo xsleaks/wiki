@@ -20,7 +20,7 @@ Cross-Site Search (XS-Search) is an important attack and principle in the family
 3. If the measurement is under the hit baseline then add one more character (`?q=ra`); otherwise try a new one (`?q=s`).
 4. In the end, a full secret (`?q=secret`) can be leaked.
 
-This attack requires multiple timing measurements to be accurate, something which can be improved with [Inflation Techniques](https://TODO) and statistical analysis. Secondly, instead of brute-forcing letter by letter, attackers can search specific words or sentences to leak only the occurrence of results.
+This attack requires multiple timing measurements to be accurate, something which can be improved with [Inflation Techniques](https://TODO) and statistical analysis. Furthermore, instead of brute-forcing letter by letter, attackers can search specific words or sentences to leak only the occurrence of results.
 
 The most important part of this attack is its principle, as it can be applied in a different number of XS-Leaks.
 
