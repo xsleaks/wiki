@@ -17,14 +17,14 @@ menu = "main"
 
 ## Root Cause
 
-To classify whether a website had tracking capabilities, ITP collected statistics on resource loads as well as user interactions in websites such as clicks, taps, or text entries.  Based on the classification of these statistics, ITP would give a strike to a website if it is believed to have tracking capabilities. After 3 strikes a website would be put on a deny list and have a different treatment by the browser in certain requests.
+To classify whether a website had tracking capabilities, ITP collects statistics on resource loads as well as user interactions in websites such as clicks, taps, or text entries. Based on the classification of these statistics, ITP gives a strike to a website if it is believed to have tracking capabilities. After 3 strikes a website is put on a deny list and have a different treatment by the browser in certain requests.
 
 ### Issues
 
-One of the issues of ITP was that attackers could interact with it to arbitrarily enforce certain behaviors. For example, one could force ITP to give a strike to a domain and check if the domain entered the deny list. Some of the attacks leveraging ITP consisted in:
+One of the issues of ITP is that attackers can interact with it to arbitrarily enforce certain behaviors. For example, one could force ITP to give a strike to a domain and check if the domain entered the deny list. Some of the attacks leveraging ITP consist in:
 
-- Checking if a website was put in the deny list, or how many strikes left are needed to put a website on the deny list could allow an attacker, leaking user’s browsing habits.
-- An attacker could use [XS-Search](https://TODO) to attack a Search System if it includes any **cross-site resource** when results are present, but omits that same resource when no results were found. Attackers could force ITP to give 2 strikes to the **cross-site resource** and, after triggering a request to the search system, check if the resource was put in the deny list.
+- Checking if a website enters the deny list, or how many strikes left are needed to put a website on the deny list may allow an attacker to discover user's browsing habits.
+- An attacker could attack a Search System with [XS-Search](https://TODO) if it includes any **cross-site resource** when results are present, but omits that same resource when no results are found. Attackers could force ITP to give 2 strikes to the **cross-site resource** and, after triggering a request to the search system, check if the resource was put in the deny list.
 
 ## Fix
 
