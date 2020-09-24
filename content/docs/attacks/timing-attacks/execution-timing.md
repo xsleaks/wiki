@@ -85,7 +85,7 @@ Attackers can make the [event loop busy](https://gist.github.com/terjanq/60b4ae4
 
 1. Navigate the target website in a separate window with `window.open` or inside an iframe (if [Framing Protections](https://TODO) are **not** in place).
 2. Wait for the long computation to start.
-3. Load the target website inside an iframe (regardless of any [Framing Protections](https://TODO)). An attacker can detect if step 1 is still computing by checking if the iframe started loading (onload). Since both navigations occurred within same-site, they run in the same thread and share the same event loop (they can block each other), as Site Isolation is not enforced.
+3. Load the target website inside an iframe (regardless of any [Framing Protections](https://TODO)). An attacker can detect if step 1 is still computing by checking if the iframe started loading (onload). Since both navigations occurred within the same context and they are same-origin, they run in the same thread and share the same event loop (they can block each other), as Site Isolation is not enforced.
 
 ## Defense
 
