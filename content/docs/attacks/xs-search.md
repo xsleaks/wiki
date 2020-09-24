@@ -33,7 +33,14 @@ The inflation techniques of XS-Search are used to increase the accuracy of the a
 
 ## Extended Principle
 
-While considering the original research around XS-Search an XS-Leak itself, the principle of the attack extends to other XS-Leaks. This is important because other XS-Leaks can abuse the principle with higher levels of impact and reliability. For example, if the number of frames on a page varies based on search results, this attack principle could be applied with a [Frame Counting](https://TODO) XS-Leak, which is much more accurate then timing measurements.
+While considering the original research around XS-Search an XS-Leak itself, the principle of the attack extends to other XS-Leaks. For example, instead of relying on timing measurements, which are unreliable, attackers can use any other XS-Leak to achieve the same observation.
+
+In a Query-Based Search System a user submits queries and get responses associated to those queries. From this action, there are two different outcomes:
+
+1. The system shows results and the page will present a specific behavior (first state).
+2. The system does not show results and the page will present a different behavior from step 1 (second state).
+
+If both behaviors, abstracted in the example above, can be distinguished using any XS-Leak, then an attacker might preform an XS-Search attack with higher levels of impact and reliability. For example, if the number of frames on a page varies based on search results (step 1 and 2 are distinguishable), this attack principle could be applied with a [Frame Counting](https://TODO) XS-Leak which is much more accurate then timing measurements.
 
 
 ## Defense
