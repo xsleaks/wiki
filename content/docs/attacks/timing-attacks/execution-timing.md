@@ -53,21 +53,19 @@ Abusing Service Workers with the attack [described above]({{< ref "#service-work
 This group of XS-Leaks requires a CSS Injection on the target page.
 {{< /hint >}}
 
-Certain XS-Leaks can be preformed if a CSS Injection is possible [^6]. Among the different CSS Injection vectors, the most noticeable one is abusing CSS Selectors. They can be used as an expression to match certain HTML elements. The selector `input[value^="a"]` will be matched if the value of an `input` tag starts with the character "a". If a match occurs, attackers could then trigger a request to one of their websites using background, @import, etc to leak that occurrence. The matching process can be easily brute-forced, and extended to the full string.
-
-The attacker is able to inject CSS and control the execution time with the following selector will spend more time running if a `main` tag with `id='site-main'` exists:
+Among the different CSS Injection vectors, the most noticeable one is the abuse of CSS Selectors. They can be used as an expression to match and select certain HTML elements. For example, the selector `input[value^="a"]` will be matched if the value of an `input` tag starts with the character "a". So, to detect if a CSS Selector matched the expression, attackers could trigger a callback to one of their websites using certain properties like `background`, `@import`, etc [^6] [^7]. The matching process can be easily brute-forced, and extended to the full string.
 
 ### jQuery, CSS Selectors & Short-circuit Timing
 
-Attackers can abuse another interesting behavior of CSS selectors which is `short-circuit` evaluation of expressions. This expression is received in an `URL` hash and evaluated if the page uses (`jQuery(location.hash)`) [^3].
+Attackers can abuse another interesting behavior of CSS selectors which is `short-circuit` evaluation of expressions. This expression is received in an `URL` hash and evaluated if the page executes `jQuery(location.hash)` [^3].
+
+A timing attack is possible because the expression is compared from right to left, so if the selector `main[id='site-main']` does not match and fails to evaluate, the other parts of the selector (`*:has(*:has(*:has(*))))`) which take longer to execute, are ignored (just like the `and` operator but backwards).
 
 ```javascript
 $("*:has(*:has(*:has(*)) *:has(*:has(*:has(*))) *:has(*:has(*:has(*)))) main[id='site-main']")
 ```
 
-A timing attack is possible because the expression is compared from right to left, so if the selector `main[id='site-main']` does not match and fails to evaluate, the other parts of the selector (`*:has(*:has(*:has(*))))`) which take longer to execute, are ignored (just like the `and` operator but backwards).
-
-{{< hint warning >}}
+{{< hint info >}}
 This attack is no longer possible in Browsers with process isolation mechanisms in place. Such mechanisms are only present in Chromium-Based browsers with [Site Isolation](https://www.chromium.org/Home/chromium-security/site-isolation) and *soon* in Firefox under [Project Fission](https://wiki.mozilla.org/Project_Fission).
 {{< /hint >}}
 
@@ -131,3 +129,5 @@ w = open('https://target');
 [^4]: Security: XS-Search + XSS Auditor = Not Cool, [link](https://bugs.chromium.org/p/chromium/issues/detail?id=922829)
 [^5]: A Rough Idea of Blind Regular Expression Injection Attack, [link](https://diary.shift-js.info/blind-regular-expression-injection/)
 [^6]: CSS Injection Primitives, [link](https://x-c3ll.github.io/posts/CSS-Injection-Primitives/)
+[^7]: HTTPLeaks, [link](https://github.com/cure53/HTTPLeaks/)
+
