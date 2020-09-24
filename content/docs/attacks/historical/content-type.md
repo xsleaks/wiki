@@ -16,7 +16,7 @@ menu = "main"
 
 ## Root Cause
 
-Considering the snippet below, `not_loaded` would be rendered if the returned `Content-Type` of `https://target/api` matched the one in `type`, or the server returned a status different then `200`.
+Considering the snippet below, `not_loaded` would be rendered if the returned `Content-Type` of `https://target/api` did not match the one in `type`, or the server returned a status different than `200`.
 
 ```javascript
 <object type="application/json" data="https://target/api" typemustmatch> not_loaded </object>
