@@ -17,7 +17,7 @@ One of the principles of protecting subresources is the same as protecting endpo
 
 Some applications might ask for user consent to trigger a certain sensitive action. Facebook deploys this protection in some sensible search endpoints like `https://www.facebook.com/messages/?qa=UserMustConsent`, where a user musk press OK to advance with the search query. Since attackers can't surpass this verification, the page won't leak any special behavior.
 
-User Consent is often asked in applications to warn the user it's being redirected to a page **outside** of the current website.
+User consent is often asked in applications to warn the user it's being redirected to a website **outside** of the current website. This prevents attackers to [detect some type of navigations](https://TODO).
 
 ## Deployment
 
