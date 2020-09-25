@@ -4,6 +4,25 @@ title = "XS-Leaks Wiki"
 enableGitInfo = true
 theme = "book"
 
+[params]
+  # Set source repository location.
+  # Used for 'Last Modified' and 'Edit this page' links.
+  BookRepo = 'https://github.com/xsleaks/wiki'
+
+  # Enable "Edit this page" links for 'doc' page type.
+  # Disabled by default. Uncomment to enable. Requires 'BookRepo' param.
+  # Edit path must point to root directory of repo.
+  BookEditPath = 'edit/master/content'
+
+  # Configure the date format used on the pages
+  # - In git information
+  # - In blog posts
+  BookDateFormat = 'Last update: January 2, 2006'
+
+  # /!\ This is an experimental feature, might be removed or changed at any time
+  # (Optional, experimental, default false) Enables service worker that caches visited pages and resources for offline use.
+  BookServiceWorker = true
+
 [taxonomies]
   category = "Category"
   attack = "Attacks"
