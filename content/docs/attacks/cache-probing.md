@@ -63,7 +63,7 @@ Often some of these alternatives might be considered a [browser bug](https://bug
 [Paritioned Caches](https://TODO), a feature implemented in browsers to create a unique cache for each origin. This protection prevents an attacker origin to interfere with cached resources of other origins. Applications do not have to opt-in to enforce this.
 
 {{< hint warning >}}
-Partitioned Caches are not available in most browsers by default, so applications cannot rely on them yet.
+Partitioned Caches are not available in most browsers by default, so applications cannot rely on them as of September 2020.
 {{< /hint >}}
 
 ## Real World Example
