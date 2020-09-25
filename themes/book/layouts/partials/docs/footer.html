@@ -8,7 +8,7 @@
     {{- $date := partial "docs/date" (dict "Date" .GitInfo.AuthorDate.Local "Format" .Site.Params.BookDateFormat) -}}
     <a class="flex align-center" href="{{ .Site.Params.BookRepo }}/commit/{{ .GitInfo.Hash }}" title='{{ i18n "Last modified by" }} {{ .GitInfo.AuthorName }} | {{ $date }}' target="_blank" rel="noopener">
       <img src="{{ "svg/calendar.svg" | relURL }}" class="book-icon" alt="Calendar" />
-      <span>Last Modified: {{ $date }}</span>
+      <span>{{ i18n "Last Modified" }}: {{ $date }}</span>
     </a>
   </div>
 {{ end }}
