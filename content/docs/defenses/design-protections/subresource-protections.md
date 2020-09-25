@@ -17,6 +17,8 @@ One of the principles of protecting subresources is the same as protecting endpo
 
 Some applications might ask for user consent to trigger a certain sensitive action. Facebook deploys this protection in some sensible search endpoints like `https://www.facebook.com/messages/?qa=UserMustConsent`, where a user musk press OK to advance with the search query. Since attackers can't surpass this verification, the page won't leak any special behavior.
 
+User Consent is often asked in applications to warn the user it's being redirected to a page **outside** of the current website.
+
 ## Deployment
 
 While this protection might work in some scenarios, it has some disadvantages:
@@ -24,6 +26,7 @@ While this protection might work in some scenarios, it has some disadvantages:
 - Hard to deploy as it requires substantial changes in the codebase. 
 - It might break the desired behavior for the feature.
 - In the case of Random tokens, it will break bookmarks and other permanent references.
+- Consent pages might add friction to using the application.
 
 {{< hint warning >}}
 This protection can be enough to fix attacks temporarily in certain scenarios. Due to the challenges of deploying this protection, applications are encouraged to deploy [opt-in web platform security features](https://TODO) as the default approach.
