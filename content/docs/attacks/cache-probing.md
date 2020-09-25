@@ -32,14 +32,15 @@ An attacker wants to know whether a user visited a certain social network.
 Cache Probing with [Error Events](https://TODO-REFFERSUBSECTIONBELLOW) [^2] allows more accurate and impactful attacks. Instead of relying on timing measurements, they leverage [Error Events](https://TODO-REFFERSUBSECTIONBELLOW) and some server behaviors to detect whether a resource was cached. It also uses a trick to invalidate resources from the cache. The attack works as follows:
 
 1. [Invalidate the resource]({{< ref "#invalidate-the-cache" >}}) from the browser cache. This step is required to make sure the attack will not consider a resource previously cached in another visit.
-2. Preform a request to load subresources of the target website. This can be done by navigating to the target website with `<link rel=prerender..`, embedding the website in an `iframe` or navigating away with `window.open`.
-3. An attacker performs a request with an [overlong referrer](https://lists.archive.carbon60.com/apache/users/316239) which will usually make the server fail when receiving the request. If the resource was cached in step 2, this request will succeed instead.
+2. Perform a request to load subresources of the target website. This can be done by navigating to the target website with `<link rel=prerender..`, embedding the website in an `iframe` or navigating away with `window.open`.
+3. Perform a request with an [overlong referrer](https://lists.archive.carbon60.com/apache/users/316239) which will usually make the server fail when receiving the request. If the resource was cached in step 2, this request will succeed instead.
 
 ### Invalidate the cache
 
 To invalidate a resource from the cache the attacker must force the server to return an error when fetching that subresource. There are a couple of ways to achieve this:
 
-- By performing a request with an [overlong referrer](https://lists.archive.carbon60.com/apache/users/316239) and `'cache':'reload'`. This might not work as browsers [capped]((https://github.com/whatwg/fetch/issues/903)) the length of the referrer to prevent this.
+- A request with an [overlong referrer](https://lists.archive.carbon60.com/apache/users/316239) and `'cache':'reload'`. This might not work as browsers [capped]((https://github.com/whatwg/fetch/issues/903)) the length of the referrer to prevent this.
+- A `POST` request with a `fetch` `no-cors`. Sometimes in cases where an error is not returned, the browser also invalidates the cache.
 - Request Headers such as Content-Type, Accept, Accept-Language, etc that may cause the server to fail (more application dependent).
 - Other request properties.
 
