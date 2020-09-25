@@ -99,16 +99,25 @@ The attack works as follows:
 
 A server-side redirect can be detected from a cross-origin page when the destination URL increase in size and reflects a user input, either in the form of a query string parameter or a path. The following technique relies on the fact that it is possible to induce an error in most web-servers by generating big requests parameters/paths. Since the redirect increases the size of the URL, it can be detected by sending exactly one character less than the server maximum capacity. That way if the size increases the server will respond with an error code which can be detected from a cross-origin page using common DOM APIs.
 
-<!-- ### CSP Violations -->
-<!--TODO(manuelvsousa): I will discuss CSP violations with @lweichselbaum to know if it's still thing-->
+### CSP Violations
 
+[Content-Security-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) (CSP) is an in-depth defense mechanism against XSS and data injection attacks. When a CSP is violated, a `SecurityPolicyViolationEvent` is thrown. An attacker can set up a CSP which will trigger a `Violation` event every time a `fetch` follows an URL not set in the CSP directive. This will allow an attacker to detect if a redirect to another origin occurred [^2] [^3]. 
 
+The example below will trigger a `SecurityPolicyViolationEvent` if the website set in fetch API (line 6) redirects to a website different then `target.page`.
 
+{{< highlight html "linenos=table,linenostart=1" >}}
+<meta http-equiv="Content-Security-Policy" content="default-src 'unsafe-inline' target.page">
+<script>
+document.addEventListener('securitypolicyviolation', e => {
+  console.log("redirected");
+});
+fetch('https://target.page/might_redirect', {mode: 'no-cors',credentials: 'include'});
+</script>
+{{< / highlight >}}
 
 ## Case Scenarios
 
 - An online bank decides to redirect wealthy users to unmissable stock opportunities by triggering a navigation to a reserved space in the website when users are consulting the account balance. If this is only done to a specific group of users, it becomes possible for an attacker to leak the "client status" of the user.
-- 
 
 
 ## Defense
@@ -116,11 +125,12 @@ A server-side redirect can be detected from a cross-origin page when the destina
 | Attack Alternative  | [Same-Site Cookies]({{< ref "../defenses/opt-in/same-site-cookies.md" >}})  | [Fetch Metadata]({{< ref "../defenses/opt-in/fetch-metadata.md" >}})  | [COOP]({{< ref "../defenses/opt-in/coop.md" >}})  |  [Framing Protections]({{< ref "../defenses/opt-in/xfo.md" >}}) |
 |:----------------------------------:|:--------------------------:|:---------------:|:-----:|:--------------------:|
 | iframe                             |         ✔️                 |      ✔️         |  ❌   |          ✔️         |
+| `History.length` (iframe)          |         ✔️                 |      ✔️         |  ❌   |          ✔️         |
+| `History.length` (window.open)     |         ✔️ (If Strict)     |      ✔️         |  ✔️   |          ❌         |
 | Download bar                       |         ✔️                 |      ✔️         |  ✔️   |          ✔️         |
 | Download Navigation (w/ timeout)   |         ✔️ (If Strict)     |      ✔️         |  ❌   |          ❌         |
 | Download Navigation (no timeout)   |         ✔️                 |      ✔️         |  ✔️   |          ✔️         |
-| `History.length` (iframe)          |         ✔️                 |      ✔️         |  ❌   |          ✔️         |
-| `History.length` (window.open)     |         ✔️ (If Strict)     |      ✔️         |  ✔️   |          ❌         |
+| CSP Violations                     |         ✔️                 |      ✔️         |  ❌   |          ❌         |
 
 ## Real World Example
 
@@ -129,4 +139,7 @@ A vulnerability reported to Twitter used this technique to leak the contents of 
 ## References
 
 [^1]: Protected tweets exposure through the url, [link](https://hackerone.com/reports/491473)
-[^2]: XS-Searching Google’s bug tracker to find out vulnerable source code, [link](https://medium.com/@luanherrera/xs-searching-googles-bug-tracker-to-find-out-vulnerable-source-code-50d8135b7549)
+[^2]: Disclose domain of redirect destination taking advantage of CSP, [link](https://bugs.chromium.org/p/chromium/issues/detail?id=313737)
+[^3]: Using Content-Security-Policy for Evil, [link](http://homakov.blogspot.com/2014/01/using-content-security-policy-for-evil.html)
+
+
