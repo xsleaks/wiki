@@ -1,7 +1,3 @@
 ---
-title: "Browser Intrinsic"
+title: "Browser Default"
 ---
-
-# Browser Intrinsic
-
-TODO
