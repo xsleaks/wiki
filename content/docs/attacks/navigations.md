@@ -13,7 +13,10 @@ defenses = [
 menu = "main"
 +++
 
-Detecting if a cross-site page triggered a navigation can be useful to an attacker.  This can be done in two ways:
+Detecting if a cross-site page triggered a navigation (or didn't) can be useful to an attacker. For example, a website may trigger a navigation in a certain endpoint [depending on the status of the user]({{< ref "#case-scenarios" >}}).
+
+To detect if **any kind** of navigation occurred, an attacker can do:
+
 - Using an `iframe` and counting the number of times the `onload` event is triggered.
 - Checking the value of `History.length`, accessible through any `window` reference, gives the number of entries in the history of a victim either changed by `History.pushState` or regular navigations. To get the value of `History.length` an attacker changes the location of the `window` reference with the target website, changes back to same-origin, and finally reads the value.
 
@@ -99,6 +102,8 @@ The attack works as follows:
 
 A server-side redirect can be detected from a cross-origin page when the destination URL increase in size and reflects a user input, either in the form of a query string parameter or a path. The following technique relies on the fact that it is possible to induce an error in most web-servers by generating big requests parameters/paths. Since the redirect increases the size of the URL, it can be detected by sending exactly one character less than the server maximum capacity. That way if the size increases the server will respond with an error code which can be detected from a cross-origin page using common DOM APIs.
 
+## Cross-Origin Redirects
+
 ### CSP Violations
 
 [Content-Security-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) (CSP) is an in-depth defense mechanism against XSS and data injection attacks. When a CSP is violated, a `SecurityPolicyViolationEvent` is thrown. An attacker can set up a CSP which will trigger a `Violation` event every time a `fetch` follows an URL not set in the CSP directive. This will allow an attacker to detect if a redirect to another origin occurred [^2] [^3]. 
@@ -132,9 +137,9 @@ fetch('https://target.page/might_redirect', {mode: 'no-cors',credentials: 'inclu
 | Download Navigation (no timeout)   |         ✔️                 |      ✔️         |  ✔️   |          ✔️         |
 | CSP Violations                     |         ✔️                 |      ✔️         |  ❌   |          ❌         |
 
-## Real World Example
+## Real World Examples
 
-A vulnerability reported to Twitter used this technique to leak the contents of private tweets using [XS-Search](https://TODO). This attack was possible because the page would only trigger a navigation depending on whether there were results to the user query [^1].
+- A vulnerability reported to Twitter used this technique to leak the contents of private tweets using [XS-Search](https://TODO). This attack was possible because the page would only trigger a navigation depending on whether there were results to the user query [^1].
 
 ## References
 
