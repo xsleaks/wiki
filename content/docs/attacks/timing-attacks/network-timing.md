@@ -17,12 +17,12 @@ Network Timing side-channels have been present on the web since its beginning [^
 
 To obtain timing measurements attackers must use a [clock]({{< ref "clocks.md" >}}), either an implicit or explicit one. These clocks are usually interchangeable and only vary in accuracy and availability. For simplicity, this article will only address the `performance.now()` API, an explicit clock present in all modern browsers.
 
-This side-channel allows attackers to infer information from a cross-site request based on how much time it takes to complete a request [^2]. The timing measurement may vary based on a user state and it's usually connected to:
+This side-channel allows attackers to infer information from a cross-site request based on how much time it takes to complete that request [^2]. The network timing measurement may vary based on a user state and it's usually connected to:
 
-- Resource Size
-- The computation time in the backend
-- Amount of sub-resources
-- [Cache status](https://TODO)
+- Resource Size.
+- The computation time in the backend.
+- Amount of sub-resources.
+- [Cache status](https://TODO).
 
 <!--TODO(manuelvsousa): Add cross reference to cache attacks in the wiki -->
 
@@ -36,24 +36,27 @@ The [performance.now()]({{< ref "clocks.md#performancenow" >}}) API can be used 
 
 ```javascript
 let before = performance.now()
-await fetch("https://target-website.com")
+await fetch('https://target-website.com',{'mode':'no-cors','credentials':'include'})
 let request_time = performance.now() - before
 ```
 
-### Frame Timing Attacks
+### Frame Timing (Network)
 
-This mechanism allows an attacker to measure a page full load which includes subresources. If [Framing Protections](https://TODO) are in place, only the network request can be measured since its subresources are not fetched.
+If the target website enforces [Framing Protections](https://TODO), embedding said website as an `iframe` allows an attacker to obtain a network timing measurement. The example below shows how an attacker can achieve this by starting a [clock](https://TODO), embedding the website as an iframe (request is started), and wait for the `onload` event to be fired (request completed).
 
-```html
-<iframe name=f id=g></iframe>
-<script>
-before = performance.now();
-f.location = 'https://target-website.com';
-g.onerror = g.onload = ()=>{
-    console.log('time was', performance.now() - before)
-};
-</script>
+```javascript
+begin = performance.now();
+var x = document.createElement('iframe');
+x.src = "https://target.page";
+document.body.appendChild(x);
+start = performance.now();
+x.onload = () => console.log(performance.now() - begin)
 ```
+
+### Frame Timing (Sandbox)
+
+When a website sets [Framing Protections](https://TODO), an attacker can measure a pure network measurement by including the [`sandbox`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe) attribute in the iframe. This attribute will block all JavaScript execution thus preventing subresources from loading.
+
 
 ### Cross-window Timing Attacks
 
