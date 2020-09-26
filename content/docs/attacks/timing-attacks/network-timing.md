@@ -110,7 +110,8 @@ This attack is limited to specific versions of HTTP and joint scenarios. It make
 | Attack Alternative  | [Same-Site Cookies]({{< ref "../../defenses/opt-in/same-site-cookies.md" >}})  | [Fetch Metadata]({{< ref "../../defenses/opt-in/fetch-metadata.md" >}})  | [Cross-Origin-Opener-Policy]({{< ref "../../defenses/opt-in/coop.md" >}})  |  [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}) |
 |:-------------------:|:------------------:|:---------------:|:-----:|:--------------------:|
 | Modern Timing Attacks              |         ✔️         |      ✔️         |  ❌   |          ❌         |
-| Frame Timing |         ✔️       |      ✔️         |  ❌   |          ✔️
+| Frame Timing (Network) |         ✔️       |      ✔️         |  ❌   |          -
+| Frame Timing (Sandbox) |         ✔️       |      ✔️         |  ❌   |          -
 | Cross-window Timing  |         ✔️ (if Strict)       |      ✔️         |  ✔️   |          ❌         |
 | Timeless Timing  |         ✔️        |      ✔️         |  ❌   |          ❌         |
 
