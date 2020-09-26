@@ -40,9 +40,9 @@ await fetch('https://target-website.com',{'mode':'no-cors','credentials':'includ
 let request_time = performance.now() - before
 ```
 
-### Frame Timing (Network)
+### Frame Timing Attacks (Network)
 
-If the target website enforces [Framing Protections](https://TODO), embedding said website as an `iframe` allows an attacker to obtain a network timing measurement. The example below shows how an attacker can achieve this by starting a [clock](https://TODO), embedding the website as an iframe (request is started), and wait for the `onload` event to be fired (request completed).
+If the target page enforces [Framing Protections](https://TODO), embedding it as an `iframe` allows an attacker to obtain a network timing measurement. The example below shows how to achieve this by starting a [clock](https://TODO), embedding the page as an `iframe` (request is started), and wait for the `onload` event to be triggered (request completed).
 
 ```javascript
 begin = performance.now();
@@ -53,16 +53,14 @@ start = performance.now();
 x.onload = () => console.log(performance.now() - begin)
 ```
 
-### Frame Timing (Sandbox)
+### Sandboxed Frame Timing Attacks
 
-When a website sets [Framing Protections](https://TODO), an attacker can measure a pure network measurement by including the [`sandbox`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe) attribute in the iframe. This attribute will block all JavaScript execution thus preventing subresources from loading.
+When a page sets [Framing Protections](https://TODO), an attacker can obtain a pure network measurement by including the [`sandbox`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe) attribute in the `iframe`. This attribute will block all JavaScript execution thus preventing subresources from loading.
 
 
 ### Cross-window Timing Attacks
 
-If a page sets [Framing Protections](https://TODO) an attacker can still measure a page full load by navigating the victim with `window.open`. This is due to the fact that opening windows is not affected by framing protections.
-
-The snippet below shows how make this measurement and works as follows:
+An attacker can also measure the network timing of a page by navigating the victim away with `window.open` and wait for the `window` to start loading. The snippet below shows how to make this measurement and works as follows:
 
 1. The attacker creates an infinite loop of `postMessage` broadcasts to itself while opening a window to the target website (lines 15, 2, 7). The clock is started (line 14).
 2. When the window is created, its location [will be `about:blank`](https://developer.mozilla.org/en-US/docs/Web/API/Window/open) until the target page starts loading.
@@ -103,8 +101,6 @@ The original research needs to be adapted to work in a browser since it handles 
 This attack is limited to specific versions of HTTP and joint scenarios. It makes certain assumptions and has requirements regarding server behaviors.
 {{< /hint >}}
 
-<!--TODO(manuelvsousa): Add case scenarios -->
-
 ## Defense
 
 | Attack Alternative  | [Same-Site Cookies]({{< ref "../../defenses/opt-in/same-site-cookies.md" >}})  | [Fetch Metadata]({{< ref "../../defenses/opt-in/fetch-metadata.md" >}})  | [Cross-Origin-Opener-Policy]({{< ref "../../defenses/opt-in/coop.md" >}})  |  [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}) |
@@ -119,4 +115,3 @@ This attack is limited to specific versions of HTTP and joint scenarios. It make
 [^2]: The Clock is Still Ticking: Timing Attacks in the Modern Web - Section 4.3.3, [link](https://tom.vg/papers/timing-attacks_ccs2015.pdf)
 [^3]: Timeless Timing Attacks: Exploiting Concurrency to Leak Secrets over Remote Connections, [link](https://www.usenix.org/system/files/sec20-van_goethem.pdf)
 [^4]: Cross-domain search timing, [link](https://scarybeastsecurity.blogspot.com/2009/12/cross-domain-search-timing.html)
-
