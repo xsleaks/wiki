@@ -30,7 +30,7 @@ This side-channel allows attackers to infer information from a cross-site reques
 Learn more about the different types of clocks in the [Clocks Article]({{< ref "clocks.md" >}}).
 {{< /hint >}}
 
-### Modern Web Timing Attacks
+## Modern Web Timing Attacks
 
 The [performance.now()]({{< ref "clocks.md#performancenow" >}}) API can be used to measure how much time it takes to perform a request.
 
@@ -40,7 +40,7 @@ await fetch('https://target-website.com',{'mode':'no-cors','credentials':'includ
 let request_time = performance.now() - before
 ```
 
-### Frame Timing Attacks (Network)
+## Frame Timing Attacks (Network)
 
 If the target page enforces [Framing Protections](https://TODO), embedding it as an `iframe` allows an attacker to obtain a network timing measurement. The example below shows how to achieve this by starting a [clock](https://TODO), embedding the page as an `iframe` (request is started), and wait for the `onload` event to be triggered (request completed).
 
@@ -53,12 +53,12 @@ start = performance.now();
 x.onload = () => console.log(performance.now() - begin)
 ```
 
-### Sandboxed Frame Timing Attacks
+## Sandboxed Frame Timing Attacks
 
 When a page sets [Framing Protections](https://TODO), an attacker can obtain a pure network measurement by including the [`sandbox`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe) attribute in the `iframe`. This attribute will block all JavaScript execution thus preventing subresources from loading.
 
 
-### Cross-window Timing Attacks
+## Cross-window Timing Attacks
 
 An attacker can also measure the network timing of a page by navigating the victim away with `window.open` and wait for the `window` to start loading. The snippet below shows how to make this measurement and works as follows:
 
@@ -87,7 +87,7 @@ begin = performance.now();
 w = open('//mail.com/search?q=foo');
 {{< / highlight >}}
 
-### Timeless Timing Attacks
+## Timeless Timing Attacks
 
 Other attacks do not consider the notion of time to perform a timing attack [^3]. Timeless attacks consist of fitting two `HTTP` requests in a single packet, the baseline and the attacked request, to guarantee they arrive at the same time to the server. The server *will* process the requests concurrently, and return a response based on their execution time as soon as possible. One of the two requests will arrive first, allowing the attacker to get the timing difference by comparing both requests.
 
