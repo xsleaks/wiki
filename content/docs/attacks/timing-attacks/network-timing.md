@@ -13,7 +13,7 @@ defenses = [
 menu = "main"
 +++
 
-Network Timing side-channels have been present on the web since its beginning [^1]. These attacks achieved different levels of impact over time, gaining new attention when browsers started shipping high precision timers like [performance.now()]({{< ref "clocks.md#performancenow" >}}).
+Network Timing side-channels have been present on the web since its beginning [^1] [^4]. These attacks achieved different levels of impact over time, gaining new attention when browsers started shipping high precision timers like [performance.now()]({{< ref "clocks.md#performancenow" >}}).
 
 To obtain timing measurements attackers must use a [clock]({{< ref "clocks.md" >}}), either an implicit or explicit one. These clocks are usually interchangeable and only vary in accuracy and availability. For simplicity, this article will only address the `performance.now()` API, an explicit clock present in all modern browsers.
 
@@ -60,7 +60,7 @@ When a website sets [Framing Protections](https://TODO), an attacker can measure
 
 ### Cross-window Timing Attacks
 
-If a page sets [Framing Protections](https://TODO) an attacker can still measure a page full load (i.e including subresources) by navigating the victim with `window.open`. This is due to the fact that opening windows is not affected by framing protections.
+If a page sets [Framing Protections](https://TODO) an attacker can still measure a page full load by navigating the victim with `window.open`. This is due to the fact that opening windows is not affected by framing protections.
 
 The snippet below shows how make this measurement and works as follows:
 
@@ -113,8 +113,10 @@ This attack is limited to specific versions of HTTP and joint scenarios. It make
 | Frame Timing (Network) |         ✔️       |      ✔️         |  ❌   |          -
 | Frame Timing (Sandbox) |         ✔️       |      ✔️         |  ❌   |          -
 | Cross-window Timing  |         ✔️ (if Strict)       |      ✔️         |  ❌   |          ❌         |
-| Timeless Timing  |         ✔️        |      ✔️         |  ❌   |          ❌         |
+| Timeless Timing  |         ✔️        |      ❓         |  ❌   |          ❌         |
 
-[^1]: Exposing Private Information by Timing Web Applications. [link](https://crypto.stanford.edu/~dabo/papers/webtiming.pdf)
+[^1]: Exposing Private Information by Timing Web Applications, [link](https://crypto.stanford.edu/~dabo/papers/webtiming.pdf)
 [^2]: The Clock is Still Ticking: Timing Attacks in the Modern Web - Section 4.3.3, [link](https://tom.vg/papers/timing-attacks_ccs2015.pdf)
-[^3]: Timeless Timing Attacks: Exploiting Concurrency to Leak Secrets over Remote Connections. [link](https://www.usenix.org/system/files/sec20-van_goethem.pdf)
+[^3]: Timeless Timing Attacks: Exploiting Concurrency to Leak Secrets over Remote Connections, [link](https://www.usenix.org/system/files/sec20-van_goethem.pdf)
+[^4]: Cross-domain search timing, [link](https://scarybeastsecurity.blogspot.com/2009/12/cross-domain-search-timing.html)
+
