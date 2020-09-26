@@ -112,7 +112,7 @@ This attack is limited to specific versions of HTTP and joint scenarios. It make
 | Modern Timing Attacks              |         ✔️         |      ✔️         |  ❌   |          ❌         |
 | Frame Timing (Network) |         ✔️       |      ✔️         |  ❌   |          -
 | Frame Timing (Sandbox) |         ✔️       |      ✔️         |  ❌   |          -
-| Cross-window Timing  |         ✔️ (if Strict)       |      ✔️         |  ✔️   |          ❌         |
+| Cross-window Timing  |         ✔️ (if Strict)       |      ✔️         |  ❌   |          ❌         |
 | Timeless Timing  |         ✔️        |      ✔️         |  ❌   |          ❌         |
 
 [^1]: Exposing Private Information by Timing Web Applications. [link](https://crypto.stanford.edu/~dabo/papers/webtiming.pdf)
