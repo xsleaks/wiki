@@ -55,7 +55,7 @@ x.onload = () => console.log(performance.now() - begin)
 
 ## Sandboxed Frame Timing Attacks
 
-When a page sets [Framing Protections](https://TODO), an attacker can obtain a pure network measurement by including the [`sandbox`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe) attribute in the `iframe`. This attribute will block all JavaScript execution thus preventing some subresources from loading.
+When a page sets [Framing Protections](https://TODO), an attacker can obtain a pure network measurement by including the [`sandbox`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe) attribute in the `iframe`. This attribute will block all JavaScript execution and prevent some subresources from loading.
 
 
 ## Cross-window Timing Attacks
