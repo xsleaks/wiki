@@ -60,7 +60,7 @@ When a page sets [Framing Protections](https://TODO), an attacker can obtain a p
 
 ## Cross-window Timing Attacks
 
-An attacker can also measure the network timing of a page by navigating the victim away with `window.open` and wait for the `window` to start loading. The snippet below shows how to make this measurement and works as follows:
+An attacker can also measure the network timing of a page by opening a new window with `window.open` and wait for the `window` to start loading. The snippet below shows how to make this measurement and works as follows:
 
 1. The attacker creates an infinite loop of `postMessage` broadcasts to itself while opening a window to the target website (lines 15, 2, 7). The clock is started (line 14).
 2. When the window is created, its location [will be `about:blank`](https://developer.mozilla.org/en-US/docs/Web/API/Window/open) until the target page starts loading.
