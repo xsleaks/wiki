@@ -15,7 +15,7 @@ menu = "main"
 
 Detecting if a cross-site page triggered a navigation (or didn't) can be useful to an attacker. For example, a website may trigger a navigation in a certain endpoint [depending on the status of the user]({{< ref "#case-scenarios" >}}).
 
-To detect if **any kind** of navigation occurred, an attacker can do:
+To detect if **any kind** of navigation occurred, an attacker can:
 
 - Using an `iframe` and counting the number of times the `onload` event is triggered.
 - Checking the value of `History.length`, accessible through any `window` reference, gives the number of entries in the history of a victim either changed by `History.pushState` or regular navigations. To get the value of `History.length` an attacker changes the location of the `window` reference with the target website, changes back to same-origin, and finally reads the value.
@@ -146,5 +146,4 @@ fetch('https://target.page/might_redirect', {mode: 'no-cors',credentials: 'inclu
 [^1]: Protected tweets exposure through the url, [link](https://hackerone.com/reports/491473)
 [^2]: Disclose domain of redirect destination taking advantage of CSP, [link](https://bugs.chromium.org/p/chromium/issues/detail?id=313737)
 [^3]: Using Content-Security-Policy for Evil, [link](http://homakov.blogspot.com/2014/01/using-content-security-policy-for-evil.html)
-
 
