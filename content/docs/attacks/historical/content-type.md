@@ -12,7 +12,7 @@ defenses = [
 menu = "main"
 +++
 
-[`typeMustMatch`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLObjectElement/typeMustMatch) is a boolean that reflects the `typeMustMatch` attribute of the `object` element. It enforces a certain MIME type must be enforced when loading an object, verifying if the `Content-Type` of the resource is the same as the one provided in the object. Unfortunately, this enforcement would allow attackers to leak the `Content-Type` and Status Codes returned by a website [^1]
+[`typeMustMatch`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLObjectElement/typeMustMatch) is a boolean that reflects the `typeMustMatch` attribute of the `object` element. It ensures a certain MIME type must be enforced when loading an object verifying if the `Content-Type` of the resource is the same as the one provided in the object. Unfortunately, this enforcement would allow attackers to leak the `Content-Type` and Status Codes returned by a website [^1]
 
 ## Root Cause
 
