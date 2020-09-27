@@ -22,11 +22,44 @@ JavaScript concurrency model is based on a [single-threaded event loop](https://
 Some attacks exploit this model to steal secrets from a cross-origin page:
 
 - Infer how long code from a different origin takes to run, by measuring how long it takes to run next in the event pool [^1] [^2]. The attacker keeps sending events to the event loop with fixed properties, which will eventually be dispatched if the pool is empty. Other origins will dispatch events to the same pool, and this is where an attacker infers the timing difference by detecting if a delay occurred with one of its tasks.
-- Steal a secret from a cross-origin page if the said secret is being compared by an attacker-controlled string. The leak is a result of comparing timing differences in the event loop of a char-by-char string comparison [^2] (using the previous technique). In browsers without process isolation, cross-window communications between different origins will run in the same thread, thus sharing the same event loop.
+- Steal a secret from a cross-origin page if the said secret is being compared by an attacker-controlled string. The leak is a result of comparing timing differences in the event loop of a char-by-char string comparison [^2] (using the previous technique). In browsers without [process isolation](https://www.chromium.org/Home/chromium-security/site-isolation), cross-window communications between different origins will run in the same thread, thus sharing the same event loop.
 
 {{< hint warning >}}
 This attack is no longer possible in Browsers with process isolation mechanisms in place. Such mechanisms are only present in Chromium-Based browsers with [Site Isolation](https://www.chromium.org/Home/chromium-security/site-isolation) and *soon* in Firefox under [Project Fission](https://wiki.mozilla.org/Project_Fission).
 {{< /hint >}}
+
+## Busy Event Loop
+
+Another technique to measure JavaScript Execution consists of blocking the event loop of a thread and time how long does it take for the event loop to be available again. One of the main advantages of this attack is its ability to circumvent Site Isolation as an attacker origin can mess with the execution of another origin. The attack works as follows:
+
+1. Navigate the target website in a separate window with `window.open` or inside an iframe (if [Framing Protections](https://TODO) are **not** in place).
+2. Wait for the long computation to start.
+3. Load any same-site page inside an iframe, regardless of any [Framing Protections](https://TODO). 
+
+An attacker can detect how long the target website is executed by timing how long it took for the `iframe` (in step 3) to trigger the `onload` event ([Network Timing](https://TODO) of step 3 should be despicable). Since both navigations occurred within the same context and they are same-site, they run in the same thread and share the same event loop (they can block each other).
+
+The example below shows how the measurement can be obtained, using the same technique described in [Cross-Window Timing Attacks](https://TODO) for step 2.
+
+```javascript
+let w = 0, end = 0, begin = 0;
+onmessage=()=>{
+  try{
+    if(w && w.document.cookie){
+      // still same origin
+    }
+    postMessage('','*');
+  }catch(e){
+    begin = performance.now();
+    var x = document.createElement('iframe');
+    x.src = "https://any-same-site.target.page";
+    document.body.appendChild(x);
+    start = performance.now();
+    x.onload = () => console.log(performance.now() - begin)
+  }
+};
+postMessage('','*');
+w = open('https://target.page');
+```
 
 ## Service Workers
 
@@ -41,7 +74,6 @@ To make a timing measurement an attacker can perform the following steps:
 5. At this point the Service Worker will collect a measurement from the timer started in step 2. This measurement will be affected by how long JavaScript blocked the navigation for.
 
 Since the navigation won't actually happen, steps from 3 to 5 can be repeated to get more measurements on successive JavaScript execution timings.
-
 
 ### Detect a Navigation
 
@@ -80,37 +112,6 @@ This group of XS-Leaks requires an injection of Regex Expressions on the target 
 {{< /hint >}}
 
 Regular Expression Denial of Service (ReDoS) it's an attack which result in a Denial of Service in applications that allow Regex as user input [^2] [^5]. The DoS results from an injected Regex that would run in exponential time. Some attacks applied this principle into leaking information: The attacker's injection cause a DoS if the Regex matches a character in some secret and computes quickly otherwise. This could happen in both client and server side.
-
-### Busy Event Loop
-
-Attackers can make the [event loop busy](https://gist.github.com/terjanq/60b4ae4ce7491a0f3104e62e2ab07c87#file-iframes-html-L11-L33) with a long computation Regex. This is a trick to circumvent Site Isolation as an attacker origin can mess with the execution of another website. The attack works as follows:
-
-1. Navigate the target website in a separate window with `window.open` or inside an iframe (if [Framing Protections](https://TODO) are **not** in place).
-2. Wait for the long computation to start.
-3. Load the target website inside an iframe, regardless of any [Framing Protections](https://TODO). An attacker can detect if step 1 is still computing by checking if the iframe started loading (onload). Since both navigations occurred within the same context and they are same-site, they run in the same thread and share the same event loop (they can block each other), as Site Isolation is not enforced.
-
-The example below shows how the measurement can be obtained, using the same technique described in [Cross-Window Timing Attacks](https://TODO) for step 2.
-
-```javascript
-let w = 0, end = 0, begin = 0;
-onmessage=()=>{
-  try{
-    if(w && w.document.cookie){
-      // still same origin
-    }
-    postMessage('','*');
-  }catch(e){
-    begin = performance.now();
-    var x = document.createElement('iframe');
-    x.src = "https://target";
-    document.body.appendChild(x);
-    start = performance.now();
-    x.onload = () => console.log(performance.now() - begin)
-  }
-};
-postMessage('','*');
-w = open('https://target');
-```
 
 
 ## Defense
