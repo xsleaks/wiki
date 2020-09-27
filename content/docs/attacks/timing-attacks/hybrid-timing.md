@@ -24,7 +24,7 @@ Some of the factors differ in value depending on the application. This means tha
 
 ###  Frame Timing Attacks (Hybrid)
 
-If a page does not set [Framing Protections](https://TODO), an attacker can obtain a hybrid measurement that considers all the factors. This attack is similar to the [Network-based Attack](https://TODO-frame-timing-attacks-network), but when the resource arrives at the browser the page is rendered and executed by the browser (subresources retrieved and JavaScript executed). In this scenario, the `onload` event only triggers when the page fully loads.
+If a page does not set [Framing Protections](https://TODO), an attacker can obtain a hybrid measurement that considers all the factors. This attack is similar to the [Network-based Attack](https://TODO-frame-timing-attacks-network), but when the resource is retrieved the page is rendered and executed by the browser (subresources fetched and JavaScript executed). In this scenario, the `onload` event only triggers when the page fully loads.
 
 ```html
 <iframe name=f id=g></iframe>
