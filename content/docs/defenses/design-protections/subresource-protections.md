@@ -11,7 +11,7 @@ menu = "main"
 One of the principles of protecting subresources is the same as protecting endpoints from [CSRF attacks](https://owasp.org/www-community/attacks/csrf). The difference from [CSRF protections](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html) is that in the case of XS-Leaks, GET requests are the ones usually worth protecting. To apply this protection applications can append a (cryptographically strong) pseudorandom value, unique to each request/session, to make the URL of a subresource unpredictable to an attacker. The protection can be applied to the following types of subresources:
 
 - Authenticated subresources such as API endpoints or regular authenticated URLs. While pseudorandom values can be used in this case, security mitigations like [Same-Site Cookies](https://TODO) can be cheaper to deploy and more effective.
-- Unauthenticated subresources such as images can use this protection to prevent some types of [Cache Probing Attacks](https://TODO). In this scenario, this protection can be highly effective.
+- Unauthenticated subresources such as images can use this protection to prevent some types of [Cache Probing Attacks](https://TODO). In this scenario, this protection can be highly effective but it might hinder cache efficacy or be otherwise hard to deploy.
 
 ### User Consent
 
