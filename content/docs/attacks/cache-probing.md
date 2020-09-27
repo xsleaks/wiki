@@ -32,7 +32,7 @@ An attacker wants to know whether a user visited a certain social network.
 Cache Probing with [Error Events](https://TODO-REFFERSUBSECTIONBELLOW) [^2] allows more accurate and impactful attacks. Instead of relying on timing measurements, they leverage [Error Events](https://TODO-REFFERSUBSECTIONBELLOW) and some server behaviors to detect whether a resource was cached. It also uses a trick to invalidate resources from the cache. The attack works as follows:
 
 1. [Invalidate the resource]({{< ref "#invalidate-the-cache" >}}) from the browser cache. This step is required to make sure the attack will not consider a resource previously cached in another visit.
-2. Perform a request to load subresources of the target website. This can be done by navigating to the target website with `<link rel=prerender..`, embedding the website in an `iframe` or navigating away with `window.open`.
+2. Perform a request to load subresources of the target website. This can be done by navigating to the target website with `<link rel=prerender..`, embedding the website in an `iframe` or opening a new window with `window.open`.
 3. Perform a request with an [overlong referrer](https://lists.archive.carbon60.com/apache/users/316239) which will usually make the server fail when receiving the request. If the resource was cached in step 2, this request will succeed instead.
 
 ### Invalidate the cache
