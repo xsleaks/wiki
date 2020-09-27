@@ -17,7 +17,7 @@ Detecting if a cross-site page triggered a navigation (or didn't) can be useful 
 
 To detect if **any kind** of navigation occurred, an attacker can:
 
-- Using an `iframe` and counting the number of times the `onload` event is triggered.
+- Use an `iframe` and count the number of times the `onload` event is triggered.
 - Check the value of `History.length`, accessible through any `window` reference. This gives the number of entries in the history of a victim either changed by `History.pushState` or regular navigations. To get the value of `History.length` an attacker changes the location of the `window` reference with the target website, changes back to same-origin, and finally reads the value.
 
 ## Download Trigger
