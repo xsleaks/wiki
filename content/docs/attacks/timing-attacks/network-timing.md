@@ -42,7 +42,7 @@ let request_time = performance.now() - before
 
 ## Frame Timing Attacks (Network)
 
-If the target page enforces [Framing Protections](https://TODO), embedding it as an `iframe` allows an attacker to obtain a network timing measurement. The example below shows how to achieve this by starting a [clock](https://TODO), embedding the page as an `iframe` (request is started), and wait for the `onload` event to be triggered (request completed).
+If the target page enforces [Framing Protections](https://TODO), embedding it as an `iframe` allows an attacker to obtain a network timing measurement. The example below shows how to achieve this by starting a [clock](https://TODO), embedding the page as an `iframe` (request is started), and wait for the `onload` event to be triggered which means the request completed. In this scenario when the request completes the browser does not render the fetched resource because of the protection.
 
 ```javascript
 begin = performance.now();
