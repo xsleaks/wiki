@@ -15,10 +15,10 @@ menu = "main"
 
 Hybrid Timing Attacks allow attackers to measure a combination of factors that influence the final timing measurement. These factors can be:
 
-- [Network Timing](https://TODO).
-- Time to parse the document.
+- [Network](https://TODO).
+- Parsing.
 - Retrieve and load subresources.
-- [Execution Timing](https://TODO).
+- [Execution](https://TODO).
 
 Some of the factors differ in value depending on the application. This means that [Network Timing](https://TODO) might be more observable in pages with more backend processing while [Execution Timing](https://TODO) can be more observable in applications processing and displaying data within the browser. Attackers can also eliminate some of the factors of the equation to obtain better measurements, for example, one could preload all the subresources by embedding the page as an iframe (forcing the browser to cache them) and do a second measurement which will exclude any delay introduced by the retrieval of those subresources.
 
