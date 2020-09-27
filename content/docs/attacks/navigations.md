@@ -56,7 +56,7 @@ This attack is only possible in Chromium-based browsers.
 
 ### Download Navigation
 
-Another way to test for the [`Content-Disposition: attachment`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition) Header is to check if a navigation occurred. If a page load triggers a download, it will not trigger a navigation. 
+Another way to test for the [`Content-Disposition: attachment`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition) Header is to check if a navigation occurred. If a page load causes a download, it will not trigger a navigation. 
 
 1. Open an attacker origin with `window.open` and save the window reference.
 2. Navigate the saved reference to the endpoint that might download.
