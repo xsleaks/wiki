@@ -26,7 +26,7 @@ The most important part of this attack is its principle, as it can be applied in
 
 ### Inflation Techniques
 
-The inflation techniques of XS-Search are used to increase the accuracy of the attack to make two responses easier to distinguish (results or no results). These two mechanisms will allow attackers to make better measurements:
+The inflation techniques of XS-Search are used to increase the accuracy of the attack to make two responses easier to distinguish (hit or miss). These two mechanisms will allow attackers to make better measurements:
 
 - If a search system reflects certain GET parameters into the response when returning results, it will increase the size of the response. This will make the request more distinguishable because the time to prepare the response and send it over the network will grow substantially.
 - Force the server to perform more computation work before returning a response. This can be possible in search systems offering more expressive query languages (e.g exclude terms in Gmail will need to process every character in the results).
