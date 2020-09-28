@@ -17,7 +17,7 @@ menu = "main"
 
 ## Expected & Discussed Issues
 
-In early discussions for the specification of this feature, it was showed several XS-Leaks could be introduced with a naive implementation [^1]. The specification considers various attack scenarios [^3], so does some research from Google [^4]. This is one **possible** XS-Leak browsers would need to be aware of when implementing this feature:
+In early discussions for the specification of this feature it was showed several XS-Leaks could be introduced with a naïve implementation [^1]. The specification considers various attack scenarios [^3], so does some research from Google [^4]. This is one **possible** XS-Leak browsers would need to be aware of when implementing this feature:
 
 - An attacker can, by embedding a page as an `iframe`, detect whether the page scrolled to the text by listening to the `onblur` of the parent document. This approach is similar to the [ID Attribute XS-Leak]({{< ref "id-attribute.md" >}}). This scenario is mitigated in the Chrome implementation [^5] as it only allows the fragment navigation to occur in top-level navigations.
 
