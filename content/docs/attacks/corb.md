@@ -28,7 +28,7 @@ The interesting behavior is that CORB creates a valid resource out of request wh
 
 ## Detect `nosniff` Header
 
-CORB could also allow attackers do detect when the `nosniff` Header is present in the request. The example bellow shows two different states that could occur, and allow an attacker to distinguish both:
+CORB could also allow attackers do detect when the `nosniff` Header is present in the request. The example bellow shows two distinguishable states:
 
 1. CORB will prevent an attacker page which embeds a resource as a `script` if the resource is served with `text/html` as `Content-Type` along with the `nosniff` Header. 
 2. If the resource does not set `nosniff` and CORB [fails](https://chromium.googlesource.com/chromium/src/+/master/services/network/cross_origin_read_blocking_explainer.md#what-types-of-content-are-protected-by-corb) to infer the `Content-Type` of the page (which remains `text/html`), a `SyntaxError` will be fired since the contents can't be parsed as valid JavaScript. This error can be caught by listening to `window.onerror` as `script` tags only trigger error events in [certain conditions](https://developer.mozilla.org/en-US/docs/Web/API/HTMLScriptElement).
