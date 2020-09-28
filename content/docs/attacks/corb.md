@@ -33,11 +33,6 @@ CORB could also allow attackers do detect when the `nosniff` Header is present i
 1. CORB will prevent an attacker page which embeds a resource as a `script` if the resource is served with `text/html` as `Content-Type` along with the `nosniff` Header. 
 2. If the resource does not set `nosniff` and CORB [fails](https://chromium.googlesource.com/chromium/src/+/master/services/network/cross_origin_read_blocking_explainer.md#what-types-of-content-are-protected-by-corb) to infer the `Content-Type` of the page (which remains `text/html`), a `SyntaxError` will be fired since the contents can't be parsed as valid JavaScript. This error can be caught by listening to `window.onerror` as `script` tags only trigger error events in [certain conditions](https://developer.mozilla.org/en-US/docs/Web/API/HTMLScriptElement).
 
-
-## Case Scenarios
-
-- An Attacker wants to identify if Jane Doe visits its site. To perform this, the attacker exploits this XS-Leak by attacking a social network Jane might use. The attacker notices https://social-network.com/user/janedoe/edit is only accessible to Jane, causing an error for other users. Since this endpoint is vulnerable to this XS-Leak, the attacker can identify the identity of Jane by detecting when CORB strips the response and trigger the `onload` event.
-
 ## Defense
 
 
