@@ -17,7 +17,7 @@ Measuring the time of JavaScript execution in a browser can give attackers infor
 
 ## Timing the Event Loop
 
-JavaScript concurrency model is based on a [single-threaded event loop](https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop) which means it can only run one task at a time. If, for example, some time-consuming task blocks the event loop, the user can perceive a freeze on a page as a result of the UI thread being starved. Other tasks must wait until the blocking one runs to conclusion. Each browser implement different [process model](https://www.chromium.org/developers/design-documents/process-models), which means some web sites might run in different threads (and event loops) depending on their interactions.
+JavaScript concurrency model is based on a [single-threaded event loop](https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop) which means it can only run one task at a time. If, for example, some time-consuming task blocks the event loop, the user can perceive a freeze on a page as a result of the UI thread being starved. Other tasks must wait until the blocking one runs to conclusion. Each browser implements different [process models](https://www.chromium.org/developers/design-documents/process-models), which means some web sites might run in different threads (and event loops) depending on their relations.
 
 Some attacks exploit this model to steal secrets from a cross-origin page:
 
@@ -131,4 +131,3 @@ Regular Expression Denial of Service (ReDoS) it's an attack which result in a De
 [^5]: A Rough Idea of Blind Regular Expression Injection Attack, [link](https://diary.shift-js.info/blind-regular-expression-injection/)
 [^6]: CSS Injection Primitives, [link](https://x-c3ll.github.io/posts/CSS-Injection-Primitives/)
 [^7]: HTTPLeaks, [link](https://github.com/cure53/HTTPLeaks/)
-
