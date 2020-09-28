@@ -63,7 +63,7 @@ w = open('https://target.page');
 
 ## Service Workers
 
-[Service Workers](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API) can be abused by attackers to measure the timing of javascript execution in certain scenarios [^4]. They serve as a `proxy` between the browser and the network and allow applications to intercept any network requests made by the main thread (document). This feature is useful to offer offline solutions in web applications.
+[Service Workers](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API) can be used to offer offline solutions to web applications but it might be abused by attackers to measure the timing of javascript execution[^4]. They serve as a `proxy` between the browser and the network and allow applications to intercept any network requests made by the main thread (document).
 
 To make a timing measurement an attacker can perform the following steps:
 
