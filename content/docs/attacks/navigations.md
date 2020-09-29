@@ -91,9 +91,9 @@ The attack works as follows:
 
 1. Include an iframe (inner) inside an iframe (outer). The inner iframe embeds the target website.
 2. If the target website triggers a download the inner iframe origin will **remain** `about:blank` (downloads don’t navigate).
-3. The outer iframe waits until `onload` triggers. The observation is that even though the download attempt doesn't trigger an `onload` event the window still "waits" for the resource to be downloaded.
-4. If a navigation occurs, the inner iframe will change origin. 
-5. Finally, the outer iframe verifies if `i.contentWindow.location.href` (line 8) is accessible, only possible if both iframes share the same origin (Same-Origin Policy is enforced). If both iframes are in different origins, a `DOMException` will be thrown, meaning a navigation occurred.
+3. Even though the download attempt doesn't trigger an `onload` event on the inner `iframe`, the window of the `outer` iframe (line 7) still waits for the resource to start the download.
+4. If a navigation occurs, the inner iframe will change its origin. 
+5. Finally, the outer iframe verifies if `i.contentWindow.location.href` (line 9) is accessible, only possible if both iframes share the same origin (Same-Origin Policy is enforced). If both iframes are in different origins, a `DOMException` will be thrown, meaning a navigation occurred.
 
 
 ## Server-Side Redirects
@@ -133,7 +133,7 @@ fetch('https://target.page/might_redirect', {mode: 'no-cors',credentials: 'inclu
 | `History.length` (iframe)          |         ✔️                 |      ✔️         |  ❌   |          ✔️         |
 | `History.length` (window.open)     |         ✔️ (If Strict)     |      ✔️         |  ✔️   |          ❌         |
 | Download bar                       |         ✔️                 |      ✔️         |  ✔️   |          ✔️         |
-| Download Navigation (w/ timeout)   |         ✔️ (If Strict)     |      ✔️         |  ❌   |          ❌         |
+| Download Navigation (w/ timeout)   |         ✔️ (If Strict)     |      ✔️         |  ❓   |          ✔️        |
 | Download Navigation (no timeout)   |         ✔️                 |      ✔️         |  ✔️   |          ✔️         |
 | CSP Violations                     |         ✔️                 |      ✔️         |  ❌   |          ❌         |
 
