@@ -1,0 +1,89 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=theme-color content="#FFFFFF"><meta property="og:title" content="sec-fetch metadata"><meta property="og:description" content><meta property="og:type" content="website"><meta property="og:url" content="https://xsleaks.com/defenses/sec-fetch-metadata/"><meta property="og:updated_time" content="2020-09-29T17:58:43+02:00"><title>sec-fetch metadata | XS-Leaks Wiki</title><link rel=manifest href=/manifest.json><link rel=icon href=/favicon.png type=image/x-icon><link rel=stylesheet href=/book.min.3fdda1dce1e2459a1b1fc70c3e00001cd6e4d2f1f32f38ddef6e12ca41e9cef6.css integrity="sha256-P92h3OHiRZobH8cMPgAAHNbk0vHzLzjd724SykHpzvY="><script defer src=/en.search.min.55bbe51b7c566d76276792047f4ea0e56d93dbbc0aefdca33c3791dc096ab941.js integrity="sha256-VbvlG3xWbXYnZ5IEf06g5W2T27wK79yjPDeR3AlquUE="></script><script defer src=/sw.min.74a8bb07f0bee86d6bb9a2750f073f14d93c7e4512f28860370cfd879e9719b4.js integrity="sha256-dKi7B/C+6G1ruaJ1Dwc/FNk8fkUS8ohgNwz9h56XGbQ="></script><link rel=alternate type=application/rss+xml href=https://xsleaks.com/defenses/sec-fetch-metadata/index.xml title="XS-Leaks Wiki"></head><body><input type=checkbox class="hidden toggle" id=menu-control>
+<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><nav><h2 class=book-brand><a href=/><span>XS-Leaks Wiki</span></a></h2><div class=book-search><input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><ul><li class=book-section-flat><a href=/docs/attacks/>Attacks</a><ul><li><a href=/docs/attacks/experiments/>Experiments</a><ul><li><a href=/docs/attacks/experiments/scroll-to-text-fragment/>Scroll to Text Fragment</a></li></ul></li><li><a href=/docs/attacks/historical/ class=collapsed>Historical</a></li><li><a href=/docs/attacks/timing-attacks/>Timing Attacks</a><ul><li><a href=/docs/attacks/timing-attacks/clocks/>Clocks</a></li><li><a href=/docs/attacks/timing-attacks/connection-pool/>Connection Pool</a></li><li><a href=/docs/attacks/timing-attacks/execution-timing/>Execution Timing</a></li><li><a href=/docs/attacks/timing-attacks/hybrid-timing/>Hybrid Timing</a></li><li><a href=/docs/attacks/timing-attacks/network-timing/>Network Timing</a></li></ul></li><li><a href=/docs/attacks/corb/>CORB Leaks</a></li><li><a href=/docs/attacks/corp/>CORP Leaks</a></li><li><a href=/docs/attacks/error-events/>Error Events</a></li><li><a href=/docs/attacks/frame-counting/>Frame Counting</a></li><li><a href=/docs/attacks/id-attribute/>ID Attribute</a></li><li><a href=/docs/attacks/navigations/>Navigations</a></li><li><a href=/docs/attacks/postmessage-broadcasts/>postMessage Broadcasts</a></li><li><a href=/docs/attacks/xs-search/>XS-Search</a></li><li><a href=/docs/attacks/cache-probing/>Cache Probing</a></li></ul></li><li class=book-section-flat><a href=/docs/defenses/>Defense Mechanisms</a><ul><li><span>Application Design</span><ul><li><a href=/docs/defenses/design-protections/subresource-protections/>Subresource Protections</a></li></ul></li><li><span>Browser Default</span><ul><li><a href=/docs/defenses/browser-intrinsic/corb/>Cross-Origin Read Blocking</a></li><li><a href=/docs/defenses/browser-intrinsic/partitioned-cache/>Partitioned HTTP Cache</a></li></ul></li><li><span>Opt-In</span><ul><li><a href=/docs/defenses/opt-in/coop/>Cross-Origin-Opener-Policy</a></li><li><a href=/docs/defenses/opt-in/corp/>Cross-Origin-Resource-Policy</a></li><li><a href=/docs/defenses/opt-in/fetch-metadata/>Fetch Metadata</a></li><li><a href=/docs/defenses/opt-in/xfo/>Framing Protections</a></li><li><a href=/docs/defenses/opt-in/same-site-cookies/>Same-Site Cookies</a></li></ul></li></ul></li></ul></nav><script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/svg/menu.svg class=book-icon alt=Menu></label>
+<strong>sec-fetch metadata</strong>
+<label for=toc-control><img src=/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav><ul><li class=book-section-flat><strong>Attacks</strong><ul><li class="flex justify-between"><a href=/attacks/dom-property/>dom property</a>
+<span>16</span></li><li class="flex justify-between"><a href=/attacks/ids/>ids</a>
+<span>1</span></li><li class="flex justify-between"><a href=/attacks/second-example/>second example</a>
+<span>1</span></li></ul></li><li class=book-section-flat><strong>Category</strong><ul><li class="flex justify-between"><a href=/category/attacks/>attacks</a>
+<span>15</span></li><li class="flex justify-between"><a href=/category/defenses/>defenses</a>
+<span>9</span></li><li class="flex justify-between"><a href=/category/historical/>historical</a>
+<span>2</span></li></ul></li><li class=book-section-flat><strong>Defenses</strong><ul><li class="flex justify-between"><a href=/defenses/coop/>COOP</a>
+<span>1</span></li><li class="flex justify-between"><a href=/defenses/deprecation/>deprecation</a>
+<span>1</span></li><li class="flex justify-between"><a href=/defenses/same-site-cookies/>same-site cookies</a>
+<span>13</span></li><li class="flex justify-between"><a href=/defenses/sec-fetch-metadata/>sec-fetch metadata</a>
+<span>12</span></li><li class="flex justify-between"><a href=/defenses/todo/>TODO</a>
+<span>1</span></li><li class="flex justify-between"><a href=/defenses/xfo/>XFO</a>
+<span>1</span></li></ul></li></ul></nav></aside></header><article class="markdown book-post"><h2><a href=/docs/attacks/timing-attacks/clocks/>Clocks</a></h2><h5>July 21, 2020</h5><div>Attacks
+<a href=/attacks/dom-property/>dom property</a></div><div>Category
+<a href=/category/attacks/>attacks</a></div><div>Defenses
+<a href=/defenses/same-site-cookies/>same-site cookies</a>,
+<a href=/defenses/sec-fetch-metadata/>sec-fetch metadata</a></div><p>We can distinguish two types of clocks - Explicit and Implicit. Explicit clocks are the ones developers use to get direct timing measurements and such mechanisms are offered explicitly by the browser. Implicit clocks on the other hand, misuse particular web features to create unintended clocks which offer a relative timing.
+Explicit Clocks # performance.now API # The performance.now() API allows developers to get high-resolution timing measurements.
+performance.now() API got its accuracy reduced from a range of nanoseconds to a microsecond precision in all modern browsers, to mitigate some XS-Leaks 1 2 3.
+<a href=/docs/attacks/timing-attacks/clocks/>...</a></p></article><article class="markdown book-post"><h2><a href=/docs/attacks/timing-attacks/connection-pool/>Connection Pool</a></h2><h5>July 21, 2020</h5><div>Attacks
+<a href=/attacks/dom-property/>dom property</a></div><div>Category
+<a href=/category/attacks/>attacks</a></div><div>Defenses
+<a href=/defenses/same-site-cookies/>same-site cookies</a>,
+<a href=/defenses/sec-fetch-metadata/>sec-fetch metadata</a></div><p>Another way to measure the network timing of a request consists of abusing the socket pool of a browser 1. Browsers use sockets to communicate with servers and since the Operating System and the hardware it runs on have limited resources, browsers have to impose a limit.
+To exploit the existence of this limit attackers can:
+Check what is the limit of the browser, for example 256 global sockets. Block \(255\) sockets for a long period of time (sleep) by performing \(255\) requests to different hosts.
+<a href=/docs/attacks/timing-attacks/connection-pool/>...</a></p></article><article class="markdown book-post"><h2><a href=/docs/attacks/corb/>CORB Leaks</a></h2><h5>July 21, 2020</h5><div>Attacks
+<a href=/attacks/dom-property/>dom property</a></div><div>Category
+<a href=/category/attacks/>attacks</a></div><div>Defenses
+<a href=/defenses/same-site-cookies/>same-site cookies</a>,
+<a href=/defenses/sec-fetch-metadata/>sec-fetch metadata</a></div><p>Cross-Origin Read Blocking (CORB) is a web platform security feature aimed at reducing the impact of speculative side-channel attacks such as Spectre. Unfortunately blocking certain types of requests introduced a new type of XS-Leaks, allowing attackers to detect if CORB was enforced in one request, but wasn&rsquo;t on another. Nevertheless, the introduced XS-Leaks are much less problematic than the issues actively protected by CORB (e.g Spectre).
+CORB & Error Events # Attackers can observe when CORB is enforced if a response returns a CORB protected Content-Type (and nosniff) with status code 2xx which results in CORB stripping the body and headers from the response.
+<a href=/docs/attacks/corb/>...</a></p></article><article class="markdown book-post"><h2><a href=/docs/attacks/corp/>CORP Leaks</a></h2><h5>July 21, 2020</h5><div>Attacks
+<a href=/attacks/dom-property/>dom property</a></div><div>Category
+<a href=/category/attacks/>attacks</a></div><div>Defenses
+<a href=/defenses/same-site-cookies/>same-site cookies</a>,
+<a href=/defenses/sec-fetch-metadata/>sec-fetch metadata</a></div><p>Explanation # Cross-Origin Resource Policy (CORP) is a web platform security feature which enforces CORB. Unfortunately, similarly to CORB XS-Leak applications can introduce a new XS-Leak if they misconfigure the use of this protection.
+A webpage will introduce an XS-Leak if CORP is enforced based on user data. If a page search feature enforces CORP when showing results, but doesn&rsquo;t when returning no results, an attacker will be able to distinguish the two scenarios.
+<a href=/docs/attacks/corp/>...</a></p></article><article class="markdown book-post"><h2><a href=/docs/attacks/error-events/>Error Events</a></h2><h5>July 21, 2020</h5><div>Attacks
+<a href=/attacks/dom-property/>dom property</a></div><div>Category
+<a href=/category/attacks/>attacks</a></div><div>Defenses
+<a href=/defenses/same-site-cookies/>same-site cookies</a>,
+<a href=/defenses/sec-fetch-metadata/>sec-fetch metadata</a></div><p>When a webpage issues a request to a server (e.g fetch, HTML tags), this request will be received and processed by that server. When received the server will decide whether the request should succeed (e.g 200) or fail (e.g 404) based on the provided context. When a response has an error status an error event will be fired by the browser for the page to handle. These errors are also extended to situations where the parser fails, for example, trying to embed HTML content as an image.
+<a href=/docs/attacks/error-events/>...</a></p></article><article class="markdown book-post"><h2><a href=/docs/attacks/timing-attacks/execution-timing/>Execution Timing</a></h2><h5>July 21, 2020</h5><div>Attacks
+<a href=/attacks/dom-property/>dom property</a></div><div>Category
+<a href=/category/attacks/>attacks</a></div><div>Defenses
+<a href=/defenses/same-site-cookies/>same-site cookies</a>,
+<a href=/defenses/sec-fetch-metadata/>sec-fetch metadata</a></div><p>Measuring the time of JavaScript execution in a browser can give attackers information on when certain events are triggered, and how long some operations take.
+Timing the Event Loop # JavaScript concurrency model is based on a single-threaded event loop which means it can only run one task at a time. If, for example, some time-consuming task blocks the event loop, the user can perceive a freeze on a page as a result of the UI thread being starved.
+<a href=/docs/attacks/timing-attacks/execution-timing/>...</a></p></article><article class="markdown book-post"><h2><a href=/docs/attacks/timing-attacks/hybrid-timing/>Hybrid Timing</a></h2><h5>July 21, 2020</h5><div>Attacks
+<a href=/attacks/dom-property/>dom property</a></div><div>Category
+<a href=/category/attacks/>attacks</a></div><div>Defenses
+<a href=/defenses/same-site-cookies/>same-site cookies</a>,
+<a href=/defenses/sec-fetch-metadata/>sec-fetch metadata</a></div><p>Hybrid Timing Attacks allow attackers to measure a combination of factors that influence the final timing measurement. These factors can be:
+Network. Parsing. Retrieve and load subresources. Execution. Some of the factors differ in value depending on the application. This means that Network Timing might be more observable in pages with more backend processing while Execution Timing can be more observable in applications processing and displaying data within the browser.
+<a href=/docs/attacks/timing-attacks/hybrid-timing/>...</a></p></article><article class="markdown book-post"><h2><a href=/docs/attacks/navigations/>Navigations</a></h2><h5>July 21, 2020</h5><div>Attacks
+<a href=/attacks/dom-property/>dom property</a></div><div>Category
+<a href=/category/attacks/>attacks</a></div><div>Defenses
+<a href=/defenses/same-site-cookies/>same-site cookies</a>,
+<a href=/defenses/sec-fetch-metadata/>sec-fetch metadata</a></div><p>Detecting if a cross-site page triggered a navigation (or didn&rsquo;t) can be useful to an attacker. For example, a website may trigger a navigation in a certain endpoint depending on the status of the user.
+To detect if any kind of navigation occurred, an attacker can:
+Use an iframe and count the number of times the onload event is triggered. Check the value of History.length, accessible through any window reference.
+<a href=/docs/attacks/navigations/>...</a></p></article><article class="markdown book-post"><h2><a href=/docs/attacks/timing-attacks/network-timing/>Network Timing</a></h2><h5>July 21, 2020</h5><div>Attacks
+<a href=/attacks/dom-property/>dom property</a></div><div>Category
+<a href=/category/attacks/>attacks</a></div><div>Defenses
+<a href=/defenses/same-site-cookies/>same-site cookies</a>,
+<a href=/defenses/sec-fetch-metadata/>sec-fetch metadata</a></div><p>Network Timing side-channels have been present on the web since its beginning 1 2. These attacks achieved different levels of impact over time, gaining new attention when browsers started shipping high precision timers like performance.now().
+To obtain timing measurements attackers must use a clock, either an implicit or explicit one. These clocks are usually interchangeable and only vary in accuracy and availability. For simplicity, this article will only address the performance.
+<a href=/docs/attacks/timing-attacks/network-timing/>...</a></p></article><article class="markdown book-post"><h2><a href=/docs/attacks/experiments/scroll-to-text-fragment/>Scroll to Text Fragment</a></h2><h5>July 21, 2020</h5><div>Attacks
+<a href=/attacks/dom-property/>dom property</a></div><div>Category
+<a href=/category/attacks/>attacks</a></div><div>Defenses
+<a href=/defenses/same-site-cookies/>same-site cookies</a>,
+<a href=/defenses/sec-fetch-metadata/>sec-fetch metadata</a></div><p>Scroll to Text Fragment (STTF) is a new web platform feature that allows users to create a link to any part of a web page text. The fragment #:~:text= carries a text snippet that is highlighted and brought into the viewport by the browser. This feature can introduce a new XS-Leak if attackers are able to detect when this behavior occurs. This issue is very similar to the Scroll to CSS Selector XS-Leak.
+<a href=/docs/attacks/experiments/scroll-to-text-fragment/>...</a></p></article><ul class=pagination><li class=page-item><a href=/defenses/sec-fetch-metadata/ class=page-link aria-label=First><span aria-hidden=true>&#171;&#171;</span></a></li><li class="page-item disabled"><a class=page-link aria-label=Previous><span aria-hidden=true>&#171;</span></a></li><li class="page-item active"><a class=page-link href=/defenses/sec-fetch-metadata/>1</a></li><li class=page-item><a class=page-link href=/defenses/sec-fetch-metadata/page/2/>2</a></li><li class=page-item><a href=/defenses/sec-fetch-metadata/page/2/ class=page-link aria-label=Next><span aria-hidden=true>&#187;</span></a></li><li class=page-item><a href=/defenses/sec-fetch-metadata/page/2/ class=page-link aria-label=Last><span aria-hidden=true>&#187;&#187;</span></a></li></ul><footer class=book-footer><div class="flex flex-wrap justify-between"></div></footer><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><nav><ul><li class=book-section-flat><strong>Attacks</strong><ul><li class="flex justify-between"><a href=/attacks/dom-property/>dom property</a>
+<span>16</span></li><li class="flex justify-between"><a href=/attacks/ids/>ids</a>
+<span>1</span></li><li class="flex justify-between"><a href=/attacks/second-example/>second example</a>
+<span>1</span></li></ul></li><li class=book-section-flat><strong>Category</strong><ul><li class="flex justify-between"><a href=/category/attacks/>attacks</a>
+<span>15</span></li><li class="flex justify-between"><a href=/category/defenses/>defenses</a>
+<span>9</span></li><li class="flex justify-between"><a href=/category/historical/>historical</a>
+<span>2</span></li></ul></li><li class=book-section-flat><strong>Defenses</strong><ul><li class="flex justify-between"><a href=/defenses/coop/>COOP</a>
+<span>1</span></li><li class="flex justify-between"><a href=/defenses/deprecation/>deprecation</a>
+<span>1</span></li><li class="flex justify-between"><a href=/defenses/same-site-cookies/>same-site cookies</a>
+<span>13</span></li><li class="flex justify-between"><a href=/defenses/sec-fetch-metadata/>sec-fetch metadata</a>
+<span>12</span></li><li class="flex justify-between"><a href=/defenses/todo/>TODO</a>
+<span>1</span></li><li class="flex justify-between"><a href=/defenses/xfo/>XFO</a>
+<span>1</span></li></ul></li></ul></nav></aside></main></body></html>
