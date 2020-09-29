@@ -17,7 +17,12 @@ menu = "main"
 
 ## CORB & Error Events
 
-To detect when CORB is enforced, the following steps could be observed in order **to leak the status code** returned by a page:
+
+Attackers can observe when CORB is enforced if a response returns a *CORB protected* `Content-Type` (and `nosniff`) with status code `2xx` which results in CORB stripping the body and headers from the response. Detecting this protection will allow an attacker to leak the combination of both the status code (success V.s error) and the `Content-Type` (protected by CORB or not). This allows the distinction of two possible states: 
+- One state results in a request being protected by CORB and the second a network error (404). 
+- One state is protected by CORB and the second is not.
+
+The following steps could be observed to abuse this protection with the first example:
 
 1. An attacker can embed a cross-origin resource in a `script` tag which returns `200 OK` with `text/html` as `Content-Type` and a `nosniff` Header.
 2. To protect sensitive contents from entering the attacker's process, `CORB` will replace the original response with an **empty** one. 
@@ -28,7 +33,7 @@ The interesting behavior is that CORB creates a valid resource out of request wh
 
 ## Detect `nosniff` Header
 
-CORB could also allow attackers do detect when the `nosniff` Header is present in the request. The example bellow shows two distinguishable states:
+CORB could also allow attackers do detect when the `nosniff` Header is present in the request. This problem originated due to the fact CORB is only enforced depending on the presence of this header and some sniffing algorithms. The example below shows two distinguishable states:
 
 1. CORB will prevent an attacker page which embeds a resource as a `script` if the resource is served with `text/html` as `Content-Type` along with the `nosniff` Header. 
 2. If the resource does not set `nosniff` and CORB [fails](https://chromium.googlesource.com/chromium/src/+/master/services/network/cross_origin_read_blocking_explainer.md#what-types-of-content-are-protected-by-corb) to infer the `Content-Type` of the page (which remains `text/html`), a `SyntaxError` will be fired since the contents can't be parsed as valid JavaScript. This error can be caught by listening to `window.onerror` as `script` tags only trigger error events in [certain conditions](https://developer.mozilla.org/en-US/docs/Web/API/HTMLScriptElement).
