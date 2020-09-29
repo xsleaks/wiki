@@ -11,6 +11,7 @@ defenses = [
     "sec-fetch metadata",
 ]
 menu = "main"
+weight = 2
 +++
 
 Detecting if a cross-site page triggered a navigation (or didn't) can be useful to an attacker. For example, a website may trigger a navigation in a certain endpoint [depending on the status of the user]({{< ref "#case-scenarios" >}}).

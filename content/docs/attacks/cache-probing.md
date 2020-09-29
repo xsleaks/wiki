@@ -10,6 +10,7 @@ defenses = [
     "sec-fetch metadata",
 ]
 menu = "main"
+weight = 2
 +++
 
 The principle of Cache Probing consists of detecting whether some resource was cached by the browser. The concept is known since the begging of the web [^4] and initially used timing differences to succeed. 

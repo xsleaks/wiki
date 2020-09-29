@@ -12,6 +12,7 @@ defenses = [
     "COOP",
 ]
 menu = "main"
+weight = 2
 +++
 
 ## Explanation

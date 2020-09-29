@@ -11,6 +11,7 @@ defenses = [
     "sec-fetch metadata",
 ]
 menu = "main"
+weight = 1
 +++
 
 Cross-Site Search (XS-Search) is an important attack and principle in the family of XS-Leaks. The attack abuses Query-Based Search Systems to leak user information from an attacker origin. The original attack used timing measurements to detect when a search system returned results or no results and works as follows:

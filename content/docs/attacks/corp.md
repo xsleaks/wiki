@@ -11,6 +11,7 @@ defenses = [
     "sec-fetch metadata",
 ]
 menu = "main"
+weight = 2
 +++
 
 ## Explanation

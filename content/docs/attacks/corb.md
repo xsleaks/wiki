@@ -11,6 +11,7 @@ defenses = [
     "sec-fetch metadata",
 ]
 menu = "main"
+weight = 2
 +++
 
 [Cross-Origin Read Blocking](({{< ref "../defenses/browser-intrinsic/corb.md" >}})) (CORB) is a web platform security feature aimed at reducing the impact of speculative side-channel attacks such as Spectre. Unfortunately blocking certain types of requests introduced a new type of XS-Leaks, allowing attackers to detect if CORB was enforced in one request, but wasn't on another. Nevertheless, the introduced XS-Leaks are much less problematic than the issues actively protected by CORB (e.g Spectre).

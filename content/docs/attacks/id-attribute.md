@@ -10,6 +10,7 @@ defenses = [
     "same-site cookies",
 ]
 menu = "main"
+weight = 3
 +++
 
 ## Explanation

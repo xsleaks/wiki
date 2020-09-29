@@ -1,5 +1,5 @@
 ---
-weight: 1
+weight: 20
 bookFlatSection: true
 title: "Defense Mechanisms"
 ---
