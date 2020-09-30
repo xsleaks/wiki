@@ -45,19 +45,6 @@ Partitioned HTTP caches are a promising security feature that will eventually la
 
 <!--TODO(manuelvsousa): Add socket exhaustion ?-->
 
-## XS-Leaks Mitigation Overview
-
-|                           XS-Leak                                 | Partitioned Cache Mitigation |  Full Mitigation   |
-|:-----------------------------------------------------------------:|:----------------------------:|:-------------------:
-| [Frame Counting]({{< ref "../../attacks/frame-counting.md" >}})   |         ❌                   |         ❌
-| [Navigations]({{< ref "../../attacks/navigations.md" >}})         |         ❌                   |         ❌
-| [ID Leaks]({{< ref "../../attacks/id-attribute.md" >}})           |         ❌                   |         ❌
-
-### Table Legend
-
-- **Partitioned Cache Protection** - At least one attack alternative of the XS-Leak can be mitigated
-- **Full Mitigation** - Fully mitigates an XS-Leak
-
 
 [^1]: Double-keyed HTTP cache, [link](https://github.com/whatwg/fetch/issues/904)
 [^2]: Explainer - Partition the HTTP Cache, [link](https://github.com/shivanigithub/http-cache-partitioning)
