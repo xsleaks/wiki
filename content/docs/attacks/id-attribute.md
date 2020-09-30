@@ -47,5 +47,4 @@ The [`portal`](https://web.dev/hands-on-portals/) element is only available on C
 ## References
 
 [^1]: Leaking IDs using focus, [link](https://portswigger.net/research/xs-leak-leaking-ids-using-focus)
-
 [^2]: Detecting IDs using Portal, [link](https://portswigger.net/research/xs-leak-detecting-ids-using-portal)

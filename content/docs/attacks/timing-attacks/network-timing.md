@@ -111,6 +111,8 @@ This attack is limited to specific versions of HTTP and joint scenarios. It make
 | Cross-window Timing  |         ✔️ (if Strict)       |      ✔️         |  ❌   |          ❌         |
 | Timeless Timing  |         ✔️        |      ❓         |  ❌   |          ❌         |
 
+## References
+
 [^1]: Exposing Private Information by Timing Web Applications, [link](https://crypto.stanford.edu/~dabo/papers/webtiming.pdf)
 [^2]: The Clock is Still Ticking: Timing Attacks in the Modern Web - Section 4.3.3, [link](https://tom.vg/papers/timing-attacks_ccs2015.pdf)
 [^3]: Timeless Timing Attacks: Exploiting Concurrency to Leak Secrets over Remote Connections, [link](https://www.usenix.org/system/files/sec20-van_goethem.pdf)

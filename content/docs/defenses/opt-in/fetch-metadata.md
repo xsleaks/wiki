@@ -25,4 +25,6 @@ Its success is dependent on the application coverage and deployment correctness.
 
 Check out this [web.dev](https://web.dev/fetch-metadata/) article to learn more about the advantages of this protection and how to deploy it.
 
+## References
+
 [^1]: Protect your resources from web attacks with Fetch Metadata, [link](https://web.dev/fetch-metadata/)

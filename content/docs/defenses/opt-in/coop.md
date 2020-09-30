@@ -25,5 +25,6 @@ Since COOP is an `opt-in` mechanism and a very recent one, can be overlooked by 
 
 Check out this [web.dev](https://web.dev/why-coop-coep/) article to learn more about the advantages of this protection and how to deploy it.
 
+## References
 
 [^1]: Cross-Origin-Opener-Policy response header (also known as COOP), [link](https://gist.github.com/annevk/6f2dd8c79c77123f39797f6bdac43f3e)

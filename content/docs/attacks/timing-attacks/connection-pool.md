@@ -32,4 +32,6 @@ To exploit the existence of this limit attackers can:
 Similarly to [partitioned caches](https://TODO) some browsers are considering to extend the principle of "split per site/origin" of resources to [socket pools](https://bugzilla.mozilla.org/show_bug.cgi?id=1572544).
 {{< /hint >}}
 
+## References
+
 [^1]: Leak cross-window request timing by exhausting connection pool, [link](https://bugs.chromium.org/p/chromium/issues/detail?id=843157)

@@ -52,6 +52,8 @@ Attackers can abuse `STTF` to leak private information about the user since its 
 | IntersectionObserver (iframes)|         ❌         |      ❌         |  ❌   |          ❌         |
 | Lazy Loading        |         ✔️         |      ✔️         |  ❌   |          ❌         |
 
+## References
+
 [^1]: Privacy concerns with proposal through inducing network requests, [link](https://github.com/WICG/scroll-to-text-fragment/issues/76)
 [^2]: Possible side-channel information leak using IntersectionObserver, [link](https://github.com/WICG/scroll-to-text-fragment/issues/79)
 [^3]: Text Fragments - Security and Privacy, [link](https://wicg.github.io/scroll-to-text-fragment/#security-and-privacy)

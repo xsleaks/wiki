@@ -30,9 +30,6 @@ One of the issues of ITP is that attackers can interact with it to arbitrarily e
 
 To [fix the issue](https://webkit.org/blog/9661/preventing-tracking-prevention-tracking/), instead of relying on classifications, ITP now considers every site as a "tracking" one by default. This removes the implicit states which allowed attackers to detect certain ITP behaviors.
 
-<!--TODO(empijei): add a sentence or two?-->
-
-
 ## References
 
 [^1]: Information Leaks via Safari’s Intelligent Tracking Prevention, [link](https://arxiv.org/pdf/2001.07421.pdf)

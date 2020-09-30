@@ -28,4 +28,6 @@ Chrome is the only browser with CORB deployed.
 CORB introduced a [new XS-Leak](https://TODO) since attackers are able to observe whether a request was blocked or allowed by CORB. This leads to information leaks when CORB blocks certain requests depending on user information the attacker is after. However, the introduced XS-Leak has a lower impact than a Spectre exploitation of the CORB-protected resources.
 {{< /hint >}}
 
+## References
+
 [^1]: Cross-Origin Read Blocking for Web Developers, [link](https://chromium.googlesource.com/chromium/src/+/master/services/network/cross_origin_read_blocking_explainer.md)

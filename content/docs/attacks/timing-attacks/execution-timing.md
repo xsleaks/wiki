@@ -120,6 +120,7 @@ Regular Expression Denial of Service (ReDoS) it's an attack which result in a De
 | ReDoS               |         ✔️         |      ✔️         |  ❌   |          ❌         |
 | Busy Event Loop     |         ✔️         |      ✔️         |  ❌   |          ✔️         |
 
+## References
 
 [^1]: Loophole: Timing Attacks on Shared Event Loops in Chrome, [link](https://www.usenix.org/system/files/conference/usenixsecurity17/sec17-vila.pdf)
 [^2]: Matryoshka - Web Application Timing Attacks (or.. Timing Attacks against JavaScript Applications in Browsers), [link](https://sirdarckcat.blogspot.com/2014/05/matryoshka-web-application-timing.html)

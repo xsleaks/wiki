@@ -45,6 +45,8 @@ Partitioned HTTP caches are a promising security feature that will eventually la
 
 <!--TODO(manuelvsousa): Add socket exhaustion ?-->
 
+## References
+
 [^1]: Double-keyed HTTP cache, [link](https://github.com/whatwg/fetch/issues/904)
 [^2]: Explainer - Partition the HTTP Cache, [link](https://github.com/shivanigithub/http-cache-partitioning)
 [^3]: Client-Side Storage Partitioning, [link](https://privacycg.github.io/storage-partitioning/)
