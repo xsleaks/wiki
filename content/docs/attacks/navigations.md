@@ -41,7 +41,7 @@ const screenHeight = window.innerHeight;
 // The size of the chrome download bar on, for example, mac os x
 const downloadsBarSize = 49;
 
-tab.location = 'https://target';
+tab.location = 'https://target.page';
 
 setTimeout(() => {
     let margin = screenHeight - window.innerHeight;
@@ -72,7 +72,7 @@ The following snippet can obtain a more precise measurement without relying on t
 {{< highlight javascript "linenos=table,linenostart=1" >}}
 onmessage = e => console.log(e.data);
 var outer = document.createElement('iframe');
-var url = 'https://target';
+var url = 'https://target.page';
 outer.src = `data:text/html,\
             <iframe id='inner' src="${url}" ></iframe>
             <!-- onload is part of outer iframe -->

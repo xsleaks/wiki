@@ -36,7 +36,7 @@ Websites commonly use frames (or `iframes`) and this doesn't necessarily imply s
 In some cases, different application states have the same number of `frames`, preventing attackers to be able to distinguish them. However, continuously recording the frame count when the page is loading can lead to a **pattern** attackers might be able to use.
 
 ```javascript
-const win = window.open("https://target"); // Or any Window reference
+const win = window.open("https://target.page"); // Or any Window reference
 const pattern = [];
 
 const recorder = setInterval(() => pattern.push(win.frames.length), 0);

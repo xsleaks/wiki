@@ -6,6 +6,10 @@ category = "historical"
 attacks = [
     "dom property",
 ]
+leaks = [
+    "Content-Type",
+    "Status Code",
+]
 defenses = [
     "deprecation"
 ]
@@ -19,7 +23,7 @@ menu = "main"
 Considering the snippet below, `not_loaded` would be rendered if the returned `Content-Type` of `https://target/api` did not match the one in `type`, or the server returned a status different than `200`.
 
 ```javascript
-<object type="application/json" data="https://target/api" typemustmatch> not_loaded </object>
+<object type="application/json" data="https://target.page/api" typemustmatch> not_loaded </object>
 ```
 
 ### Issues
@@ -30,7 +34,7 @@ The example below shows how to detect this behavior by embedding an object insid
 
 
 ```javascript
-let url = 'https://target'
+let url = 'https://target.page'
 let mime = 'application/json'
 let x = document.createElement('iframe');
 x.src = `data:text/html,<object id=obj type="${mime}" data="${url}" typemustmatch><script>onload = ()=>{console.log(obj.clientHeight)}%3c/script></object>`;
