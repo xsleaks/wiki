@@ -13,7 +13,7 @@ menu = "main"
 +++
 
 
-[Intelligent Tracking Prevention](https://webkit.org/tracking-prevention/) (ITP) is a privacy feature part of WebKit Tracking Prevention technologies. It’s a conjunction of several features to prevent a website from tracking a user under a third-party context. Unfortunately, the initial design introduced a new XS-Leak [^1], allowing attackers to abuse the states implicitly created by ITP to classify websites as trackers.
+[Intelligent Tracking Prevention](https://webkit.org/tracking-prevention/) (ITP) is a privacy feature part of [WebKit Tracking Prevention technologies](https://webkit.org/tracking-prevention/). It’s a conjunction of several features to prevent a website from tracking a user under a third-party context. Unfortunately, the initial design introduced a new XS-Leak [^1], allowing attackers to abuse the states implicitly created by ITP to classify websites as trackers.
 
 ## Root Cause
 
