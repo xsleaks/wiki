@@ -6,7 +6,7 @@ category = "defenses"
 menu = "main"
 +++
 
-Fetch Metadata Headers are sent by browsers in every request or navigation made by a page. These Headers provide context on how every request/navigation was initiated so that applications are able to make more informed decisions on how to respond to them. This allows servers to behave differently when they detect potential attacks (i.e. unexpected cross-origin requests)[^1]. This mechanism can be very effective against cross-origin attacks like XSSI, XS-Leaks, Clickjacking, and CSRF. 
+Fetch Metadata Headers are sent by browsers in every request or navigation made by a page. These Headers provide context on how every request/navigation was initiated so that applications are able to make more informed decisions on how to respond to them. This allows servers to behave differently when they detect potential attacks (e.g unexpected cross-origin requests)[^1]. This mechanism can be very effective against cross-origin attacks like XSSI, XS-Leaks, Clickjacking, and CSRF. 
 
 In the scenario of XS-Leaks, servers have the ability to know when a request was made cross-origin (e.g attacker origin) and decide to answer with a response analogous to the user session. This response has no utility to the attacker since it does not carry any information or state about the user. This behavior is similar to [SameSite Cookies](https://TODO), but it's enforced by the server.
 
@@ -18,7 +18,7 @@ The behavior enforced by this Header does not require major changes in the serve
 
 ## Considerations
 
-Fetch Metadata Headers are an **in-depth Defense Mechanism** and should **not be seen as a replacement** for mechanisms such as [Same-Site Cookies]({{< ref "same-site-cookies.md" >}}), [Cross-Origin-Opener-Policy]({{< ref "coop.md" >}}) or [Framing Protections]({{< ref "xfo.md" >}}). Even though Fetch Metadata Headers share some capabilities with these mechanisms (i.e act differently upon cross-site requests), **they do not provide a safe default**. 
+Fetch Metadata Headers are an **in-depth Defense Mechanism** and should **not be seen as a replacement** for mechanisms such as [Same-Site Cookies]({{< ref "same-site-cookies.md" >}}), [Cross-Origin-Opener-Policy]({{< ref "coop.md" >}}) or [Framing Protections]({{< ref "xfo.md" >}}). Even though Fetch Metadata Headers share some capabilities with these mechanisms (e.g act differently upon cross-site requests), **they do not provide a safe default**. 
 Its success is dependent on the application coverage and deployment correctness.
 
 ## Deployment
