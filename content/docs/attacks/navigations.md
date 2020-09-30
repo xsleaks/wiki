@@ -51,7 +51,7 @@ setTimeout(() => {
 }, 5 * 1000);
 ```
 
-{{< hint info >}}
+{{< hint good >}}
 This attack is only possible in Chromium-based browsers.
 {{< /hint >}}
 

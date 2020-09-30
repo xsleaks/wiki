@@ -26,7 +26,7 @@ This side-channel allows attackers to infer information from a cross-site reques
 
 <!--TODO(manuelvsousa): Add cross reference to cache attacks in the wiki -->
 
-{{< hint info >}}
+{{< hint good >}}
 Learn more about the different types of clocks in the [Clocks Article]({{< ref "clocks.md" >}}).
 {{< /hint >}}
 

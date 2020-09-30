@@ -13,11 +13,11 @@ Cross-Origin Read Blocking (CORB) is a browser defense mechanism that prevents a
 
 To classify resource types CORB uses the `Content-Type` header if `nosniff` is set. In case the page does not serve a `nosniff` header CORB will, based on heuristics, check if the resource is worth protecting by looking at the beginning of the response body.
 
-{{< hint info >}}
+{{< hint good >}}
 Chrome is the only browser with CORB deployed.
 {{< /hint >}}
 
-{{< hint info >}}
+{{< hint good >}}
 [Cross-Origin Resource Policy (CORP)]({{< ref "../opt-in/corp.md" >}}) is an opt-in protection which enforces and extends CORB.
 {{< /hint >}}
 

@@ -28,7 +28,7 @@ To exploit the existence of this limit attackers can:
 |     ✔️ (if Strict)         |      ✔️         |  ❌   |          ❌         |
 
 
-{{< hint info >}}
+{{< hint good >}}
 Similarly to [partitioned caches](https://TODO) some browsers are considering to extend the principle of "split per site/origin" of resources to [socket pools](https://bugzilla.mozilla.org/show_bug.cgi?id=1572544).
 {{< /hint >}}
 

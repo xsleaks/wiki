@@ -77,7 +77,7 @@ Since the navigation won't actually happen, steps from 3 to 5 can be repeated to
 
 ## CSS Injections
 
-{{< hint requirement >}}
+{{< hint info >}}
 This group of XS-Leaks requires a CSS Injection on the target page.
 {{< /hint >}}
 
@@ -93,17 +93,17 @@ A timing attack is possible because the expression is compared from right to lef
 $("*:has(*:has(*:has(*)) *:has(*:has(*:has(*))) *:has(*:has(*:has(*)))) main[id='site-main']")
 ```
 
-{{< hint info >}}
+{{< hint good >}}
 This attack is no longer possible in Browsers with process isolation mechanisms in place. Such mechanisms are only present in Chromium-Based browsers with [Site Isolation](https://www.chromium.org/Home/chromium-security/site-isolation) and *soon* in Firefox under [Project Fission](https://wiki.mozilla.org/Project_Fission).
 {{< /hint >}}
 
-{{< hint info >}}
+{{< hint good >}}
 In browsers with process isolation mechanisms, [Service Workers]({{< ref "execution-timing.md#service-workers" >}}) can be abused to obtain the execution timing measurement or tricks like [Busy Event Loop tricks]({{< ref "#busy-event-loop" >}}) to circumvent Site Isolation.
 {{< /hint >}}
 
 ## ReDoS
 
-{{< hint requirement >}}
+{{< hint info >}}
 This group of XS-Leaks requires an injection of Regex Expressions on the target page.
 {{< /hint >}}
 
@@ -119,6 +119,7 @@ Regular Expression Denial of Service (ReDoS) it's an attack which result in a De
 | jQuery              |         ✔️         |      ✔️         |  ❌   |          ❌         |
 | ReDoS               |         ✔️         |      ✔️         |  ❌   |          ❌         |
 | Busy Event Loop     |         ✔️         |      ✔️         |  ❌   |          ✔️         |
+
 
 [^1]: Loophole: Timing Attacks on Shared Event Loops in Chrome, [link](https://www.usenix.org/system/files/conference/usenixsecurity17/sec17-vila.pdf)
 [^2]: Matryoshka - Web Application Timing Attacks (or.. Timing Attacks against JavaScript Applications in Browsers), [link](https://sirdarckcat.blogspot.com/2014/05/matryoshka-web-application-timing.html)

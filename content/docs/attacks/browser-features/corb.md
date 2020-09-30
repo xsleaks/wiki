@@ -47,11 +47,11 @@ CORB could also allow attackers do detect when the `nosniff` Header is present i
 |         ✔️         |      ✔️         |  ❌   |          ❌         |
 
 
-{{< hint info >}}
+{{< hint good >}}
 This issue is known by Chromium, and while it [might remain unfixed](https://docs.google.com/document/d/1kdqstoT1uH5JafGmRXrtKE4yVfjUVmXitjcvJ4tbBvM/edit?ts=5f2c8004), its impact is highly reduced by the [rollout of Same-Site Cookies by default](https://blog.chromium.org/2020/05/resuming-samesite-cookie-changes-in-july.html) in Chromium-based browsers.
 {{< /hint >}}
 
-{{< hint info >}}
+{{< hint good >}}
 Developers can deploy [CORP](https://TODO) in application resources to force a protection similar to CORB that does not inspect responses to decide when to act. To prevent attackers from abusing this XS-Leak, generic XS-Leaks defense mechanisms are also effective.
 {{< /hint >}}
 

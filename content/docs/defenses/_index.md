@@ -21,7 +21,7 @@ Application Design [techniques]({{< ref "design-protections/_index.md" >}}) shou
 
 Browsers vendors actively discuss how to implement [new mechanisms]({{< relref "_index.md#browser-intrinsic" >}}) to help mitigate some of the XS-Leaks mentioned in this Wiki. They always try to make such mechanisms as transparent as possible to users and developers but this is not always possible.
 
-{{< hint info >}}
+{{< hint good >}}
 Browser Intrinsic mechanisms can be highly effective. The biggest advantage is that it protects applications and users, and does not require extra efforts from developers.
 {{< /hint >}}
 
@@ -29,7 +29,7 @@ Browser Intrinsic mechanisms can be highly effective. The biggest advantage is t
 
 These [Defense Mechanisms]({{< ref "opt-in/_index.md" >}}) allow applications to address classes of similar XS-Leaks at once. By deploying these protections an application can instruct browsers to behave in a more secure way or it can leverage some additional information to block potential attacks.
 
-{{< hint info >}}
+{{< hint good >}}
 Deploying a combination of [Opt-in Defense Mechanisms]({{< ref "opt-in/_index.md" >}}) should be the **default strategy**. Not only they protect against XS-Leaks but also against other vulnerabilities such as XSSI, Clickjacking, CSRF, etc.
 {{< /hint >}}
 

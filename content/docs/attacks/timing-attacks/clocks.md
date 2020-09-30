@@ -22,7 +22,7 @@ We can distinguish two types of clocks - Explicit and Implicit. Explicit clocks 
 
 The [performance.now()](https://developer.mozilla.org/en-US/docs/Web/API/Performance/now) API allows developers to get high-resolution timing measurements.
 
-{{< hint info >}}
+{{< hint good >}}
 `performance.now()` API got its accuracy reduced from a range of nanoseconds to a
 microsecond precision in all modern browsers, to mitigate [some](httos://TODO) XS-Leaks [^1] [^2] [^3].
 
@@ -33,7 +33,7 @@ microsecond precision in all modern browsers, to mitigate [some](httos://TODO) X
 <!--TODO(manuelvsousa): Change references to actual wiki articles, and enumerate specifically as per https://github.com/xsleaks/wiki/pull/9#pullrequestreview-479831958-->
 
 
-{{< hint info >}}
+{{< hint good >}}
 Since Firefox 79, this API can be used with [full resolution](https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/Releases/79) in documents which do not share a browsing context group with cross-origin documents. This will require an application interested in the API to explicitly opt-in to [COOP](https://TODO) and [COEP](https://TODO).
 {{< /hint >}}
 
@@ -66,7 +66,7 @@ self.onmessage = function(event){
 }
 
 ```
-{{< hint info >}}
+{{< hint good >}}
 `SharedArrayBuffer` was removed from browsers with the publication of [Spectre](https://spectreattack.com/). It was reintroduced later in 2020 requiring documents to be in a [secure context](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer) to make use of the API. This requirement prevents `SharedArrayBuffer` from being used as an implicit clock.
 {{< /hint >}}
 
