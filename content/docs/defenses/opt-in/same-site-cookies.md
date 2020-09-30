@@ -24,13 +24,5 @@ The only difference between `Lax` and `Strict` is that `Lax` mode allows cookies
 
 Anyone interested in deploying this mechanism in web applications should take a careful look at this [web.dev](https://web.dev/samesite-cookie-recipes/) article.
 
-## XS-Leaks Mitigation Overview
-
-|                           XS-Leak                                 |  None |  Lax   | Strict |
-|:-----------------------------------------------------------------:|:-----:|:------:|:------:|
-| [Frame Counting]({{< ref "../../attacks/frame-counting.md" >}})   |   ❌  |   ❌   |  ✔️   |
-| [Navigations]({{< ref "../../attacks/navigations.md" >}})         |   ❌  |   ❌   |  ✔️   |
-| [ID Leaks]({{< ref "../../attacks/id-attribute.md" >}})               |   ❌  |   ❓  |  ✔️   |
-
 [^1]: SameSite cookies explained, [link](https://web.dev/samesite-cookies-explained/)
 [^2]: Bypass SameSite Cookies Default to Lax and get CSRF [link](https://medium.com/@renwa/bypass-samesite-cookies-default-to-lax-and-get-csrf-343ba09b9f2b)

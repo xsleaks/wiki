@@ -25,18 +25,5 @@ Since COOP is an `opt-in` mechanism and a very recent one, can be overlooked by 
 
 Check out this [web.dev](https://web.dev/why-coop-coep/) article to learn more about the advantages of this protection and how to deploy it.
 
-## XS-Leaks Mitigation Overview
-
-|                           XS-Leak                                 |    COOP Protection       |  Full Mitigation   |
-|:-----------------------------------------------------------------:|:------------------------:|:-------------------:
-| [Frame Counting]({{< ref "../../attacks/frame-counting.md" >}})   |         ✔️               |         ❌
-| [Navigations]({{< ref "../../attacks/navigations.md" >}})         |         ✔️               |         ❌
-| [ID Leaks]({{< ref "../../attacks/id-attribute.md" >}})               |         ✔️               |         ❌
-
-### Table Caption
-
-- **COOP Protection** - At least one attack alternative of the XS-Leak relies on `window` references
-- **Full Mitigation** - Does not fully mitigate an XS-Leak if an alternative attack vector that does not rely on `window` references
-
 
 [^1]: Cross-Origin-Opener-Policy response header (also known as COOP), [link](https://gist.github.com/annevk/6f2dd8c79c77123f39797f6bdac43f3e)

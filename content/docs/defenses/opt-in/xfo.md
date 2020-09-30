@@ -23,16 +23,3 @@ This protection is very effective against XS-Leaks which rely on `iframes` and c
 ## Deployment
 
 Deploying framing protections is usually straightforward as many applications do not require to be embedded cross-origin in an iframe. Check out this [web.dev](https://web.dev/same-origin-policy/) article to learn more about the advantages of this header.
-
-## XS-Leaks Mitigation Overview
-
-|                           XS-Leak                                 |    Framing Protections   |  Full Mitigation   |
-|:-----------------------------------------------------------------:|:------------------------:|:-------------------:
-| [Frame Counting]({{< ref "../../attacks/frame-counting.md" >}})   |         ✔️               |         ❌
-| [Navigations]({{< ref "../../attacks/navigations.md" >}})         |         ✔️               |         ❌
-| [ID Leaks]({{< ref "../../attacks/id-attribute.md" >}})           |         ✔️               |         ❌
-
-### Table Caption
-
-- **Framing Protections** - At least one attack alternative of the XS-Leak relies on `iframes`
-- **Full Mitigation** - Does not fully mitigate an XS-Leak if an alternative attack vector that does not rely on the of `iframes`

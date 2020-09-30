@@ -25,16 +25,4 @@ Its success is dependent on the application coverage and deployment correctness.
 
 Check out this [web.dev](https://web.dev/fetch-metadata/) article to learn more about the advantages of this protection and how to deploy it.
 
-## XS-Leaks Mitigation Overview
-
-|                           XS-Leak                                 |  Full Mitigation   |
-|:-----------------------------------------------------------------:|:-------------------:
-| [Frame Counting]({{< ref "../../attacks/frame-counting.md" >}})   |         ✔️
-| [Navigations]({{< ref "../../attacks/navigations.md" >}})         |         ✔️
-| [ID Leaks]({{< ref "../../attacks/id-attribute.md" >}})           |         ✔️
-
-### Table Caption
-
-- **Full Mitigation** - Fully mitigates some XS-Leaks if correctly implemented in all application endpoints. *See limitations in [Considerations]({{< ref "fetch-metadata.md#considerations" >}})*
-
 [^1]: Protect your resources from web attacks with Fetch Metadata, [link](https://web.dev/fetch-metadata/)
