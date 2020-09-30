@@ -27,4 +27,4 @@ theme = "book"
   category = "Category"
   attack = "Attacks"
   defense = "Defenses"
-
+  leaks = "Leaked Properties"
