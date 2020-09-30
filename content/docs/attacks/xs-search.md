@@ -1,31 +1,31 @@
 +++
 title = "XS-Search"
 description = ""
-date = "2020-07-21"
-category = "attacks"
-attacks = [
-    "dom property",
+date = "2020-07-06"
+category = [
+    "Attack",
+    "Attack Principle",
 ]
 defenses = [
-    "same-site cookies",
-    "sec-fetch metadata",
+    "Fetch Metadata",
+    "Same-Site Cookies",
 ]
 menu = "main"
 weight = 1
 +++
 
-Cross-Site Search (XS-Search) is an important attack and principle in the family of XS-Leaks. The attack abuses Query-Based Search Systems to leak user information from an attacker origin. The original attack used timing measurements to detect when a search system returned results or no results and works as follows:
+Cross-Site Search (XS-Search) is an important attack and principle in the family of XS-Leaks. The attack abuses Query-Based Search Systems to leak user information from an attacker origin [^1] [^2]. The original attack used timing measurements to detect when a search system returned results or no results and works as follows:
 
-1. Establish a baseline time for a request returning results (hit), and a baseline for a request with no results (miss).
-2. Start a [timing attack](https://TODO) on the request to the search endpoint, brute-forcing the first character (`?q=r`).
+1. Establish a baseline time for a request returning results (hit) and a baseline for a request with no results (miss).
+2. Start a [timing attack]({{< ref "./timing-attacks/network-timing.md" >}}) on the request to the search endpoint, brute-forcing the first character (`?q=r`).
 3. If the measurement is under the hit baseline then add one more character (`?q=ra`); otherwise try a new one (`?q=s`).
 4. In the end, a full secret (`?q=secret`) can be leaked.
 
-This attack requires multiple timing measurements to be accurate, something which can be improved with [Inflation Techniques](https://TODO) and statistical analysis. Furthermore, instead of brute-forcing letter by letter, attackers can search specific words or sentences to leak only the occurrence of results.
+This attack requires multiple timing measurements to be accurate, something which can be improved with Inflation Techniques and statistical analysis. Furthermore, instead of brute-forcing letter by letter, attackers can search specific words or sentences to leak only the occurrence of results.
 
 The most important part of this attack is its principle, as it can be applied in a different number of XS-Leaks.
 
-### Inflation Techniques
+## Inflation Techniques
 
 The inflation techniques of XS-Search are used to increase the accuracy of the attack to make two responses easier to distinguish (hit or miss). These two mechanisms will allow attackers to make better measurements:
 
@@ -36,12 +36,12 @@ The inflation techniques of XS-Search are used to increase the accuracy of the a
 
 While considering the original research around XS-Search an XS-Leak itself, the principle of the attack extends to other XS-Leaks. For example, instead of relying on timing measurements, which are unreliable, attackers can use any other XS-Leak to achieve the same observation.
 
-In a Query-Based Search System a user submits queries and get responses associated to those queries. From this action, there are two different outcomes:
+In a Query-Based Search System, a user submits queries and gets responses associated with those queries. From this action, there are two different outcomes:
 
 1. The system shows results and the page will present a specific behavior (first state).
 2. The system does not show results and the page will present a different behavior from step 1 (second state).
 
-If both behaviors, abstracted in the example above, can be distinguished using any XS-Leak, then an attacker can preform an XS-Search attack with higher levels of impact and reliability. For example, if the number of frames on a page varies based on search results (step 1 and 2 are distinguishable), this attack principle can be applied with a [Frame Counting](https://TODO) XS-Leak which is much more accurate then one using timing measurements.
+If both behaviors, abstracted in the example above, can be distinguished using any XS-Leak, then an attacker can perform an XS-Search attack with higher levels of impact and reliability. For example, if the number of frames on a page varies based on search results (step 1 and 2 are distinguishable), this attack principle can be applied with a [Frame Counting]({{< ref "frame-counting.md" >}}) XS-Leak which is much more accurate then one using timing measurements.
 
 
 ## Defense
