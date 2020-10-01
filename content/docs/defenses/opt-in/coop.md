@@ -8,7 +8,7 @@ menu = "main"
 
 ## Explanation
 
-A good portion of XS-Leaks has multiple alternatives to execute the same attack, some in **common** with each other. For instance, some XS-Leaks abuse properties of `iframes` to succeed which can be fully mitigated by deploying [Framing Protections]({{< ref "xfo.md" >}}). However, this same group of XS-Leaks can usually be abused by other **common** alternatives, that need other protections. One of those alternatives consists of navigating the user away using `window.open`, allowing attackers to gain a reference to the opened `window`. With this reference an attacker can take advantage of some of its properties to perform multiple requests, ultimately inferring private information from them.
+A good portion of XS-Leaks has multiple alternatives to execute the same attack, some in **common** with each other. For instance, some XS-Leaks abuse properties of `iframes` to succeed which can be fully mitigated by deploying [Framing Protections]({{< ref "xfo.md" >}}). However, this same group of XS-Leaks can usually be abused by other **common** alternatives, that need other protections. One of those alternatives consists of opening a new window with `window.open`, allowing attackers to gain a reference to the opened `window`. With this reference an attacker can take advantage of some of its properties to perform multiple requests, ultimately inferring private information from them.
 
 Exploiting XS-Leaks with `window` references is seen as the last available option mainly because the user can see it happen. However, it's usually the right way when:
 
