@@ -18,4 +18,6 @@ If an application sets a certain resource CORP Header as `same-site` or `same-or
 This mechanism introduced [a new XS-Leak](https://TODO), which allows attackers detect wether CORP was enforced in a certain request.
 {{< /hint >}}
 
+## References
+
 [^1]: Cross-Origin Resource Policy (CORP), [link](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cross-Origin_Resource_Policy_(CORP))
