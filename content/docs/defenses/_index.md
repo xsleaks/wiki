@@ -17,12 +17,12 @@ Application Design [techniques]({{< ref "design-protections/_index.md" >}}) allo
 Application Design [techniques]({{< ref "design-protections/_index.md" >}}) should be seen as **temporary solutions**, before  [opt in mechanisms]({{< relref "_index.md#opt-in-mechanisms" >}}) are deployed. They are useful in particular situations, and should not be the default strategy.
 {{< /hint >}}
 
-## Browser Intrinsic
+## Browser Default
 
-Browsers vendors actively discuss how to implement [new mechanisms]({{< relref "_index.md#browser-intrinsic" >}}) to help mitigate some of the XS-Leaks mentioned in this Wiki. They always try to make such mechanisms as transparent as possible to users and developers but this is not always possible.
+Browsers vendors actively discuss how to implement [new mechanisms]({{< relref "_index.md#browser-default" >}}) to help mitigate some of the XS-Leaks mentioned in this Wiki. They always try to make such mechanisms as transparent as possible to users and developers but this is not always possible.
 
 {{< hint good >}}
-Browser Intrinsic mechanisms can be highly effective. The biggest advantage is that it protects applications and users, and does not require extra efforts from developers.
+Browser Default mechanisms can be highly effective. The biggest advantage is that it protects applications and users, and does not require extra efforts from developers.
 {{< /hint >}}
 
 ## Opt-in Mechanisms
