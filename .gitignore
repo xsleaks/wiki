@@ -24,3 +24,5 @@ hugolib/hugo_stats.json
 resources/sunset.jpg
 
 vendor
+
+resources/
