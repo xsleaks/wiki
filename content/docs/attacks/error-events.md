@@ -6,7 +6,7 @@ category = [
     "Attack",
 ]
 abuse = [
-    "Headers",
+    "Error Events",
     "Status Code",
     "nosniff",
     "Content-Type",

@@ -2,13 +2,14 @@
 title = "Connection Pool"
 description = ""
 date = "2020-10-01"
-category = "attacks"
-attacks = [
-    "dom property",
+category = "Attack"
+abuse = [
+    "Connection Pool",
+    "Browser Limits",
 ]
 defenses = [
+    "Fetch Metadata",
     "SameSite Cookies",
-    "sec-fetch metadata",
 ]
 menu = "main"
 +++

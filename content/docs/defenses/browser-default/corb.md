@@ -2,7 +2,7 @@
 title = "Cross-Origin Read Blocking"
 description = ""
 date = "2020-10-01"
-category = "defenses"
+category = "Defense"
 menu = "main"
 +++
 

@@ -2,13 +2,19 @@
 title = "Execution Timing"
 description = ""
 date = "2020-10-01"
-category = "attacks"
-attacks = [
-    "dom property",
+category = "Attack"
+abuse = [
+    "Event Loop",
+    "Service Workers",
+    "Site Isolation",
+    "CSS Injections",
+    "Regex Injections",
 ]
 defenses = [
+    "Fetch Metadata",
     "SameSite Cookies",
-    "sec-fetch metadata",
+    "COOP",
+    "Framing Protections",
 ]
 menu = "main"
 weight = 3
@@ -33,13 +39,13 @@ This attack is no longer possible in Browsers with process isolation mechanisms 
 
 Another technique to measure JavaScript Execution consists of blocking the event loop of a thread and time how long does it take for the event loop to be available again. One of the main advantages of this attack is its ability to circumvent Site Isolation as an attacker origin can mess with the execution of another origin. The attack works as follows:
 
-1. Navigate the target website in a separate window with `window.open` or inside an `iframe` (if [Framing Protections](https://TODO) are **not** in place).
+1. Navigate the target website in a separate window with `window.open` or inside an `iframe` (if [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}) are **not** in place).
 2. Wait for the long computation to start.
-3. Load any same-site page inside an `iframe`, regardless of any [Framing Protections](https://TODO). 
+3. Load any same-site page inside an `iframe`, regardless of any [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}). 
 
-An attacker can detect how long the target website is executed by timing how long it took for the `iframe` (in step 3) to trigger the `onload` event ([Network Timing](https://TODO) of step 3 should be despicable). Since both navigations occurred within the same context and they are same-site, they run in the same thread and share the same event loop (they can block each other).
+An attacker can detect how long the target website is executed by timing how long it took for the `iframe` (in step 3) to trigger the `onload` event ([Network Timing]({{< ref "network-timing.md" >}}) of step 3 should be despicable). Since both navigations occurred within the same context and they are same-site, they run in the same thread and share the same event loop (they can block each other).
 
-The example below shows how the measurement can be obtained, using the same technique described in [Cross-Window Timing Attacks](https://TODO) for step 2.
+The example below shows how the measurement can be obtained, using the same technique described in [Cross-Window (Network) Timing Attacks]({{< ref "network-timing.md#cross-window-timing-attacks" >}}) for step 2 to detect when the window stated loading.
 
 ```javascript
 let w = 0, end = 0, begin = 0;
@@ -119,7 +125,7 @@ Regular Expression Denial of Service (ReDoS) it's an attack which result in a De
 | Service Workers     |         ✔️         |      ✔️         |  ✔️   |          ❌         |
 | jQuery              |         ✔️         |      ✔️         |  ❌   |          ❌         |
 | ReDoS               |         ✔️         |      ✔️         |  ❌   |          ❌         |
-| Busy Event Loop     |         ✔️         |      ✔️         |  ❌   |          ✔️         |
+| Busy Event Loop     |         ✔️         |      ✔️         |  ❌   |          ❌         |
 
 ## References
 

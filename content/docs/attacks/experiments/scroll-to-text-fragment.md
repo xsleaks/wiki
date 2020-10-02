@@ -3,10 +3,14 @@ title = "Scroll to Text Fragment"
 description = ""
 date = "2020-10-01"
 category = "Experiments"
+abuse = [
+    "onblur",
+    "focus",
+]
 menu = "main"
 +++
 
-`Scroll to Text Fragment` (STTF) is a new web platform feature that allows users to create a link to any part of a web page text. The fragment `#:~:text=` carries a text snippet that is highlighted and brought into the viewport by the browser. This feature can introduce a new XS-Leak if attackers are able to detect when this behavior occurs. This issue is very similar to the [Scroll to CSS Selector](https://TODO) XS-Leak.
+`Scroll to Text Fragment` (STTF) is a new web platform feature that allows users to create a link to any part of a web page text. The fragment `#:~:text=` carries a text snippet that is highlighted and brought into the viewport by the browser. This feature can introduce a new XS-Leak if attackers are able to detect when this behavior occurs. This issue is very similar to the [Scroll to CSS Selector](https://docs.google.com/document/d/15HVLD6nddA0OaI8Dd0ayBP2jlGw5JpRD-njAyY1oNZo/edit#heading=h.wds2qckm3kh5) XS-Leak.
 
 ## Expected & Discussed Issues
 
@@ -16,10 +20,14 @@ In early discussions for the specification of this feature it was showed several
 
 ## Current Issues
 
+{{< hint info >}}
+These XS-Leaks require some type of markup injection on the target page.
+{{< /hint >}}
+
 During the development process of STTF new attacks and tricks to detect a fragment navigation were found. Some of them still work:
 
 - A web page that embeds an attacker-controlled `iframe` might allow the attacker to determine whether a scroll to the text has occurred. This can be done using the [`IntersectionObserver`](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) API [^2] [^3] [^4].
-- If a page contains images with [Lazy Loading](https://web.dev/native-lazy-loading/) an attacker might known if a fragment navigation that included an image occurred by checking whether it was [cached in the browser](https://TODO). This occurs because [Lazy Loading](https://web.dev/native-lazy-loading/) images are only fetched (and cached) when they appear in the viewport.
+- If a page contains images with [Lazy Loading](https://web.dev/native-lazy-loading/) an attacker might known if a fragment navigation that included an image occurred by checking whether it was [cached in the browser]({{< ref "../cache-probing.md" >}}). This occurs because [Lazy Loading](https://web.dev/native-lazy-loading/) images are only fetched (and cached) when they appear in the viewport.
 
 {{< hint warning >}}
 `Scroll to Text Fragment` is only available in Chrome. Its [draft](https://wicg.github.io/scroll-to-text-fragment/) specification is under active discussion.
@@ -40,7 +48,7 @@ Attackers can abuse `STTF` to leak private information about the user since its 
 
 ## Defense
 
-| Attack Alternative  | [Same-Site Cookies]({{< ref "../../defenses/opt-in/same-site-cookies.md" >}})  | [Fetch Metadata](https://TODO)  | [Cross-Origin-Opener-Policy]({{< ref "../../defenses/opt-in/coop.md" >}})  |  [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}) |
+| Attack Alternative  | [Same-Site Cookies]({{< ref "../../defenses/opt-in/same-site-cookies.md" >}})  | [Fetch Metadata]({{< ref "../../defenses/opt-in/fetch-metadata.md" >}})  | [COOP]({{< ref "../../defenses/opt-in/coop.md" >}})  |  [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}) |
 |:-------------------:|:------------------:|:---------------:|:-----:|:--------------------:|
 | IntersectionObserver (iframes)|         ❌         |      ❌         |  ❌   |          ❌         |
 | Lazy Loading        |         ✔️         |      ✔️         |  ❌   |          ❌         |

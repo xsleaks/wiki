@@ -20,7 +20,7 @@ The behavior enforced by this Header does not require major changes in the serve
 
 ## Considerations
 
-Fetch Metadata Headers are an **in-depth Defense Mechanism** and should **not be seen as a replacement** for mechanisms such as [Same-Site Cookies]({{< ref "same-site-cookies.md" >}}), [Cross-Origin-Opener-Policy]({{< ref "coop.md" >}}) or [Framing Protections]({{< ref "xfo.md" >}}). Even though Fetch Metadata Headers share some capabilities with these mechanisms (e.g act differently upon cross-site requests), **they do not provide a safe default**. 
+Fetch Metadata Headers are an **in-depth Defense Mechanism** and should **not be seen as a replacement** for mechanisms such as [Same-Site Cookies]({{< ref "same-site-cookies.md" >}}), [COOP]({{< ref "coop.md" >}}) or [Framing Protections]({{< ref "xfo.md" >}}). Even though Fetch Metadata Headers share some capabilities with these mechanisms (e.g act differently upon cross-site requests), **they do not provide a safe default**. 
 Its success is dependent on the application coverage and deployment correctness.
 
 ## Deployment

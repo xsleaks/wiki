@@ -2,13 +2,16 @@
 title = "CORB Leaks"
 description = ""
 date = "2020-10-01"
-category = "attacks"
-attacks = [
-    "dom property",
+category = "Attack"
+abuse = [
+    "Browser Feature",
+    "Error Events",
+    "Content-Type",
+    "nosniff",
 ]
 defenses = [
+    "Fetch Metadata",
     "SameSite Cookies",
-    "sec-fetch metadata",
 ]
 menu = "main"
 weight = 2
@@ -42,7 +45,7 @@ CORB could also allow attackers do detect when the `nosniff` Header is present i
 ## Defense
 
 
-| [Same-Site Cookies]({{< ref "../../defenses/opt-in/same-site-cookies.md" >}})  | [Fetch Metadata](https://TODO)  | [Cross-Origin-Opener-Policy]({{< ref "../../defenses/opt-in/coop.md" >}})  |  [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}) |
+| [Same-Site Cookies]({{< ref "../../defenses/opt-in/same-site-cookies.md" >}})  | [Fetch Metadata]({{< ref "../../defenses/opt-in/fetch-metadata.md" >}})  | [COOP]({{< ref "../../defenses/opt-in/coop.md" >}})  |  [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}) |
 |:------------------:|:---------------:|:-----:|:--------------------:|
 |         ✔️         |      ✔️         |  ❌   |          ❌         |
 
@@ -52,7 +55,7 @@ This issue is known by Chromium, and while it [might remain unfixed](https://doc
 {{< /hint >}}
 
 {{< hint good >}}
-Developers can deploy [CORP](https://TODO) in application resources to force a protection similar to CORB that does not inspect responses to decide when to act. To prevent attackers from abusing this XS-Leak, generic XS-Leaks defense mechanisms are also effective.
+Developers can deploy [CORP]({{< ref "../../defenses/opt-in/corp.md" >}}) in application resources to force a protection similar to CORB that does not inspect responses to decide when to act. To prevent attackers from abusing this XS-Leak, generic XS-Leaks defense mechanisms are also effective.
 {{< /hint >}}
 
 ## References

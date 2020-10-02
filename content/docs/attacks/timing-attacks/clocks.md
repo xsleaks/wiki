@@ -2,14 +2,7 @@
 title = "Clocks"
 description = ""
 date = "2020-10-01"
-category = "attacks"
-attacks = [
-    "dom property",
-]
-defenses = [
-    "SameSite Cookies",
-    "sec-fetch metadata",
-]
+category = "Instrument"
 menu = "main"
 weight = 1
 +++
@@ -25,17 +18,16 @@ The [performance.now()](https://developer.mozilla.org/en-US/docs/Web/API/Perform
 
 {{< hint good >}}
 `performance.now()` API got its accuracy reduced from a range of nanoseconds to a
-microsecond precision in all modern browsers, to mitigate [some](httos://TODO) XS-Leaks [^1] [^2] [^3].
+microsecond precision in all modern browsers, to mitigate some XS-Leaks [^1] [^2] [^3].
+<!-- TODO: "to mitigate some" means Size XS-Leaks that were fixed -->
 
 [^1]: Reduce resolution of performance.now (Webkit). [link](https://bugs.webkit.org/show_bug.cgi?id=146531)
 [^2]: Reduce precision of performance.now() to 20us (Gecko). [link](https://bugzilla.mozilla.org/show_bug.cgi?id=1427870)
 [^3]: Reduce resolution of performance.now to prevent timing attacks (Blink). [link](https://bugs.chromium.org/p/chromium/issues/detail?id=506723)
 {{< /hint >}}
-<!--TODO(manuelvsousa): Change references to actual wiki articles, and enumerate specifically as per https://github.com/xsleaks/wiki/pull/9#pullrequestreview-479831958-->
-
 
 {{< hint good >}}
-Since Firefox 79, this API can be used with [full resolution](https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/Releases/79) in documents which do not share a browsing context group with cross-origin documents. This will require an application interested in the API to explicitly opt-in to [COOP](https://TODO) and [COEP](https://TODO).
+Since Firefox 79, this API can be used with [full resolution](https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/Releases/79) in documents which do not share a browsing context group with cross-origin documents. This will require an application interested in the API to explicitly opt-in to [COOP]({{< ref "../../defenses/opt-in/coop.md" >}}) and [COEP](https://web.dev/coop-coep/).
 {{< /hint >}}
 
 ### Date API

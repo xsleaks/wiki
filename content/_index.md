@@ -24,13 +24,10 @@ Leaked information is **always** application dependent, varies depending on the 
 There are several types of XS-Leaks, and they have distinct origins:
 
 - [`HTML` APIs]({{< ref "frame-counting.md" >}}) that allow attackers to access information about a page
-- Browser Features which unintendedly introduced XS-Leaks
-- Browser Bugs
-- Inherent Web Platform Features (or a combination of them)
-- Hardware Limitations
-
-<!--TODO(manuelvsousa): Change this to TAG references-->
-<!--TODO(manuelvsousa): Change hardware limitation with reference to socket exhaustion pool-->
+- [Browser Features]({{< ref "../docs/attacks/historical/stateful-browser-features.md" >}}) which unintendedly introduced XS-Leaks
+- [Browser Bugs]({{< ref "../docs/attacks/historical/Content-Type.md#typemustmatch" >}})
+- [Inherent Web Platform Features]({{< ref "frame-counting.md" >}}) (or a combination of them)
+- [Hardware Limitations]({{< ref "../docs/attacks/timing-attacks/connection-pool.md" >}})
 
 # About the Wiki
 

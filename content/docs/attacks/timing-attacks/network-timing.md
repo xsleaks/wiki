@@ -2,13 +2,14 @@
 title = "Network Timing"
 description = ""
 date = "2020-10-01"
-category = "attacks"
-attacks = [
-    "dom property",
+category = [
+    "Attack",
 ]
 defenses = [
+    "Fetch Metadata",
     "SameSite Cookies",
-    "sec-fetch metadata",
+    "COOP",
+    "Framing Protections",
 ]
 menu = "main"
 weight = 2
@@ -23,9 +24,7 @@ This side-channel allows attackers to infer information from a cross-site reques
 - Resource Size.
 - The computation time in the backend.
 - Amount of sub-resources.
-- [Cache status](https://TODO).
-
-<!--TODO(manuelvsousa): Add cross reference to cache attacks in the wiki -->
+- [Cache status]({{< ref "../cache-probing.md" >}}).
 
 {{< hint good >}}
 Learn more about the different types of clocks in the [Clocks Article]({{< ref "clocks.md" >}}).
@@ -43,7 +42,7 @@ let request_time = performance.now() - before
 
 ## Frame Timing Attacks (Network)
 
-If the target page enforces [Framing Protections](https://TODO), embedding it as an `iframe` allows an attacker to obtain a network timing measurement. The example below shows how to achieve this by starting a [clock](https://TODO), embedding the page as an `iframe` (request is started), and wait for the `onload` event to be triggered which means the request completed. In this scenario when the request completes the browser does not render the fetched resource because of the protection.
+If the target page enforces [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}), embedding it as an `iframe` allows an attacker to obtain a network timing measurement. The example below shows how to achieve this by starting a [clock]({{< ref "clocks.md" >}}), embedding the page as an `iframe` (request is started), and wait for the `onload` event to be triggered which means the request completed. In this scenario when the request completes the browser does not render the fetched resource because of the protection.
 
 ```javascript
 begin = performance.now();
@@ -56,7 +55,7 @@ x.onload = () => console.log(performance.now() - begin)
 
 ## Sandboxed Frame Timing Attacks
 
-When a page sets [Framing Protections](https://TODO), an attacker can obtain an almost pure network measurement by including the [`sandbox`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe) attribute in the `iframe`. This attribute will block all JavaScript execution and prevent some subresources from loading.
+When a page sets [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}), an attacker can obtain an almost pure network measurement by including the [`sandbox`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe) attribute in the `iframe`. This attribute will block all JavaScript execution and prevent some subresources from loading.
 
 
 ## Cross-window Timing Attacks
@@ -108,7 +107,7 @@ This attack is limited to specific versions of HTTP and joint scenarios. It make
 
 ## Defense
 
-| Attack Alternative  | [Same-Site Cookies]({{< ref "../../defenses/opt-in/same-site-cookies.md" >}})  | [Fetch Metadata]({{< ref "../../defenses/opt-in/fetch-metadata.md" >}})  | [Cross-Origin-Opener-Policy]({{< ref "../../defenses/opt-in/coop.md" >}})  |  [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}) |
+| Attack Alternative  | [Same-Site Cookies]({{< ref "../../defenses/opt-in/same-site-cookies.md" >}})  | [Fetch Metadata]({{< ref "../../defenses/opt-in/fetch-metadata.md" >}})  | [COOP]({{< ref "../../defenses/opt-in/coop.md" >}})  |  [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}) |
 |:-------------------:|:------------------:|:---------------:|:-----:|:--------------------:|
 | Modern Timing Attacks              |         ✔️         |      ✔️         |  ❌   |          ❌         |
 | Frame Timing (Network) |         ✔️       |      ✔️         |  ❌   |          -
