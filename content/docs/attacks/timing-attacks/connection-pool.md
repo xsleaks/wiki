@@ -1,7 +1,7 @@
 +++
 title = "Connection Pool"
 description = ""
-date = "2020-07-21"
+date = "2020-10-01"
 category = "attacks"
 attacks = [
     "dom property",
@@ -25,11 +25,11 @@ To exploit the existence of this limit attackers can:
 
 | [Same-Site Cookies]({{< ref "../../defenses/opt-in/same-site-cookies.md" >}})  | [Fetch Metadata]({{< ref "../../defenses/opt-in/fetch-metadata.md" >}})  | [COOP]({{< ref "../../defenses/opt-in/coop.md" >}})  |  [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}) |
 |:------------------:|:---------------:|:-----:|:--------------------:|
-|     ✔️ (if Strict)         |      ✔️         |  ❌   |          ❌         |
+|     ✔️ [(if Strict)]({{< ref "../../defenses/opt-in/same-site-cookies.md#lax-vs-strict" >}})         |      ✔️         |  ❌   |          ❌         |
 
 
 {{< hint good >}}
-Similarly to [partitioned caches](https://TODO) some browsers are considering to extend the principle of "split per site/origin" of resources to [socket pools](https://bugzilla.mozilla.org/show_bug.cgi?id=1572544).
+Similarly to [partitioned caches]({{< ref "../../defenses/browser-default/partitioned-cache.md" >}}) some browsers are considering to extend the principle of "split per site/origin" of resources to [socket pools](https://bugzilla.mozilla.org/show_bug.cgi?id=1572544).
 {{< /hint >}}
 
 ## References

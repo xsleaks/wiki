@@ -1,7 +1,7 @@
 +++
 title = "CORB Leaks"
 description = ""
-date = "2020-07-21"
+date = "2020-10-01"
 category = "attacks"
 attacks = [
     "dom property",
@@ -19,7 +19,7 @@ weight = 2
 ## CORB & Error Events
 
 
-Attackers can observe when CORB is enforced if a response returns a *CORB protected* `Content-Type` (and `nosniff`) with status code `2xx` which results in CORB stripping the body and headers from the response. Detecting this protection will allow an attacker to leak the combination of both the status code (success V.s error) and the `Content-Type` (protected by CORB or not). This allows the distinction of two possible states: 
+Attackers can observe when CORB is enforced if a response returns a *CORB protected* `Content-Type` (and `nosniff`) with status code `2xx` which results in CORB stripping the body and Headers from the response. Detecting this protection will allow an attacker to leak the combination of both the status code (success V.s error) and the `Content-Type` (protected by CORB or not). This allows the distinction of two possible states: 
 - One state results in a request being protected by CORB and the second a network error (404). 
 - One state is protected by CORB and the second is not.
 

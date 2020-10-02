@@ -1,7 +1,7 @@
 +++
 title = "Same-Site Cookies"
 description = ""
-date = "2020-07-06"
+date = "2020-10-01"
 category = [
     "Defense",
 ]
@@ -10,7 +10,7 @@ menu = "main"
 
 Same-Site Cookies are one of the most impactful Security Mechanisms towards fixing security issues that involve cross-site requests. This mechanism allows applications to add a new attribute to cookies, forcing browsers to only append them in requests that are issued same-site [^1]. This type of cookies has two modes: `Lax` and `Strict`.
 
-### Lax V.s Strict
+## Lax V.s Strict
 
 The only difference between `Lax` and `Strict` is that `Lax` mode allows cookies to be added to requests triggered by top-level navigations. If `bank.com` sets `Same-Site=Lax` and attacker.com makes a request using the `fetch` API cookies won't be sent. bank.com, instead, is allowed to make requests to itself since they are same-site. Unfortunately, if the attacker navigates the user with `window.open` (which triggers a top-level navigation) the cookies will be sent and the attacker would have a reference to that window, making them able to exploit some XS-Leaks.
 

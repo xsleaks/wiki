@@ -1,7 +1,7 @@
 +++
 title = "Error Events"
 description = ""
-date = "2020-07-21"
+date = "2020-10-01"
 category = "attacks"
 attacks = [
     "dom property",
@@ -19,7 +19,7 @@ When a webpage issues a request to a server (e.g fetch, HTML tags), this request
 
 For example, attackers can detect whether a user is logged into a service by checking if the user has access to resources only available to authenticated users [^3]. The impact of this XS-Leak varies depending on the application but it can lead to sophisticated attacks with the ability to deanonymize users [^1].
 
-Error events can be thrown from a large variety of HTML tags, and some behaviors vary from browser to browser [^4]{{< katex>}}^{p. 6}{{< /katex >}}. For instance, they depend on the loaded resources, HTML tags, presence of certain headers (e.g `nosniff`, `Content-Type`) or enforcement of default browser protections, etc.
+Error events can be thrown from a large variety of HTML tags, and some behaviors vary from browser to browser [^4]{{< katex>}}^{p. 6}{{< /katex >}}. For instance, they depend on the loaded resources, HTML tags, presence of certain Headers (e.g `nosniff`, `Content-Type`) or enforcement of default browser protections, etc.
 
 The principle of leaking information with error events can be abstracted and applied to a variety of XS-Leaks. For example one of [Cache Probing](https://TODO) alternatives use Error Events to detect if a certain image was cached by the browser.
 

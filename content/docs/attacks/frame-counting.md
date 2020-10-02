@@ -1,7 +1,7 @@
 +++
 title = "Frame Counting"
 description = ""
-date = "2020-07-21"
+date = "2020-10-01"
 category = "attacks"
 attacks = [
     "dom property",
@@ -53,7 +53,7 @@ setTimeout(() => {
 | Attack Alternative  | [Same-Site Cookies]({{< ref "../defenses/opt-in/same-site-cookies.md" >}})  | [Fetch Metadata]({{< ref "../defenses/opt-in/fetch-metadata.md" >}})  | [COOP]({{< ref "../defenses/opt-in/coop.md" >}})  |  [Framing Protections]({{< ref "../defenses/opt-in/xfo.md" >}}) |
 |:-------------------:|:------------------:|:---------------:|:-----:|:--------------------:|
 | iframe              |         ✔️         |      ✔️         |  ❌   |          ✔️         |
-| window.open         |         ✔️ (If Strict)         |      ✔️         |  ✔️   |          ❌         |
+| window.open         |         ✔️ [(if Strict)]({{< ref "../defenses/opt-in/same-site-cookies.md#lax-vs-strict" >}})         |      ✔️         |  ✔️   |          ❌         |
 
 
 ## Real World Example

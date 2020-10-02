@@ -1,7 +1,7 @@
 +++
 title = "Clocks"
 description = ""
-date = "2020-07-21"
+date = "2020-10-01"
 category = "attacks"
 attacks = [
     "dom property",
@@ -11,6 +11,7 @@ defenses = [
     "sec-fetch metadata",
 ]
 menu = "main"
+weight = 1
 +++
 
 We can distinguish two types of clocks - Explicit and Implicit. Explicit clocks are the ones developers use to get direct timing measurements and such mechanisms are offered **explicitly** by the browser. Implicit clocks on the other hand, misuse particular web features to create unintended clocks which offer a relative timing.

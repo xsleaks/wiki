@@ -1,7 +1,7 @@
 +++
 title = "Scroll to Text Fragment"
 description = ""
-date = "2020-07-21"
+date = "2020-10-01"
 category = "attacks"
 attacks = [
     "dom property",
@@ -25,7 +25,7 @@ In early discussions for the specification of this feature it was showed several
 
 During the development process of STTF new attacks and tricks to detect a fragment navigation were found. Some of them still work:
 
-- A web page that embeds an attacker-controlled iframe might allow the attacker to determine whether a scroll to the text has occurred. This can be done using the [`IntersectionObserver`](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) API [^2] [^3] [^4].
+- A web page that embeds an attacker-controlled `iframe` might allow the attacker to determine whether a scroll to the text has occurred. This can be done using the [`IntersectionObserver`](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) API [^2] [^3] [^4].
 - If a page contains images with [Lazy Loading](https://web.dev/native-lazy-loading/) an attacker might known if a fragment navigation that included an image occurred by checking whether it was [cached in the browser](https://TODO). This occurs because [Lazy Loading](https://web.dev/native-lazy-loading/) images are only fetched (and cached) when they appear in the viewport.
 
 {{< hint warning >}}

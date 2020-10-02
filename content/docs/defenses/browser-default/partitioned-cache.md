@@ -1,18 +1,16 @@
 +++
 title = "Partitioned HTTP Cache"
 description = ""
-date = "2020-07-21"
-category = "defenses"
+date = "2020-10-01"
+category = [
+    "Defense",
+]
 menu = "main"
 +++
 
-## Explanation
+[Cache probing attacks]({{< ref "../../attacks/cache-probing.md" >}}) have been present on the web for a long time mainly because browsers HTTP cache is shared across all the websites visited by a user, allowing attackers to interact with it and infer private information from other origins.
 
-[Cache probing attacks](https://TODO) have been present on the web for a long time mainly because browsers HTTP cache is shared across all the websites visited by a user, allowing attackers to interact with it and infer private information from other origins.
-
-<!--TODO(manuelvsousa): Add reference to cache probing attacks-->
-
-Considering Opt-in solutions, applications can use the [`Vary` Header combined with `Fetch-Metadata`](https://TODO) to prevent cross-origin fetches to be affected by the site cache or use [some workarounds]({{< ref "../design-protections/subresource-protections.md" >}}) to protect resources, which come with downsides. Browsers, however, have been planning a defense mechanism to segregate the cached resources per origin/site, making it impossible for attackers pages to interact with cached contents of different origins[^1] [^2] [^3]. Specifically, browsers tested caching with finer-grained keys such as the tuple <`top-frame origin`, URL> or even triples of values.
+Considering Opt-in solutions, applications can use the [`Vary` Header combined with Fetch-Metadata]({{< ref "../opt-in/fetch-metadata.md" >}}) to prevent cross-origin fetches to be affected by the site cache or use [some workarounds]({{< ref "../design-protections/subresource-protections.md" >}}) to protect resources, which come with downsides. Browsers, however, have been planning a defense mechanism to segregate the cached resources per origin/site, making it impossible for attackers pages to interact with cached contents of different origins [^1] [^2] [^3]. Specifically, browsers tested caching with finer-grained keys such as the tuple <`top-frame origin`, URL> or even triples of values.
 
 {{< hint good >}}
 Chrome [^1] and Firefox [^2] are still discussing an implementation for a Multi-Keyed Cache while Safari [^3] already runs a version of it since 2013.
@@ -35,9 +33,7 @@ First Party Isolation is a [Browser Extension](https://addons.mozilla.org/en-US/
 
 ## Considerations
 
-Partitioned HTTP caches are a promising security feature that will eventually land in browsers. These partitioning strategies will mitigate all the XS-Leaks leveraging browsers caches and might be extended to other browser resources which help mitigate resilient attack vectors like the [Socket Exhaustion XS-Leak](https://TODO).
-
-<!--TODO(manuelvsousa): Add socket exhaustion ?-->
+Partitioned HTTP caches are a promising security feature that will eventually land in browsers. These partitioning strategies will mitigate all the XS-Leaks leveraging browsers caches and might be extended to other browser resources which help mitigate resilient attack vectors like the [Socket Exhaustion XS-Leak]({{< ref "../../attacks/timing-attacks/connection-pool.md" >}}).
 
 ## References
 

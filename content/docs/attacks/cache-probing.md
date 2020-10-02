@@ -53,7 +53,7 @@ Often some of these alternatives might be considered a [browser bug](https://bug
 
 | [Same-Site Cookies](https://TODO)   | [Vary: Sec-Fetch-Site]({{< ref "../defenses/opt-in/fetch-metadata.md#fetch-metadata--cache-probing-attacks" >}})  | [Subresource Protections]({{< ref "../defenses/design-protections/subresource-protections.md" >}}) |
 |:---------------------------------:|:-------------------------------------:|:---------------------------------------:|
-|        ✔️ (if strict)             |                  ✔️                   |   ✔️ & ❌ [*](https://TODO-referdeploysectioninsubresourceprotection)   | 
+|        ✔️ [(if Strict)]({{< ref "../defenses/opt-in/same-site-cookies.md#lax-vs-strict" >}})             |                  ✔️                   |   ✔️ & ❌ [*](https://TODO-referdeploysectioninsubresourceprotection)   | 
 
 - If a resource can be fetched with user authentication, [Same-Site Cookies](https://TODO) (Strict) should be considered to protect that resource from being abused by an attacker origin.
 - [Vary: Sec-Fetch-Site]({{< ref "../defenses/opt-in/fetch-metadata.md#fetch-metadata--cache-probing-attacks" >}}) allows applications to force cache segregation by a group of origins.

@@ -1,9 +1,12 @@
 +++
 title = "postMessage Broadcasts"
 description = ""
-date = "2020-07-06"
+date = "2020-10-01"
 category = [
     "Attack",
+]
+abuse = [
+    "postMessage",
 ]
 defenses = [
     "Application Fix",

@@ -1,7 +1,7 @@
 +++
 title = "Network Timing"
 description = ""
-date = "2020-07-21"
+date = "2020-10-01"
 category = "attacks"
 attacks = [
     "dom property",
@@ -11,6 +11,7 @@ defenses = [
     "sec-fetch metadata",
 ]
 menu = "main"
+weight = 2
 +++
 
 Network Timing side-channels have been present on the web since its beginning [^1] [^4]. These attacks achieved different levels of impact over time, gaining new attention when browsers started shipping high precision timers like [performance.now()]({{< ref "clocks.md#performancenow" >}}).
@@ -87,6 +88,10 @@ begin = performance.now();
 w = open('//mail.com/search?q=foo');
 {{< / highlight >}}
 
+{{< hint good >}}
+This technique can also be adapted to measure the Execution Timing of a page by [making the event loop busy]({{< ref "execution-timing.md#busy-event-loop" >}}).
+{{< /hint >}}
+
 ## Timeless Timing Attacks
 
 Other attacks do not consider the notion of time to perform a timing attack [^3]. Timeless attacks consist of fitting two `HTTP` requests in a single packet, the baseline and the attacked request, to guarantee they arrive at the same time to the server. The server *will* process the requests concurrently, and return a response based on their execution time as soon as possible. One of the two requests will arrive first, allowing the attacker to get the timing difference by comparing both requests.
@@ -108,7 +113,7 @@ This attack is limited to specific versions of HTTP and joint scenarios. It make
 | Modern Timing Attacks              |         ✔️         |      ✔️         |  ❌   |          ❌         |
 | Frame Timing (Network) |         ✔️       |      ✔️         |  ❌   |          -
 | Frame Timing (Sandbox) |         ✔️       |      ✔️         |  ❌   |          -
-| Cross-window Timing  |         ✔️ (if Strict)       |      ✔️         |  ❌   |          ❌         |
+| Cross-window Timing  |         ✔️  [(if Strict)]({{< ref "../../defenses/opt-in/same-site-cookies.md#lax-vs-strict" >}})      |      ✔️         |  ❌   |          ❌         |
 | Timeless Timing  |         ✔️        |      ❓         |  ❌   |          ❌         |
 
 ## References

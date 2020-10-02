@@ -1,7 +1,7 @@
 +++
 title = "CORP Leaks"
 description = ""
-date = "2020-07-21"
+date = "2020-10-01"
 category = "attacks"
 attacks = [
     "dom property",
