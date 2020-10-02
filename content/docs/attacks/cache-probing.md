@@ -6,7 +6,7 @@ attacks = [
     "dom property",
 ]
 defenses = [
-    "same-site cookies",
+    "SameSite Cookies",
     "sec-fetch metadata",
 ]
 menu = "main"

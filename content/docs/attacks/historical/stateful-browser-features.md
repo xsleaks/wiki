@@ -4,7 +4,7 @@ description = ""
 date = "2020-10-01"
 category = "Historical"
 defenses = [
-    "Patch"
+    "Browser Fix"
 ]
 menu = "main"
 +++

@@ -8,7 +8,7 @@ category = [
 ]
 defenses = [
     "Fetch Metadata",
-    "Same-Site Cookies",
+    "SameSite Cookies",
 ]
 menu = "main"
 weight = 1

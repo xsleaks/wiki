@@ -5,9 +5,13 @@ date = "2020-10-01"
 category = [
     "Attack",
 ]
+abuse = [
+    "onblur",
+    "focus",
+]
 defenses = [
     "Fetch Metadata",
-    "Same-Site Cookies",
+    "SameSite Cookies",
     "Framing Protections",
 ]
 menu = "main"
@@ -18,7 +22,6 @@ weight = 3
 The `id` attribute is widely used to identify some `HTML` elements. Unfortunately, these `ids` can be leaked by leveraging the `focus` event and the `URL` fragment. For example, some web applications set `id` attributes in `focusable` elements that may lead to user information disclosure. These `ids` can either be direct information related to the user (e.g a secret) or information associated with a user state (e.g account status). There are two alternatives to complete this attack:
 
 - By using an `iframe` an attacker can load the target website once and brute-force the `URL` hash until the `focus` event fires. The `onblur` event can be used to detect when the target has focus [^1].
-
 
 ## Case Scenarios
 

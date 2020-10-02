@@ -2,13 +2,18 @@
 title = "Error Events"
 description = ""
 date = "2020-10-01"
-category = "attacks"
-attacks = [
-    "dom property",
+category = [
+    "Attack",
+]
+abuse = [
+    "Headers",
+    "Status Code",
+    "nosniff",
+    "Content-Type",
 ]
 defenses = [
-    "same-site cookies",
-    "sec-fetch metadata",
+    "Fetch Metadata",
+    "SameSite Cookies",
 ]
 menu = "main"
 weight = 2
@@ -21,11 +26,11 @@ For example, attackers can detect whether a user is logged into a service by che
 
 Error events can be thrown from a large variety of HTML tags, and some behaviors vary from browser to browser [^4]{{< katex>}}^{p. 6}{{< /katex >}}. For instance, they depend on the loaded resources, HTML tags, presence of certain Headers (e.g `nosniff`, `Content-Type`) or enforcement of default browser protections, etc.
 
-The principle of leaking information with error events can be abstracted and applied to a variety of XS-Leaks. For example one of [Cache Probing](https://TODO) alternatives use Error Events to detect if a certain image was cached by the browser.
+The principle of leaking information with error events can be abstracted and applied to a variety of XS-Leaks. For example one of [Cache Probing]({{< ref "cache-probing.md" >}}) alternatives use Error Events to detect if a certain image was cached by the browser.
 
 ## Defense
 
-The mitigation of this XS-Leak often varies on how applications handle certain resources and ends in the adoption of consistent behaviors as much as possible. In specific scenarios, applications might use [Subresource Protections](https://TODO) to prevent attackers from predicting an URL and go forward with an attack. 
+The mitigation of this XS-Leak often varies on how applications handle certain resources and ends in the adoption of consistent behaviors as much as possible. In specific scenarios, applications might use [Subresource Protections]({{< ref "../defenses/design-protections/subresource-protections.md" >}}) to prevent attackers from predicting an URL and go forward with an attack. 
 
 Finally, without applying bigger changes in the logic of applications, generic web platform security features could be deployed to mitigate this XS-Leak at a larger scale.
 

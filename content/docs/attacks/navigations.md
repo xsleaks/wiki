@@ -15,7 +15,7 @@ abuse = [
 ]
 defenses = [
     "Fetch Metadata",
-    "Same-Site Cookies",
+    "SameSite Cookies",
     "COOP",
     "Framing Protections",
 ]
