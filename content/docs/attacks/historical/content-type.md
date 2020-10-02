@@ -6,8 +6,6 @@ category = "Historical"
 abuse = [
     "typeMustMatch",
     "iframes",
-]
-leaks = [
     "Content-Type",
     "Status Code",
 ]
