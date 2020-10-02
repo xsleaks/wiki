@@ -2,14 +2,7 @@
 title = "Scroll to Text Fragment"
 description = ""
 date = "2020-10-01"
-category = "attacks"
-attacks = [
-    "dom property",
-]
-defenses = [
-    "same-site cookies",
-    "sec-fetch metadata",
-]
+category = "Experiments"
 menu = "main"
 +++
 

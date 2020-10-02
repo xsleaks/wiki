@@ -8,8 +8,10 @@ category = [
 abuse = [
     "Downloads",
     "History",
-    "CSP",
+    "CSP Violations",
     "Redirects",
+    "window.open",
+    "iframes",
 ]
 defenses = [
     "Fetch Metadata",
@@ -70,7 +72,7 @@ Another way to test for the [`Content-Disposition: attachment`](https://develope
 2. Navigate the saved reference to the endpoint that might download.
 3. After a timeout, check if the window is still same-origin
 
-The snippet presented in the [Cross-Window Timing](httpps://TODO) XS-Leak can be slightly adapted to detect this behavior.
+The snippet presented in the [Cross-Window Timing]({{< ref "../attacks/timing-attacks/network-timing.md#cross-window-timing-attacks" >}}) XS-Leak can be slightly adapted to detect this behavior.
 
 #### Download Navigation (without timeout)
 
@@ -147,7 +149,7 @@ fetch('https://target.page/might_redirect', {mode: 'no-cors',credentials: 'inclu
 
 ## Real-World Examples
 
-- A vulnerability reported to Twitter used this technique to leak the contents of private tweets using [XS-Search](https://TODO). This attack was possible because the page would only trigger a navigation depending on whether there were results to the user query [^1].
+- A vulnerability reported to Twitter used this technique to leak the contents of private tweets using [XS-Search]({{< ref "../attacks/xs-search.md" >}}). This attack was possible because the page would only trigger a navigation depending on whether there were results to the user query [^1].
 
 ## References
 
