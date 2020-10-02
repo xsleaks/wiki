@@ -26,5 +26,4 @@ theme = "book"
 [taxonomies]
   abuse = "Abuse"
   category = "Category"
-  attack = "Attacks"
   defense = "Defenses"

@@ -9,6 +9,7 @@ abuse = [
     "Site Isolation",
     "CSS Injections",
     "Regex Injections",
+    "iframes",
 ]
 defenses = [
     "Fetch Metadata",

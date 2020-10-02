@@ -6,11 +6,12 @@ category = "Experiments"
 abuse = [
     "onblur",
     "focus",
+    "iframes",
 ]
 menu = "main"
 +++
 
-`Scroll to Text Fragment` (STTF) is a new web platform feature that allows users to create a link to any part of a web page text. The fragment `#:~:text=` carries a text snippet that is highlighted and brought into the viewport by the browser. This feature can introduce a new XS-Leak if attackers are able to detect when this behavior occurs. This issue is very similar to the [Scroll to CSS Selector](https://docs.google.com/document/d/15HVLD6nddA0OaI8Dd0ayBP2jlGw5JpRD-njAyY1oNZo/edit#heading=h.wds2qckm3kh5) XS-Leak.
+Scroll to Text Fragment (STTF) is a new web platform feature that allows users to create a link to any part of a web page text. The fragment `#:~:text=` carries a text snippet that is highlighted and brought into the viewport by the browser. This feature can introduce a new XS-Leak if attackers are able to detect when this behavior occurs. This issue is very similar to the [Scroll to CSS Selector](https://docs.google.com/document/d/15HVLD6nddA0OaI8Dd0ayBP2jlGw5JpRD-njAyY1oNZo/edit#heading=h.wds2qckm3kh5) XS-Leak.
 
 ## Expected & Discussed Issues
 
@@ -30,20 +31,20 @@ During the development process of STTF new attacks and tricks to detect a fragme
 - If a page contains images with [Lazy Loading](https://web.dev/native-lazy-loading/) an attacker might known if a fragment navigation that included an image occurred by checking whether it was [cached in the browser]({{< ref "../cache-probing.md" >}}). This occurs because [Lazy Loading](https://web.dev/native-lazy-loading/) images are only fetched (and cached) when they appear in the viewport.
 
 {{< hint warning >}}
-`Scroll to Text Fragment` is only available in Chrome. Its [draft](https://wicg.github.io/scroll-to-text-fragment/) specification is under active discussion.
+Scroll to Text Fragment is only available in Chrome. Its [draft](https://wicg.github.io/scroll-to-text-fragment/) specification is under active discussion.
 {{< /hint >}}
 
 {{< hint good >}}
-`Scroll to Text Fragment` XS-Leaks allow attackers to extract 1 bit of information at a time as it's only possible to observe whether a group of words is present in a page. This occurs as STTF matching mechanism is based on words, so attackers won't be able to leak information character by character.
+Scroll to Text Fragment XS-Leaks allow attackers to extract 1 bit of information at a time as it's only possible to observe whether a group of words is present in a page. This occurs as STTF matching mechanism is based on words, so attackers won't be able to leak information character by character.
 {{< /hint >}}
 
 ## Why is this a problem?
 
-Attackers can abuse `STTF` to leak private information about the user since its highly connected with the contents of a web page.
+Attackers can abuse STTF to leak private information about the user since its highly connected with the contents of a web page.
 
 ### Case Scenarios
 
-- A user is logged in its National Health System website, where it is possible to access information about the user past diseases and health problems. An attacker can lure the user to one of its pages and use `STTF` to possibly infer specific deceases of the user. For example an attacker would find out if the victim suffers of a disease if they detects a page scroll when searching for that pathology name.
+- A user is logged in its National Health System website, where it is possible to access information about the user past diseases and health problems. An attacker can lure the user to one of its pages and use STTF to possibly infer specific deceases of the user. For example an attacker would find out if the victim suffers of a disease if they detects a page scroll when searching for that pathology name.
 
 
 ## Defense

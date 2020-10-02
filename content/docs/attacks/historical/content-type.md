@@ -5,6 +5,7 @@ date = "2020-10-01"
 category = "Historical"
 abuse = [
     "typeMustMatch",
+    "iframes",
 ]
 leaks = [
     "Content-Type",

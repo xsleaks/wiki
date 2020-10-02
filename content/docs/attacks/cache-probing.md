@@ -6,6 +6,7 @@ abuse = [
     "window.open",
     "Error Events",
     "Cache",
+    "iframes",
 ]
 defenses = [
     "SameSite Cookies",

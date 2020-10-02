@@ -3,6 +3,9 @@ title = "Hybrid Timing"
 description = ""
 date = "2020-10-01"
 category = "Attack"
+abuse = [
+    "iframes",
+]
 defenses = [
     "Fetch Metadata",
     "SameSite Cookies",

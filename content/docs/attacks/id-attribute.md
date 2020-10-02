@@ -8,6 +8,7 @@ category = [
 abuse = [
     "onblur",
     "focus",
+    "iframes",
 ]
 defenses = [
     "Fetch Metadata",

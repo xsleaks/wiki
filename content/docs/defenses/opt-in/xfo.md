@@ -18,7 +18,7 @@ Since a website enforcing Framing Protections can't be embedded from an attacker
 
 ## Considerations
 
-This protection is very effective against XS-Leaks which [rely on `iframes`](../../../../category/iframes/) and can be easily implemented without breaking the vast majority of applications. This mechanism not only protects from some XS-Leaks but also attacks like Clickjacking.
+This protection is very effective against XS-Leaks which [rely on `iframes`](../../../../abuse/iframes/) and can be easily implemented without breaking the vast majority of applications. This mechanism not only protects from some XS-Leaks but also attacks like Clickjacking.
 
 ## Deployment
 
