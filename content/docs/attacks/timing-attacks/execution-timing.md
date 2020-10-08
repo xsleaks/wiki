@@ -1,16 +1,24 @@
 +++
 title = "Execution Timing"
 description = ""
-date = "2020-07-21"
-category = "attacks"
-attacks = [
-    "dom property",
+date = "2020-10-01"
+category = "Attack"
+abuse = [
+    "Event Loop",
+    "Service Workers",
+    "Site Isolation",
+    "CSS Injections",
+    "Regex Injections",
+    "iframes",
 ]
 defenses = [
-    "same-site cookies",
-    "sec-fetch metadata",
+    "Fetch Metadata",
+    "SameSite Cookies",
+    "COOP",
+    "Framing Protections",
 ]
 menu = "main"
+weight = 3
 +++
 
 Measuring the time of JavaScript execution in a browser can give attackers information on when certain events are triggered, and how long some operations take. 
@@ -32,13 +40,13 @@ This attack is no longer possible in Browsers with process isolation mechanisms 
 
 Another technique to measure JavaScript Execution consists of blocking the event loop of a thread and time how long does it take for the event loop to be available again. One of the main advantages of this attack is its ability to circumvent Site Isolation as an attacker origin can mess with the execution of another origin. The attack works as follows:
 
-1. Navigate the target website in a separate window with `window.open` or inside an iframe (if [Framing Protections](https://TODO) are **not** in place).
+1. Navigate the target website in a separate window with `window.open` or inside an `iframe` (if [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}) are **not** in place).
 2. Wait for the long computation to start.
-3. Load any same-site page inside an iframe, regardless of any [Framing Protections](https://TODO). 
+3. Load any same-site page inside an `iframe`, regardless of any [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}). 
 
-An attacker can detect how long the target website is executed by timing how long it took for the `iframe` (in step 3) to trigger the `onload` event ([Network Timing](https://TODO) of step 3 should be despicable). Since both navigations occurred within the same context and they are same-site, they run in the same thread and share the same event loop (they can block each other).
+An attacker can detect how long the target website is executed by timing how long it took for the `iframe` (in step 3) to trigger the `onload` event ([Network Timing]({{< ref "network-timing.md" >}}) of step 3 should be despicable). Since both navigations occurred within the same context and they are same-site, they run in the same thread and share the same event loop (they can block each other).
 
-The example below shows how the measurement can be obtained, using the same technique described in [Cross-Window Timing Attacks](https://TODO) for step 2.
+The example below shows how the measurement can be obtained, using the same technique described in [Cross-Window (Network) Timing Attacks]({{< ref "network-timing.md#cross-window-timing-attacks" >}}) for step 2 to detect when the window stated loading.
 
 ```javascript
 let w = 0, end = 0, begin = 0;
@@ -77,7 +85,7 @@ Since the navigation won't actually happen, steps from 3 to 5 can be repeated to
 
 ## CSS Injections
 
-{{< hint requirement >}}
+{{< hint info >}}
 This group of XS-Leaks requires a CSS Injection on the target page.
 {{< /hint >}}
 
@@ -93,17 +101,17 @@ A timing attack is possible because the expression is compared from right to lef
 $("*:has(*:has(*:has(*)) *:has(*:has(*:has(*))) *:has(*:has(*:has(*)))) main[id='site-main']")
 ```
 
-{{< hint info >}}
+{{< hint good >}}
 This attack is no longer possible in Browsers with process isolation mechanisms in place. Such mechanisms are only present in Chromium-Based browsers with [Site Isolation](https://www.chromium.org/Home/chromium-security/site-isolation) and *soon* in Firefox under [Project Fission](https://wiki.mozilla.org/Project_Fission).
 {{< /hint >}}
 
-{{< hint info >}}
+{{< hint good >}}
 In browsers with process isolation mechanisms, [Service Workers]({{< ref "execution-timing.md#service-workers" >}}) can be abused to obtain the execution timing measurement or tricks like [Busy Event Loop tricks]({{< ref "#busy-event-loop" >}}) to circumvent Site Isolation.
 {{< /hint >}}
 
 ## ReDoS
 
-{{< hint requirement >}}
+{{< hint info >}}
 This group of XS-Leaks requires an injection of Regex Expressions on the target page.
 {{< /hint >}}
 
@@ -114,11 +122,13 @@ Regular Expression Denial of Service (ReDoS) it's an attack which result in a De
 
 | Attack Alternative  | [Same-Site Cookies]({{< ref "../../defenses/opt-in/same-site-cookies.md" >}})  | [Fetch Metadata]({{< ref "../../defenses/opt-in/fetch-metadata.md" >}})  | [COOP]({{< ref "../../defenses/opt-in/coop.md" >}})  |  [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}) |
 |:-------------------:|:------------------:|:---------------:|:-----:|:--------------------:|
-| T. Event Loop       |         ✔️         |      ✔️         |  ❌   |          ❌         |
-| Service Workers     |         ✔️         |      ✔️         |  ❌   |          ❌         |
+| T. Event Loop       |         ✔️  [(if Strict)]({{< ref "../../defenses/opt-in/same-site-cookies.md#lax-vs-strict" >}})        |      ✔️         |  ❓   |          ❌         |
+| Service Workers     |         ✔️         |      ✔️         |  ✔️   |          ❌         |
 | jQuery              |         ✔️         |      ✔️         |  ❌   |          ❌         |
 | ReDoS               |         ✔️         |      ✔️         |  ❌   |          ❌         |
-| Busy Event Loop     |         ✔️         |      ✔️         |  ❌   |          ✔️         |
+| Busy Event Loop     |         ✔️         |      ✔️         |  ❌   |          ❌         |
+
+## References
 
 [^1]: Loophole: Timing Attacks on Shared Event Loops in Chrome, [link](https://www.usenix.org/system/files/conference/usenixsecurity17/sec17-vila.pdf)
 [^2]: Matryoshka - Web Application Timing Attacks (or.. Timing Attacks against JavaScript Applications in Browsers), [link](https://sirdarckcat.blogspot.com/2014/05/matryoshka-web-application-timing.html)

@@ -1,24 +1,28 @@
 +++
 title = "CORB Leaks"
 description = ""
-date = "2020-07-21"
-category = "attacks"
-attacks = [
-    "dom property",
+date = "2020-10-01"
+category = "Attack"
+abuse = [
+    "Browser Feature",
+    "Error Events",
+    "Content-Type",
+    "nosniff",
 ]
 defenses = [
-    "same-site cookies",
-    "sec-fetch metadata",
+    "Fetch Metadata",
+    "SameSite Cookies",
 ]
 menu = "main"
+weight = 2
 +++
 
-[Cross-Origin Read Blocking](({{< ref "../defenses/browser-intrinsic/corb.md" >}})) (CORB) is a web platform security feature aimed at reducing the impact of speculative side-channel attacks such as Spectre. Unfortunately blocking certain types of requests introduced a new type of XS-Leaks, allowing attackers to detect if CORB was enforced in one request, but wasn't on another. Nevertheless, the introduced XS-Leaks are much less problematic than the issues actively protected by CORB (e.g Spectre).
+[Cross-Origin Read Blocking]({{< ref "../../defenses/browser-default/corb.md" >}}) (CORB) is a web platform security feature aimed at reducing the impact of speculative side-channel attacks such as Spectre. Unfortunately blocking certain types of requests introduced a new type of XS-Leaks, allowing attackers to detect if CORB was enforced in one request, but wasn't on another. Nevertheless, the introduced XS-Leaks are much less problematic than the issues actively protected by CORB (e.g Spectre).
 
 ## CORB & Error Events
 
 
-Attackers can observe when CORB is enforced if a response returns a *CORB protected* `Content-Type` (and `nosniff`) with status code `2xx` which results in CORB stripping the body and headers from the response. Detecting this protection will allow an attacker to leak the combination of both the status code (success V.s error) and the `Content-Type` (protected by CORB or not). This allows the distinction of two possible states: 
+Attackers can observe when CORB is enforced if a response returns a *CORB protected* `Content-Type` (and `nosniff`) with status code `2xx` which results in CORB stripping the body and Headers from the response. Detecting this protection will allow an attacker to leak the combination of both the status code (success V.s error) and the `Content-Type` (protected by CORB or not). This allows the distinction of two possible states: 
 - One state results in a request being protected by CORB and the second a network error (404). 
 - One state is protected by CORB and the second is not.
 
@@ -41,21 +45,19 @@ CORB could also allow attackers do detect when the `nosniff` Header is present i
 ## Defense
 
 
-| [Same-Site Cookies]({{< ref "../defenses/opt-in/same-site-cookies.md" >}})  | [Fetch Metadata](https://TODO)  | [Cross-Origin-Opener-Policy]({{< ref "../defenses/opt-in/coop.md" >}})  |  [Framing Protections]({{< ref "../defenses/opt-in/xfo.md" >}}) |
+| [Same-Site Cookies]({{< ref "../../defenses/opt-in/same-site-cookies.md" >}})  | [Fetch Metadata]({{< ref "../../defenses/opt-in/fetch-metadata.md" >}})  | [COOP]({{< ref "../../defenses/opt-in/coop.md" >}})  |  [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}) |
 |:------------------:|:---------------:|:-----:|:--------------------:|
 |         ✔️         |      ✔️         |  ❌   |          ❌         |
 
 
-{{< hint info >}}
-Chromium is the only browser currently implementing [CORB](https://TODO). With the [default rollout](https://www.chromium.org/updates/same-site) of [Same-Site cookies](https://TODO) this attack becomes fairly **powerless**.
-{{< /hint >}}
-
-{{< hint info >}}
+{{< hint good >}}
 This issue is known by Chromium, and while it [might remain unfixed](https://docs.google.com/document/d/1kdqstoT1uH5JafGmRXrtKE4yVfjUVmXitjcvJ4tbBvM/edit?ts=5f2c8004), its impact is highly reduced by the [rollout of Same-Site Cookies by default](https://blog.chromium.org/2020/05/resuming-samesite-cookie-changes-in-july.html) in Chromium-based browsers.
 {{< /hint >}}
 
-{{< hint info >}}
-Developers can deploy [CORP](https://TODO) in application resources to force a protection similar to CORB that does not inspect responses to decide when to act. To prevent attackers from abusing this XS-Leak, generic XS-Leaks defense mechanisms are also effective.
+{{< hint good >}}
+Developers can deploy [CORP]({{< ref "../../defenses/opt-in/corp.md" >}}) in application resources to force a protection similar to CORB that does not inspect responses to decide when to act. To prevent attackers from abusing this XS-Leak, generic XS-Leaks defense mechanisms are also effective.
 {{< /hint >}}
+
+## References
 
 [^1]: CORB vs side channels, [link](https://docs.google.com/document/d/1kdqstoT1uH5JafGmRXrtKE4yVfjUVmXitjcvJ4tbBvM/edit?ts=5f2c8004)

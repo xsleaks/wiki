@@ -1,16 +1,21 @@
 +++
 title = "Network Timing"
 description = ""
-date = "2020-07-21"
-category = "attacks"
-attacks = [
-    "dom property",
+date = "2020-10-01"
+category = [
+    "Attack",
+]
+abuse = [
+    "iframes",
 ]
 defenses = [
-    "same-site cookies",
-    "sec-fetch metadata",
+    "Fetch Metadata",
+    "SameSite Cookies",
+    "COOP",
+    "Framing Protections",
 ]
 menu = "main"
+weight = 2
 +++
 
 Network Timing side-channels have been present on the web since its beginning [^1] [^4]. These attacks achieved different levels of impact over time, gaining new attention when browsers started shipping high precision timers like [performance.now()]({{< ref "clocks.md#performancenow" >}}).
@@ -22,11 +27,9 @@ This side-channel allows attackers to infer information from a cross-site reques
 - Resource Size.
 - The computation time in the backend.
 - Amount of sub-resources.
-- [Cache status](https://TODO).
+- [Cache status]({{< ref "../cache-probing.md" >}}).
 
-<!--TODO(manuelvsousa): Add cross reference to cache attacks in the wiki -->
-
-{{< hint info >}}
+{{< hint good >}}
 Learn more about the different types of clocks in the [Clocks Article]({{< ref "clocks.md" >}}).
 {{< /hint >}}
 
@@ -42,7 +45,7 @@ let request_time = performance.now() - before
 
 ## Frame Timing Attacks (Network)
 
-If the target page enforces [Framing Protections](https://TODO), embedding it as an `iframe` allows an attacker to obtain a network timing measurement. The example below shows how to achieve this by starting a [clock](https://TODO), embedding the page as an `iframe` (request is started), and wait for the `onload` event to be triggered which means the request completed. In this scenario when the request completes the browser does not render the fetched resource because of the protection.
+If the target page enforces [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}), embedding it as an `iframe` allows an attacker to obtain a network timing measurement. The example below shows how to achieve this by starting a [clock]({{< ref "clocks.md" >}}), embedding the page as an `iframe` (request is started), and wait for the `onload` event to be triggered which means the request completed. In this scenario when the request completes the browser does not render the fetched resource because of the protection.
 
 ```javascript
 begin = performance.now();
@@ -55,7 +58,7 @@ x.onload = () => console.log(performance.now() - begin)
 
 ## Sandboxed Frame Timing Attacks
 
-When a page sets [Framing Protections](https://TODO), an attacker can obtain an almost pure network measurement by including the [`sandbox`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe) attribute in the `iframe`. This attribute will block all JavaScript execution and prevent some subresources from loading.
+When a page sets [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}), an attacker can obtain an almost pure network measurement by including the [`sandbox`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe) attribute in the `iframe`. This attribute will block all JavaScript execution and prevent some subresources from loading.
 
 
 ## Cross-window Timing Attacks
@@ -87,6 +90,10 @@ begin = performance.now();
 w = open('//mail.com/search?q=foo');
 {{< / highlight >}}
 
+{{< hint good >}}
+This technique can also be adapted to measure the Execution Timing of a page by [making the event loop busy]({{< ref "execution-timing.md#busy-event-loop" >}}).
+{{< /hint >}}
+
 ## Timeless Timing Attacks
 
 Other attacks do not consider the notion of time to perform a timing attack [^3]. Timeless attacks consist of fitting two `HTTP` requests in a single packet, the baseline and the attacked request, to guarantee they arrive at the same time to the server. The server *will* process the requests concurrently, and return a response based on their execution time as soon as possible. One of the two requests will arrive first, allowing the attacker to get the timing difference by comparing both requests.
@@ -103,13 +110,15 @@ This attack is limited to specific versions of HTTP and joint scenarios. It make
 
 ## Defense
 
-| Attack Alternative  | [Same-Site Cookies]({{< ref "../../defenses/opt-in/same-site-cookies.md" >}})  | [Fetch Metadata]({{< ref "../../defenses/opt-in/fetch-metadata.md" >}})  | [Cross-Origin-Opener-Policy]({{< ref "../../defenses/opt-in/coop.md" >}})  |  [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}) |
+| Attack Alternative  | [Same-Site Cookies]({{< ref "../../defenses/opt-in/same-site-cookies.md" >}})  | [Fetch Metadata]({{< ref "../../defenses/opt-in/fetch-metadata.md" >}})  | [COOP]({{< ref "../../defenses/opt-in/coop.md" >}})  |  [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}) |
 |:-------------------:|:------------------:|:---------------:|:-----:|:--------------------:|
 | Modern Timing Attacks              |         ✔️         |      ✔️         |  ❌   |          ❌         |
 | Frame Timing (Network) |         ✔️       |      ✔️         |  ❌   |          -
 | Frame Timing (Sandbox) |         ✔️       |      ✔️         |  ❌   |          -
-| Cross-window Timing  |         ✔️ (if Strict)       |      ✔️         |  ❌   |          ❌         |
+| Cross-window Timing  |         ✔️  [(if Strict)]({{< ref "../../defenses/opt-in/same-site-cookies.md#lax-vs-strict" >}})      |      ✔️         |  ❌   |          ❌         |
 | Timeless Timing  |         ✔️        |      ❓         |  ❌   |          ❌         |
+
+## References
 
 [^1]: Exposing Private Information by Timing Web Applications, [link](https://crypto.stanford.edu/~dabo/papers/webtiming.pdf)
 [^2]: The Clock is Still Ticking: Timing Attacks in the Modern Web - Section 4.3.3, [link](https://tom.vg/papers/timing-attacks_ccs2015.pdf)

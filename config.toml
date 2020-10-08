@@ -24,7 +24,6 @@ theme = "book"
   BookServiceWorker = true
 
 [taxonomies]
+  abuse = "Abuse"
   category = "Category"
-  attack = "Attacks"
   defense = "Defenses"
-

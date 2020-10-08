@@ -1,14 +1,15 @@
 +++
 title = "Connection Pool"
 description = ""
-date = "2020-07-21"
-category = "attacks"
-attacks = [
-    "dom property",
+date = "2020-10-01"
+category = "Attack"
+abuse = [
+    "Connection Pool",
+    "Browser Limits",
 ]
 defenses = [
-    "same-site cookies",
-    "sec-fetch metadata",
+    "Fetch Metadata",
+    "SameSite Cookies",
 ]
 menu = "main"
 +++
@@ -25,11 +26,13 @@ To exploit the existence of this limit attackers can:
 
 | [Same-Site Cookies]({{< ref "../../defenses/opt-in/same-site-cookies.md" >}})  | [Fetch Metadata]({{< ref "../../defenses/opt-in/fetch-metadata.md" >}})  | [COOP]({{< ref "../../defenses/opt-in/coop.md" >}})  |  [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}) |
 |:------------------:|:---------------:|:-----:|:--------------------:|
-|     ✔️ (if Strict)         |      ✔️         |  ❌   |          ❌         |
+|     ✔️ [(if Strict)]({{< ref "../../defenses/opt-in/same-site-cookies.md#lax-vs-strict" >}})         |      ✔️         |  ❌   |          ❌         |
 
 
-{{< hint info >}}
-Similarly to [partitioned caches](https://TODO) some browsers are considering to extend the principle of "split per site/origin" of resources to [socket pools](https://bugzilla.mozilla.org/show_bug.cgi?id=1572544).
+{{< hint good >}}
+Similarly to [partitioned caches]({{< ref "../../defenses/browser-default/partitioned-cache.md" >}}) some browsers are considering to extend the principle of "split per site/origin" of resources to [socket pools](https://bugzilla.mozilla.org/show_bug.cgi?id=1572544).
 {{< /hint >}}
+
+## References
 
 [^1]: Leak cross-window request timing by exhausting connection pool, [link](https://bugs.chromium.org/p/chromium/issues/detail?id=843157)

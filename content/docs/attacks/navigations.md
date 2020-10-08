@@ -1,16 +1,26 @@
 +++
 title = "Navigations"
 description = ""
-date = "2020-07-21"
-category = "attacks"
-attacks = [
-    "dom property",
+date = "2020-10-01"
+category = [
+    "Attack",
+]
+abuse = [
+    "Downloads",
+    "History",
+    "CSP Violations",
+    "Redirects",
+    "window.open",
+    "iframes",
 ]
 defenses = [
-    "same-site cookies",
-    "sec-fetch metadata",
+    "Fetch Metadata",
+    "SameSite Cookies",
+    "COOP",
+    "Framing Protections",
 ]
 menu = "main"
+weight = 2
 +++
 
 Detecting if a cross-site page triggered a navigation (or didn't) can be useful to an attacker. For example, a website may trigger a navigation in a certain endpoint [depending on the status of the user]({{< ref "#case-scenarios" >}}).
@@ -18,7 +28,7 @@ Detecting if a cross-site page triggered a navigation (or didn't) can be useful 
 To detect if **any kind** of navigation occurred, an attacker can:
 
 - Use an `iframe` and count the number of times the `onload` event is triggered.
-- Check the value of `History.length`, accessible through any `window` reference. This gives the number of entries in the history of a victim either changed by `History.pushState` or regular navigations. To get the value of `History.length` an attacker changes the location of the `window` reference with the target website, changes back to same-origin, and finally reads the value.
+- Check the value of `History.length`, accessible through any window reference. This gives the number of entries in the history of a victim either changed by `History.pushState` or regular navigations. To get the value of `History.length` an attacker changes the location of the window reference with the target website, changes back to same-origin, and finally reads the value.
 
 ## Download Trigger
 
@@ -40,7 +50,7 @@ const screenHeight = window.innerHeight;
 // The size of the chrome download bar on, for example, mac os x
 const downloadsBarSize = 49;
 
-tab.location = 'https://target';
+tab.location = 'https://target.page';
 
 setTimeout(() => {
     let margin = screenHeight - window.innerHeight;
@@ -50,7 +60,7 @@ setTimeout(() => {
 }, 5 * 1000);
 ```
 
-{{< hint info >}}
+{{< hint good >}}
 This attack is only possible in Chromium-based browsers.
 {{< /hint >}}
 
@@ -62,7 +72,7 @@ Another way to test for the [`Content-Disposition: attachment`](https://develope
 2. Navigate the saved reference to the endpoint that might download.
 3. After a timeout, check if the window is still same-origin
 
-The snippet presented in the [Cross-Window Timing](httpps://TODO) XS-Leak can be slightly adapted to detect this behavior.
+The snippet presented in the [Cross-Window Timing]({{< ref "../attacks/timing-attacks/network-timing.md#cross-window-timing-attacks" >}}) XS-Leak can be slightly adapted to detect this behavior.
 
 #### Download Navigation (without timeout)
 
@@ -71,7 +81,7 @@ The following snippet can obtain a more precise measurement without relying on t
 {{< highlight javascript "linenos=table,linenostart=1" >}}
 onmessage = e => console.log(e.data);
 var outer = document.createElement('iframe');
-var url = 'https://target';
+var url = 'https://target.page';
 outer.src = `data:text/html,\
             <iframe id='inner' src="${url}" ></iframe>
             <!-- onload is part of outer iframe -->
@@ -89,18 +99,18 @@ document.body.appendChild(outer);
 
 The attack works as follows:
 
-1. Include an iframe (inner) inside an iframe (outer). The inner iframe embeds the target website.
-2. If the target website triggers a download the inner iframe origin will **remain** `about:blank` (downloads don’t navigate).
-3. Even though the download attempt doesn't trigger an `onload` event on the inner `iframe`, the window of the `outer` iframe (line 7) still waits for the resource to start the download and fires the `onload` event.
+1. Include an `iframe` (inner) inside an `iframe` (outer). The inner `iframe` embeds the target website.
+2. If the target website triggers a download the inner `iframe` origin will **remain** `about:blank` (downloads don’t navigate).
+3. Even though the download attempt doesn't trigger an `onload` event on the inner `iframe`, the window of the `outer` `iframe` (line 7) still waits for the resource to start the download and fires the `onload` event.
 4. If a navigation has occurred the inner `iframe` will change its origin. 
-5. When the outer `iframe` `onload` fires the outer iframe verifies if `i.contentWindow.location.href` (line 9) is accessible, only possible if both iframes share the same origin (Same-Origin Policy is enforced). If both iframes are in different origins, a `DOMException` will be thrown, meaning a navigation occurred.
+5. When the outer `iframe` `onload` fires the outer `iframe` verifies if `i.contentWindow.location.href` (line 9) is accessible, only possible if both `iframes` share the same origin (Same-Origin Policy is enforced). If both `iframes` are in different origins, a `DOMException` will be thrown, meaning a navigation occurred.
 
 
 ## Server-Side Redirects
 
 ### Inflation
 
-A server-side redirect can be detected from a cross-origin page when the destination URL increase in size and reflects a user input, either in the form of a query string parameter or a path. The following technique relies on the fact that it is possible to induce an error in most web-servers by generating big requests parameters/paths. Since the redirect increases the size of the URL, it can be detected by sending exactly one character less than the server maximum capacity. That way if the size increases the server will respond with an error code which can be detected from a cross-origin page using common DOM APIs.
+A server-side redirect can be detected from a cross-origin page when the destination URL increases in size and reflects a user input, either in the form of a query string parameter or a path. The following technique relies on the fact that it is possible to induce an error in most web-servers by generating big requests parameters/paths. Since the redirect increases the size of the URL, it can be detected by sending exactly one character less than the server maximum capacity. That way if the size increases the server will respond with an error code that can be detected from a cross-origin page using common DOM APIs.
 
 ## Cross-Origin Redirects
 
@@ -122,24 +132,24 @@ fetch('https://target.page/might_redirect', {mode: 'no-cors',credentials: 'inclu
 
 ## Case Scenarios
 
-- An online bank decides to redirect wealthy users to unmissable stock opportunities by triggering a navigation to a reserved space in the website when users are consulting the account balance. If this is only done to a specific group of users, it becomes possible for an attacker to leak the "client status" of the user.
+- An online bank decides to redirect wealthy users to unmissable stock opportunities by triggering a navigation to a reserved space on the website when users are consulting the account balance. If this is only done to a specific group of users, it becomes possible for an attacker to leak the "client status" of the user.
 
 
 ## Defense
 
 | Attack Alternative  | [Same-Site Cookies]({{< ref "../defenses/opt-in/same-site-cookies.md" >}})  | [Fetch Metadata]({{< ref "../defenses/opt-in/fetch-metadata.md" >}})  | [COOP]({{< ref "../defenses/opt-in/coop.md" >}})  |  [Framing Protections]({{< ref "../defenses/opt-in/xfo.md" >}}) |
 |:----------------------------------:|:--------------------------:|:---------------:|:-----:|:--------------------:|
-| iframe                             |         ✔️                 |      ✔️         |  ❌   |          ✔️         |
-| `History.length` (iframe)          |         ✔️                 |      ✔️         |  ❌   |          ✔️         |
-| `History.length` (window.open)     |         ✔️ (If Strict)     |      ✔️         |  ✔️   |          ❌         |
-| Download bar                       |         ✔️                 |      ✔️         |  ✔️   |          ✔️         |
-| Download Navigation (w/ timeout)   |         ✔️ (If Strict)     |      ✔️         |  ❓   |          ✔️        |
-| Download Navigation (no timeout)   |         ✔️                 |      ✔️         |  ✔️   |          ✔️         |
-| CSP Violations                     |         ✔️                 |      ✔️         |  ❌   |          ❌         |
+| iframe                             |         ✔️                 |      ✔️          |  ❌   |          ✔️          |
+| `History.length` (iframe)          |         ✔️                 |      ✔️          |  ❌   |          ✔️          |
+| `History.length` (window.open)     |         ✔️ [(if Strict)]({{< ref "../defenses/opt-in/same-site-cookies.md#lax-vs-strict" >}})    |      ✔️          |  ✔️   |          ❌          |
+| Download bar                       |         ✔️                 |      ✔️          |  ✔️   |          ✔️          |
+| Download Navigation (w/ timeout)   |         ✔️ [(if Strict)]({{< ref "../defenses/opt-in/same-site-cookies.md#lax-vs-strict" >}})     |      ✔️          |  ❓   |          ✔️          |
+| Download Navigation (no timeout)   |         ✔️                 |      ✔️          |  ✔️   |          ✔️          |
+| CSP Violations                     |         ✔️                 |      ✔️          |  ❌   |          ❌          |
 
-## Real World Examples
+## Real-World Examples
 
-- A vulnerability reported to Twitter used this technique to leak the contents of private tweets using [XS-Search](https://TODO). This attack was possible because the page would only trigger a navigation depending on whether there were results to the user query [^1].
+- A vulnerability reported to Twitter used this technique to leak the contents of private tweets using [XS-Search]({{< ref "../attacks/xs-search.md" >}}). This attack was possible because the page would only trigger a navigation depending on whether there were results to the user query [^1].
 
 ## References
 

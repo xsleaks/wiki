@@ -1,16 +1,10 @@
 +++
 title = "Clocks"
 description = ""
-date = "2020-07-21"
-category = "attacks"
-attacks = [
-    "dom property",
-]
-defenses = [
-    "same-site cookies",
-    "sec-fetch metadata",
-]
+date = "2020-10-01"
+category = "Instrument"
 menu = "main"
+weight = 1
 +++
 
 We can distinguish two types of clocks - Explicit and Implicit. Explicit clocks are the ones developers use to get direct timing measurements and such mechanisms are offered **explicitly** by the browser. Implicit clocks on the other hand, misuse particular web features to create unintended clocks which offer a relative timing.
@@ -22,19 +16,18 @@ We can distinguish two types of clocks - Explicit and Implicit. Explicit clocks 
 
 The [performance.now()](https://developer.mozilla.org/en-US/docs/Web/API/Performance/now) API allows developers to get high-resolution timing measurements.
 
-{{< hint info >}}
+{{< hint good >}}
 `performance.now()` API got its accuracy reduced from a range of nanoseconds to a
-microsecond precision in all modern browsers, to mitigate [some](httos://TODO) XS-Leaks [^1] [^2] [^3].
+microsecond precision in all modern browsers, to mitigate some XS-Leaks [^1] [^2] [^3].
+<!-- TODO: "to mitigate some" means Size XS-Leaks that were fixed -->
 
 [^1]: Reduce resolution of performance.now (Webkit). [link](https://bugs.webkit.org/show_bug.cgi?id=146531)
 [^2]: Reduce precision of performance.now() to 20us (Gecko). [link](https://bugzilla.mozilla.org/show_bug.cgi?id=1427870)
 [^3]: Reduce resolution of performance.now to prevent timing attacks (Blink). [link](https://bugs.chromium.org/p/chromium/issues/detail?id=506723)
 {{< /hint >}}
-<!--TODO(manuelvsousa): Change references to actual wiki articles, and enumerate specifically as per https://github.com/xsleaks/wiki/pull/9#pullrequestreview-479831958-->
 
-
-{{< hint info >}}
-Since Firefox 79, this API can be used with [full resolution](https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/Releases/79) in documents which do not share a browsing context group with cross-origin documents. This will require an application interested in the API to explicitly opt-in to [COOP](https://TODO) and [COEP](https://TODO).
+{{< hint good >}}
+Since Firefox 79, this API can be used with [full resolution](https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/Releases/79) in documents which do not share a browsing context group with cross-origin documents. This will require an application interested in the API to explicitly opt-in to [COOP]({{< ref "../../defenses/opt-in/coop.md" >}}) and [COEP](https://web.dev/coop-coep/).
 {{< /hint >}}
 
 ### Date API
@@ -66,13 +59,15 @@ self.onmessage = function(event){
 }
 
 ```
-{{< hint info >}}
+{{< hint good >}}
 `SharedArrayBuffer` was removed from browsers with the publication of [Spectre](https://spectreattack.com/). It was reintroduced later in 2020 requiring documents to be in a [secure context](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer) to make use of the API. This requirement prevents `SharedArrayBuffer` from being used as an implicit clock.
 {{< /hint >}}
 
 ### Other Clocks
 
 There are a considerable amount of APIs attackers can abuse to create implicit clocks: [Broadcast Channel API](https://developer.mozilla.org/en-US/docs/Web/API/Broadcast_Channel_API), [Message Channel API](https://developer.mozilla.org/en-US/docs/Web/API/MessageChannel), [requestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame), [setTimeout](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout), CSS animations and others [^2] [^4].
+
+## References
 
 [^1]: Shared memory: Side-channel information leaks, [link](https://github.com/tc39/ecmascript_sharedmem/blob/master/issues/TimingAttack.md)
 [^2]: Fantastic Timers and Where to Find Them: High-Resolution Microarchitectural Attacks in JavaScript, [link](https://gruss.cc/files/fantastictimers.pdf)
