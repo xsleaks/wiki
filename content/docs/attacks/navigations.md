@@ -28,11 +28,11 @@ Detecting if a cross-site page triggered a navigation (or didn't) can be useful 
 To detect if **any kind** of navigation occurred, an attacker can:
 
 - Use an `iframe` and count the number of times the `onload` event is triggered.
-- Check the value of `History.length`, accessible through any window reference. This gives the number of entries in the history of a victim either changed by `History.pushState` or regular navigations. To get the value of `History.length` an attacker changes the location of the window reference with the target website, changes back to same-origin, and finally reads the value.
+- Check the value of `history.length`, accessible through any window reference. This gives the number of entries in the history of a victim either changed by `history.pushState` or regular navigations. To get the value of `history.length` an attacker changes the location of the window reference with the target website, changes back to same-origin, and finally reads the value.
 
 ## Download Trigger
 
-When endpoints set the [`Content-Disposition: attachment`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition) Header, it instructs the browser to download the response as an attachment instead of navigating to it. Detecting if this behavior occurred might allow attackers to leak private information, considering this outcome might depend on the state of the victim's account and navigations.
+When endpoints set the [`Content-Disposition: attachment`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition) Header, it instructs the browser to download the response as an attachment instead of navigating to it. Detecting if this behavior occurred might allow attackers to leak private information if outcome depends on the state of the victim's account.
 
 ### Download bar
 
@@ -92,7 +92,7 @@ outer.src = `data:text/html,\
                 } catch(e) {
                     top.postMessage('no download','*');
                 }
-            }%3c/script>`;
+            }</script>`;
 outer.onload = ()=>{outer.remove();}
 document.body.appendChild(outer);
 {{< / highlight >}}
@@ -110,7 +110,7 @@ The attack works as follows:
 
 ### Inflation
 
-A server-side redirect can be detected from a cross-origin page when the destination URL increases in size and reflects a user input, either in the form of a query string parameter or a path. The following technique relies on the fact that it is possible to induce an error in most web-servers by generating big requests parameters/paths. Since the redirect increases the size of the URL, it can be detected by sending exactly one character less than the server maximum capacity. That way if the size increases the server will respond with an error code that can be detected from a cross-origin page using common DOM APIs.
+A server-side redirect can be detected from a cross-origin page if the destination URL increases in size and contains an attacker controlled input (either in the form of a query string parameter or a path). The following technique relies on the fact that it is possible to induce an error in most web-servers by generating big requests parameters/paths. Since the redirect increases the size of the URL, it can be detected by sending exactly one character less than the server maximum capacity. That way if the size increases the server will respond with an error code that can be detected from a cross-origin page using Error Events.
 
 ## Cross-Origin Redirects
 

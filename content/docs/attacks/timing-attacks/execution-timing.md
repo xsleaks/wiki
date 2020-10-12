@@ -25,9 +25,9 @@ Measuring the time of JavaScript execution in a browser can give attackers infor
 
 ## Timing the Event Loop
 
-JavaScript concurrency model is based on a [single-threaded event loop](https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop) which means it can only run one task at a time. If, for example, some time-consuming task blocks the event loop, the user can perceive a freeze on a page as a result of the UI thread being starved. Other tasks must wait until the blocking one runs to conclusion. Each browser implements different [process models](https://www.chromium.org/developers/design-documents/process-models), which means some web sites might run in different threads (and event loops) depending on their relations.
+JavaScript's concurrency model is based on a [single-threaded event loop](https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop) which means it can only run one task at a time. If, for example, some time-consuming task blocks the event loop, the user can perceive a freeze on a page as a result of the UI thread being starved. Other tasks must wait until the blocking one runs to conclusion. Each browser implements different [process models](https://www.chromium.org/developers/design-documents/process-models), which means some web sites might run in different threads (and event loops) depending on their relations.
 
-Some attacks exploit this model to steal secrets from a cross-origin page:
+Some techniques can exploit this model to steal secrets from a cross-origin page:
 
 - Infer how long code from a different origin takes to run by measuring how long it takes to run next in the event pool [^1] [^2]. The attacker keeps sending events to the event loop with fixed properties, which will eventually be dispatched if the pool is empty. Other origins will dispatch events to the same pool, and this is where an attacker infers the timing difference by detecting if a delay occurred with one of its tasks.
 - Steal a secret from a cross-origin page if the said secret is being compared by an attacker-controlled string. The leak is a result of comparing timing differences in the event loop of a char-by-char string comparison [^2] (using the previous technique). In browsers without [process isolation](https://www.chromium.org/Home/chromium-security/site-isolation), cross-window communications between different origins will run in the same thread, thus sharing the same event loop.
@@ -38,13 +38,13 @@ This attack is no longer possible in Browsers with process isolation mechanisms 
 
 ## Busy Event Loop
 
-Another technique to measure JavaScript Execution consists of blocking the event loop of a thread and time how long does it take for the event loop to be available again. One of the main advantages of this attack is its ability to circumvent Site Isolation as an attacker origin can mess with the execution of another origin. The attack works as follows:
+Another technique to measure JavaScript Execution consists of blocking the event loop of a thread and time how long does it take for the event loop to be available again. One of the main advantages of this technique is its ability to circumvent Site Isolation as an attacker origin can mess with the execution of another origin. The attack works as follows:
 
 1. Navigate the target website in a separate window with `window.open` or inside an `iframe` (if [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}) are **not** in place).
 2. Wait for the long computation to start.
 3. Load any same-site page inside an `iframe`, regardless of any [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}). 
 
-An attacker can detect how long the target website is executed by timing how long it took for the `iframe` (in step 3) to trigger the `onload` event ([Network Timing]({{< ref "network-timing.md" >}}) of step 3 should be despicable). Since both navigations occurred within the same context and they are same-site, they run in the same thread and share the same event loop (they can block each other).
+An attacker can detect how long the target website is executed by timing how long it took for the `iframe` (in step 3) to trigger the `onload` event ([Network Timing]({{< ref "network-timing.md" >}}) of step 3 should be minimal). Since both navigations occurred within the same context and they are same-site, they run in the same thread and share the same event loop (they can block each other).
 
 The example below shows how the measurement can be obtained, using the same technique described in [Cross-Window (Network) Timing Attacks]({{< ref "network-timing.md#cross-window-timing-attacks" >}}) for step 2 to detect when the window stated loading.
 
@@ -71,7 +71,7 @@ w = open('https://target.page');
 
 ## Service Workers
 
-[Service Workers](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API) can be used to offer offline solutions to web applications but it might be abused by attackers to measure the timing of javascript execution[^4]. They serve as a `proxy` between the browser and the network and allow applications to intercept any network requests made by the main thread (document).
+[Service Workers](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API) can be used to offer offline solutions to web applications but they can be abused by attackers to measure the timing of javascript execution[^4]. They serve as a proxy between the browser and the network and allow applications to intercept any network requests made by the main thread (document).
 
 To make a timing measurement an attacker can perform the following steps:
 
@@ -81,7 +81,7 @@ To make a timing measurement an attacker can perform the following steps:
 4. When the request performed in step 3 arrives to the Service Worker it will return a 204 (No Content) response, which will abort the navigation.
 5. At this point the Service Worker will collect a measurement from the timer started in step 2. This measurement will be affected by how long JavaScript blocked the navigation for.
 
-Since the navigation won't actually happen, steps from 3 to 5 can be repeated to get more measurements on successive JavaScript execution timings.
+Since no navigation actually occurs, steps from 3 to 5 can be repeated to get more measurements on successive JavaScript execution timings.
 
 ## CSS Injections
 
@@ -115,7 +115,7 @@ In browsers with process isolation mechanisms, [Service Workers]({{< ref "execut
 This group of XS-Leaks requires an injection of Regex Expressions on the target page.
 {{< /hint >}}
 
-Regular Expression Denial of Service (ReDoS) it's an attack which result in a Denial of Service in applications that allow Regex as user input [^2] [^5]. The DoS results from an injected Regex that would run in exponential time. Some attacks applied this principle into leaking information: The attacker's injection cause a DoS if the Regex matches a character in some secret and computes quickly otherwise. This could happen in both client and server side.
+Regular Expression Denial of Service (ReDoS) is a technique which result in a Denial of Service in applications that allow Regex as user input [^2] [^5]. Maliciously crafted regular expressions can be made to run in exponential time. This can be used as an XS-Leak vector if a regex can be injected that has a different runtime depending on some data on the page. This could happen on the client-side or the server-side. 
 
 
 ## Defense

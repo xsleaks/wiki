@@ -26,7 +26,7 @@ For example, attackers can detect whether a user is logged into a service by che
 
 Error events can be thrown from a large variety of HTML tags, and some behaviors vary from browser to browser [^4]{{< katex>}}^{p. 6}{{< /katex >}}. For instance, they depend on the loaded resources, HTML tags, presence of certain Headers (e.g `nosniff`, `Content-Type`) or enforcement of default browser protections, etc.
 
-The principle of leaking information with error events can be abstracted and applied to a variety of XS-Leaks. For example one of [Cache Probing]({{< ref "cache-probing.md" >}}) alternatives use Error Events to detect if a certain image was cached by the browser.
+The principle of leaking information with error events can be abstracted and applied to a variety of XS-Leaks. For example one technique for [Cache Probing]({{< ref "cache-probing.md" >}}) uses Error Events to detect if a certain image was cached by the browser.
 
 ## Defense
 
@@ -42,7 +42,7 @@ Finally, without applying bigger changes in the logic of applications, generic w
 
 ## Real World Example
 
-1. A bug abused a Twitter API endpoint where only a specified user would have access to it. This endpoint would cause an error to every Twitter user but the owner. An attacker could exploit this difference to deanonymize a user with one of its pages [^3]. Similarly, another bug abused an image authentication mechanism of private messages to achieve the same goal  [^2] [^1].
+1. A bug abused a Twitter API endpoint where only a specified user would have access to it. This endpoint would return an error to every Twitter user except the owner. An attacker could exploit this behavior to deanonymize a user [^3]. Similarly, another bug abused an image authentication mechanism of private messages to achieve the same goal  [^2] [^1].
 
 ## References
 
