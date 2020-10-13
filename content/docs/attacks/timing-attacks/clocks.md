@@ -7,7 +7,7 @@ menu = "main"
 weight = 1
 +++
 
-We can distinguish two types of clocks - Explicit and Implicit. Explicit clocks are the ones developers use to get direct timing measurements and such mechanisms are offered **explicitly** by the browser. Implicit clocks on the other hand, abuse particular web features to create unintended clocks that allow measuring the relative passage of time.
+We can distinguish two types of clocks - Explicit and Implicit. Explicit clocks are the ones developers use to get direct timing measurements and such mechanisms are offered **explicitly** by the browser. Implicit clocks on the other hand, utilise particular web features to create unintended clocks that allow measuring the relative passage of time.
 
 
 ## Explicit Clocks
