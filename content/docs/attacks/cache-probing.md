@@ -65,7 +65,7 @@ Often some of these methods might be considered a bug in the browser (e.g. [this
 
 ### Default Defense Mechanisms
 
-[Paritioned Caches]({{< ref "../defenses/browser-default/partitioned-cache.md" >}}) are a feature implemented in browsers to create a unique cache for each origin. This protection prevents an attacker's origin from interfering with cached resources of other origins. Applications do not have to opt-in to enforce this.
+[Partitioned HTTP Cache]({{< ref "../defenses/browser-default/partitioned-cache.md" >}}) are a feature implemented in browsers to create a unique cache for each origin. This protection prevents an attacker's origin from interfering with cached resources of other origins. Applications do not have to opt-in to enforce this.
 
 {{< hint warning >}}
 As of September 2020, Partitioned Caches are not available in most browsers by default, so applications cannot rely on them.
