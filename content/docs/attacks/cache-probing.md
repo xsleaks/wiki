@@ -38,13 +38,13 @@ Cache Probing with [Error Events]({{< ref "../attacks/error-events.md" >}}) [^2]
 
 1. [Invalidate the resource]({{< ref "#invalidate-the-cache" >}}) from the browser cache. This step is required to make sure the attack will not consider a resource previously cached in another visit.
 2. Perform a request that will cause different items to be cached depending on the user's state. For example, load a page that will include a specific image only if the user is logged in. This request can be triggered by navigating to the target website with `<link rel=prerender..`, embedding the website in an `iframe`, or opening a new window with `window.open`.
-3. Trigger a request that will cause the server to reject the request. For example, include an [overly long referer header](https://lists.archive.carbon60.com/apache/users/316239) that will make the server reject the request. If the resource was cached in step 2, this request will succeed instead of triggering an error event. 
+3. Trigger a request that will cause the server to reject the request. For example, include an [overlong referer header](https://lists.archive.carbon60.com/apache/users/316239) that will make the server reject the request. If the resource was cached in step 2, this request will succeed instead of triggering an error event. 
 
 ### Invalidate the cache
 
 To invalidate a resource from the cache the attacker must force the server to return an error when fetching that subresource. There are a couple of ways to achieve this:
 
-- A request with an [overly long referer header](https://lists.archive.carbon60.com/apache/users/316239) and `'cache':'reload'`. This might not work as browsers [capped](https://github.com/whatwg/fetch/issues/903) the length of the referrer to prevent this.
+- A request with an [overlong referer header](https://lists.archive.carbon60.com/apache/users/316239) and `'cache':'reload'`. This might not work as browsers [capped](https://github.com/whatwg/fetch/issues/903) the length of the referrer to prevent this.
 - A `POST` request with a `fetch` `no-cors`. Sometimes even in cases where an error is not returned the browser invalidates the cache.
 - Request Headers such as Content-Type, Accept, Accept-Language, etc that may cause the server to fail (more application dependent).
 - Other request properties.
