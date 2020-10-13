@@ -34,7 +34,7 @@ An attacker wants to know whether a user visited a certain social network.
 
 ## Cache Probing with Error Events
 
-Cache Probing with [Error Events]({{< ref "../attacks/error-events.md" >}}) [^2] allows more accurate. Instead of relying on timing measurements, this leverages [Error Events]({{< ref "../attacks/error-events.md" >}}) and some server-side behavior to detect whether a resource was cached. The attack works as follows:
+Cache Probing with [Error Events]({{< ref "../attacks/error-events.md" >}}) [^2] allows more accurate attacks. Instead of relying on timing measurements, this leverages [Error Events]({{< ref "../attacks/error-events.md" >}}) and some server-side behavior to detect whether a resource was cached. The attack works as follows:
 
 1. [Invalidate the resource]({{< ref "#invalidate-the-cache" >}}) from the browser cache. This step is required to make sure the attack will not consider a resource previously cached in another visit.
 2. Perform a request that will cause different items to be cached depending on the user's state. For example, load a page that will include a specific image only if the user is logged in. This request can be triggered by navigating to the target website with `<link rel=prerender..`, embedding the website in an `iframe`, or opening a new window with `window.open`.
