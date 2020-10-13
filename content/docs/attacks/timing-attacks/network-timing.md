@@ -26,7 +26,7 @@ This side-channel allows attackers to infer information from a cross-site reques
 
 - The resource size.
 - The computation time in the backend.
-- The amount of sub-resources.
+- The number and size of sub-resources.
 - [Cache status]({{< ref "../cache-probing.md" >}}).
 
 {{< hint good >}}
