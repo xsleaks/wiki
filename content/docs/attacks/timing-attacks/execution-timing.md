@@ -115,7 +115,7 @@ In browsers with process isolation mechanisms, [Service Workers]({{< ref "execut
 This group of XS-Leaks requires an injection of Regex Expressions on the target page.
 {{< /hint >}}
 
-Regular Expression Denial of Service (ReDoS) is a technique which result in a Denial of Service in applications that allow Regex as user input [^2] [^5]. Maliciously crafted regular expressions can be made to run in exponential time. This can be used as an XS-Leak vector if a regex can be injected that has a different runtime depending on some data on the page. This could happen on the client-side or the server-side. 
+Regular Expression Denial of Service (ReDoS) is a technique which results in a Denial of Service in applications that allow Regex as user input [^2] [^5]. Maliciously crafted regular expressions can be made to run in exponential time. This can be used as an XS-Leak vector if a regex can be injected that has a different runtime depending on some data on the page. This could happen on the client-side or the server-side. 
 
 
 ## Defense
