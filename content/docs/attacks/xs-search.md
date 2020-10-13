@@ -41,7 +41,7 @@ In a Query-Based Search System, a user submits queries and gets responses associ
 1. The system shows results and the page will present a specific behavior (first state).
 2. The system does not show results and the page will present a different behavior from step 1 (second state).
 
-If both behaviors, abstracted in the example above, can be distinguished using another XS-Leak technique, then an attacker can perform an XS-Search attack more reliably. For example, if the number of frames on a page varies based on search results (step 1 and 2 are distinguishable), this attack principle can be applied with a [Frame Counting]({{< ref "frame-counting.md" >}}) XS-Leak which is much more accurate then one using timing measurements.
+If both behaviors above can be distinguished by a more reliable XS-Leak than timing, then an attacker could perform a more efficient XS-Search attack. For example, if the number of frames on a page varies based on search results (step 1 and 2 are distinguishable), this attack principle can be applied with a [Frame Counting]({{< ref "frame-counting.md" >}}) XS-Leak which could be more accurate than one using timing measurements.
 
 
 ## Defense
