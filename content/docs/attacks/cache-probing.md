@@ -49,7 +49,7 @@ To invalidate a resource from the cache the attacker must force the server to re
 - Request Headers such as Content-Type, Accept, Accept-Language, etc that may cause the server to fail (more application dependent).
 - Other request properties.
 
-Often some of these methods might be considered a bug in the browser (ie [this bug](https://bugs.chromium.org/p/chromium/issues/detail?id=959789#c9)). 
+Often some of these methods might be considered a bug in the browser (e.g. [this bug](https://bugs.chromium.org/p/chromium/issues/detail?id=959789#c9)). 
 
 ## Defense
 
