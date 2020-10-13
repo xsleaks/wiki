@@ -19,7 +19,7 @@ Hybrid Timing Attacks allow attackers to measure the sum of a bunch of factors t
 
 - [Network]({{< ref "network-timing.md" >}})
 - Parsing
-- Retrieve and load subresources
+- Retrieval and processing of subresources
 - [Execution]({{< ref "execution-timing.md" >}})
 
 Some of the factors differ in value depending on the application. This means that [Network Timing]({{< ref "network-timing.md" >}}) might be more significant in pages with more backend processing while [Execution Timing]({{< ref "execution-timing.md" >}}) can be more significant in applications processing and displaying data within the browser. Attackers can also eliminate some of these factors to obtain more precise measurements. For example, one could preload all the subresources by embedding the page as an `iframe` (forcing the browser to cache the subresources) and do a second measurement which will exclude any delay introduced by the retrieval of those subresources.
