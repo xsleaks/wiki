@@ -17,7 +17,7 @@ weight = 3
 
 Hybrid Timing Attacks allow attackers to measure the sum of a bunch of factors that influence the final timing measurement. These factors include:
 
-- [Network]({{< ref "network-timing.md" >}})
+- [Network delays]({{< ref "network-timing.md" >}})
 - Parsing
 - Retrieval and processing of subresources
 - [Execution]({{< ref "execution-timing.md" >}})
