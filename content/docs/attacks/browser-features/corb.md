@@ -22,24 +22,24 @@ weight = 2
 ## CORB & Error Events
 
 
-Attackers can observe when CORB is enforced if a response returns a *CORB protected* `Content-Type` (and `nosniff`) with status code `2xx` which results in CORB stripping the body and Headers from the response. Detecting this protection will allow an attacker to leak the combination of both the status code (success vs. error) and the `Content-Type` (protected by CORB or not). This allows the distinction of two possible states: 
+Attackers can observe when CORB is enforced if a response returns a *CORB protected* `Content-Type` (and `nosniff`) with status code `2xx` which results in CORB stripping the body and headers from the response. Detecting this protection will allow an attacker to leak the combination of both the status code (success vs. error) and the `Content-Type` (protected by CORB or not). This allows the distinction of two possible states: 
 - One state results in a request being protected by CORB and the second a client error (404). 
 - One state is protected by CORB and the second is not.
 
 The following steps could be observed to abuse this protection with the first example:
 
 1. An attacker can embed a cross-origin resource in a `script` tag which returns `200 OK` with `text/html` as `Content-Type` and a `nosniff` Header.
-2. To protect sensitive contents from entering the attacker's process, `CORB` will replace the original response with an **empty** one. 
-3. Since an **empty** response is **valid** JavaScript, the `onerror` event won't be fired and `onload` will fire instead. 
+2. To protect sensitive contents from entering the attacker's process, `CORB` will replace the original response with an empty one. 
+3. Since an empty response is valid JavaScript, the `onerror` event won't be fired and `onload` will fire instead. 
 4. The attacker triggers a second request (corresponding to a second state), similar to 1., which returns something other than `200 OK`. The `onerror` event will fire.
 
 The interesting behavior is that CORB creates a valid resource out of request which could contain something other than JavaScript (causing an error). Considering a non-CORB environment, both 1. and 4. requests would trigger an error. This introduces an XS-Leak as these situations are now distinguishable.
 
 ## Detect `nosniff` Header
 
-CORB could also allow attackers to detect when the `nosniff` Header is present in the request. This problem originated due to the fact CORB is only enforced depending on the presence of this header and some sniffing algorithms. The example below shows two distinguishable states:
+CORB could also allow attackers to detect when the `nosniff` header is present in the request. This problem originated due to the fact CORB is only enforced depending on the presence of this header and some sniffing algorithms. The example below shows two distinguishable states:
 
-1. CORB will prevent an attacker page which embeds a resource as a `script` if the resource is served with `text/html` as `Content-Type` along with the `nosniff` Header. 
+1. CORB will prevent an attacker page which embeds a resource as a `script` if the resource is served with `text/html` as `Content-Type` along with the `nosniff` header. 
 2. If the resource does not set `nosniff` and CORB [fails](https://chromium.googlesource.com/chromium/src/+/master/services/network/cross_origin_read_blocking_explainer.md#what-types-of-content-are-protected-by-corb) to infer the `Content-Type` of the page (which remains `text/html`), a `SyntaxError` will be fired since the contents can't be parsed as valid JavaScript. This error can be caught by listening to `window.onerror` as `script` tags only trigger error events in [certain conditions](https://developer.mozilla.org/en-US/docs/Web/API/HTMLScriptElement).
 
 ## Defense

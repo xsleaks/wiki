@@ -40,7 +40,7 @@ This attack is no longer possible in Browsers with process isolation mechanisms 
 
 Another technique to measure JavaScript Execution consists of blocking the event loop of a thread and time how long does it take for the event loop to be available again. One of the main advantages of this technique is its ability to circumvent Site Isolation as an attacker origin can mess with the execution of another origin. The attack works as follows:
 
-1. Navigate the target website in a separate window with `window.open` or inside an `iframe` (if [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}) are **not** in place).
+1. Navigate the target website in a separate window with `window.open` or inside an `iframe` (if [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}) are not in place).
 2. Wait for the long computation to start.
 3. Load any same-site page inside an `iframe`, regardless of any [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}). 
 
