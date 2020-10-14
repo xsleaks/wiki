@@ -17,13 +17,13 @@ menu = "main"
 weight = 2
 +++
 
-[Cross-Origin Read Blocking]({{< ref "../../defenses/browser-default/corb.md" >}}) (CORB) is a web platform security feature aimed at reducing the impact of speculative side-channel attacks such as Spectre. Unfortunately blocking certain types of requests introduced a new type of XS-Leaks, allowing attackers to detect if CORB was enforced in one request, but wasn't on another. Nevertheless, the introduced XS-Leaks are much less problematic than the issues actively protected by CORB (e.g Spectre).
+[Cross-Origin Read Blocking]({{< ref "../../defenses/browser-default/corb.md" >}}) (CORB) is a web platform security feature aimed at reducing the impact of speculative side-channel attacks such as Spectre. Unfortunately, blocking certain types of requests introduced a new type of XS-Leaks that allows attackers to detect if CORB was enforced on one request, but wasn't on another. Nevertheless, the introduced XS-Leaks are much less problematic than the issues actively protected by CORB (e.g Spectre).
 
 ## CORB & Error Events
 
 
-Attackers can observe when CORB is enforced if a response returns a *CORB protected* `Content-Type` (and `nosniff`) with status code `2xx` which results in CORB stripping the body and Headers from the response. Detecting this protection will allow an attacker to leak the combination of both the status code (success V.s error) and the `Content-Type` (protected by CORB or not). This allows the distinction of two possible states: 
-- One state results in a request being protected by CORB and the second a network error (404). 
+Attackers can observe when CORB is enforced if a response returns a *CORB protected* `Content-Type` (and `nosniff`) with status code `2xx` which results in CORB stripping the body and Headers from the response. Detecting this protection will allow an attacker to leak the combination of both the status code (success vs. error) and the `Content-Type` (protected by CORB or not). This allows the distinction of two possible states: 
+- One state results in a request being protected by CORB and the second a client error (404). 
 - One state is protected by CORB and the second is not.
 
 The following steps could be observed to abuse this protection with the first example:
@@ -37,7 +37,7 @@ The interesting behavior is that CORB creates a valid resource out of request wh
 
 ## Detect `nosniff` Header
 
-CORB could also allow attackers do detect when the `nosniff` Header is present in the request. This problem originated due to the fact CORB is only enforced depending on the presence of this header and some sniffing algorithms. The example below shows two distinguishable states:
+CORB could also allow attackers to detect when the `nosniff` Header is present in the request. This problem originated due to the fact CORB is only enforced depending on the presence of this header and some sniffing algorithms. The example below shows two distinguishable states:
 
 1. CORB will prevent an attacker page which embeds a resource as a `script` if the resource is served with `text/html` as `Content-Type` along with the `nosniff` Header. 
 2. If the resource does not set `nosniff` and CORB [fails](https://chromium.googlesource.com/chromium/src/+/master/services/network/cross_origin_read_blocking_explainer.md#what-types-of-content-are-protected-by-corb) to infer the `Content-Type` of the page (which remains `text/html`), a `SyntaxError` will be fired since the contents can't be parsed as valid JavaScript. This error can be caught by listening to `window.onerror` as `script` tags only trigger error events in [certain conditions](https://developer.mozilla.org/en-US/docs/Web/API/HTMLScriptElement).

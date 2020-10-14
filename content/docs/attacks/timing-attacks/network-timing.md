@@ -18,15 +18,15 @@ menu = "main"
 weight = 2
 +++
 
-Network Timing side-channels have been present on the web since its beginning [^1] [^4]. These attacks achieved different levels of impact over time, gaining new attention when browsers started shipping high precision timers like [performance.now()]({{< ref "clocks.md#performancenow" >}}).
+Network Timing side-channels have been present on the web since its beginning [^1] [^4]. These attacks have had different levels of impact over time, gaining new attention when browsers started shipping high precision timers like [performance.now()]({{< ref "clocks.md#performancenow" >}}).
 
-To obtain timing measurements attackers must use a [clock]({{< ref "clocks.md" >}}), either an implicit or explicit one. These clocks are usually interchangeable and only vary in accuracy and availability. For simplicity, this article will only address the `performance.now()` API, an explicit clock present in all modern browsers.
+To obtain timing measurements attackers must use a [clock]({{< ref "clocks.md" >}}), either an implicit or explicit one. These clocks are usually interchangeable for the purposes of XS-Leaks and only vary in accuracy and availability. For simplicity, this article will assume use of the `performance.now()` API, an explicit clock present in all modern browsers.
 
 This side-channel allows attackers to infer information from a cross-site request based on how much time it takes to complete that request [^2]. The network timing measurement may vary based on a user state and it's usually connected to:
 
-- Resource Size.
+- The resource size.
 - The computation time in the backend.
-- Amount of sub-resources.
+- The number and size of sub-resources.
 - [Cache status]({{< ref "../cache-probing.md" >}}).
 
 {{< hint good >}}
@@ -63,7 +63,7 @@ When a page sets [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}
 
 ## Cross-window Timing Attacks
 
-An attacker can also measure the network timing of a page by opening a new window with `window.open` and wait for the `window` to start loading. The snippet below shows how to make this measurement and works as follows:
+An attacker can also measure the network timing of a page by opening a new window with `window.open` and waiting for the `window` to start loading. The snippet below shows how to make this measurement and works as follows:
 
 1. The attacker creates an infinite loop of `postMessage` broadcasts to itself while opening a window to the target website (lines 15, 2, 7). The clock is started (line 14).
 2. When the window is created, its location [will be `about:blank`](https://developer.mozilla.org/en-US/docs/Web/API/Window/open) until the target page starts loading.
@@ -96,7 +96,7 @@ This technique can also be adapted to measure the Execution Timing of a page by 
 
 ## Timeless Timing Attacks
 
-Other attacks do not consider the notion of time to perform a timing attack [^3]. Timeless attacks consist of fitting two `HTTP` requests in a single packet, the baseline and the attacked request, to guarantee they arrive at the same time to the server. The server *will* process the requests concurrently, and return a response based on their execution time as soon as possible. One of the two requests will arrive first, allowing the attacker to get the timing difference by comparing both requests.
+Other attacks do not consider the notion of time to perform a timing attack [^3]. Timeless attacks consist of fitting two `HTTP` requests in a single packet, the baseline and the attacked request, to guarantee they arrive at the same time to the server. The server *will* process the requests concurrently, and return a response based on their execution time as soon as possible. One of the two requests will arrive first, allowing the attacker to get the timing difference by comparing the order in which the requests arrived.
 
 The advantage of this technique is the independence on network jitter and uncertain delays, something that is **always** present in the remaining techniques.
 
