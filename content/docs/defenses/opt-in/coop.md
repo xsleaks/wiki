@@ -8,18 +8,18 @@ category = [
 menu = "main"
 +++
 
-A good portion of XS-Leaks has multiple alternatives to execute the same attack, some in **common** with each other. For instance, some XS-Leaks abuse properties of `iframes` to succeed which can be fully mitigated by deploying [Framing Protections]({{< ref "xfo.md" >}}). However, this same group of XS-Leaks can usually be abused by other **common** alternatives, that need other protections. One of those alternatives consists of opening a new window with `window.open`, allowing attackers to gain a reference to the opened window. With this reference an attacker can take advantage of some of its properties to perform multiple requests, ultimately inferring private information from them.
+Getting access to a website's `window` object is a common prerequisite for different XS-Leak techniques. [Framing Protections]({{< ref "xfo.md" >}}) can ensure that an attacker cannot use iframes to access the `window` object, but this does not stop an attacker from using `window.open` or `window.opener`. 
 
-Exploiting XS-Leaks with window references is seen as the last available option mainly because the user can see it happen. However, it's usually the right way when:
+Exploiting XS-Leaks with `window.open` is generally seen as the least appealing option because the user can see it happen in the open browser window. However, it's usually the right technique when:
 
 - A page sets [Framing Protections]({{< ref "xfo.md" >}})
-- A page sets [Same-Site Cookies with `Lax` Mode]({{< ref "same-site-cookies.md" >}}) (navigating a window is a top-level navigation)
+- A page sets [Same-Site Cookies with `Lax` Mode]({{< ref "same-site-cookies.md" >}}) (since navigating a new window is a top-level navigation, it bypasses this)
 
-To prevent untrusted origins from gaining arbitrary window references to a page, applications can deploy Cross-Origin-Opener-Policy (COOP) [^1] [^2]. With COOP, applications are in control of who is allowed to have a reference to their pages, thus mitigating XS-Leaks which make use of such techniques.
+To prevent other websites from gaining arbitrary window references to a page, applications can deploy Cross-Origin-Opener-Policy (COOP) [^1] [^2]. With COOP, applications are in control of who is allowed to have a reference to their pages, thus mitigating XS-Leaks which make use of such techniques.
 
 ## Considerations
 
-Since COOP is an opt-in mechanism and a very recent one, can be overlooked by Developers and Security Engineers. Nonetheless, it’s important to highlight the importance of this Defense Mechanism as it is the **only way** to prevent attackers from exploiting XS-Leaks which makes use of window references returned by APIs like `window.open` (unless Same-Site Cookies Strict Mode can be widely deployed).
+Since COOP is an opt-in mechanism and a very recent one, it can easily be overlooked by developers and security engineers. Nonetheless, it’s important to highlight the importance of this defense mechanism as it is the only way to prevent attackers from exploiting XS-Leaks which makes use of window references returned by APIs like `window.open` (unless Same-Site Cookies Strict Mode can be widely deployed).
 
 ## Deployment
 

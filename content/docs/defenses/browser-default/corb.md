@@ -6,12 +6,12 @@ category = "Defense"
 menu = "main"
 +++
 
-Cross-Origin Read Blocking (CORB) is a browser defense mechanism that prevents attackers from loading certain cross-origin resources in unlikely scenarios [^1]. This protection was created to prevent speculative side-channel attacks such as Spectre which allow attackers to read the memory of their own process. CORB aims to prevent attackers from loading cross-origin contents which might contain sensitive information into an attacker-controlled process. For instance, if an attacker tries to load an  HTML, XML, or JSON as an `img` or `script` tag, CORB will prevent this from happening. 
+Cross-Origin Read Blocking (CORB) is a new security mechanism that prevents attackers from loading certain cross-origin resources [^1]. This protection was created to defend against speculative side-channel attacks such as Spectre that allow attackers to read the memory of their own process. CORB aims to prevent attackers from loading certain sensitive cross-origin resources into an attacker controlled process. For example, if an attacker tries to load cross-origin HTML, XML, or JSON into an `img` tag, CORB will prevent this from happening. Without CORB, this might trigger an Error Event due to it not being a valid response. With CORB, it will be treated as though the server returned no data. 
 
 To classify resource types CORB uses the `Content-Type` header if `nosniff` is set. In case the page does not serve a `nosniff` header CORB will, based on heuristics, check if the resource is worth protecting by looking at the beginning of the response body.
 
 {{< hint good >}}
-Chrome is the only browser with CORB deployed.
+Chrome is currently the only browser with CORB deployed.
 {{< /hint >}}
 
 {{< hint good >}}
@@ -22,7 +22,7 @@ Chrome is the only browser with CORB deployed.
 ## Considerations
 
 {{< hint warning >}}
-CORB introduced a [new XS-Leak]({{< ref "../../attacks/browser-features/corb.md" >}}) since attackers are able to observe whether a request was blocked or allowed by CORB. This leads to information leaks when CORB blocks certain requests depending on user information the attacker is after. However, the introduced XS-Leak has a lower impact than a Spectre exploitation of the CORB-protected resources.
+CORB introduces a [new XS-Leak]({{< ref "../../attacks/browser-features/corb.md" >}}) technique since attackers may be able to observe the results of CORB. This can lead to a variety of different information leaks. However, in most cases this information leak has a lower impact than the data that could be leaked via speculative execution attacks.
 {{< /hint >}}
 
 ## References
