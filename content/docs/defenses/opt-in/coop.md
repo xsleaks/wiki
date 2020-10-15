@@ -17,7 +17,7 @@ Exploiting XS-Leaks with `window.open` is generally seen as the least appealing 
 
 To prevent other websites from gaining arbitrary window references to a page, applications can deploy Cross-Origin-Opener-Policy (COOP) [^1] [^2]. 
 
-There are three possible values for the COOP header. `unsafe-none` is the default value and is how websites behave if no value is set. `same-origin` is the strictest. If you set `same-origin`, then cross-origin websites cannot get access to your `window` object. If your application relies on using `window.open` to open another website and communicate with it, this will be blocked by `same-origin`. Instead, you can set `same-origin-allow-popups` which will allow your website to use `window.open` but does not allow other websites to use `window.open` against your application. 
+There are three possible values for the COOP header. `unsafe-none` is the default value and is how websites behave if no value is set. `same-origin` is the strictest. If you set `same-origin`, then cross-origin websites cannot get access to your `window` object through opening new windows. If your application relies on using `window.open` to open another website and communicate with it, this will be blocked by `same-origin`. Instead, you can set `same-origin-allow-popups` which will allow your website to use `window.open` but does not allow other websites to use `window.open` against your application. 
 
 If possible, it is recommended to set `same-origin`. If you set `same-origin-allow-popups` be sure to review what websites you open with `window.open` and ensure that they are trusted. 
 
