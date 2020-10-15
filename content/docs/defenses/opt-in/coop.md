@@ -8,7 +8,7 @@ category = [
 menu = "main"
 +++
 
-Getting access to a website's `window` object is a common prerequisite for different XS-Leak techniques. [Framing Protections]({{< ref "xfo.md" >}}) can ensure that an attacker cannot use iframes to access the `window` object, but this does not stop an attacker from using `window.open` or `window.opener`. 
+Getting access to a website's `window` object is a common prerequisite for different XS-Leak techniques. [Framing Protections]({{< ref "xfo.md" >}}) can ensure that an attacker cannot use iframes to access the `window` object, but this does not stop an attacker from accessing it from an opened window through `window.open(url)` or `window.opener` references. 
 
 Exploiting XS-Leaks with `window.open` is generally seen as the least appealing option because the user can see it happen in the open browser window. However, it's usually the right technique when:
 
