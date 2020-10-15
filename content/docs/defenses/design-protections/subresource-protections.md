@@ -23,7 +23,7 @@ This style of protection can be applied to:
 
 ## User Consent
 
-By prompting for user interaction prior to returning sensitive results, one can ensure that sensitive results cannot be included in places they should not end up (ie `script` or `img` tags). For example, Facebook requires user confirmation before viewing search results or private messages. Since attackers cannot trigger this user confirmation, the page cannot leak the contents of the search results. 
+By prompting for user interaction prior to returning sensitive results, one can ensure that sensitive results cannot be included in places they should not end up (e.g.`script` or `img` tags). For example, Facebook requires user confirmation before viewing search results or private messages. Since attackers cannot simulate this user interaction, they will be unable to leak the contents of the search results. 
 
 Another common application of this is when applications are redirecting users to another website. It is common to require user confirmation before the redirect. This prevents attackers from [detecting some types of navigations]({{< ref "../../attacks/navigations.md" >}}).
 
