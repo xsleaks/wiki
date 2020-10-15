@@ -13,7 +13,7 @@ Getting access to a website's `window` object is a common prerequisite for diffe
 Exploiting XS-Leaks with `window.open` is generally seen as the least appealing option because the user can see it happen in the open browser window. However, it's usually the right technique when:
 
 - A page sets [Framing Protections]({{< ref "xfo.md" >}})
-- A page sets [Same-Site Cookies with `Lax` Mode]({{< ref "same-site-cookies.md" >}}) (since navigating a new window is a top-level navigation, it bypasses this)
+- A page sets [Same-Site Cookies with `Lax` Mode]({{< ref "same-site-cookies.md" >}}) (in contrast to the `Strict` mode, navigating a top-level window is allowed by the `Lax` mode)
 
 To prevent other websites from gaining arbitrary window references to a page, applications can deploy Cross-Origin-Opener-Policy (COOP) [^1] [^2]. With COOP, applications are in control of who is allowed to have a reference to their pages, thus mitigating XS-Leaks which make use of such techniques.
 
