@@ -7,7 +7,7 @@ bookToc: false
 # XS-Leaks Wiki
 ## Overview
 
-Cross-Site Leaks (XS-Leaks, XSLeaks) are a class of vulnerabilities derived from browser side-channel techniques [^side-channel]. These are similar to Cross-Site Request Forgery [^csrf] (CSRF, XSRF) techniques but instead of allowing other websites to take actions on behalf of a user, they can be used to infer information about the user. This is done by utilising a variety of features built into browsers. These features are often maintained to preserve backwards compatibility though sometimes new features are added to the browser despite an accepted risk of cross-site leaks [^STTF].
+Cross-Site Leaks (XS-Leaks, XSLeaks) are a class of vulnerabilities derived from browser side-channel techniques [^side-channel]. These are similar to Cross-Site Request Forgery [^csrf] (CSRF, XSRF) techniques but instead of allowing other websites to take actions on behalf of a user, they can be used to infer information about them. This is done by utilising a variety of features built into browsers which are often maintained to preserve backwards compatibility. Though, sometimes new features are added to the browser despite an accepted risk of cross-site leaks [^STTF].
 
 
 ## The principle of an XS-Leak
