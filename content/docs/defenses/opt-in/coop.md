@@ -10,12 +10,16 @@ menu = "main"
 
 Getting access to a website's `window` object is a common prerequisite for different XS-Leak techniques. [Framing Protections]({{< ref "xfo.md" >}}) can ensure that an attacker cannot use iframes to access the `window` object, but this does not stop an attacker from accessing it from an opened window through `window.open(url)` or `window.opener` references. 
 
-Exploiting XS-Leaks with `window.open` is generally seen as the least appealing option because the user can see it happen in the open browser window. However, it's usually the right technique when:
+Exploiting XS-Leaks with `window.open` is generally seen as the least appealing option for an attacker because the user can see it happen in the open browser window. However, it's usually the right technique when:
 
 - A page sets [Framing Protections]({{< ref "xfo.md" >}})
 - A page sets [Same-Site Cookies with `Lax` Mode]({{< ref "same-site-cookies.md" >}}) (in contrast to the `Strict` mode, navigating a top-level window is allowed by the `Lax` mode)
 
-To prevent other websites from gaining arbitrary window references to a page, applications can deploy Cross-Origin-Opener-Policy (COOP) [^1] [^2]. With COOP, applications are in control of who is allowed to have a reference to their pages, thus mitigating XS-Leaks which make use of such techniques.
+To prevent other websites from gaining arbitrary window references to a page, applications can deploy Cross-Origin-Opener-Policy (COOP) [^1] [^2]. 
+
+There are three possible values for the COOP header. `unsafe-none` is the default value and is how websites behave if no value is set. `same-origin` is the strictest. If you set `same-origin`, then cross-origin websites cannot get access to your `window` object. If your application relies on using `window.open` to open another website and communicate with it, this will be blocked by `same-origin`. Instead, you can set `same-origin-allow-popups` which will allow your website to use `window.open` but does not allow other websites to use `window.open` against your application. 
+
+If possible, it is recommended to set `same-origin`. If you set `same-origin-allow-popups` be sure to review what websites you open with `window.open` and ensure that they are trusted. 
 
 ## Considerations
 
