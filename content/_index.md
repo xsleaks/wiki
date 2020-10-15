@@ -35,7 +35,7 @@ Suppose that *bank.com* has an API endpoint that returns data about a user's rec
 1. The page *evil.com* could attempt to load the URL *bank.com/my_receipt?q=groceries* as a script.
 2. If the user has recently bought groceries, it will load successfully (because of the HTTP200 status code).
 3. But if they haven't, it will trigger an [Error Event]({{< ref "./docs/attacks/error-events.md" >}}) (because of the HTTP404 status code) that *evil.com* can watch for.
-4. By repeating this with different queries, the attacker could infer a significant amount of information about the user's transaction history
+4. By repeating this with different queries, the attacker could infer a significant amount of information about the user's transaction history.
 {{< /hint >}}
 
 In the above example, two websites on two different origins (*evil.com* and *bank.com*) were interacting through an API that browsers allow websites to use. None of this exploited a bug in the browser or a bug in *bank.com*. But nonetheless, it allowed *evil.com* to leak some small amount of information about the user on *bank.com*.  
