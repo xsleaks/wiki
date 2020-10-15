@@ -38,7 +38,7 @@ Suppose that *bank.com* has an API endpoint that returns data about a user's rec
 4. By repeating this with different queries, the attacker could infer a significant amount of information about the user's transaction history.
 {{< /hint >}}
 
-In the above example, two websites on two different origins (*evil.com* and *bank.com*) were interacting through an API that browsers allow websites to use. None of this exploited a bug in the browser or a bug in *bank.com*. But nonetheless, it allowed *evil.com* to leak some small amount of information about the user on *bank.com*.  
+In the above example, two websites on two different origins (*evil.com* and *bank.com*) were interacting through an API that browsers allow websites to use. None of this exploited a bug in the browser or a bug in *bank.com*. But nonetheless, it allowed *evil.com* to gain some small amount of information about the user on *bank.com*.  
 
 
 
