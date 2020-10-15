@@ -27,7 +27,7 @@ In this scenario, there is no way for an attacker to trigger any requests to the
 This style of protection can be applied to:
 
 - Authenticated subresources such as API endpoints or regular authenticated URLs. While tokens can be used in this case, security mitigations like [Same-Site Cookies]({{< ref "../opt-in/same-site-cookies.md" >}}) may be easier to deploy at scale.
-- Unauthenticated subresources such as images can use this protection to prevent some types of [Cache Probing Attacks]({{< ref "../../attacks/cache-probing.md" >}}). While this does work, see [Cache Protections]({{< ref "../opt-in/cache-protections.md" >}}) for other strategies to defend against cache probing attacks. 
+- Unauthenticated subresources such as images can use this protection to prevent some types of [Cache Probing Attacks]({{< ref "../../attacks/cache-probing.md" >}}). While this does work, see [Cache Protections]({{< ref "./cache-protections.md" >}}) for other strategies to defend against cache probing attacks. 
 
 {{< hint warning >}}
 Implementing this might break the ability for users to save or share links (eg bookmarks).
