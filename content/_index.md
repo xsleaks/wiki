@@ -12,7 +12,7 @@ Cross-Site Leaks (XS-Leaks, XSLeaks) are a class of vulnerabilities derived from
 
 ## The principle of an XS-Leak
 
-Websites interacting with each other is core to the behavior of the web. Browsers provide a wide variety of interfaces for such interaction between different web applications. These interfaces have a wide variety of security measures built on top to try to constrain websites behavior (e.g. the [Same-Origin Policy](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy)). XS-Leaks take advantage of small pieces of information that can leak during these interactions in order to infer sensitive information about users. 
+Websites interacting with each other is core to the behavior of the web. Browsers provide a wide variety of interfaces for such interaction between different web applications. These interfaces have different security measures built on top to try to constrain websites behavior (e.g. the [Same-Origin Policy](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy)). XS-Leaks take advantage of small pieces of information that can leak during these interactions in order to infer sensitive information about users. 
 
 These pieces of information usually have a binary form and are called oracles. These oracles usually answer with *YES* and *NO* to cleverly prepared questions. For example, such an oracle could be asked:
 
