@@ -8,7 +8,7 @@ category = [
 menu = "main"
 +++
 
-The fundamental idea to designing protections for subresources is that subresources cannot be targeted by XS-Leaks if the attacker cannot cause them to return any user data. 
+The fundamental idea of designing protections for subresources is that subresources cannot be targeted by XS-Leaks if the attacker cannot cause them to return any user data. 
 
 ## Secure tokens
 
