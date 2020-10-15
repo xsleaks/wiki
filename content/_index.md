@@ -34,7 +34,7 @@ Suppose that *bank.com* has an API endpoint that returns data about a user's rec
 
 1. The page *evil.com* could attempt to load the URL *bank.com/my_receipt?q=groceries* as a script.
 2. If the user has recently bought groceries, it will load successfully (because of HTTP200 status code).
-3. But if they haven't, it will trigger an [Error Event]({{< ref "./docs/attacks/error-events.md" >}}) (because of HTTP404 status code) that *evil.com* can watch for.
+3. But if they haven't, it will trigger an [Error Event]({{< ref "./docs/attacks/error-events.md" >}}) (because of the HTTP404 status code) that *evil.com* can watch for.
 4. By repeating this with different queries, the attacker could infer a significant amount of information about the user's transaction history
 {{< /hint >}}
 
