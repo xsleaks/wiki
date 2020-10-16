@@ -25,7 +25,7 @@ Disadavantages:
 Rather than disabling caching, one can include additional data in URLs in order to defend against cache probing attacks. This can be done by including a random token in the URL of every subresource that you reference. If an attacker cannot guess this random token, then the attacker cannot determine whether items are in the cache. 
 
 {{< hint info >}}
-Suppose that every page on your application loads the user's profile photo: `/user/$USERNAME.png`. An attacker could check which user is signed in by probing the cache for `/user/john.png`, `/user/jane.png`, and so on. 
+Suppose that every page on your application loads the user's profile photo: `/user/<USERNAME>.png`. An attacker could check which user is signed in by probing the cache for `/user/john.png`, `/user/jane.png`, and so on. 
 
 This is where a random token can come into play. Instead, on every load the application can load the user's profile photo from `/user/<USERNAME>.png?cache_buster=<RANDOM_TOKEN>`. The server does not need to do anything with this random token. It is there purely to ensure that there is no way for an attacker to probe the cache without knowing the random token. 
 {{< /hint >}}
