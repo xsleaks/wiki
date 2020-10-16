@@ -98,7 +98,7 @@ This technique can also be adapted to measure the Execution Timing of a page by 
 
 Other attacks do not consider the notion of time to perform a timing attack [^3]. Timeless attacks consist of fitting two `HTTP` requests in a single packet, the baseline and the attacked request, to guarantee they arrive at the same time to the server. The server *will* process the requests concurrently, and return a response based on their execution time as soon as possible. One of the two requests will arrive first, allowing the attacker to get the timing difference by comparing the order in which the requests arrived.
 
-The advantage of this technique is the independence on network jitter and uncertain delays, something that is **always** present in the remaining techniques.
+The advantage of this technique is the independence on network jitter and uncertain delays, something that is always present in the remaining techniques.
 
 {{< hint warning >}}
 The original research needs to be adapted to work in a browser since it handles all network-specific tasks.

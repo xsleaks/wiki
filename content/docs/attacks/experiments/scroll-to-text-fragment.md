@@ -15,7 +15,7 @@ Scroll to Text Fragment (STTF) is a new web platform feature that allows users t
 
 ## Expected & Discussed Issues
 
-In early discussions for the specification of this feature it was shown that several XS-Leaks could be introduced with a naïve implementation [^1]. The specification considers various attack scenarios [^3], as does some research from Google [^4]. One **possible** XS-Leak browsers need to be aware of when implementing this feature is:
+In early discussions for the specification of this feature it was shown that several XS-Leaks could be introduced with a naïve implementation [^1]. The specification considers various attack scenarios [^3], as does some research from Google [^4]. One possible XS-Leak browsers need to be aware of when implementing this feature is:
 
 - An attacker can, by embedding a page as an `iframe`, detect whether the page scrolled to the text by listening to the `onblur` of the parent document. This approach is similar to the [ID Attribute XS-Leak]({{< ref "id-attribute.md" >}}). This scenario is mitigated in the Chrome implementation [^5] as it only allows the fragment navigation to occur in top-level navigations.
 

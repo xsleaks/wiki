@@ -25,14 +25,14 @@ weight = 2
 
 Detecting if a cross-site page triggered a navigation (or didn't) can be useful to an attacker. For example, a website may trigger a navigation in a certain endpoint [depending on the status of the user]({{< ref "#case-scenarios" >}}).
 
-To detect if **any kind** of navigation occurred, an attacker can:
+To detect ifany kind of navigation occurred, an attacker can:
 
 - Use an `iframe` and count the number of times the `onload` event is triggered.
 - Check the value of `history.length`, accessible through any window reference. This gives the number of entries in the history of a victim either changed by `history.pushState` or regular navigations. To get the value of `history.length` an attacker changes the location of the window reference with the target website, changes back to same-origin, and finally reads the value.
 
 ## Download Trigger
 
-When endpoints set the [`Content-Disposition: attachment`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition) Header, it instructs the browser to download the response as an attachment instead of navigating to it. Detecting if this behavior occurred might allow attackers to leak private information if outcome depends on the state of the victim's account.
+When endpoints set the [`Content-Disposition: attachment`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition) header, it instructs the browser to download the response as an attachment instead of navigating to it. Detecting if this behavior occurred might allow attackers to leak private information if outcome depends on the state of the victim's account.
 
 ### Download bar
 
@@ -66,7 +66,7 @@ This attack is only possible in Chromium-based browsers.
 
 ### Download Navigation
 
-Another way to test for the [`Content-Disposition: attachment`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition) Header is to check if a navigation occurred. If a page load causes a download, it will not trigger a navigation. 
+Another way to test for the [`Content-Disposition: attachment`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition) header is to check if a navigation occurred. If a page load causes a download, it will not trigger a navigation. 
 
 1. Open an attacker origin with `window.open` and save the window reference.
 2. Navigate the saved reference to the endpoint that might download.
@@ -100,7 +100,7 @@ document.body.appendChild(outer);
 The attack works as follows:
 
 1. Include an `iframe` (inner) inside an `iframe` (outer). The inner `iframe` embeds the target website.
-2. If the target website triggers a download the inner `iframe` origin will **remain** `about:blank` (downloads don’t navigate).
+2. If the target website triggers a download the inner `iframe` origin will remain `about:blank` (downloads don’t navigate).
 3. Even though the download attempt doesn't trigger an `onload` event on the inner `iframe`, the window of the `outer` `iframe` (line 7) still waits for the resource to start the download and fires the `onload` event.
 4. If a navigation has occurred the inner `iframe` will change its origin. 
 5. When the outer `iframe` `onload` fires the outer `iframe` verifies if `i.contentWindow.location.href` (line 9) is accessible, only possible if both `iframes` share the same origin (Same-Origin Policy is enforced). If both `iframes` are in different origins, a `DOMException` will be thrown, meaning a navigation occurred.
