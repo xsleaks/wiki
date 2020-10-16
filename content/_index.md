@@ -52,16 +52,13 @@ The root cause of most XS-Leaks is inherent to the design of the web. Oftentimes
 We can distinguish different sources of XS-Leaks, such as:
 
 -   Browser APIs 
-
-    -   For example: Frame Counting and Timing Attacks
+    -   For example: [Frame Counting]({{< ref "frame-counting.md" >}}) and [Timing Attacks]({{< ref "timing-attacks.md" >}})
 
 -   Browser Implementation Details and Bugs
-
-    -   For example: Connection Pooling and typeMustMatch
+    -   For example: [Connection Pooling]({{< ref "./docs/attacks/timing-attacks/connection-pool.md" >}}) and [typeMustMatch]({{< ref "./docs/attacks/historical/content-type.md#typemustmatch" >}})
 
 -   Hardware Bugs
-
-    -   For example: Speculative Execution Attacks
+    -   For example: Speculative Execution Attacks [^spectre]
 
 ## A little bit of history
 
@@ -80,3 +77,4 @@ This wiki is meant to both introduce readers to XS-Leaks and serve as a referenc
 [^hard-to-fix]: It is challenging to fix the root cause of XS-Leaks because in many cases doing so would break existing websites.
 [^old-wiki]: Browser Side Channels, [link](https://github.com/xsleaks/xsleaks/wiki/Browser-Side-Channels)
 [^xs-search-first]: Cross-Site Search Attacks, [link](https://446h.cybersec.fun/xssearch.pdf)
+[^spectre]: Meltdown and Spectre, [link](https://spectreattack.com/)
