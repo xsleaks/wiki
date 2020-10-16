@@ -23,7 +23,7 @@ It is very difficult to use application design techniques to block every XS-Leak
 These [defense mechanisms]({{< ref "opt-in/_index.md" >}}) allow applications to address classes of similar XS-Leaks at the same time. These protections can either allow applications to change the behavior of the browser or provide additional information that applications can use to change their own behavior. 
 
 {{< hint good >}}
-Deploying a combination of [opt-in defense mechanisms]({{< ref "opt-in/_index.md" >}}) should be the **default strategy**. Not only do they protect against XS-Leaks but also against other vulnerabilities such as XSSI, Clickjacking, CSRF, etc.
+Deploying a combination of [opt-in defense mechanisms]({{< ref "opt-in/_index.md" >}}) should be the default strategy. Not only do they protect against XS-Leaks but also against other vulnerabilities such as XSSI, Clickjacking, CSRF, etc.
 {{< /hint >}}
 
 {{< hint warning >}}
