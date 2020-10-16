@@ -16,11 +16,11 @@ Websites interacting with each other is core to the behavior of the web. Browser
 
 These pieces of information usually have a binary form and are called oracles. These oracles usually answer with *YES* and *NO* to cleverly prepared questions. For example, such an oracle could be asked:
 
-> Does a word *existent* exist in the search results?
+> Does the word *existent* exist in the search results?
 
 In a vulnerable application, the above might be equivalent to:
 
-> Does a query *?query=existent* return HTTP200 status code while *?query=non-existent* does not?"
+> Does the query *?query=existent* return HTTP200 status code while the query *query=non-existent* does not?"
 
 The latter oracle could be formed from an [Error Event]({{< ref "./docs/attacks/error-events.md" >}}) XS-Leak and which could be abused by attackers to infer information about the user.
 
