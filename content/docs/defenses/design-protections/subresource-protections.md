@@ -19,7 +19,12 @@ It can be very effective to deploy this on any specific resources that are known
 A strong protection for subresources can be achieved by including a user specific token in every request. This protects against most XS-Leak techniques if implemented correctly. The idea is that in order to verify a request for a resource as being legitimate, a token must be included. This token must be provided to the client in some way that an attacker would not be able to cause it to be included in their own requests. 
 
 {{< hint info >}}
-Suppose there is some search bar on an application. When the user loads the main page, the server includes a token in the body of the page. When the user searches for something, a request is made to `/search?query=...&token=$SECURE_TOKEN`. The backend verifies that the provided token is valid for the current user. If it is not valid, the request is immediately rejected. 
+Suppose there is a search bar on an application. 
+
+1. When the user loads the main page, the server includes a secure token somewhere in the body of the page. 
+2. When the user searches for something, a request is made to `/search?query=<QUERY>&token=<SECURE_TOKEN>`.  
+3. The backend verifies that the provided token is valid for the current user. 
+4. If it is not valid, the request is rejected. 
 
 In this scenario, there is no way for an attacker to trigger any requests to the endpoint because they cannot obtain a valid token for a given user. Note that this relies on it not being possible for an attacker to obtain or forge a token for other users. If they can do so, this is not effective. 
 {{< /hint >}}
