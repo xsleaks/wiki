@@ -1,5 +1,5 @@
 +++
-title = "Cache Protection"
+title = "Cache Protections"
 description = "Cache Protection"
 date = "2020-10-16"
 category = [
