@@ -35,7 +35,7 @@ Websites are generally not allowed to access data on other websites. For example
 
 Suppose that *bank.com* has an API endpoint that returns data about a user's receipt for a given query.
 
-1. The page *evil.com* could attempt to load the URL *bank.com/my_receipt?q=groceries* as a script, since by default , the browser will attach cookies with the request.
+1. The page *evil.com* could attempt to load the URL *bank.com/my_receipt?q=groceries* as a script, since by default, the browser will attach cookies with the request.
 2. If the user has recently bought groceries, it will load successfully (because of the HTTP200 status code).
 3. But if they haven't, it will trigger an [Error Event]({{< ref "./docs/attacks/error-events.md" >}}) (because of the HTTP404 status code) that *evil.com* can listen for.
 4. By repeating this with different queries, the attacker could infer a significant amount of information about the user's transaction history.
