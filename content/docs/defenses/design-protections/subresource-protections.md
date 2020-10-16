@@ -8,34 +8,38 @@ category = [
 menu = "main"
 +++
 
-The fundamental idea of designing protections for subresources is that subresources cannot be targeted by XS-Leaks if the attacker cannot cause them to return any user data. 
-
-## Secure tokens
-
-One way of achieving this is similar to how endpoints can be protected from [CSRF attacks](https://owasp.org/www-community/attacks/csrf). While [CSRF protections](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html) tend to focus on state changing requests, XS-Leak protections are meant to defend `GET` requests. 
-
-To apply this protection, each request for a subresource needs to include some unique value that attackers cannot obtain. One way would be to place an unguessable random ID in the URL. For example, instead of `victim.com/chat_room?name=Secret-Chat` one could use `victim.com/chat_room?name=Secret-Chat&xsrf=<random ID>`. While this would mitigate cache based attacks, this might not protect against forging the requests. Another potential strategy is to include signed attestations in the URLs, which would protect both the cache and the request forgery. But this may not provide sufficient protection in case where the attacker is able to obtain a secure token that is valid for retrieving the user's data. 
-
-This style of protection can be applied to:
-
-- Authenticated subresources such as API endpoints or regular authenticated URLs. While secure tokens can be used in this case, security mitigations like [Same-Site Cookies]({{< ref "../opt-in/same-site-cookies.md" >}}) can be easier to deploy and more effective.
-- Unauthenticated subresources such as images can use this protection to prevent some types of [Cache Probing Attacks]({{< ref "../../attacks/cache-probing.md" >}}). This protection can be highly effective for unauthenticated subresources, but it would negatively impact the cache efficiency and might be otherwise hard to deploy. 
-
-## User Consent
-
-By prompting for user interaction prior to returning sensitive results, one can ensure that sensitive results cannot be included in places they should not end up (e.g.`script` or `img` tags). For example, Facebook requires user confirmation before viewing search results or private messages. Since attackers cannot simulate this user interaction, they will be unable to leak the contents of the search results. 
-
-Another common application of this is when applications are redirecting users to another website. It is common to require user confirmation before the redirect. This prevents attackers from [detecting some types of navigations]({{< ref "../../attacks/navigations.md" >}}).
-
-## Deployment
-
-While this protection can work in some scenarios, it has some disadvantages:
-
-- Hard to deploy as it requires substantial changes in the codebase. 
-- It might break the desired behavior for the feature.
-- In the case of random tokens, it will break bookmarks and other permanent references.
-- Consent pages might add friction to using the application.
+The fundamental idea behind designing protections for subresources is that subresources cannot be targeted by XS-Leaks if the attacker cannot cause them to return any user data. If implemented correctly, this can be a very strong defense though it is likely to be tough to implement and could negatively impact the user experience. 
 
 {{< hint warning >}}
 It can be very effective to deploy this on any specific resources that are known to be especially senstive to XS-Leaks. But, due to the challenges of deploying this protection universally, applications are encouraged to deploy [opt-in web platform security features]({{< ref "../_index.md" >}}) as the default approach.
 {{< /hint >}}
+
+## Token Based Protections
+
+A strong protection for subresources can be achieved by including a user specific token in every request. This protects against most XS-Leak techniques if implemented correctly. The idea is that in order to verify a request for a resource as being legitimate, a token must be included. This token must be provided to the client in some way that an attacker would not be able to cause it to be included in their own requests. 
+
+{{< hint info >}}
+Suppose there is a search bar on an application. 
+
+1. When the user loads the main page, the server includes a secure token somewhere in the body of the page. 
+2. When the user searches for something, a request is made to `/search?query=<QUERY>&token=<SECURE_TOKEN>`.  
+3. The backend verifies that the provided token is valid for the current user. 
+4. If it is not valid, the request is rejected. 
+
+In this scenario, there is no way for an attacker to trigger any requests to the endpoint because they cannot obtain a valid token for a given user. Note that this relies on it not being possible for an attacker to obtain or forge a token for other users. If they can do so, this is not effective. 
+{{< /hint >}}
+
+This style of protection can be applied to:
+
+- Authenticated subresources such as API endpoints or regular authenticated URLs. While tokens can be used in this case, security mitigations like [Same-Site Cookies]({{< ref "../opt-in/same-site-cookies.md" >}}) may be easier to deploy at scale.
+- Unauthenticated subresources such as images can use this protection to prevent some types of [Cache Probing Attacks]({{< ref "../../attacks/cache-probing.md" >}}). While this does work, see [Cache Protections]({{< ref "./cache-protections.md" >}}) for other strategies to defend against cache probing attacks. 
+
+{{< hint warning >}}
+Implementing this might break the ability for users to save or share links (eg bookmarks).
+{{< /hint >}}
+
+## User Consent
+
+Another strong defense is to require user interaction before returning any sensitive data. This ensures that sensitive endpoints cannot be included via `script` or `img` tags. For example, Facebook requires user confirmation before viewing search results or private messages. Since attackers cannot simulate this user interaction, they will be unable to leak the contents of the search results. 
+
+This can be a very useful way of protecting especially sensitive endpoints though note once again that this is likely to be time consuming to implement. 
