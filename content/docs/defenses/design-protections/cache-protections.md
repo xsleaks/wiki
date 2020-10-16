@@ -15,7 +15,7 @@ There are a number of different approaches for defending against cache probing b
 If it is acceptable to disable caching, this provides a strong defense against cache probing attacks. This means that every time someone loads a resource, the resource will have to be fetched again. This can be done by setting a `Cache-Control: no-store` header on every single response that you wish to protect. 
 
 Advantages:
-1. Supported by every major browser
+1. Supported by all major browsers
 
 Disadavantages:
 1. Negatively impacts site performance
