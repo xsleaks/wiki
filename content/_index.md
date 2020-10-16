@@ -24,6 +24,9 @@ In a vulnerable application, the above might be equivalent to:
 
 The latter oracle could be formed from an [Error Event]({{< ref "./docs/attacks/error-events.md" >}}) XS-Leak and which could be abused by attackers to infer information about the user.
 
+
+Browsers provide tons of different APIs that while well-intentioned, can end up leaking small amounts of information in an unintended way.
+
 ## Example
 
 Websites are generally not allowed to access data on other websites. For example, *evil.com* is forbidden from explicitly reading a response from *bank.com*, but *evil.com* can attempt to load a script from *bank.com* since that was originally seen as harmless [^harmless]. However, *evil.com* can also determine whether or not the script successfully loaded.
@@ -41,8 +44,6 @@ Suppose that *bank.com* has an API endpoint that returns data about a user's rec
 In the above example, two websites on two different origins (*evil.com* and *bank.com*) were interacting through an API that browsers allow websites to use. None of this exploited a bug in the browser or a bug in *bank.com*. But nonetheless, it allowed *evil.com* to gain some small amount of information about the user on *bank.com*.  
 
 
-
-Browsers provide tons of different APIs that while well-intentioned, can end up leaking small amounts of information in an unintended way.
 
 ## Root Cause of XS-Leaks
 
