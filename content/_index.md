@@ -7,12 +7,12 @@ bookToc: false
 # XS-Leaks Wiki
 ## Overview
 
-Cross-Site Leaks (XS-Leaks, XSLeaks) are a class of vulnerabilities derived from browser side-channel techniques [^side-channel]. These are similar to Cross-Site Request Forgery [^csrf] (CSRF, XSRF) techniques but instead of allowing other websites to take actions on behalf of a user, they can be used to infer information about them. This is done by utilising a variety of features built into browsers which are often maintained to preserve backwards compatibility. Though, sometimes new features are added to the browser despite an accepted risk of cross-site leaks [^STTF].
+Cross-Site Leaks (XS-Leaks, XSLeaks) are a class of vulnerabilities derived from browser side-channel techniques [^side-channel]. These are similar to Cross-Site Request Forgery [^csrf] (CSRF) techniques but instead of allowing other websites to take actions on behalf of a user, they can be used to infer information about them. This is done by exploiting a variety of features built into browsers which might be maintained to preserve backwards compatibility. Though, sometimes new features are added to browsers regardless the introduction of potential cross-site leaks [^STTF] as the benefits are considered to overweight the downsides.
 
 
 ## The principle of an XS-Leak
 
-Websites interacting with each other is core to the behavior of the web. Browsers provide a wide variety of interfaces for such interaction between different web applications. These interfaces have different security measures built on top to try to constrain websites behavior (e.g. the [Same-Origin Policy](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy)). XS-Leaks take advantage of small pieces of information that can leak during these interactions in order to infer sensitive information about users. 
+Websites interacting with each other is core to the behavior of the web. Browsers provide a wide variety of interfaces for such interaction between different web applications. These interfaces have different security measures built on top to try to constrain websites behavior (e.g. the [Same-Origin Policy](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy)). XS-Leaks take advantage of small pieces of information that can leak during these interactions in order to infer sensitive information about users such as their data on other websites, operating systems they use or internal networks they are connected to. 
 
 These pieces of information usually have a binary form and are called oracles. These oracles usually answer with *YES* and *NO* to cleverly prepared questions. For example, such an oracle could be asked:
 
@@ -25,7 +25,7 @@ In a vulnerable application, the above might be equivalent to:
 The latter oracle could be formed from an [Error Event]({{< ref "./docs/attacks/error-events.md" >}}) XS-Leak and which could be abused by attackers to infer information about the user.
 
 
-Browsers provide tons of different APIs that while well-intentioned, can end up leaking small amounts of information in an unintended way.
+Browsers provide a wide range of different APIs that, while well-intended, can end up leaking small amounts of cross-origin information.
 
 ## Example
 
@@ -35,9 +35,9 @@ Websites are generally not allowed to access data on other websites. For example
 
 Suppose that *bank.com* has an API endpoint that returns data about a user's receipt for a given query.
 
-1. The page *evil.com* could attempt to load the URL *bank.com/my_receipt?q=groceries* as a script.
+1. The page *evil.com* could attempt to load the URL *bank.com/my_receipt?q=groceries* as a script, since by default , the browser will attach cookies with the request.
 2. If the user has recently bought groceries, it will load successfully (because of the HTTP200 status code).
-3. But if they haven't, it will trigger an [Error Event]({{< ref "./docs/attacks/error-events.md" >}}) (because of the HTTP404 status code) that *evil.com* can watch for.
+3. But if they haven't, it will trigger an [Error Event]({{< ref "./docs/attacks/error-events.md" >}}) (because of the HTTP404 status code) that *evil.com* can listen for.
 4. By repeating this with different queries, the attacker could infer a significant amount of information about the user's transaction history.
 {{< /hint >}}
 
@@ -47,7 +47,7 @@ In the above example, two websites on two different origins (*evil.com* and *ban
 
 ## Root Cause of XS-Leaks
 
-The root cause of most XS-Leaks is inherent to the design of the web. Oftentimes, applications are vulnerable to some cross-site information leaks without having explicitly done anything wrong. Because it is hard [^hard-to-fix] to universally fix the root cause of XS-Leaks at the browser level, browsers are implementing various [Defense Mechanisms]({{< ref "defenses" >}}) that offer applications ways of mitigating some of the techniques. Many of these mitigations are used via websites opting into a more restrictive security model, usually through certain HTTP headers (e.g. *[Cross-Origin-Opener]({{< ref "./docs/defenses/opt-in/coop.md">}}): same-origin*), which often must be combined to achieve the desired outcome.
+The root cause of most XS-Leaks is inherent to the design of the web. Oftentimes applications are vulnerable to some cross-site information leaks without having done anything wrong. Because it is hard [^hard-to-fix] to universally fix the root cause of XS-Leaks at the browser level, browsers are implementing various [Defense Mechanisms]({{< ref "defenses" >}}) that offer applications ways of mitigating some of the issues. Many of these mitigations are used via websites opting into a more restrictive security model, usually through certain HTTP headers (e.g. *[Cross-Origin-Opener-Policy]({{< ref "./docs/defenses/opt-in/coop.md">}}): same-origin*), which often times must be combined to achieve the desired outcome.
 
 We can distinguish different sources of XS-Leaks, such as:
 
@@ -62,12 +62,11 @@ We can distinguish different sources of XS-Leaks, such as:
 
 ## A little bit of history
 
-XS-Leaks have always been part of the web platform but have only gained attention in recent years [^old-wiki] as websites became more secure against more traditional classes of vulnerabilities. In 2015 Gelernter and Herzberg published Cross-Site Search Attacks [^xs-search-first] which covered their work on exploiting timing attacks to implement XS-Search attacks against Google and Microsoft. From there, more XS-Leak techniques were discovered and tested over time. Recently, browsers have been working on developing a variety of new standards that will make it easier to defend applications against XS-Leaks.
+XS-Leaks have always been part of the web platform but have only gained attention in recent years [^old-wiki] as websites became more secure against more traditional classes of vulnerabilities. In 2015 Gelernter and Herzberg published "Cross-Site Search Attacks" [^xs-search-first] which covered their work on exploiting timing attacks to implement XS-Search attacks against Google and Microsoft. From there, more XS-Leak techniques were discovered and tested over time. Recently, browsers have been working on developing a variety of new standards that will make it easier to defend applications against XS-Leaks.
 
 ## About the wiki
 
-
-This wiki is meant to both introduce readers to XS-Leaks and serve as a reference guide to experienced researchers exploiting XS-Leaks. While this wiki contains information on many different techniques, new techniques are always emerging. Improvements, whether to add new techniques or improve existing pages, are always appreciated!
+This wiki is meant to both introduce readers to XS-Leaks and serve as a reference guide to experienced researchers exploiting XS-Leaks. While this wiki contains information on many different techniques, new techniques are always emerging. Improvements, whether to add new techniques or expand existing pages, are always appreciated!
 
 ## References
 [^side-channel]: Side Channel Vulnerabilities on the Web - Detection and Prevention, [link](https://owasp.org/www-pdf-archive/Side_Channel_Vulnerabilities.pdf)
