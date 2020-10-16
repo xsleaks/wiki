@@ -49,4 +49,5 @@ Advantages:
 1. Does not break caching
 
 Disadvantages:
-1. Fetch metadata is a new standard that is currently only supported in Chrome and Edge
+1. Fetch metadata is a new standard that is currently only supported in Chromium-based browsers (e.g. Chrome and Edge).
+2. Cross-site subresources loaded on the page will not be protected by the protection (e.g. subresources from CDNs)
