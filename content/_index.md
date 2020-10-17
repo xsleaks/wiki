@@ -47,22 +47,17 @@ In the above example, two websites on two different origins (*evil.com* and *ban
 
 ## Root Cause of XS-Leaks
 
-The root cause of most XS-Leaks is inherent to the design of the web. Oftentimes applications are vulnerable to some cross-site information leaks without having done anything wrong. Because it is hard [^hard-to-fix] to universally fix the root cause of XS-Leaks at the browser level, browsers are implementing various [Defense Mechanisms]({{< ref "defenses" >}}) that offer applications ways of mitigating some of the issues. Many of these mitigations are used via websites opting into a more restrictive security model, usually through certain HTTP headers (e.g. *[Cross-Origin-Opener-Policy]({{< ref "./docs/defenses/opt-in/coop.md">}}): same-origin*), which often times must be combined to achieve the desired outcome.
+The root cause of most XS-Leaks is inherent to the design of the web. Oftentimes applications are vulnerable to some cross-site information leaks without having done anything wrong. Because it is hard [^hard-to-fix] to universally fix the root cause of XS-Leaks at the browser level, browsers are implementing various [Defense Mechanisms]({{< ref "defenses" >}}) that offer applications ways of mitigating some of these issues. Many of these mitigations are used via websites opting into a more restrictive security model, usually through certain HTTP headers (e.g. *[Cross-Origin-Opener-Policy]({{< ref "./docs/defenses/opt-in/coop.md">}}): same-origin*), which often times must be combined to achieve the desired outcome.
 
 We can distinguish different sources of XS-Leaks, such as:
 
--   Browser APIs 
-    -   For example: [Frame Counting]({{< ref "frame-counting.md" >}}) and [Timing Attacks]({{< ref "timing-attacks.md" >}})
-
--   Browser Implementation Details and Bugs
-    -   For example: [Connection Pooling]({{< ref "./docs/attacks/timing-attacks/connection-pool.md" >}}) and [typeMustMatch]({{< ref "./docs/attacks/historical/content-type.md#typemustmatch" >}})
-
--   Hardware Bugs
-    -   For example: Speculative Execution Attacks [^spectre]
+1. Browser APIs (e.g. [Frame Counting]({{< ref "frame-counting.md" >}}) and [Timing Attacks]({{< ref "timing-attacks.md" >}}))
+2. Browser Implementation Details and Bugs (e.g. [Connection Pooling]({{< ref "./docs/attacks/timing-attacks/connection-pool.md" >}}) and [typeMustMatch]({{< ref "./docs/attacks/historical/content-type.md#typemustmatch" >}}))
+3. Hardware Bugs (e.g. Speculative Execution Attacks [^spectre])
 
 ## A little bit of history
 
-XS-Leaks have always been part of the web platform but have only gained attention in recent years [^old-wiki] as websites became more secure against more traditional classes of vulnerabilities. In 2015 Gelernter and Herzberg published "Cross-Site Search Attacks" [^xs-search-first] which covered their work on exploiting timing attacks to implement XS-Search attacks against Google and Microsoft. From there, more XS-Leak techniques were discovered and tested over time. Recently, browsers have been working on developing a variety of new standards that will make it easier to defend applications against XS-Leaks.
+XS-Leaks have always been part of the web platform but have gained attention in recent years [^old-wiki] as new techniques were found to increase their impact. [Timing attacks]({{< ref "network-timing.md" >}}) against the web have been discussed since at least [2000](https://dl.acm.org/doi/10.1145/352600.352606). In 2015 Gelernter and Herzberg published "Cross-Site Search Attacks" [^xs-search-first] which covered their work on exploiting timing attacks to implement high impact XS-Search attacks against Google and Microsoft. From there, more XS-Leak techniques were discovered and tested over time. Recently, browsers have been working on developing a variety of new standards that will make it easier to defend applications against XS-Leaks.
 
 ## About the wiki
 
@@ -78,4 +73,3 @@ This wiki is meant to both introduce readers to XS-Leaks and serve as a referenc
 [^old-wiki]: Browser Side Channels, [link](https://github.com/xsleaks/xsleaks/wiki/Browser-Side-Channels)
 [^xs-search-first]: Cross-Site Search Attacks, [link](https://446h.cybersec.fun/xssearch.pdf)
 [^spectre]: Meltdown and Spectre, [link](https://spectreattack.com/)
-
