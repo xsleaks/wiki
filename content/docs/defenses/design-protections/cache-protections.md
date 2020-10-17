@@ -45,9 +45,20 @@ Disadvantages:
 
 This is done by setting `Vary: Sec-Fetch-Site` on all resources you wish to protect. 
 
+{{< hint info >}}
+Assume we have the resource `cdn.example.com/image.png` that we wish to protect from cache probing attacks. If we set `Vary: Sec-Fetch-Site` on it,
+
+1. If `example.com` tries to load the resource, the reqest is initiated by the same site so it is cached under `(SFS: same-site, resource_url)`
+2. If `cdn.example.com` tries to load the resource, the reqest is initiated by the same origin so it is cached under `(SFS: same-origin, resource_url)`
+3. If `evil.com` tries to load the resource, the request is initiated by a different site so it is cached under `(SFS: cross-site, resource_url)`
+
+Note that this means cross-site requests are separated from same-site and same-origin requests. 
+{{< /hint >}}
+
 Advantages:
 1. Does not break caching
 
 Disadvantages:
-1. Fetch metadata is a new standard that is currently only supported in Chromium-based browsers (e.g. Chrome and Edge).
-2. Cross-site subresources loaded on the page will not be protected by the protection (e.g. subresources from CDNs)
+1. Fetch metadata is a new standard that is currently only supported in Chromium-based browsers (e.g. Chrome and Edge)
+2. Cross-site subresources loaded on the page will not be protected (e.g. subresources from CDNs)
+3. If third parties load the resource, they will not be protected 
