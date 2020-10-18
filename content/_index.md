@@ -28,7 +28,7 @@ In the latter case, the underneath oracle is:
 
 which answers *YES* if `<QUERY>` exists in the results and *NO* if it doesn't. Because it is possible to detect *HTTP200* status code with [Error Event]({{< ref "./docs/attacks/error-events.md" >}}) XS-Leaks, it also forms the equivalent oracle: 
 
-> Does the query `<QUERY>` trigger *onload* event?.
+> Does the query `<QUERY>` trigger *onload* event?
  
 which could be abused by attackers to infer sensitive information about the user from a cross-site website.   
 
