@@ -24,7 +24,7 @@ In a vulnerable application, the above question might be equivalent to:
 
 In the latter case, the underneath oracle is: 
 
-> Does the query `<QUERY>` return *HTTP200*? 
+> Does the query `<QUERY>` return *HTTP200* status code? 
 
 which answers *YES* if `<QUERY>` exists in the results and *NO* if it doesn't. Because it is possible to detect *HTTP200* status code with [Error Event]({{< ref "./docs/attacks/error-events.md" >}}) XS-Leaks, it also forms the equivalent oracle: 
 
