@@ -64,11 +64,10 @@ XS-Leaks have always been part of the web platform but have gained attention in 
 This wiki is meant to both introduce readers to XS-Leaks and serve as a reference guide to experienced researchers exploiting XS-Leaks. While this wiki contains information on many different techniques, new techniques are always emerging. Improvements, whether to add new techniques or expand existing pages, are always appreciated!
 
 ## References
-[^side-channel]: Side Channel Vulnerabilities on the Web - Detection and Prevention, [link](https://owasp.org/www-pdf-archive/Side_Channel_Vulnerabilities.pdf)
-[^csrf]: Cross Site Request Forgery (CSRF), [link](https://owasp.org/www-community/attacks/csrf)
-[^browser-features]: These features might be maintained to preserve backwards compatibility, though, sometimes new features are added to browsers regardless of the introduction of potential cross-site leaks [^STTF] as the benefits are considered to outweigh the downsides.
-[^STTF]: One of the examples for a feature with an accepted risk is [Scroll to Text Fragment]({{< ref "scroll-to-text-fragment.md" >}})
-[^harmless]: Websites being able to interact and include resources from each other is a key part of how the web works. For example, many websites allow users to post content that includes images embedded from elsewhere on the web. Fundamentally, this is an intended behavior of the web. But, over time the downsides of this sort of interaction have become better understood.
-[^old-wiki]: Browser Side Channels, [link](https://github.com/xsleaks/xsleaks/wiki/Browser-Side-Channels)
-[^xs-search-first]: Cross-Site Search Attacks, [link](https://446h.cybersec.fun/xssearch.pdf)
-[^spectre]: Meltdown and Spectre, [link](https://spectreattack.com/)
+[^side-channel]: Side Channel Vulnerabilities on the Web - Detection and Prevention, [link](https://owasp.org/www-pdf-archive/Side_Channel_Vulnerabilities.pdf)  
+[^csrf]: Cross Site Request Forgery (CSRF), [link](https://owasp.org/www-community/attacks/csrf)  
+[^browser-features]: These features might be maintained to preserve backwards compatibility, though, sometimes new features are added to browsers regardless of the introduction of potential cross-site leaks (e.g. [Scroll to Text Fragment]({{< ref "scroll-to-text-fragment.md" >}})) as the benefits are considered to outweigh the downsides.  
+[^harmless]: Websites being able to interact and include resources from each other is a key part of how the web works. For example, many websites allow users to post content that includes images embedded from elsewhere on the web. Fundamentally, this is an intended behavior of the web. But, over time the downsides of this sort of interaction have become better understood.  
+[^old-wiki]: Browser Side Channels, [link](https://github.com/xsleaks/xsleaks/wiki/Browser-Side-Channels)  
+[^xs-search-first]: Cross-Site Search Attacks, [link](https://446h.cybersec.fun/xssearch.pdf)  
+[^spectre]: Meltdown and Spectre, [link](https://spectreattack.com/)  
