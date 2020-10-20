@@ -30,7 +30,7 @@ Deploying a combination of opt-in defense mechanisms should be the default strat
 When using any mitigations that rely on browser support, be sure to check that they are well supported by your customer's browsers. For example, fetch metadata headers are a great tool but are currently only supported in Chromium based browsers. Check [MDN](https://developer.mozilla.org/en-US/) for up to date information on browser support for different standards. 
 {{< /hint >}}
 
-## Browser Defaults
+## Secure Defaults
 
 Browsers vendors are actively working on changing [default behaviors]({{< ref "secure-defaults/_index.md" >}}) to help mitigate some of the XS-Leaks mentioned in this wiki. Changing default behaviors is a balancing act between improving security and preserving backwards compatibility. 
 
