@@ -23,7 +23,7 @@ If possible, it is recommended to set `same-origin`. If you set `same-origin-all
 
 ## Considerations
 
-Since COOP is an opt-in mechanism and a very recent one, it can easily be overlooked by developers and security engineers. Nonetheless, it’s important to highlight the importance of this defense mechanism as it is the only way to prevent attackers from exploiting XS-Leaks which makes use of window references returned by APIs like `window.open` (unless Same-Site Cookies Strict Mode can be widely deployed).
+Since COOP is an opt-in mechanism and a very recent one, it can easily be overlooked by developers and security engineers. Nonetheless, it’s important to highlight the importance of this defense mechanism as it is the only way to prevent attackers from exploiting XS-Leaks which makes use of window references returned by APIs like `window.open` (unless Same-Site Cookies in the Strict Mode can be widely deployed).
 
 ## Deployment
 

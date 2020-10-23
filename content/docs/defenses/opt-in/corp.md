@@ -12,8 +12,8 @@ Cross-Origin Resource Policy (CORP) is a web platform security feature that allo
 
 If an application sets a certain resource CORP Header as same-site or same-origin, an attacker origin is incapable of reading that resource. This is a very strong and highly encouraged protection. 
 
-{{< hint good >}}
-[Cross-Origin Read Blocking (CORB)]({{< ref "../browser-default/corb.md" >}}), a similar protection, is default browser mechanism based on heuristics to prevent attackers from loading certain cross-origin resources in certain scenarios.
+{{< hint warning >}}
+CORP does not protect against navigational requests. This means that in browsers that do not support out-of-process iframes, a CORP protected resource may still end up in another origin's process if [framing protections]({{< ref "../opt-in/xfo.md" >}}) are not used. 
 {{< /hint >}}
 
 {{< hint warning >}}

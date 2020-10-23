@@ -23,16 +23,16 @@ It is very difficult to use application design techniques to block every XS-Leak
 These [defense mechanisms]({{< ref "opt-in/_index.md" >}}) allow applications to address classes of similar XS-Leaks at the same time. These protections can either allow applications to change the behavior of the browser or provide additional information that applications can use to change their own behavior. 
 
 {{< hint good >}}
-Deploying a combination of [opt-in defense mechanisms]({{< ref "opt-in/_index.md" >}}) should be the default strategy. Not only do they protect against XS-Leaks but also against other vulnerabilities such as XSSI, Clickjacking, CSRF, etc.
+Deploying a combination of opt-in defense mechanisms should be the default strategy. Not only do they protect against XS-Leaks but also against other vulnerabilities such as XSSI, Clickjacking, CSRF, etc.
 {{< /hint >}}
 
 {{< hint warning >}}
 When using any mitigations that rely on browser support, be sure to check that they are well supported by your customer's browsers. For example, fetch metadata headers are a great tool but are currently only supported in Chromium based browsers. Check [MDN](https://developer.mozilla.org/en-US/) for up to date information on browser support for different standards. 
 {{< /hint >}}
 
-## Browser Default
+## Secure Defaults
 
-Browsers vendors are actively working on changing [default behaviors]({{< relref "_index.md#browser-default" >}}) to help mitigate some of the XS-Leaks mentioned in this wiki. Changing default behavior is a balancing act between improving security and preserving backwards compatibility. 
+Browsers vendors are actively working on changing [default behaviors]({{< ref "secure-defaults/_index.md" >}}) to help mitigate some of the XS-Leaks mentioned in this wiki. Changing default behaviors is a balancing act between improving security and preserving backwards compatibility. 
 
 {{< hint good >}}
 Secure defaults are amazing! They can help protect applications and users without any additional effort from developers. But note that they're unlikely to completely prevent XS-Leaks. 

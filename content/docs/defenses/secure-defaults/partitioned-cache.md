@@ -8,12 +8,10 @@ category = [
 menu = "main"
 +++
 
-[Cache probing attacks]({{< ref "../../attacks/cache-probing.md" >}}) have been present on the web for a long time. Cache probing relies on the fact that browsers' HTTP cache is shared across all the websites visited by a user.
-
-Browsers are actively working on implementing a partitioned HTTP cache that would in essence ensure each website has a distinct cache. This is done via using tuples (either `(top-frame-site, resource-url)` or `(top-frame-site, framing-site, resource-url)`) as the cache keys to ensure the cache is partitioned by the requesting site. This makes it more challenging for attackers to interact with the cached contents of different sites [^1] [^2] [^3]. Safari currently ships a partitioned cache [^4] while Chrome and Firefox are both actively working on implementing this [^5] [^6]. 
+In order to defend against cache probing attacks, browsers are actively working on implementing a partitioned HTTP cache that would in essence ensure each website has a distinct cache. Since cache probing relies on the fact that browsers' HTTP cache is shared across every website, this can defend against many cache probing techniques. This is done by using tuples (either `(top-frame-site, resource-url)` or `(top-frame-site, framing-site, resource-url)`) as the cache keys to ensure the cache is partitioned by the requesting site. This makes it more challenging for attackers to interact with the cached contents of different sites [^1] [^2] [^3]. Safari currently ships a partitioned cache [^4] while Chrome and Firefox are both actively working on implementing this [^5] [^6]. 
 
 {{< hint good >}}
-In browsers that don't use partitioned caches, applications can use the [`Vary` header combined with Fetch-Metadata]({{< ref "../opt-in/fetch-metadata.md" >}}) to prevent cross-origin fetches from using the same cache. Pages can also be [designed]({{< ref "../design-protections/subresource-protections.md" >}}) to require some level of user interaction in order to defend against cache probing attacks. 
+In browsers that don't use partitioned caches, there are [other defenses]({{< ref "../design-protections/cache-protections.md" >}}) that applications can deploy to defend against cache probing techniques. Pages can also be [designed]({{< ref "../design-protections/subresource-protections.md" >}}) to require some level of user interaction in order to defend against cache probing attacks. 
 {{< /hint >}}
 
 ## Other Relevant Projects
