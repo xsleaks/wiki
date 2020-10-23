@@ -8,7 +8,7 @@ menu = "main"
 
 Cross-Origin Read Blocking (CORB) is a security mechanism that prevents attackers from loading certain cross-origin resources [^1]. This protection was created to defend against speculative side-channel attacks such as Spectre that allow attackers to read the memory of their own process. CORB aims to prevent attackers from loading certain sensitive cross-origin resources into an attacker controlled process. For example, if the attacker tries to load cross-origin HTML, XML, or JSON into an `img` tag, CORB will prevent this from happening. With CORB, it will be treated as though the server returned no data. 
 
-CORB is important both for defending against XS-Leaks and for defending against Spectre attacks. 
+CORB is important for defending against XS-Leaks, especially Spectre-like attacks. 
 
 To classify resources, CORB uses the `Content-Type` header, the `nosniff` header, and a variety of other heuristics. 
 
