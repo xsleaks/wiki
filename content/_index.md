@@ -47,7 +47,7 @@ In the above example, two websites on two different origins (*evil.com* and *ban
 
 ## Root Cause of XS-Leaks
 
-The root cause of most XS-Leaks is inherent to the design of the web. Oftentimes applications are vulnerable to some cross-site information leaks without having done anything wrong. It is challenging to fix the root cause of XS-Leaks at the browser level because in many cases doing so would break existing websites so browsers are implementing various [Defense Mechanisms]({{< ref "defenses" >}}) to counter that. Many of these defenses are used via websites opting into a more restrictive security model, usually through certain HTTP headers (e.g. *[Cross-Origin-Opener-Policy]({{< ref "./docs/defenses/opt-in/coop.md">}}): same-origin*), which often times must be combined to achieve the desired outcome.
+The root cause of most XS-Leaks is inherent to the design of the web. Oftentimes applications are vulnerable to some cross-site information leaks without having done anything wrong. It is challenging to fix the root cause of XS-Leaks at the browser level because in many cases doing so would break existing websites so browsers are implementing various [Defense Mechanisms]({{< ref "defenses" >}}) to overcome these difficulties. Many of these defenses are used via websites opting into a more restrictive security model, usually through certain HTTP headers (e.g. *[Cross-Origin-Opener-Policy]({{< ref "./docs/defenses/opt-in/coop.md">}}): same-origin*), which often times must be combined to achieve the desired outcome.
 
 We can distinguish different sources of XS-Leaks, such as:
 
