@@ -8,7 +8,7 @@ category = [
 menu = "main"
 +++
 
-Cross-Origin Resource Policy (CORP) is a web platform security feature that allows websites to prevent certain resources from being loaded by other origins. This protection complements CORB since it is an opt-in defense whereas CORB blocks some cross-origin reads by default. It is designed to protect against both speculative execution attacks and XS-Leaks by allowing developers to ensure that sensitive resources cannot end up in attacker controlled processes. Unlike CORB, this protection is enforced in the browser only if an application **opts in to the protection**. Applications can define which groups of origins (same-site, same-origin, cross-site) are allowed to read their resources.
+Cross-Origin Resource Policy (CORP) is a web platform security feature that allows websites to prevent certain resources from being loaded by other origins. This protection complements CORB since it is an opt-in defense whereas CORB blocks some cross-origin reads by default. It is designed to protect against both speculative execution attacks and XS-Leaks by allowing developers to ensure that sensitive resources cannot end up in attacker controlled processes. Unlike CORB, this protection is enforced in the browser only if an application opts in to the protection. Applications can define which groups of origins (same-site, same-origin, cross-site) are allowed to read their resources.
 
 If an application sets a certain resource CORP Header as same-site or same-origin, an attacker origin is incapable of reading that resource. This is a very strong and highly encouraged protection. 
 
