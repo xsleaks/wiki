@@ -18,7 +18,7 @@ Fetch metadata headers will be only attached to encrypted (HTTPS) requests for s
 
 ## Fetch Metadata vs. Same-Site cookies
 
-Fetchmetadata headers can be used to extend the functionality of Same-Site cookies, both `Lax` and `Strict`. While both Fetch Metadata headers and Same-Site cookies can reject cross-site requests only Fetch Metadata can perform informed decision based on factors like:
+Fetchmetadata headers can be used to extend the functionality of Same-Site cookies, both `Lax` and `Strict`. While both Fetch Metadata headers and Same-Site cookies can be used to reject cross-site requests only Fetch Metadata can perform informed decisions based on factors like:
 * Was the request cross-site or same-site?
 * How the request was initiated? (e.g. fetch, script, top navigation)
 * Was the request initiated by the user interaction or browser?
