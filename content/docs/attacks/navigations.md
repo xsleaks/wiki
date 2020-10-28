@@ -32,7 +32,7 @@ To detect ifany kind of navigation occurred, an attacker can:
 
 ## Download Trigger
 
-When endpoints sets the [`Content-Disposition: attachment`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition) header, it instructs the browser to download the response as an attachment instead of navigating to it. Detecting if this behavior occurred might allow attackers to leak private information if outcome depends on the state of the victim's account.
+When endpoint sets the [`Content-Disposition: attachment`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition) header, it instructs the browser to download the response as an attachment instead of navigating to it. Detecting if this behavior occurred might allow attackers to leak private information if outcome depends on the state of the victim's account.
 
 ### Download bar
 
