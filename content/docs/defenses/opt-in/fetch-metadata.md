@@ -21,7 +21,8 @@ Fetch metadata headers will be only attached to encrypted (HTTPS) requests for s
 Fetchmetadata headers can be used to extend the functionality of Same-Site cookies, both `Lax` and `Strict`. While both Fetch Metadata headers and Same-Site cookies can be used to reject cross-site requests only Fetch Metadata can perform informed decisions based on factors like:
 * Was the request cross-site or same-site?
 * How the request was initiated? (e.g. fetch, script, top navigation)
-* Was the request initiated by the user interaction or browser?
+* Was the request initiated by the user interaction on a website?
+* Was the request initiated by the browser (e.g. entering the URL directly in the omnibox)?
 
 This allows for more reliable deployment of protections in scenarios where Same-Site cookies could break service functionalities. One disadvantage of Fetchmetadata compared to Same-Site cookies is that the latter can also protect unencrypted requests (HTTP) while the former can't.
 
