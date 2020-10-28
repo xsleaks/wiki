@@ -24,7 +24,7 @@ Fetchmetadata headers can be used to extend the functionality of Same-Site cooki
 * Was the request initiated by the user interaction on a website?
 * Was the request initiated by the browser (e.g. entering the URL directly in the omnibox)?
 
-This allows for more reliable deployment of protections in scenarios where Same-Site cookies could break service functionalities. One disadvantage of Fetch Metadata compared to Same-Site cookies is that the latter can also protect unencrypted requests (HTTP) while the former can't.
+This allows for more reliable deployment of protections in scenarios where Same-Site cookies could break service's functionalities. One disadvantage of Fetch Metadata compared to Same-Site cookies is that the latter can also protect unencrypted requests (HTTP) while the former can't.
 
 {{< hint warning >}}
 In _Defense_ sections we often assume that the service runs on HTTPS, and therefore, the protection can be applied.
