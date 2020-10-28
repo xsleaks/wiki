@@ -29,10 +29,10 @@ Error events can be thrown from a large variety of HTML tags, and some behaviors
 The principle of leaking information with error events can be abstracted and applied to a variety of XS-Leaks. For example one technique for [Cache Probing]({{< ref "cache-probing.md" >}}) uses Error Events to detect if a certain image was cached by the browser.
 
 ## Code snippet
-The below snippet demonstrates how the Error Event can be detected with `<script>` tag.
+The below snippet demonstrates how an Error Event can be detected with the `<script>` tag.
 
 ```javascript
-function probeError(url){
+function probeError(url) {
   let script = document.createElement('script');
   script.src = url;
   script.onload = () => console.log('Onload event triggered');

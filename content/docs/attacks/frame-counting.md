@@ -32,10 +32,10 @@ The below snippet demonstrates how to access the information about the number of
 var win = window.open('https://example.org');
 
 // Wait for the page to load
-setTimeout(()=>{
+setTimeout(() => {
   // Read the number of iframes loaded
   console.log("%d iframes detected", win.length);
-},2000);
+}, 2000);
 ```
 
 ## Attack alternatives

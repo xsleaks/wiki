@@ -42,12 +42,12 @@ In Chromium-based browsers when a file is downloaded, a preview of the download 
 ```javascript
 // Read the current height of the window
 var screenHeight = window.innerHeight;
-// Load the page that will or will not trigger the download
+// Load the page that may or may not trigger the download
 window.open('https://example.org');
-// Wait for a tab to load
+// Wait for the tab to load
 setTimeout(() => {
     // If the download bar appears, the height of all tabs will be smaller
-    if (window.innerHeight !== screenHeight) {
+    if (window.innerHeight < screenHeight) {
       console.log('Download bar detected');
     } else {
       console.log('Download bar not detected');
@@ -56,14 +56,14 @@ setTimeout(() => {
 ```
 
 {{< hint warning >}}
-This attack is only possible in Chromium-based browsers with automatic downloads enabled. The attack can't be also repeated since the user needs to close the download bar for it to be measureable again.
+This attack is only possible in Chromium-based browsers with automatic downloads enabled. The attack can't be also repeated since the user needs to close the download bar for it to be measurable again.
 {{< /hint >}}
 
 ### Download Navigation (with iframes)
 
 Another way to test for the [`Content-Disposition: attachment`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition) header is to check if a navigation occurred. If a page load causes a download, it will not trigger a navigation and the window will stame within the same origin.
 
-The following snippet can be used to detect whether such navigation has occured.
+The following snippet can be used to detect whether such a navigation has occurred.
 
 ```javascript
 // Set the destination URL
@@ -78,7 +78,8 @@ iframe.srcdoc = `
     // When window loads check if the inner iframe is same origin.
     onload = () => {
       try {
-          inner.name; // if the navigations occurs it will throw an exception
+          // If a navigation occurs, the iframe will be cross-origin so accessing "inner.name" will throw an exception
+          inner.name;
           parent.console.log('Download attempt detected');
       } catch(e) {
           parent.console.log('No download attempt detected');
@@ -88,30 +89,31 @@ iframe.srcdoc = `
 ```
 
 {{< hint info >}}
-This attack will work regardless of the [Framing Protections]({{< ref "xfo" >}}), because the `X-Frame-Options` and `Content-Security-Policy` headers are ignored in case of `Content-Disposition` being present.
+This attack will work regardless of any [Framing Protections]({{< ref "xfo" >}}), because the `X-Frame-Options` and `Content-Security-Policy` headers are ignored if `Content-Disposition: attachment` is specified.
 {{< /hint >}}
 
 The technique works as follows:
 
 1. Include an inner `iframe` inside an outer `iframe` and point it to the destination resource.
 2. If the embedded resource triggers a download the origin of the inner `iframe` will remain as its parent, otherwise, it will change to `https://example.org`.
-3. Because the `window.onload` event listener triggers when all the resources has been loaded (including iframes), no timing is needed to determine when the iframe finished loading.
+3. The outer iframe can detected when the inner iframe has finished loading using `window.onload` which triggers when all resources have finished loading
 4. When the window loaded, the outer iframes tests whether the inner iframe stayed the same origin.
 
 ### Download Navigation (without iframes)
 
-A variation of the technique presented in the previous section can be also effectively tested using windows.
+A variation of the technique presented in the previous section can also be effectively tested using `window` objects.
 
 ```javascript
 // Set the destination URL
 var url = 'https://example.org';
 // Get a window reference
-var win = windowp.open(url);
+var win = window.open(url);
 
 // Wait for the window to load.
 setTimeout(() => {
       try {
-          win.name; // if the navigations occurs it will throw an exception
+          // If a navigation occurs, the iframe will be cross-origin so accessing "win.name" will throw an exception
+          win.name;
           parent.console.log('Download attempt detected');
       } catch(e) {
           parent.console.log('No download attempt detected');
@@ -126,7 +128,7 @@ setTimeout(() => {
 A server-side redirect can be detected from a cross-origin page if the destination URL increases in size and contains an attacker controlled input (either in the form of a query string parameter or a path). The following technique relies on the fact that it is possible to induce an error in most web-servers by generating big requests parameters/paths. Since the redirect increases the size of the URL, it can be detected by sending exactly one character less than the server maximum capacity. That way if the size increases the server will respond with an error that can be detected from a cross-origin page (eg via Error Events).
 
 {{< hint info >}}
-The example of this attack was implemented [here](https://xsleaks.github.io/xsleaks/examples/redirect/).
+An example of this attack can be seen [here](https://xsleaks.github.io/xsleaks/examples/redirect/).
 {{< /hint >}}
 ## Cross-Origin Redirects
 
@@ -143,7 +145,7 @@ The example below will trigger a `SecurityPolicyViolationEvent` if the website s
 <script>
 // Listen for a CSP violation event
 document.addEventListener('securitypolicyviolation', () => {
-  console.log("redirected");
+  console.log("Detected a redirect to somewhere other than example.org");
 });
 // Try to fetch example.org. If it redirects to anoter cross-site website
 // it will trigger a CSP violation event
