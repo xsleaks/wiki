@@ -16,14 +16,17 @@ Websites interacting with each other is core to the behavior of the web. Browser
 
 These pieces of information usually have a binary form and are called oracles. These oracles usually answer with *YES* and *NO* to cleverly prepared questions. For example, such an oracle could be asked:
 
-> Does the word *existent* exist in the search results?
+> Does the word *secret* exist in the search results?
 
-In a vulnerable application, the above might be equivalent to:
+In a vulnerable application, the above question might be equivalent to asking:
 
-> Does the query *?query=existent* return HTTP200 status code while the query *query=non-existent* does not?"
+> Does the query *?query=secret* return *HTTP200* status code?"
 
-The latter oracle could be formed from an [Error Event]({{< ref "./docs/attacks/error-events.md" >}}) XS-Leak and which could be abused by attackers to infer information about the user.
+Since it is possible to detect *HTTP200* status code with [Error Events]({{< ref "./docs/attacks/error-events.md" >}}), this has the same effect as asking:
 
+> Does the query *?query=secret* trigger the *onload* event?
+
+The above query could be repeated by an attacker for many different keywords and with that, used to infer sensitive information about the user from a cross-site website.
 
 Browsers provide a wide range of different APIs that, while well-intended, can end up leaking small amounts of cross-origin information.
 
