@@ -18,19 +18,15 @@ These pieces of information usually have a binary form and are called oracles. T
 
 > Does the word *secret* exist in the search results?
 
-In a vulnerable application, the above question might be equivalent to:
+In a vulnerable application, the above question might be equivalent to asking:
 
 > Does the query *?query=secret* return *HTTP200* status code?"
 
-In the latter case, the underneath oracle is: 
+Since it is possible to detect *HTTP200* status code with [Error Events]({{< ref "./docs/attacks/error-events.md" >}}), this has the same effect as asking:
 
-> Does the query `<QUERY>` return *HTTP200* status code? 
+> Does the query *?query=secret* trigger the *onload* event?
 
-which answers *YES* if `<QUERY>` exists in the results and *NO* if it doesn't. Because it is possible to detect *HTTP200* status code with [Error Event]({{< ref "./docs/attacks/error-events.md" >}}) XS-Leaks, it also forms the equivalent oracle: 
-
-> Does the query `<QUERY>` trigger *onload* event?
- 
-which could be abused by attackers to infer sensitive information about the user from a cross-site website.   
+The above query could be repeated by an attacker for many different keywords and with that, used to infer sensitive information about the user from a cross-site website.
 
 Browsers provide a wide range of different APIs that, while well-intended, can end up leaking small amounts of cross-origin information.
 
