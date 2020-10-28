@@ -20,7 +20,7 @@ weight = 2
 +++
 
 
-When a webpage issues a request to a server (e.g fetch, HTML tags), this request will be received and processed by that server. When received the server will decide whether the request should succeed (e.g 200) or fail (e.g 404) based on the provided context. When a response has an error status an [error event](https://developer.mozilla.org/en-US/docs/Web/API/Element/error_event) will be fired by the browser for the page to handle. These errors are also extended to situations where the parser fails, for example, trying to embed `HTML` content as an image. 
+When a webpage issues a request to a server (e.g fetch, HTML tags), this request will be received and processed by that server. When received the server will decide whether the request should succeed (e.g 200) or fail (e.g 404) based on the provided context. When a response has an error status an [error event](https://developer.mozilla.org/en-US/docs/Web/API/Element/error_event) will be fired by the browser for the page to handle. These errors are also extended to situations where the parser fails, for example, trying to embed `HTML` content as an image.
 
 For example, attackers can detect whether a user is logged into a service by checking if the user has access to resources only available to authenticated users [^3]. The impact of this XS-Leak varies depending on the application but it can lead to sophisticated attacks with the ability to deanonymize users [^1].
 
@@ -28,9 +28,27 @@ Error events can be thrown from a large variety of HTML tags, and some behaviors
 
 The principle of leaking information with error events can be abstracted and applied to a variety of XS-Leaks. For example one technique for [Cache Probing]({{< ref "cache-probing.md" >}}) uses Error Events to detect if a certain image was cached by the browser.
 
+## Code snippet
+The below snippet demonstrates how the Error Event can be detected with `<script>` tag.
+
+```javascript
+function probeError(url){
+  let script = document.createElement('script');
+  script.src = url;
+  script.onload = () => console.log('Onload event triggered');
+  script.onerror = () => console.log('Error event triggered');
+  document.head.appendChild(script);
+}
+// because google.com/404 returns HTTP 404, the script triggers error event
+probeError('https://google.com/404');
+
+// because google.com returns HTTP 200, the script triggers onload event
+probeError('https://google.com/');
+```
+
 ## Defense
 
-The mitigation of this XS-Leak often varies on how applications handle certain resources and ends in the adoption of consistent behaviors as much as possible. In specific scenarios, applications might use [Subresource Protections]({{< ref "../defenses/design-protections/subresource-protections.md" >}}) to prevent attackers from predicting an URL and go forward with an attack. 
+The mitigation of this XS-Leak often varies on how applications handle certain resources and ends in the adoption of consistent behaviors as much as possible. In specific scenarios, applications might use [Subresource Protections]({{< ref "../defenses/design-protections/subresource-protections.md" >}}) to prevent attackers from predicting an URL and go forward with an attack.
 
 Finally, without applying bigger changes in the logic of applications, generic web platform security features could be deployed to mitigate this XS-Leak at a larger scale.
 
