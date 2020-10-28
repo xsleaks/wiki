@@ -16,14 +16,17 @@ Websites interacting with each other is core to the behavior of the web. Browser
 
 These pieces of information usually have a binary form and are called oracles. These oracles usually answer with *YES* and *NO* to cleverly prepared questions. For example, such an oracle could be asked:
 
-> Does the word *existent* exist in the search results?
+> Does the word *secret* exist in the search results?
 
-In a vulnerable application, the above might be equivalent to:
+In a vulnerable application, the above question might be equivalent to asking:
 
-> Does the query *?query=existent* return HTTP200 status code while the query *query=non-existent* does not?"
+> Does the query *?query=secret* return *HTTP200* status code?"
 
-The latter oracle could be formed from an [Error Event]({{< ref "./docs/attacks/error-events.md" >}}) XS-Leak and which could be abused by attackers to infer information about the user.
+Since it is possible to detect *HTTP200* status code with [Error Events]({{< ref "./docs/attacks/error-events.md" >}}), this has the same effect as asking:
 
+> Does the query *?query=secret* trigger the *onload* event?
+
+The above query could be repeated by an attacker for many different keywords and with that, used to infer sensitive information about the user from a cross-site website.
 
 Browsers provide a wide range of different APIs that, while well-intended, can end up leaking small amounts of cross-origin information.
 
@@ -47,7 +50,7 @@ In the above example, two websites on two different origins (*evil.com* and *ban
 
 ## Root Cause of XS-Leaks
 
-The root cause of most XS-Leaks is inherent to the design of the web. Oftentimes applications are vulnerable to some cross-site information leaks without having done anything wrong. It is challenging to fix the root cause of XS-Leaks at the browser level because in many cases doing so would break existing websites so browsers are implementing various [Defense Mechanisms]({{< ref "defenses" >}}) that offer applications ways of mitigating some of these issues. Many of these mitigations are used via websites opting into a more restrictive security model, usually through certain HTTP headers (e.g. *[Cross-Origin-Opener-Policy]({{< ref "./docs/defenses/opt-in/coop.md">}}): same-origin*), which often times must be combined to achieve the desired outcome.
+The root cause of most XS-Leaks is inherent to the design of the web. Oftentimes applications are vulnerable to some cross-site information leaks without having done anything wrong. It is challenging to fix the root cause of XS-Leaks at the browser level because in many cases doing so would break existing websites so browsers are implementing various [Defense Mechanisms]({{< ref "defenses" >}}) to overcome these difficulties. Many of these defenses are used via websites opting into a more restrictive security model, usually through certain HTTP headers (e.g. *[Cross-Origin-Opener-Policy]({{< ref "./docs/defenses/opt-in/coop.md">}}): same-origin*), which often times must be combined to achieve the desired outcome.
 
 We can distinguish different sources of XS-Leaks, such as:
 
@@ -64,11 +67,10 @@ XS-Leaks have always been part of the web platform but have gained attention in 
 This wiki is meant to both introduce readers to XS-Leaks and serve as a reference guide to experienced researchers exploiting XS-Leaks. While this wiki contains information on many different techniques, new techniques are always emerging. Improvements, whether to add new techniques or expand existing pages, are always appreciated!
 
 ## References
-[^side-channel]: Side Channel Vulnerabilities on the Web - Detection and Prevention, [link](https://owasp.org/www-pdf-archive/Side_Channel_Vulnerabilities.pdf)
-[^csrf]: Cross Site Request Forgery (CSRF), [link](https://owasp.org/www-community/attacks/csrf)
-[^browser-features]: These features might be maintained to preserve backwards compatibility, though, sometimes new features are added to browsers regardless of the introduction of potential cross-site leaks [^STTF] as the benefits are considered to outweigh the downsides.
-[^STTF]: One of the examples for a feature with an accepted risk is [Scroll to Text Fragment]({{< ref "scroll-to-text-fragment.md" >}})
-[^harmless]: Websites being able to interact and include resources from each other is a key part of how the web works. For example, many websites allow users to post content that includes images embedded from elsewhere on the web. Fundamentally, this is an intended behavior of the web. But, over time the downsides of this sort of interaction have become better understood.
-[^old-wiki]: Browser Side Channels, [link](https://github.com/xsleaks/xsleaks/wiki/Browser-Side-Channels)
-[^xs-search-first]: Cross-Site Search Attacks, [link](https://446h.cybersec.fun/xssearch.pdf)
-[^spectre]: Meltdown and Spectre, [link](https://spectreattack.com/)
+[^side-channel]: Side Channel Vulnerabilities on the Web - Detection and Prevention, [link](https://owasp.org/www-pdf-archive/Side_Channel_Vulnerabilities.pdf)  
+[^csrf]: Cross Site Request Forgery (CSRF), [link](https://owasp.org/www-community/attacks/csrf)  
+[^browser-features]: These features might be maintained to preserve backwards compatibility, though, sometimes new features are added to browsers regardless of the introduction of potential cross-site leaks (e.g. [Scroll to Text Fragment]({{< ref "scroll-to-text-fragment.md" >}})) as the benefits are considered to outweigh the downsides.  
+[^harmless]: Websites being able to interact and include resources from each other is a key part of how the web works. For example, many websites allow users to post content that includes images embedded from elsewhere on the web. Fundamentally, this is an intended behavior of the web. But, over time the downsides of this sort of interaction have become better understood.  
+[^old-wiki]: Browser Side Channels, [link](https://github.com/xsleaks/xsleaks/wiki/Browser-Side-Channels)  
+[^xs-search-first]: Cross-Site Search Attacks, [link](https://446h.cybersec.fun/xssearch.pdf)  
+[^spectre]: Meltdown and Spectre, [link](https://spectreattack.com/)  
