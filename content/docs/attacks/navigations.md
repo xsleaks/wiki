@@ -61,43 +61,37 @@ This attack is only possible in Chromium-based browsers with automatic downloads
 
 ### Download Navigation (with iframes)
 
-Another way to test for the [`Content-Disposition: attachment`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition) header is to check if a navigation occurred. If a page load causes a download, it will not trigger a navigation and the window will stame within the same origin.
+Another way to test for the [`Content-Disposition: attachment`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition) header is to check if a navigation occurred. If a page load causes a download, it will not trigger a navigation and the window will stay within the same origin.
 
-The following snippet can be used to detect whether such a navigation has occurred.
+The following snippet can be used to detect whether such a navigation has occurred and therefore detect a download attempt.
 
 ```javascript
-// Set the destination URL
-var url = 'https://example.org';
-// Create an outer iframe
+// Set the destination URL to test for the download attempt
+var url = 'https://example.org/';
+// Create an outer iframe to measure onload event
 var iframe = document.createElement('iframe');
 document.body.appendChild(iframe);
-iframe.srcdoc = `
-  <!-- Create an inner iframe -->
-  <iframe name="inner" src="${url}" ></iframe>
-  <script>
-    // When window loads check if the inner iframe is same origin.
-    onload = () => {
+// Create an inner iframe to test for the download attempt
+iframe.srcdoc = `<iframe src="${url}" ></iframe>`;
+iframe.onload = () => {
       try {
-          // If a navigation occurs, the iframe will be cross-origin so accessing "inner.name" will throw an exception
-          inner.name;
-          parent.console.log('Download attempt detected');
+          // If a navigation occurs, the iframe will be cross-origin,
+          // so accessing "inner.origin" will throw an exception
+          iframe.contentWindow.frames[0].origin;
+          console.log('Download attempt detected');
       } catch(e) {
-          parent.console.log('No download attempt detected');
+          console.log('No download attempt detected');
       }
-    }
-  </script>`;
+}
 ```
+
+{{< hint info >}}
+When there is no navigation inside an iframe caused by a download attempt the iframe will not trigger an `onload` event directly. Because of that, in the example above, an outer iframe was used instead, that listens for `onload` event which triggers when subresources finished loading, including iframes.
+{{< /hint >}}
 
 {{< hint info >}}
 This attack will work regardless of any [Framing Protections]({{< ref "xfo" >}}), because the `X-Frame-Options` and `Content-Security-Policy` headers are ignored if `Content-Disposition: attachment` is specified.
 {{< /hint >}}
-
-The technique works as follows:
-
-1. Include an inner `iframe` inside an outer `iframe` and point it to the destination resource.
-2. If the embedded resource triggers a download the origin of the inner `iframe` will remain as its parent, otherwise, it will change to `https://example.org`.
-3. The outer iframe can detected when the inner iframe has finished loading using `window.onload` which triggers when all resources have finished loading
-4. When the window loaded, the outer iframes tests whether the inner iframe stayed the same origin.
 
 ### Download Navigation (without iframes)
 
@@ -112,8 +106,9 @@ var win = window.open(url);
 // Wait for the window to load.
 setTimeout(() => {
       try {
-          // If a navigation occurs, the iframe will be cross-origin so accessing "win.name" will throw an exception
-          win.name;
+          // If a navigation occurs, the iframe will be cross-origin,
+          // so accessing "win.origin" will throw an exception
+          win.origin;
           parent.console.log('Download attempt detected');
       } catch(e) {
           parent.console.log('No download attempt detected');
