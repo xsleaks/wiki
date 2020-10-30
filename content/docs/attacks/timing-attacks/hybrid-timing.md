@@ -28,15 +28,20 @@ Some of the factors differ in value depending on the application. This means tha
 
 If a page does not set [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}), an attacker can obtain a hybrid measurement that considers all the factors. This attack is similar to the [Network-based Attack]({{< ref "network-timing.md#frame-timing-attacks-network" >}}), but when the resource is retrieved the page is rendered and executed by the browser (subresources fetched and JavaScript executed). In this scenario, the `onload` event only triggers once the page fully loads (including subresources and script execution).
 
-```html
-<iframe name=f id=g></iframe>
-<script>
-before = performance.now();
-f.location = 'https://target.page';
-g.onerror = g.onload = ()=>{
-    console.log('time was', performance.now() - before)
-};
-</script>
+```javascript
+var iframe = document.createElement('iframe');
+// Set the URL of the destination website
+iframe.src = "https://example.org";
+document.body.appendChild(iframe);
+
+// Measure the time before the request was initiated
+var start = performance.now();
+
+iframe.onload = () => {
+  // When iframe loads, calculate the time difference
+  var time = performance.now() - start;
+  console.log("The iframe and subresources took %dms to load.", time)
+}
 ```
 
 ## Defense
