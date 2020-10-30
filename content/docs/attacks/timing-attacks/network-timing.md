@@ -38,11 +38,15 @@ Learn more about the different types of clocks in the [Clocks Article]({{< ref "
 The [performance.now()]({{< ref "clocks.md#performancenow" >}}) API can be used to measure how much time it takes to perform a request.
 
 ```javascript
+// Start the clock
 var start = performance.now()
+
+// Measure how long it takes to complete the fetch requests
 fetch('https://example.org', {
   mode: 'no-cors',
   credentials: 'include'
 }).then(() => {
+  // When fetch finishes, calculate the difference
   var time = performance.now() - start;
   console.log("The request took %dms.", time);
 });
@@ -53,10 +57,15 @@ fetch('https://example.org', {
 A similar process can be used to measure how long it takes to fetch a resource by simply watching for an onload event.
 
 ```javascript
+// Insert script element into DOM
 var script = document.createElement('script');
 script.src = "https://example.org";
 document.body.appendChild(script);
+
+// Start the clock
 var start = performance.now();
+
+// When script loads, caculate the time it took to finish the request
 script.onload = () => {
   var time = performance.now() - start;
   console.log("The request took %dms.", time)
