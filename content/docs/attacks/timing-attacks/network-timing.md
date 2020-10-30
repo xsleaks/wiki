@@ -64,12 +64,12 @@ script.onload = () => {
 ```
 
 {{< hint good >}}
-A similar process can be repeated for other HTML elements, e.g. `<img>`, `<link>`, `<iframe>` which could be used in scenarios where other techniques fail. E.g. [Fetch Metadata]({{< ref "/docs/defenses/opt-in/fetch-metadata.md">}}) protections
+A similar process can be repeated for other HTML elements, e.g. `<img>`, `<link>`, `<iframe>` which could be used in scenarios where other techniques fail. E.g. [Fetch Metadata]({{< ref "/docs/defenses/opt-in/fetch-metadata.md">}}) protections could whitelist some of the elements.
 {{< /hint >}}
 
 ## Sandboxed Frame Timing Attacks
 
-If a page doesn't have any [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}) implemented, an attacker can obtain the time measurement of both the initial request and subresources load. Because the loading time for the iframe depends on both the network and processing the subresources (e.g. expensive scripts), the attacker can eliminate the noise of script execution by including the [`sandbox`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe) attribute in the `<iframe>`. This attribute will block a lot of features, including script execution if `allow-scripts` value is not specified.
+If a page doesn't have any [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}) implemented, an attacker can obtain the time measurement of both the initial request and subresources load. Because the loading time for the iframe depends on both the network and processing the subresources (e.g. expensive scripts), the attacker can eliminate the noise of script execution by including the [`sandbox`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe) attribute in the `<iframe>`. This attribute will block a lot of features, including script execution if `allow-scripts` value is not specified, which results in almost pure network measurement.
 
 ```javascript
 var iframe = document.createElement('iframe');
