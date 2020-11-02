@@ -23,21 +23,39 @@ Window references allow cross-origin pages to get access to some attributes of o
 
 One of the accessible attributes is `window.length` which provides the number of frames in the window. This attribute can give valuable information about a page to an attacker.
 
-Websites commonly use frames (or `iframes`) and this choice doesn't necessarily imply security issues.  There are however cases where a website might change the number of frames in a page depending on some user information. This could happen for example on a page that changes layout depending on the `GET` parameters and the victim data. It might be possible for an attacker to infer information about the victim by measuring the value of `window.length` on different pages. 
+Websites commonly use frames (or `iframes`) and this choice doesn't necessarily imply security issues.  There are however cases where a website might change the number of frames in a page depending on some user information. This could happen for example on a page that changes layout depending on the `GET` parameters and the victim data. It might be possible for an attacker to infer information about the victim by measuring the value of `window.length` on different pages.
+
+## Code snippet
+The below snippet demonstrates how to access the information about the number of frames on a cross-site page.
+```javascript
+// Get a reference to the window
+var win = window.open('https://example.org');
+
+// Wait for the page to load
+setTimeout(() => {
+  // Read the number of iframes loaded
+  console.log("%d iframes detected", win.length);
+}, 2000);
+```
 
 ## Attack alternatives
 
-In some cases, different application states have the same number of `frames`, preventing attackers from being able to distinguish them. However, continuously recording the frame count while the page is loading may show a pattern that might leak information to the attacker. 
+In some cases, different application states have the same number of `frames`, preventing attackers from being able to distinguish them. However, continuously recording the frame count while the page is loading may show a pattern that might leak information to the attacker.
 
 ```javascript
-const win = window.open("https://target.page"); // Or any Window reference
-const pattern = [];
+// Get a reference to the window
+var win = window.open("https://example.org");
+var pattern = [];
 
-const recorder = setInterval(() => pattern.push(win.frames.length), 0);
+// In a loop, register the number of iframes at 60ms interval
+var recorder = setInterval(() => {
+  pattern.push(win.length)
+}, 60);
 
+// Break the loop after 6 seconds
 setTimeout(() => {
    clearInterval(recorder);
-   console.log(pattern);
+   console.log("The pattern is: %s", pattern.join(', '));
 }, 6 * 1000);
 ```
 
