@@ -53,10 +53,10 @@ Often some of these methods might be considered a bug in the browser (e.g. [this
 
 ## Defense
 
-Currently there exist no reliable defense mechanism that would allow websites to protect against Cache Probing attacks. Nonetheless, a website could try to mitigate the attack surface by deploying defenses in depth, such as:
-- [Vary: Sec-Fetch-Site]({{< ref "../defenses/opt-in/fetch-metadata.md#fetch-metadata--cache-probing-attacks" >}}) allows applications to force cache segregation by a group of origins.
-- [Subresource Protections]({{< ref "../defenses/design-protections/subresource-protections.md" >}}) allow application to set random tokens in URLs to make them unpredictable from attackers. Useful for both authenticated and unauthenticated subresources.
-- [`Cache-control: no-store`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control) signals the browser to not cache the vulnerable resource.
+Currently there exist no reliable defense mechanism that would allow websites to protect against Cache Probing attacks. Nonetheless, a website could try to mitigate the attack surface by deploying [Cache Protections]({{< ref "cache-protections.md" >}}), such as:
+- [Cache-control header]({{< ref "cache-protections.md#cache-protection-via-cache-control-headers" >}})  used to prevent the resource from caching.
+- [Random Tokens]({{< ref "cache-protections.md#cache-protection-via-random-tokens" >}}) used to make the URLs unpredictable for attackers.
+- [Vary: Sec-Fetch-Site]({{< ref "cache-protections.md#cache-protection-via-fetch-metadata" >}}) used to segregate the cache by a group of origins.
 
 A promising defense against the attack is [Partitioned HTTP Cache]({{< ref "../defenses/secure-defaults/partitioned-cache.md" >}}) feature implemented in browsers. This protection prevents an attacker's origin from interfering with cached resources of other origins.
 
