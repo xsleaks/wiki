@@ -27,7 +27,7 @@ Websites commonly use frames (or `iframes`) and this choice doesn't necessarily 
 
 ## Attack alternatives
 
-In some cases, different application states have the same number of `frames`, preventing attackers to be able to distinguish them. However, continuously recording the frame count while the page is loading may show a pattern that might leak information to the attacker. 
+In some cases, different application states have the same number of `frames`, preventing attackers from being able to distinguish them. However, continuously recording the frame count while the page is loading may show a pattern that might leak information to the attacker. 
 
 ```javascript
 const win = window.open("https://target.page"); // Or any Window reference

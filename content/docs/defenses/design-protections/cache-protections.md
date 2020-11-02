@@ -17,7 +17,7 @@ If it is acceptable to disable caching, this provides a strong defense against c
 Advantages:
 1. Supported by all major browsers
 
-Disadavantages:
+Disadvantages:
 1. Negatively impacts site performance
 
 # Cache Protection via Random Tokens
@@ -48,8 +48,8 @@ This is done by setting `Vary: Sec-Fetch-Site` on all resources you wish to prot
 {{< hint info >}}
 Assume we have the resource `cdn.example.com/image.png` that we wish to protect from cache probing attacks. If we set `Vary: Sec-Fetch-Site` on it,
 
-1. If `example.com` tries to load the resource, the reqest is initiated by the same site so it is cached under `(SFS: same-site, resource_url)`
-2. If `cdn.example.com` tries to load the resource, the reqest is initiated by the same origin so it is cached under `(SFS: same-origin, resource_url)`
+1. If `example.com` tries to load the resource, the request is initiated by the same site so it is cached under `(SFS: same-site, resource_url)`
+2. If `cdn.example.com` tries to load the resource, the request is initiated by the same origin so it is cached under `(SFS: same-origin, resource_url)`
 3. If `evil.com` tries to load the resource, the request is initiated by a different site so it is cached under `(SFS: cross-site, resource_url)`
 
 Note that this means cross-site requests are separated from same-site and same-origin requests. 

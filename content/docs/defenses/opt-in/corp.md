@@ -17,7 +17,7 @@ CORP does not protect against navigational requests. This means that in browsers
 {{< /hint >}}
 
 {{< hint warning >}}
-This mechanism introduced [a new XS-Leak]({{< ref "../../attacks/browser-features/corp.md" >}}), which allows attackers detect wether CORP was enforced in a certain request.
+This mechanism introduced [a new XS-Leak]({{< ref "../../attacks/browser-features/corp.md" >}}), which allows attackers to detect wether CORP was enforced in a certain request.
 {{< /hint >}}
 
 ## References

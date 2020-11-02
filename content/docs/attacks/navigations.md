@@ -25,14 +25,14 @@ weight = 2
 
 Detecting if a cross-site page triggered a navigation (or didn't) can be useful to an attacker. For example, a website may trigger a navigation in a certain endpoint [depending on the status of the user]({{< ref "#case-scenarios" >}}).
 
-To detect ifany kind of navigation occurred, an attacker can:
+To detect if any kind of navigation occurred, an attacker can:
 
 - Use an `iframe` and count the number of times the `onload` event is triggered.
 - Check the value of `history.length`, accessible through any window reference. This gives the number of entries in the history of a victim either changed by `history.pushState` or regular navigations. To get the value of `history.length` an attacker changes the location of the window reference with the target website, changes back to same-origin, and finally reads the value.
 
 ## Download Trigger
 
-When endpoints set the [`Content-Disposition: attachment`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition) header, it instructs the browser to download the response as an attachment instead of navigating to it. Detecting if this behavior occurred might allow attackers to leak private information if outcome depends on the state of the victim's account.
+When endpoints set the [`Content-Disposition: attachment`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition) header, it instructs the browser to download the response as an attachment instead of navigating to it. Detecting if this behavior occurred might allow attackers to leak private information if the outcome depends on the state of the victim's account.
 
 ### Download bar
 

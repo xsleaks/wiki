@@ -17,14 +17,14 @@ Some browser features/extensions change the way requests are processed depending
 
 ### Root Cause
 
-To classify whether a website had tracking capabilities, ITP collects statistics on resource loads as well as user interactions in websites such as clicks, taps, or text entries. Based on the classification of these statistics, ITP gives a strike to a website if it is believed to have tracking capabilities. After 3 strikes a website is put on a deny list and have a different treatment by the browser in certain requests.
+To classify whether a website has tracking capabilities, ITP collects statistics on resource loads as well as user interactions in websites such as clicks, taps, or text entries. Based on the classification of these statistics, ITP gives a strike to a website if it is believed to have tracking capabilities. After 3 strikes a website is put on a deny list and is treated differently by the browser in future requests.
 
 #### Issues
 
-One of the issues of ITP is that attackers can interact with it to arbitrarily enforce certain behaviors. For example, one could force ITP to give a strike to a domain and check if the domain entered the deny list. Some of the attacks leveraging ITP consist in:
+One of the issues of ITP is that attackers can manipulate it to arbitrarily enforce certain behaviors. For example, one could force ITP to give a strike to a domain and check if the domain entered the deny list. This could be levered in different ways, for example:
 
-- Checking if a website enters the deny list, or how many strikes left are needed to put a website on the deny list may allow an attacker to discover user's browsing habits.
-- An attacker could attack a Search System with [XS-Search]({{< ref "../xs-search.md" >}}) if it includes any cross-site resource when results are present, but omits that same resource when no results are found. Attackers could force ITP to give 2 strikes to the cross-site resource and, after triggering a request to the search system, check if the resource was put in the deny list.
+- Leaking the user's browsing habits based off of how many strikes are necessary for a domain to enter the deny list
+- Using the deny list to implement an XS-Search attack against a page that includes cross-site resources only when results are present
 
 ### Fix
 
