@@ -22,14 +22,14 @@ weight = 3
 
 The `id` attribute is widely used to identify some `HTML` elements. Unfortunately, cross-origin websites can determine whether a given `id` is set anywhere on the page by leveraging the `focus` event and `URL` fragments. If `https://example.com/foo#bar` is loaded, the browser will attempt to scroll to the element with `id="bar"`. This can be detected cross-origin by loading `https://example.com/foo#bar` in an iframe and if there is an element with `id="bar"` then the `focus` event will fire. The `blur` event can also be used for the same purpose [^1].
 
-Some web applications set `id` attributes in `focusable` elements that may lead to user information disclosure. These `ids` can either be direct information related to the user (e.g. a secret) or information associated with a user state (e.g account status).
+Some web applications set `id` attributes in `focusable` elements that may lead to user information disclosure. These `id`s can either be direct information related to the user (e.g. a secret) or information associated with a user state (e.g account status).
 
 ## Code snippet
 
 The below snippet presents an example way of detecting the ID attribute from another site.
 ```javascript
 // Listen to onblur event
-onblur = () => alert('Focus was lost');
+onblur = () => alert('Focus was lost, so there was a focusable element with the specified ID');
 var ifr = document.createElement('iframe');
 // If a page has a focusable element with id="x" it will gain focus
 // E.g. <input id="x" value="test" />
@@ -38,7 +38,7 @@ document.body.appendChild(ifr);
 ```
 
 {{< hint good >}}
-The above technique doesn't seem to be working on Firefox.
+The above technique doesn't seem to work in Firefox.
 {{< /hint >}}
 
 ## Case Scenarios

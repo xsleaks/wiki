@@ -48,7 +48,7 @@ An attacker can detect how long the target website is executed by timing how lon
 
 ```javascript
 // Open a new window to measure how long the window blocks the event loop
-// for a site example.org
+// for the site example.org
 window.open('https://example.org/expensive');
 
 // Wait for the expensive window to load, e.g. via timeout
@@ -63,7 +63,7 @@ var start = performance.now();
 ifr.onload = () => {
     // When the iframe loads calculate the time difference
     var time = performance.now() - start;
-    console.log('It took %dms to load the window', time);
+    console.log('It took %d ms to load the window', time);
 }
 ```
 

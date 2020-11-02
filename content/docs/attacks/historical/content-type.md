@@ -42,7 +42,7 @@ The example below shows how this behavior could be detected by embedding an obje
 ```javascript
 // Set the destination URL
 var url = 'https://example.org';
-// Set the searched content-type
+// The content type we want to check for
 var mime = 'application/json';
 var ifr = document.createElement('iframe');
 // Load an object inside iframe since object does not trigger onload event
@@ -52,7 +52,9 @@ ifr.srcdoc = `
   </object>`;
 document.body.appendChild(ifr);
 
-// When the iframe loads, read the height of the object
+// When the iframe loads, read the height of the object. If it is the height 
+// of a single line of text, then the content type of the resource was not 
+// `application/json`. If it is a different height, then it was `application/json`. 
 ifr.onload = () => {
     console.log(ifr.contentWindow.obj.clientHeight)
 };

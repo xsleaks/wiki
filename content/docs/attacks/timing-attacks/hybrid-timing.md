@@ -40,7 +40,7 @@ var start = performance.now();
 iframe.onload = () => {
   // When iframe loads, calculate the time difference
   var time = performance.now() - start;
-  console.log("The iframe and subresources took %dms to load.", time)
+  console.log("The iframe and subresources took %d ms to load.", time)
 }
 ```
 

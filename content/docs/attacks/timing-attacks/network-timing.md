@@ -48,7 +48,7 @@ fetch('https://example.org', {
 }).then(() => {
   // When fetch finishes, calculate the difference
   var time = performance.now() - start;
-  console.log("The request took %dms.", time);
+  console.log("The request took %d ms.", time);
 });
 ```
 
@@ -57,7 +57,7 @@ fetch('https://example.org', {
 A similar process can be used to measure how long it takes to fetch a resource by simply watching for an onload event.
 
 ```javascript
-// Insert script element into DOM
+// Create a script element pointing to the page we want to time
 var script = document.createElement('script');
 script.src = "https://example.org";
 document.body.appendChild(script);
@@ -68,17 +68,17 @@ var start = performance.now();
 // When script loads, caculate the time it took to finish the request
 script.onload = () => {
   var time = performance.now() - start;
-  console.log("The request took %dms.", time)
+  console.log("The request took %d ms.", time)
 }
 ```
 
 {{< hint good >}}
-A similar process can be repeated for other HTML elements, e.g. `<img>`, `<link>`, `<iframe>` which could be used in scenarios where other techniques fail. E.g. [Fetch Metadata]({{< ref "/docs/defenses/opt-in/fetch-metadata.md">}}) protections could whitelist some of the elements.
+A similar technique can be used for other HTML elements, e.g. `<img>`, `<link>`, `<iframe>` which could be used in scenarios where other techniques fail. For example, if [Fetch Metadata]({{< ref "/docs/defenses/opt-in/fetch-metadata.md">}}) blocked loading of a resource into a script tag it may allow it into an image tag. 
 {{< /hint >}}
 
 ## Sandboxed Frame Timing Attacks
 
-If a page doesn't have any [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}) implemented, an attacker can obtain the time measurement of both the initial request and subresources load. Because the loading time for the iframe depends on both the network and processing the subresources (e.g. expensive scripts), the attacker can eliminate the noise of script execution by including the [`sandbox`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe) attribute in the `<iframe>`. This attribute will block a lot of features, including script execution if `allow-scripts` value is not specified, which results in almost pure network measurement.
+If a page doesn't have any [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}) implemented, an attacker can time how long it takes for the page and all subresources to load over the network. By default, the `onload` handler for an iframe will be invoked after all the resources have been loaded and all Javascript has finished executing. But, an attacker can eliminate the noise of script execution by including the [`sandbox`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe) attribute in the `<iframe>`. This attribute will block a lot of features including Javascript execution, which results in almost pure network measurement.
 
 ```javascript
 var iframe = document.createElement('iframe');
@@ -94,7 +94,7 @@ var start = performance.now();
 iframe.onload = () => {
   // When iframe loads, calculate the time difference
   var time = performance.now() - start;
-  console.log("The iframe and subresources took %dms to load.", time)
+  console.log("The iframe and subresources took %d ms to load.", time)
 }
 ```
 
@@ -110,14 +110,16 @@ var start = performance.now();
 // Define the loop
 function measure(){
   try{
-    // If the window is still same-origin, immediately repeat the loop
-    // but without blocking the event loop
+    // If the page has loaded, then it will be on a different origin 
+    // so `win.origin` will throw an exception
     win.origin;
+    // If the window is still same-origin, immediately repeat the loop but 
+    // without blocking the event loop
     setTimeout(measure, 0);
   }catch(e){
-    // When the window stwitches origins, calculate the time difference
+    // Once the window has loaded, calculate the time difference
     var time = performance.now() - start;
-    console.log('It took %dms to load the window', time);
+    console.log('It took %d ms to load the window', time);
   }
 }
 // Initiate the loop that breaks when the window switches origins
