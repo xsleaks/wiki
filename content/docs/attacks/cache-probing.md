@@ -58,10 +58,10 @@ Currently there exist no reliable defense mechanism that would allow websites to
 - [Random Tokens]({{< ref "cache-protections.md#cache-protection-via-random-tokens" >}}) used to make the URLs unpredictable for attackers.
 - [Vary: Sec-Fetch-Site]({{< ref "cache-protections.md#cache-protection-via-fetch-metadata" >}}) used to segregate the cache by a group of origins.
 
-A promising defense against the attack is [Partitioned HTTP Cache]({{< ref "../defenses/secure-defaults/partitioned-cache.md" >}}) feature implemented in browsers. This protection prevents an attacker's origin from interfering with cached resources of other origins.
+A promising defense against this attack is [partitioning the HTTP cache]({{< ref "../defenses/secure-defaults/partitioned-cache.md" >}}) by the requesting origin. This browser provided protection prevents an attacker's origin from interfering with cached resources of other origins.
 
 {{< hint warning >}}
-As of September 2020, Partitioned Caches are not available in most browsers by default or by opt-in mechanism, so applications cannot rely on them.
+As of September 2020, Partitioned Caches are not available in most browsers, so applications cannot rely on them.
 {{< /hint >}}
 
 ## Real World Example
