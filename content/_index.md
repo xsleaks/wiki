@@ -70,10 +70,10 @@ This wiki is meant to both introduce readers to XS-Leaks and serve as a referenc
 
 The following users [contributed](https://github.com/xsleaks/wiki/graphs/contributors) to the XS-Leaks wiki:
 
-* [Manuel Sousa](https://github.com/manuelvsousa) – Created the new wiki
-* [terjanq](https://github.com/terjanq) – Contributed to the old wiki and the new one
-* [Roberto Clapis](https://github.com/empijei) – Contributed to the new wiki
-* [David Dworken](https://github.com/ddworken) – Contributed to the new wiki
+* [Manuel Sousa](https://github.com/manuelvsousa) (creator of this wiki)
+* [terjanq](https://github.com/terjanq)
+* [Roberto Clapis](https://github.com/empijei)
+* [David Dworken](https://github.com/ddworken)
 
 In addition, we would also like to acknowledge the users who [contributed](https://github.com/xsleaks/xsleaks/wiki/Browser-Side-Channels/_history) to the predecessor of the current XS-Leaks wiki:
 
