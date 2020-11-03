@@ -125,7 +125,9 @@ function measure(){
 // Initiate the loop that breaks when the window switches origins
 measure();
 ```
-
+{{< hint info >}}
+Note that this POC uses `setTimeout` in order to create the rough equivalent of a `while(true)` loop. It is necessary to implement this way in order to avoid blocking the JS event loop. 
+{{< /hint >}}
 {{< hint good >}}
 This technique can also be adapted to measure the Execution Timing of a page by [making the event loop busy]({{< ref "execution-timing.md#busy-event-loop" >}}).
 {{< /hint >}}
