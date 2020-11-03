@@ -7,6 +7,7 @@ abuse = [
     "Error Events",
     "Cache",
     "iframes",
+    "AbortController.abort()"
 ]
 defenses = [
     "SameSite Cookies",
@@ -44,6 +45,7 @@ Cache Probing with [Error Events]({{< ref "../attacks/error-events.md" >}}) [^2]
 
 To invalidate a resource from the cache the attacker must force the server to return an error when fetching that subresource. There are a couple of ways to achieve this:
 
+- A request with `'cache':'reload'` that is aborted using  `AbortController.abort()` before new content has been received. 
 - A request with an [overlong referer header](https://lists.archive.carbon60.com/apache/users/316239) and `'cache':'reload'`. This might not work as browsers [capped](https://github.com/whatwg/fetch/issues/903) the length of the referrer to prevent this.
 - A `POST` request with a `fetch` `no-cors`. Sometimes even in cases where an error is not returned the browser invalidates the cache.
 - Request headers such as Content-Type, Accept, Accept-Language, etc that may cause the server to fail (more application dependent).
