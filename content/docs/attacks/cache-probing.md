@@ -61,7 +61,7 @@ Currently there are no good defense mechanisms that would allow websites to full
 A promising defense against this attack is [partitioning the HTTP cache]({{< ref "../defenses/secure-defaults/partitioned-cache.md" >}}) by the requesting origin. This browser provided protection prevents an attacker's origin from interfering with cached resources of other origins.
 
 {{< hint warning >}}
-As of September 2020, Partitioned Caches are not available in most browsers, so applications cannot rely on them.
+As of November 2020, Partitioned Caches are not available in most browsers, so applications cannot rely on them.
 {{< /hint >}}
 
 ## Real World Example

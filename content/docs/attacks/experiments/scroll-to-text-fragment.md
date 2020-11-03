@@ -35,16 +35,16 @@ Scroll to Text Fragment is only available in Chrome. Its [draft](https://wicg.gi
 {{< /hint >}}
 
 {{< hint good >}}
-Scroll to Text Fragment XS-Leaks allow attackers to extract 1 bit of information at a time as it's only possible to observe whether a group of words is present in a page. This occurs as STTF matching mechanism is based on words, so attackers won't be able to leak information character by character.
+Scroll to Text Fragment XS-Leaks allow attackers to extract 1 bit of information at a time as it's only possible to observe whether a group of words is present in a page. This is because STTF matching is based on words, so attackers won't be able to leak information character by character.
 {{< /hint >}}
 
 ## Why is this a problem?
 
-Attackers can abuse STTF to leak private information about the user since its highly connected with the contents of a web page.
+Attackers can abuse STTF to leak private information about the user that is displayed on a web page.
 
 ### Case Scenarios
 
-- A user is logged in its National Health System website, where it is possible to access information about the user past diseases and health problems. An attacker can lure the user to one of its pages and use STTF to possibly infer specific deceases of the user. For example an attacker would find out if the victim suffers of a disease if they detects a page scroll when searching for that pathology name.
+- A user is logged in to their National Health System website, where it is possible to access information about the user's past diseases and health problems. An attacker can lure the user to one of their pages and use STTF to possibly infer the user's health details. For example an attacker would find out if the victim suffers from a disease if they detect a page scroll when searching for that disease name.
 
 
 ## Defense
