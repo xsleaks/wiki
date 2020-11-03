@@ -17,9 +17,9 @@ menu = "main"
 weight = 2
 +++
 
-The principle of Cache Probing consists of detecting whether some resource was cached by the browser. The concept is known since the beginning of the web [^4] and initially relied on detecting timing differences. 
+The principle of Cache Probing consists of detecting whether some resource was cached by the browser. The concept is known since the beginning of the web [^4] and initially relied on detecting timing differences.
 
-When a user visits a website some resources such as images, scripts, and HTML content are fetched and later cached by the browser (under certain conditions). This optimization will make future navigations faster as the browser will serve those resources from disk instead of requesting them again. If an attacker can detect which 
+When a user visits a website some resources such as images, scripts, and HTML content are fetched and later cached by the browser (under certain conditions). This optimization will make future navigations faster as the browser will serve those resources from disk instead of requesting them again. If an attacker can detect which
 resources are cached it may be enough to leak whether a user accessed a specific page in the past.
 
 A variation on cache probing abuses [Error Events]({{< ref "../attacks/error-events.md" >}}) to perform more accurate and impactful attacks.
@@ -28,8 +28,8 @@ A variation on cache probing abuses [Error Events]({{< ref "../attacks/error-eve
 
 An attacker wants to know whether a user visited a certain social network.
 
-1. A user visits a social network and some of the subresources will be cached. 
-2. The user visits an attacker controlled page which will fetch a resource that is usually fetched by that social network. 
+1. A user visits a social network and some of the subresources will be cached.
+2. The user visits an attacker controlled page which will fetch a resource that is usually fetched by that social network.
 3. Using a [Network Timing XS-Leak]({{< ref "../attacks/timing-attacks/network-timing.md" >}}), the attacker page can detect the difference from a response coming from the cache (step 1 happened) or coming from the network (step 1 did not happen). The delay will be significantly lower in a request served from the cache.
 
 ## Cache Probing with Error Events
@@ -38,7 +38,7 @@ Cache Probing with [Error Events]({{< ref "../attacks/error-events.md" >}}) [^2]
 
 1. [Invalidate the resource]({{< ref "#invalidate-the-cache" >}}) from the browser cache. This step is required to make sure the attack will not consider a resource previously cached in another visit.
 2. Perform a request that will cause different items to be cached depending on the user's state. For example, load a page that will include a specific image only if the user is logged in. This request can be triggered by navigating to the target website with `<link rel=prerender..`, embedding the website in an `iframe`, or opening a new window with `window.open`.
-3. Trigger a request that will cause the server to reject the request. For example, include an [overlong referer header](https://lists.archive.carbon60.com/apache/users/316239) that will make the server reject the request. If the resource was cached in step 2, this request will succeed instead of triggering an error event. 
+3. Trigger a request that will cause the server to reject the request. For example, include an [overlong referer header](https://lists.archive.carbon60.com/apache/users/316239) that will make the server reject the request. If the resource was cached in step 2, this request will succeed instead of triggering an error event.
 
 ### Invalidate the cache
 
@@ -49,26 +49,19 @@ To invalidate a resource from the cache the attacker must force the server to re
 - Request headers such as Content-Type, Accept, Accept-Language, etc that may cause the server to fail (more application dependent).
 - Other request properties.
 
-Often some of these methods might be considered a bug in the browser (e.g. [this bug](https://bugs.chromium.org/p/chromium/issues/detail?id=959789#c9)). 
+Often some of these methods might be considered a bug in the browser (e.g. [this bug](https://bugs.chromium.org/p/chromium/issues/detail?id=959789#c9)).
 
 ## Defense
 
-### Opt-in Defense Mechanisms
+Currently there are no good defense mechanisms that would allow websites to fully protect against Cache Probing attacks. Nonetheless, a website might mitigate the attack surface by deploying [Cache Protections]({{< ref "cache-protections.md" >}}), such as:
+- [Cache-control header]({{< ref "cache-protections.md#cache-protection-via-cache-control-headers" >}})  used to prevent the resource from caching.
+- [Random Tokens]({{< ref "cache-protections.md#cache-protection-via-random-tokens" >}}) used to make the URLs unpredictable for attackers.
+- [Vary: Sec-Fetch-Site]({{< ref "cache-protections.md#cache-protection-via-fetch-metadata" >}}) used to segregate the cache by a group of origins.
 
-| [Same-Site Cookies]({{< ref "../defenses/opt-in/same-site-cookies.md" >}})   | [Vary: Sec-Fetch-Site]({{< ref "../defenses/opt-in/fetch-metadata.md#fetch-metadata--cache-probing-attacks" >}})  | [Subresource Protections]({{< ref "../defenses/design-protections/subresource-protections.md" >}}) |
-|:---------------------------------:|:-------------------------------------:|:---------------------------------------:|
-|        ✔️ [(if Strict)]({{< ref "../defenses/opt-in/same-site-cookies.md#lax-vs-strict" >}})             |                  ✔️                   |   ✔️ & ❌ [*]({{< ref "../defenses/design-protections/subresource-protections.md#deployment" >}})   | 
-
-- If a resource can be fetched with user authentication, [Same-Site Cookies]({{< ref "../defenses/opt-in/same-site-cookies.md" >}}) (Strict) can protect that resource from being abused by an attacker origin.
-- [Vary: Sec-Fetch-Site]({{< ref "../defenses/opt-in/fetch-metadata.md#fetch-metadata--cache-probing-attacks" >}}) allows applications to force cache segregation by a group of origins.
-- [Subresource Protections]({{< ref "../defenses/design-protections/subresource-protections.md" >}}) allow application to set random tokens in URLs to make them unpredictable from attackers. Useful for both authenticated and unauthenticated subresources.
-
-### Default Defense Mechanisms
-
-[Partitioned HTTP Cache]({{< ref "../defenses/secure-defaults/partitioned-cache.md" >}}) are a feature implemented in browsers to create a unique cache for each origin. This protection prevents an attacker's origin from interfering with cached resources of other origins. Applications do not have to opt-in to enforce this.
+A promising defense against this attack is [partitioning the HTTP cache]({{< ref "../defenses/secure-defaults/partitioned-cache.md" >}}) by the requesting origin. This browser provided protection prevents an attacker's origin from interfering with cached resources of other origins.
 
 {{< hint warning >}}
-As of September 2020, Partitioned Caches are not available in most browsers by default, so applications cannot rely on them.
+As of November 2020, Partitioned Caches are not available in most browsers, so applications cannot rely on them.
 {{< /hint >}}
 
 ## Real World Example

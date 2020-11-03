@@ -11,7 +11,7 @@ menu = "main"
 The fundamental idea behind designing protections for subresources is that subresources cannot be targeted by XS-Leaks if the attacker cannot cause them to return any user data. If implemented correctly, this can be a very strong defense though it is likely to be tough to implement and could negatively impact the user experience. 
 
 {{< hint warning >}}
-It can be very effective to deploy this on any specific resources that are known to be especially senstive to XS-Leaks. But, due to the challenges of deploying this protection universally, applications are encouraged to deploy [opt-in web platform security features]({{< ref "../_index.md" >}}) as the default approach.
+It can be very effective to deploy this on any specific resources that are known to be especially sensitive to XS-Leaks. But, due to the challenges of deploying this protection universally, applications are encouraged to deploy [opt-in web platform security features]({{< ref "../_index.md" >}}) as the default approach.
 {{< /hint >}}
 
 ## Token Based Protections

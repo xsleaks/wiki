@@ -43,7 +43,7 @@ The above technique doesn't seem to work in Firefox.
 
 ## Case Scenarios
 
-- A bank allows its clients to generate 4 digit One-Time PINs (OTP) in the browser application to authenticate sessions on the mobile. The bank did a couple of mistakes and put the 4 digit OTP as the `id` of a `button`, used to show the PIN to the client. This technique could be used to steal these OTP codes by brute forcing every option and then using them to compromise user accounts.
+- A bank allows its clients to generate short numeric One-Time PINs (OTP) in the browser application to authenticate sessions on mobile devices. The bank used the OTP as the `id` of a `button` that is used to show the PIN to the client. This technique could be used to steal these OTP codes by brute forcing every option and then using them to compromise user accounts.
 - A web application uses a specific set of predefined `ids` and `HTML` elements when an account has a premium status or the user is of a certain gender. The attacker can detect whether a specific `id` is present on the victim's page and leak the account information.
 
 
