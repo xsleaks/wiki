@@ -25,23 +25,39 @@ Leaking the Content-Type of a request could offer an attacker a new way to disti
 
 Considering the snippet below, `not_loaded` would be rendered if the returned `Content-Type` of `https://target/api` did not match the one in `type`, or the server returned a status different than `200`.
 
-```javascript
-<object type="application/json" data="https://target.page/api" typemustmatch> not_loaded </object>
+```html
+<object type="application/json"
+        data="https://example.org"
+        typemustmatch>
+not_loaded </object>
 ```
 
 #### Issues
 
 An attacker could leak the `Content-Type` and Status Codes of a website by detecting whether the object rendered, which will happen when [all the conditions]({{< ref "#root-cause" >}}) are met. The attacker could check the values of `clientHeight` and `clientWidth` which will likely be different than 0 when the object renderendersrers (and returns status `200`). Since `typeMustMatch` requires the server to return status `200` to load a resource, it would be possible to detect error pages, similarly to [Error Events]({{< ref "../error-events.md" >}}) XS-Leaks.
 
-The example below shows how to detect this behavior by embedding an object inside an `iframe` and checking the values of `clientHeight` and `clientWidth` when the `iframe` triggers the `onload` event.
+The example below shows how this behavior could be detected by embedding an object inside an `iframe` and checking the values of `clientHeight` and `clientWidth` when the `iframe` triggers the `onload` event.
 
 
 ```javascript
-let url = 'https://target.page'
-let mime = 'application/json'
-let x = document.createElement('iframe');
-x.src = `data:text/html,<object id=obj type="${mime}" data="${url}" typemustmatch><script>onload = ()=>{console.log(obj.clientHeight)}%3c/script></object>`;
-document.body.appendChild(x);
+// Set the destination URL
+var url = 'https://example.org';
+// The content type we want to check for
+var mime = 'application/json';
+var ifr = document.createElement('iframe');
+// Load an object inside iframe since object does not trigger onload event
+ifr.srcdoc = `
+  <object id="obj" type="${mime}" data="${url}" typemustmatch>
+    error
+  </object>`;
+document.body.appendChild(ifr);
+
+// When the iframe loads, read the height of the object. If it is the height 
+// of a single line of text, then the content type of the resource was not 
+// `application/json`. If it is a different height, then it was `application/json`. 
+ifr.onload = () => {
+    console.log(ifr.contentWindow.obj.clientHeight)
+};
 ```
 
 ### Fix

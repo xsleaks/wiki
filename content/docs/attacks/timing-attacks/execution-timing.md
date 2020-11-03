@@ -21,7 +21,7 @@ menu = "main"
 weight = 3
 +++
 
-Measuring the time of JavaScript execution in a browser can give attackers information on when certain events are triggered, and how long some operations take. 
+Measuring the time of JavaScript execution in a browser can give attackers information on when certain events are triggered, and how long some operations take.
 
 ## Timing the Event Loop
 
@@ -42,31 +42,29 @@ Another technique to measure JavaScript Execution consists of blocking the event
 
 1. Navigate the target website in a separate window with `window.open` or inside an `iframe` (if [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}) are not in place).
 2. Wait for the long computation to start.
-3. Load any same-site page inside an `iframe`, regardless of any [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}). 
+3. Load any same-site page inside an `iframe`, regardless of any [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}).
 
 An attacker can detect how long the target website is executed by timing how long it took for the `iframe` (in step 3) to trigger the `onload` event ([Network Timing]({{< ref "network-timing.md" >}}) of step 3 should be minimal). Since both navigations occurred within the same context and they are same-site, they run in the same thread and share the same event loop (they can block each other).
 
-The example below shows how the measurement can be obtained, using the same technique described in [Cross-Window (Network) Timing Attacks]({{< ref "network-timing.md#cross-window-timing-attacks" >}}) for step 2 to detect when the window started loading.
-
 ```javascript
-let w = 0, end = 0, begin = 0;
-onmessage=()=>{
-  try{
-    if(w && w.document.cookie){
-      // still same origin
-    }
-    postMessage('','*');
-  }catch(e){
-    begin = performance.now();
-    var x = document.createElement('iframe');
-    x.src = "https://any-same-site.target.page";
-    document.body.appendChild(x);
-    start = performance.now();
-    x.onload = () => console.log(performance.now() - begin)
-  }
-};
-postMessage('','*');
-w = open('https://target.page');
+// Open a new window to measure how long the window blocks the event loop
+// for the site example.org
+window.open('https://example.org/expensive');
+
+// TODO: Wait for the expensive window to load, e.g. via timeout
+// then create an iframe to the same site
+var ifr = document.createElement('iframe');
+ifr.src = "https://example.org";
+document.body.appendChild(ifr);
+
+// Measure the initial time
+var start = performance.now();
+
+ifr.onload = () => {
+    // When the iframe loads calculate the time difference
+    var time = performance.now() - start;
+    console.log('It took %d ms to load the window', time);
+}
 ```
 
 ## Service Workers
@@ -115,7 +113,7 @@ In browsers with process isolation mechanisms, [Service Workers]({{< ref "execut
 This group of XS-Leaks requires an injection of Regex Expressions on the target page.
 {{< /hint >}}
 
-Regular Expression Denial of Service (ReDoS) is a technique which results in a Denial of Service in applications that allow Regex as user input [^2] [^5]. Maliciously crafted regular expressions can be made to run in exponential time. This can be used as an XS-Leak vector if a regex can be injected that has a different runtime depending on some data on the page. This could happen on the client-side or the server-side. 
+Regular Expression Denial of Service (ReDoS) is a technique which results in a Denial of Service in applications that allow Regex as user input [^2] [^5]. Maliciously crafted regular expressions can be made to run in exponential time. This can be used as an XS-Leak vector if a regex can be injected that has a different runtime depending on some data on the page. This could happen on the client-side or the server-side.
 
 
 ## Defense
