@@ -53,7 +53,7 @@ Often some of these methods might be considered a bug in the browser (e.g. [this
 
 ## Defense
 
-Currently there exist no reliable defense mechanisms that would allow websites to protect against Cache Probing attacks. Nonetheless, a website could try to mitigate the attack surface by deploying [Cache Protections]({{< ref "cache-protections.md" >}}), such as:
+Currently there are no good defense mechanisms that would allow websites to fully protect against Cache Probing attacks. Nonetheless, a website might mitigate the attack surface by deploying [Cache Protections]({{< ref "cache-protections.md" >}}), such as:
 - [Cache-control header]({{< ref "cache-protections.md#cache-protection-via-cache-control-headers" >}})  used to prevent the resource from caching.
 - [Random Tokens]({{< ref "cache-protections.md#cache-protection-via-random-tokens" >}}) used to make the URLs unpredictable for attackers.
 - [Vary: Sec-Fetch-Site]({{< ref "cache-protections.md#cache-protection-via-fetch-metadata" >}}) used to segregate the cache by a group of origins.
