@@ -68,14 +68,24 @@ This wiki is meant to both introduce readers to XS-Leaks and serve as a referenc
 
 ### Contributors
 
-The "XSLeaks" GitHub [organization](https://github.com/xsleaks) is owned by both Google employees and non-employees. The current list of the owners is:
+The following users [contributed](https://github.com/xsleaks/wiki/graphs/contributors) to the XS-Leaks wiki:
 
-* [Roberto Clapis (empijei)](https://github.com/orgs/xsleaks/people/empijei) – Google employee
-* [Eduardo Vela Nava (sirdarckcat)](https://github.com/orgs/xsleaks/people/sirdarckcat) – Google employee
-* [Jan Gora (terjanq)](https://github.com/orgs/xsleaks/people/terjanq) – Google employee
-* [Manuel Sousa (manuelvsousa)](https://github.com/orgs/xsleaks/people/manuelvsousa) – past Google intern
-* [Ron Masas (masasron)](https://github.com/orgs/xsleaks/people/masasron) – independent researcher
-* [Luan Herrera (lbherrera)](https://github.com/orgs/xsleaks/people/lbherrera) – independent researcher
+* [Manuel Sousa](https://github.com/manuelvsousa) – Created the new wiki
+* [terjanq](https://github.com/terjanq) – Contributed to the old wiki and the new one
+* [Roberto Clapis](https://github.com/empijei) – Contributed to the new wiki
+* [David Dworken](https://github.com/ddworken) – Contributed to the new wiki
+
+In addition, we would also like to acknowledge the users who [contributed](https://github.com/xsleaks/xsleaks/wiki/Browser-Side-Channels/_history) to the predecessor of the current XS-Leaks wiki:
+
+* [Eduardo' Vela" \<Nava> (sirdarckcat)](https://github.com/sirdarckcat)
+* [Ron Masas](https://github.com/masasron)
+* [Luan Herrera](https://github.com/lbherrera)
+* [Sigurd](https://github.com/DonSheddow)
+* [larson reever](https://github.com/larsonreever)
+* [Frederik Braun](https://github.com/mozfreddyb)
+* [Masato Kinugawa](https://github.com/masatokinugawa)
+* [sroettger](https://github.com/sroettger)
+
 
 ## References
 [^side-channel]: Side Channel Vulnerabilities on the Web - Detection and Prevention, [link](https://owasp.org/www-pdf-archive/Side_Channel_Vulnerabilities.pdf)  
