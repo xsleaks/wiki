@@ -61,7 +61,7 @@ Often some of these methods might be considered a bug in the browser (e.g. [this
 
 - If a resource can be fetched with user authentication, [Same-Site Cookies]({{< ref "../defenses/opt-in/same-site-cookies.md" >}}) (Strict) can protect that resource from being abused by an attacker origin.
 - [Vary: Sec-Fetch-Site]({{< ref "../defenses/opt-in/fetch-metadata.md#fetch-metadata--cache-probing-attacks" >}}) allows applications to force cache segregation by a group of origins.
-- [Subresource Protections]({{< ref "../defenses/design-protections/subresource-protections.md" >}}) allow application to set random tokens in URLs to make them unpredictable from attackers. Useful for both authenticated and unauthenticated subresources.
+- [Subresource Protections]({{< ref "../defenses/design-protections/subresource-protections.md" >}}) allow applications to set random tokens in URLs to make them unpredictable from attackers. Useful for both authenticated and unauthenticated subresources.
 
 ### Default Defense Mechanisms
 
