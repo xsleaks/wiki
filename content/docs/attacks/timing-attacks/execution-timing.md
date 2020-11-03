@@ -51,7 +51,7 @@ An attacker can detect how long the target website is executed by timing how lon
 // for the site example.org
 window.open('https://example.org/expensive');
 
-// Wait for the expensive window to load, e.g. via timeout
+// TODO: Wait for the expensive window to load, e.g. via timeout
 // then create an iframe to the same site
 var ifr = document.createElement('iframe');
 ifr.src = "https://example.org";
