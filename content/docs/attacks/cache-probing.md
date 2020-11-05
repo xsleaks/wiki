@@ -98,7 +98,8 @@ await ifCached('https://example.org', true);
 // Skip this step to simulate a case where example.org is not cached
 open('https://example.org');
 
-// TODO: wait 1 second (until example.org loads)
+// wait 1 second (until example.org loads)
+await new Promise(resolve => setTimeout(resolve, 1000));
 
 // Check if https://example.org is in the cache
 await ifCached('https://example.org');
