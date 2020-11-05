@@ -74,6 +74,7 @@ The following users [contributed](https://github.com/xsleaks/wiki/graphs/contrib
 * [terjanq](https://github.com/terjanq)
 * [Roberto Clapis](https://github.com/empijei)
 * [David Dworken](https://github.com/ddworken)
+* [NDevTK](https://github.com/NDevTK)
 
 In addition, we would also like to acknowledge the users who [contributed](https://github.com/xsleaks/xsleaks/wiki/Browser-Side-Channels/_history) to the predecessor of the current XS-Leaks wiki:
 
