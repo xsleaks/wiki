@@ -54,7 +54,7 @@ To invalidate a resource from the cache the attacker must force the server to re
 Often some of these methods might be considered a bug in the browser (e.g. [this bug](https://bugs.chromium.org/p/chromium/issues/detail?id=959789#c9)).
 
 ## Fetch with AbortController
-The AbortController can be used with fetch and setTimeout to detect if content has been cached without caching new content in the process.
+The below snippet shows how the [`AbortController`](https://developer.mozilla.org/en-US/docs/Web/API/AbortController) interface could be combined with *fetch* and *setTimeout* to both detect whether the resource is cached and to evict a specific resource from the browser cache. A nice feature about this technique is that the probing occurs without caching new content in the process.
 ```javascript
 async function ifCached(url, purge = false) {
     var controller = new AbortController();
