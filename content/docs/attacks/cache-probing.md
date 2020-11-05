@@ -62,6 +62,7 @@ async function ifCached(url, purge = false) {
     // After 12ms, abort the request. If the timeout was successful, 
     // the request must have been retrieved from the browser cache.
     // The timeout might need to be adjusted for the attack to work.
+    // The timeout may get trottled if the tab is inactive so maybe use web workers.
     var timeout = await setTimeout(() => { 
         controller.abort();
     }, 12);
