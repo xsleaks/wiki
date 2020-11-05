@@ -59,12 +59,12 @@ The below snippet shows how the [`AbortController`](https://developer.mozilla.or
 async function ifCached(url, purge = false) {
     var controller = new AbortController();
     var signal = controller.signal;
-    // After 9ms, abort the request. If the timeout was successful, 
+    // After 12ms, abort the request. If the timeout was successful, 
     // the request must have been retrieved from the browser cache.
     // The timeout might need to be adjusted for the attack to work.
     var timeout = await setTimeout(() => { 
         controller.abort();
-    }, 9);
+    }, 12);
     try {
         // credentials option is needed for Firefox
         let options = {
