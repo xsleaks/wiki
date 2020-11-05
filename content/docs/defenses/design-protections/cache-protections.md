@@ -22,7 +22,7 @@ Disadvantages:
 
 # Cache Protection via Random Tokens
 
-Rather than disabling caching, you can include additional data in URLs in order to defend against cache probing attacks. This can be achieved by including a random token in the URL of every subresource that you reference. If an attacker cannot guess this random token, then the attacker cannot determine whether items are in the cache via any straightforward techniques. 
+Rather than disabling caching, applications can include additional data in URLs in order to defend against cache probing attacks. This can be achieved by including a random token in the URL of every subresource that you reference. If an attacker cannot guess this random token, then the attacker cannot determine whether items are in the cache via any straightforward techniques. 
 
 {{< hint info >}}
 Suppose that every page on your application loads the user's profile photo: `/user/<USERNAME>.png`. An attacker could check which user is signed in by probing the cache for `/user/john.png`, `/user/jane.png`, and so on. 
