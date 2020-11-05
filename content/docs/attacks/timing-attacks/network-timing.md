@@ -7,7 +7,6 @@ category = [
 ]
 abuse = [
     "iframes",
-    "AbortController.abort()"
 ]
 defenses = [
     "Fetch Metadata",
@@ -52,34 +51,6 @@ fetch('https://example.org', {
   console.log("The request took %d ms.", time);
 });
 ```
-
-## Fetch with AbortController
-The AbortController can be used with fetch and setTimeout to detect if content has been cached without caching new content in the process.
-```javascript
-async function ifCached(url, purge = false) {
-    var state = true;
-    var controller = new AbortController();
-    var signal = controller.signal;
-    var timeout = await setTimeout(_ => { // Stop request after max
-        controller.abort();
-        state = false;
-    // This number may need changing for different browsers
-    }, 9);
-    try {
-        // credentials is currently only needed for firefox
-        let options = {mode: "no-cors", credentials: "include", signal};
-        // purge item from cache if wanted
-        if(purge) options.cache = "reload";
-        await fetch(url, options);
-    } catch (err) {
-        // Website blocked by client
-        return false
-    }
-    clearTimeout(timeout);
-    return state;
-}
-```
-
 
 ## Onload events
 
