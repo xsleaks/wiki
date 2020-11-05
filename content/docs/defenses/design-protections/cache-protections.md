@@ -8,7 +8,7 @@ category = [
 menu = "main"
 +++
 
-There are a number of different approaches you can use to defend against cache probing-based XS-Leaks. These approaches are explained in the following sections.
+There are a number of different approaches applications can use to defend against cache probing-based XS-Leaks. These approaches are explained in the following sections.
 
 # Cache Protection via `Cache-Control` Headers
 
