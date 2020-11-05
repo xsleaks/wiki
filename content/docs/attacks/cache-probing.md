@@ -84,7 +84,7 @@ async function ifCached(url, purge = false) {
         else console.log("The resource is not cached");
         return false
     }
-    // clearTimeout will only be called if this line was reached in less than 9ms,
+    // clearTimeout will only be called if this line was reached in less than the fetch timeout,
     // which means that the resource must have arrived from the cache
     clearTimeout(timeout);
     console.log("The resource is cached");
