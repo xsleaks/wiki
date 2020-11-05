@@ -63,9 +63,11 @@ async function ifCached(url, purge = false) {
     // the request must have been retrieved from the browser cache.
     // The timeout might need to be adjusted for the attack to work.
     // The timeout may get trottled if the tab is inactive so maybe use web workers.
+    // Purging content takes less time
+    var max = (purge) ? 3 : 9;
     var timeout = await setTimeout(() => { 
         controller.abort();
-    }, 9);
+    }, max);
     try {
         // credentials option is needed for Firefox
         let options = {
