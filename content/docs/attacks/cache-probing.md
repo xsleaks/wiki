@@ -7,7 +7,7 @@ abuse = [
     "Error Events",
     "Cache",
     "iframes",
-    "AbortController.abort()"
+    "AbortController"
 ]
 defenses = [
     "SameSite Cookies",
