@@ -102,7 +102,7 @@ open('https://example.org');
 await new Promise(resolve => setTimeout(resolve, 1000));
 
 // Check if https://example.org is in the cache
-await ifCached('https://example.org');
+let result = await ifCached('https://example.org');
 ## Defense
 
 Currently there are no good defense mechanisms that would allow websites to fully protect against Cache Probing attacks. Nonetheless, a website might mitigate the attack surface by deploying [Cache Protections]({{< ref "cache-protections.md" >}}), such as:
