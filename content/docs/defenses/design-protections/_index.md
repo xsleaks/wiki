@@ -5,6 +5,7 @@ weight: -1
 
 # Application Design
 
-To defend against cache probing attacks, see [Cache Protections]({{< ref "./cache-protections.md" >}}). 
+This section contains articles explaining how you can:
 
-To protect especially sensitive endpoints, see [Subresource Protections]({{< ref "./subresource-protections.md" >}}).
+* Defend against cache probing attacks, see [Cache Protections]({{< ref "./cache-protections.md" >}}). 
+* Protect especially sensitive endpoints, see [Subresource Protections]({{< ref "./subresource-protections.md" >}}).
