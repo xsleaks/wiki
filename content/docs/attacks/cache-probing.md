@@ -60,7 +60,7 @@ async function ifCached(url, purge = false) {
     var controller = new AbortController();
     var signal = controller.signal;
     // After 9ms, abort the request. If the timeout was successful, 
-    // The timeout might need to be adjusted for the attack to work.
+    // The timeout might need to be adjusted for the attack to work properly.
     // The timeout may get trottled if the tab is inactive so maybe use web workers.
     // Purging content takes less time
     var max = (purge) ? 3 : 9;
