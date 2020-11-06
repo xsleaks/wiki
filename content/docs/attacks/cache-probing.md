@@ -103,7 +103,7 @@ open('https://example.org');
 await new Promise(resolve => setTimeout(resolve, 1000));
 
 // Check if https://example.org is in the cache
-let result = await ifCached('https://example.org');
+await ifCached('https://example.org');
 ```
 
 ## Defense
