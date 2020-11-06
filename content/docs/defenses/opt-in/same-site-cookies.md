@@ -30,7 +30,7 @@ The `None` attribute must be accompanied by the `Secure` flag [^same-site-none].
 
 `Strict` cookies provide the strongest security guarantees, but it can be very difficult to deploy `Strict` same-site cookies in an existing application.
 
-Same-Site cookies are neither bulletproof [^2] nor can they fix everything. To complete the defense strategy against XS-Leaks, users should consider implementing other protections that complement same-site cookies. For example, [COOP]({{< ref "coop.md" >}}) can prevent an attacker from controlling pages using a `window` reference even if `Lax` same-site cookies are used.
+SameSite cookies are neither bulletproof [^2] nor can they fix everything. To complement the defense strategy against XS-Leaks, applications should consider implementing other protections besides, for example, [COOP]({{< ref "coop.md" >}}) can prevent an attacker from controlling pages using a `window` reference even if SameSite cookies in `Lax` mode are used.
 
 ## Deployment
 
