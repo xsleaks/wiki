@@ -61,7 +61,7 @@ async function ifCached(url, purge = false) {
     var signal = controller.signal;
     // After 9ms, abort the request. If the timeout was successful, 
     // The timeout might need to be adjusted for the attack to work properly.
-    // Purging content takes less time
+    // Purging content seems to take less time than probing
     var wait_time = (purge) ? 3 : 9;
     var timeout = await setTimeout(() => { 
         controller.abort();
