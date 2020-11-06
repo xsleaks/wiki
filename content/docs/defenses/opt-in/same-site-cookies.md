@@ -12,7 +12,7 @@ SameSite cookies are one of the most impactful modern security mechanisms for fi
 
 ## Same-Site Cookie Modes
 
-The following same-site cookie modes are available:
+The following SameSite cookie modes are available:
 
 * `None` – Disables all protections and restores the old behavior of cookies. This mode is not recommended.
 
