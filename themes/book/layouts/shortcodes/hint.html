@@ -1,3 +1,22 @@
-<blockquote class="book-hint {{ .Get 0 }}">
-  {{ .Inner | markdownify }}
-</blockquote>
+{{- $noticeType := .Get 0 -}}
+{{- $replaced := .Get 0 -}}
+{{- $type := .Get 1 -}}
+{{- $replaced := replace $replaced "info" "Info" -}}
+{{- $replaced := replace $replaced "danger" "Warning" -}}
+{{- $replaced := replace $replaced "warning" "Important" -}}
+{{- $replaced := replace $replaced "example" "Example" -}}
+{{- $replaced := replace $replaced "tip" "Tip" -}}
+
+{{ if ne $type "noTitle" }}
+  <blockquote class="book-hint2 {{ $noticeType }}">
+    <p class="hint-title {{ $noticeType }}">
+      <svg class="book-icon">
+        <use href="/svg/hint-icons.svg#{{- $noticeType -}}-notice"></use>
+      </svg><span>{{ $replaced }}</span></p>
+    {{ .Inner | markdownify }}
+  </blockquote>
+{{ else }}
+  <blockquote class="book-hint {{ .Get 0 }}">
+    {{ .Inner | markdownify }}
+  </blockquote>
+{{ end }}
