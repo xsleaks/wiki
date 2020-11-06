@@ -62,10 +62,10 @@ async function ifCached(url, purge = false) {
     // After 9ms, abort the request. If the timeout was successful, 
     // The timeout might need to be adjusted for the attack to work properly.
     // Purging content takes less time
-    var max = (purge) ? 3 : 9;
+    var wait_time = (purge) ? 3 : 9;
     var timeout = await setTimeout(() => { 
         controller.abort();
-    }, max);
+    }, wait_time);
     try {
         // credentials option is needed for Firefox
         let options = {
