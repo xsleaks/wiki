@@ -1,5 +1,5 @@
 +++
-title = "Same-Site Cookies"
+title = "SameSite Cookies"
 description = ""
 date = "2020-10-01"
 category = [
@@ -10,7 +10,7 @@ menu = "main"
 
 SameSite cookies are one of the most impactful modern security mechanisms for fixing security issues that involve cross-site requests. This mechanism allows applications to force browsers to only include cookies in requests that are issued same-site [^1]. This type of cookie has three modes: `None`, `Lax`, and `Strict`.
 
-## Same-Site Cookie Modes
+## SameSite Cookie Modes
 
 The following SameSite cookie modes are available:
 
