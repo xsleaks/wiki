@@ -59,9 +59,9 @@ The below snippet shows how the [`AbortController`](https://developer.mozilla.or
 async function ifCached(url, purge = false) {
     var controller = new AbortController();
     var signal = controller.signal;
-    // After 9ms, abort the request. If the timeout was successful, 
+    // After 9ms, abort the request (before the request was finished).
     // The timeout might need to be adjusted for the attack to work properly.
-    // Purging content seems to take less time than probing
+    // Purging content seems to take slightly less time than probing
     var wait_time = (purge) ? 3 : 9;
     var timeout = await setTimeout(() => { 
         controller.abort();
@@ -73,7 +73,7 @@ async function ifCached(url, purge = false) {
             credentials: "include", 
             signal: signal
         };
-        // if the option "cache: reload" is set, the browser will purge 
+        // If the option "cache: reload" is set, the browser will purge 
         // the resource from the browser cache
         if(purge) options.cache = "reload";
         
@@ -84,8 +84,8 @@ async function ifCached(url, purge = false) {
         else console.log("The resource is not cached");
         return false
     }
-    // clearTimeout will only be called if this line was reached in less than the fetch timeout,
-    // which means that the resource must have arrived from the cache
+    // clearTimeout will only be called if this line was reached in less than
+    // wait_time which means that the resource must have arrived from the cache
     clearTimeout(timeout);
     console.log("The resource is cached");
     
