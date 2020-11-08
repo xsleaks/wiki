@@ -22,7 +22,7 @@ It can also be used to get the execution time using the difference of [`performa
 
 # Resource Timing API
 Using the [`Resource Timing API`](https://developer.mozilla.org/en-US/docs/Web/API/Resource_Timing_API) you can get the timings of network requests.  
-The duration is provided for all requests but when theres a `Timing-Allow-Origin: *` header sent by the server the [`transfer size`](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceResourceTiming/transferSize) and domain lookup time is also provided.
+The duration is provided for all requests but when there’s a `Timing-Allow-Origin: *` header sent by the server the [`transfer size`](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceResourceTiming/transferSize) and domain lookup time is also provided.
 
 ## Get duration of a network request
 ```javascript
@@ -39,8 +39,8 @@ async function getDuration(url) {
 }
 ```
 ## Detect X-Frame-Options
-If an frame embed is blocked it will not be added to performance.getEntries  
-The url needs to end with a foward slash.
+If a frame embed is blocked it will not be added to performance.getEntries  
+The URL needs to end with a forward slash.
 ```javascript
 async function ifFrame(url) {
     let embed = document.createElement('embed');
