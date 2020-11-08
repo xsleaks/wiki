@@ -26,7 +26,8 @@ The duration is provided for all requests but when theres a `Timing-Allow-Origin
 ```javascript
 async function getDuration(url) {
     // Using an image instead of fetch() as some requests had duration = 0
-    let image = new Image().src = url;
+    let image = new Image();
+    image.src = url;
     // Wait for request to be added to performance.getEntries();
     await new Promise(r => setTimeout(r, 1000));
     // Get last added timings
