@@ -24,7 +24,7 @@ Using the [`Resource Timing API`](https://developer.mozilla.org/en-US/docs/Web/A
 The duration is provided for all requests but when theres a `Timing-Allow-Origin: *` header sent by the server the [`transfer size`](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceResourceTiming/transferSize) and domain lookup time is also provided.
 ## Get duration of a network request
 ```javascript
-async function ifCached(url) {
+async function getDuration(url) {
     // Using an image instead of fetch() as some requests had duration = 0
     let image = new Image().src = url;
     // Wait for request to be added to performance.getEntries();
