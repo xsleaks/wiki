@@ -51,6 +51,6 @@ async function ifFrame(url) {
     await new Promise(r => setTimeout(r, 1000));
     // Remove test embed
     document.body.removeChild(embed)
-    return performance.getEntriesByName(url).length > 1;
+    return performance.getEntriesByName(url).length > 0;
 }
 ```
