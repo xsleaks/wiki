@@ -54,3 +54,33 @@ async function ifFrame(url) {
     return performance.getEntriesByName(url).length > 0;
 }
 ```
+## Detect X-Frame-Options
+If a frame embed is blocked it will not be added to performance.getEntries  
+The URL needs to end with a forward slash.
+```javascript
+async function ifFrame(url) {
+    let embed = document.createElement('embed');
+    embed.setAttribute("hidden", true);
+    embed.src = url;
+    document.body.appendChild(embed);
+    // Wait for request to be added to performance.getEntries();
+    await new Promise(r => setTimeout(r, 1000));
+    // Remove test embed
+    document.body.removeChild(embed)
+    return performance.getEntriesByName(url).length > 0;
+}
+```
+## Detect if a redirect is used or cached
+```javascript
+async function ifRedirect(url) {
+    await fetch(url, {mode:"no-cors"});
+    // Wait for request to be added to performance.getEntries();
+    await new Promise(r => setTimeout(r, 1000));
+    // Get last added timings
+    let res = performance.getEntries().pop();
+	console.log(res.duration)
+	if(res.duration >= 0) return false
+    if(res.duration > -10) console.log("Redirect was cached");
+    return true;
+}
+```
