@@ -78,8 +78,8 @@ async function ifRedirect(url) {
     await new Promise(r => setTimeout(r, 1000));
     // Get last added timings
     let res = performance.getEntries().pop();
-	console.log(res.duration)
-	if(res.duration >= 0) return false
+    console.log("Request duration: " + res.duration);
+    if(res.duration >= 0) return false
     if(res.duration > -10) console.log("Redirect was cached");
     return true;
 }
