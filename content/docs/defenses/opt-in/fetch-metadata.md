@@ -27,7 +27,7 @@ Fetch Metadata headers can be used to extend the protections provided by SameSit
 This allows for a more precise deployment of protections in scenarios where SameSite cookies could break a service's functionalities. One disadvantage of Fetch Metadata compared to SameSite cookies is that the latter can also protect unencrypted requests (HTTP) while the former can't.
 
 {{< hint warning >}}
-In _Defense_ sections we often assume that the service runs on HTTPS, and therefore, the protection can be applied.
+In the _Defense_ sections you can find in the articles under **Attacks** on this wiki, we assume that the service runs on HTTPS, and therefore, a protection using Fetch Metadata can be applied.
 {{< /hint >}}
 
 ## Considerations
