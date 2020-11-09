@@ -34,7 +34,7 @@ To change the template just change any file and commit as usual.
 
 ### Instructions to Upgrade
 
-Replace `REPLACE_TAG` with the correct tag. Merge all necessary conflicts.
+Replace `REPLACE_TAG` with the correct tag. After pulling, merge all conflicts properly.
 
 ```console
 xsleaks@wiki:~$ git subtree pull --prefix themes/hugo-book https://github.com/alex-shpak/hugo-book.git REPLACE_TAG --squash
