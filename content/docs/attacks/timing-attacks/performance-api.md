@@ -43,6 +43,8 @@ If a frame embed is blocked it will not be added to performance.getEntries
 ```javascript
 async function ifFrame(url) {
     let href = new URL(url).href;
+    // There may be requests for this url before the function was run.
+    let start_count = performance.getEntriesByName(href).length;
     let embed = document.createElement('embed');
     embed.setAttribute("hidden", true);
     embed.src = href;
@@ -51,7 +53,7 @@ async function ifFrame(url) {
     await new Promise(r => setTimeout(r, 200));
     // Remove test embed
     document.body.removeChild(embed)
-    return performance.getEntriesByName(href).length > 0;
+    return performance.getEntriesByName(href).length > start_count;
 }
 ```
 # Detect if a redirect is used or cached
