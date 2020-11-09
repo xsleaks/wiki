@@ -1,8 +1,11 @@
 - id: Search
   translation: Search
 
-- id: Edit this page
-  translation: Edit this page
+- id: Edit this article
+  translation: Edit this article
+  
+- id: Last Modified
+  translation: Last Modified
 
 - id: Last modified by
   translation: Last modified by

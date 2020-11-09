@@ -5,6 +5,7 @@
 {{ range $taxonomy, $_ := .Site.Taxonomies }}
   {{ with $terms := $.GetTerms $taxonomy }}
   <div>
+    {{ $taxonomy }}
     {{ range $n, $term := $terms }}{{ if $n }}, {{ end }}
       <a href="{{ $term.RelPermalink }}">{{ $term.Title }}</a>
     {{- end }}

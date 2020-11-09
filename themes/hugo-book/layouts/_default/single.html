@@ -1,1 +1,15 @@
-{{ define "dummy" }}{{ end }}
+{{ define "main" }}
+<article class="markdown">
+  <h1>
+    {{ .Title }}
+  </h1>
+  {{ partial "docs/post-meta" . }}
+  <p>
+    {{- .Content -}}
+  </p>
+</article>
+{{ end }}
+
+{{ define "toc" }}
+  {{ partial "docs/toc" . }}
+{{ end }}
