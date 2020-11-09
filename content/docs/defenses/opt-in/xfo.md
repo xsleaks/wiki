@@ -8,7 +8,7 @@ category = [
 menu = "main"
 +++
 
-A considerable number of XS-Leaks rely on some of the properties of iframes. If an attacker is unable to embed the contents of a page as an `iframe`, `frame`, `embed` or `object`, then the attack may no longer be possible. To mitigate XS-Leaks which rely on these objects, pages can forbid or select which origins can embed them. Doing so is possible by using the [`X-Frame-Options` Header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options) or the [CSP frame-ancestors directive](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/frame-ancestors).
+A considerable number of XS-Leaks rely on some of the properties of iframes. If an attacker is unable to embed the contents of a page as an `iframe`, `frame`, `embed` or `object`, then the attack may no longer be possible. To mitigate XS-Leaks which rely on these objects, pages can forbid or select which origins can embed them. Doing so is possible by using the [`X-Frame-Options` header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options) or the [CSP frame-ancestors directive](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/frame-ancestors).
 
 Since a website enforcing Framing Protections can't be embedded from an attacker origin, the website is not rendered and the JavaScript does not run. Therefore, none of its subresources (images, JS, or CSS) are retrieved by the browser.
 
