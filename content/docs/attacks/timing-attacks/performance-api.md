@@ -58,6 +58,7 @@ async function ifFrame(url) {
 }
 ```
 # Detect if a redirect is used or cached (Not firefox)
+On chrome the duration is negative when theres a redirect.
 ```javascript
 async function ifRedirect(url) {  
     let href = new URL(url).href;
