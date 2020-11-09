@@ -24,7 +24,7 @@ It can also be used to get the execution time using the difference of [`performa
 Using the [`Resource Timing API`](https://developer.mozilla.org/en-US/docs/Web/API/Resource_Timing_API) you can get the timings of network requests.  
 The duration is provided for all requests but when there’s a `Timing-Allow-Origin: *` header sent by the server the [`transfer size`](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceResourceTiming/transferSize) and domain lookup time is also provided.
 
-## Get duration of a network request
+# Get duration of a network request
 ```javascript
 async function getDuration(url) {
     // Using an image instead of fetch() as some requests had duration = 0
@@ -38,7 +38,7 @@ async function getDuration(url) {
     return res.duration
 }
 ```
-## Detect X-Frame-Options
+# Detect X-Frame-Options
 If a frame embed is blocked it will not be added to performance.getEntries  
 The URL needs to end with a forward slash.
 ```javascript
@@ -54,7 +54,7 @@ async function ifFrame(url) {
     return performance.getEntriesByName(url).length > 0;
 }
 ```
-## Detect if a redirect is used or cached
+# Detect if a redirect is used or cached
 ```javascript
 async function ifRedirect(url) {
     await fetch(url, {mode:"no-cors"});
@@ -66,5 +66,26 @@ async function ifRedirect(url) {
     if(res.duration >= 0) return false
     if(res.duration > -10) console.log("Redirect was cached");
     return true;
+}
+```
+# Detect if a resource is cached
+Unless [CORB](https://fetch.spec.whatwg.org/#corb) is triggered (resource is html) the resource will get cached in the processs of the check.
+```javascript
+async function ifCached2(url) {
+    // Using an image instead of fetch() as some requests had duration = 0
+    let image = new Image();
+    image.src = url;
+    await fetch(url, {mode: "no-cors"});
+    // Wait for request to be added to performance.getEntries();
+    await new Promise(r => setTimeout(r, 1000));
+    // Get last added timings
+    let res = performance.getEntries().pop();
+    console.log("Request duration: " + res.duration);
+    // Check if is 304
+    if (res.encodedBodySize > 0 && res.transferSize > 0 && res.transferSize < res.encodedBodySize) return true
+    if (res.transferSize > 0) return false;
+    if (res.decodedBodySize > 0) return true;
+    // Use duration if theirs no Timing-Allow-Origin header
+    return res.duration < 10;
 }
 ```
