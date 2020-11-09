@@ -27,41 +27,42 @@ The duration is provided for all requests but when there’s a `Timing-Allow-Ori
 # Get duration of a network request
 ```javascript
 async function getDuration(url) {
+    let href = new URL(url).href;
     // Using an image instead of fetch() as some requests had duration = 0
-    let image = new Image();
-    image.src = url;
-    // Wait for request to be added to performance.getEntries();
+    let image = new Image().src = href;
+    // Wait for request to be added to performance.getEntriesByName();
     await new Promise(r => setTimeout(r, 1000));
     // Get last added timings
-    let res = performance.getEntries().pop();
+    let res = performance.getEntriesByName(href).pop();
     console.log("Request duration: " + res.duration);
     return res.duration
 }
 ```
 # Detect X-Frame-Options
 If a frame embed is blocked it will not be added to performance.getEntries  
-The URL needs to end with a forward slash.
 ```javascript
 async function ifFrame(url) {
+    let href = new URL(url).href;
     let embed = document.createElement('embed');
     embed.setAttribute("hidden", true);
-    embed.src = url;
+    embed.src = href;
     document.body.appendChild(embed);
-    // Wait for request to be added to performance.getEntries();
+    // Wait for request to be added to performance.getEntriesByName();
     await new Promise(r => setTimeout(r, 1000));
     // Remove test embed
     document.body.removeChild(embed)
-    return performance.getEntriesByName(url).length > 0;
+    return performance.getEntriesByName(href).length > 0;
 }
 ```
 # Detect if a redirect is used or cached
 ```javascript
-async function ifRedirect(url) {
-    await fetch(url, {mode:"no-cors"});
-    // Wait for request to be added to performance.getEntries();
+async function ifRedirect(url) {  
+    let href = new URL(url).href;
+    await fetch(href, {mode:"no-cors"});
+    // Wait for request to be added to performance.getEntriesByName();
     await new Promise(r => setTimeout(r, 1000));
     // Get last added timings
-    let res = performance.getEntries().pop();
+    let res = performance.getEntriesByName(href).pop();
     console.log("Request duration: " + res.duration);
     if(res.duration >= 0) return false
     if(res.duration > -10) console.log("Redirect was cached");
@@ -72,13 +73,14 @@ async function ifRedirect(url) {
 Unless [CORB](https://fetch.spec.whatwg.org/#corb) is triggered (resource is html) the resource will get cached in the processs of the check.
 ```javascript
 async function ifCached2(url) {
+    let href = new URL(url).href;
     // Using an image instead of fetch() as some requests had duration = 0
     let image = new Image();
-    image.src = url;
-    // Wait for request to be added to performance.getEntries();
+    image.src = href;
+    // Wait for request to be added to performance.getEntriesByName();
     await new Promise(r => setTimeout(r, 1000));
     // Get last added timings
-    let res = performance.getEntries().pop();
+    let res = performance.getEntriesByName(href).pop();
     console.log("Request duration: " + res.duration);
     // Check if is 304
     if (res.encodedBodySize > 0 && res.transferSize > 0 && res.transferSize < res.encodedBodySize) return true
