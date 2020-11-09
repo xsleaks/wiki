@@ -75,7 +75,6 @@ async function ifCached2(url) {
     // Using an image instead of fetch() as some requests had duration = 0
     let image = new Image();
     image.src = url;
-    await fetch(url, {mode: "no-cors"});
     // Wait for request to be added to performance.getEntries();
     await new Promise(r => setTimeout(r, 1000));
     // Get last added timings
