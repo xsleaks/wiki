@@ -40,6 +40,7 @@ async function getDuration(url) {
 ```
 # Detect X-Frame-Options (Not firefox)
 If a frame embed is blocked it will not be added to performance.getEntries  
+If there was a known cached resource on page load firefox could also work.
 ```javascript
 async function ifFrame(url) {
     let href = new URL(url).href;
