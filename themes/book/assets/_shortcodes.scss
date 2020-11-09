@@ -101,4 +101,42 @@
       }
     }
   }
+
+    // {{< hint2 >}}
+    .book-hint2 {
+      @each $name, $color in $hint-colors {
+        &.#{$name} {
+          border-inline-start: none;
+          border-color: $color;
+          background-color: rgba($color, 0.1);
+        }
+      }
+    }
+
+  .hint-title {
+    @each $name, $color in $hint-colors {
+      &.#{$name} {
+        color: white;
+        border-color: $color;
+        background-color: $color;
+        border-radius: $border-radius $border-radius 0 0;
+        font-weight: 700;
+        text-transform: capitalize;
+        padding: $padding-4 $padding-16;
+        margin: (-$padding-8) (-$padding-16) $padding-8 (-$padding-16 + $padding-4);
+      }
+    }
+  }
+
+  .hint-title svg {
+    height: 1em;
+    width: 1em;
+    vertical-align: middle;
+    margin-inline-end: $padding-8;
+    fill: currentColor;
+  }
+
+  .hint-title span {
+    vertical-align: middle;
+  }
 }
