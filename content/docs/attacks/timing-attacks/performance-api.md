@@ -31,7 +31,7 @@ async function getDuration(url) {
     // Using an image instead of fetch() as some requests had duration = 0
     let image = new Image().src = href;
     // Wait for request to be added to performance.getEntriesByName();
-    await new Promise(r => setTimeout(r, 1000));
+    await new Promise(r => setTimeout(r, 200));
     // Get last added timings
     let res = performance.getEntriesByName(href).pop();
     console.log("Request duration: " + res.duration);
@@ -48,7 +48,7 @@ async function ifFrame(url) {
     embed.src = href;
     document.body.appendChild(embed);
     // Wait for request to be added to performance.getEntriesByName();
-    await new Promise(r => setTimeout(r, 1000));
+    await new Promise(r => setTimeout(r, 200));
     // Remove test embed
     document.body.removeChild(embed)
     return performance.getEntriesByName(href).length > 0;
@@ -60,7 +60,7 @@ async function ifRedirect(url) {
     let href = new URL(url).href;
     await fetch(href, {mode:"no-cors"});
     // Wait for request to be added to performance.getEntriesByName();
-    await new Promise(r => setTimeout(r, 1000));
+    await new Promise(r => setTimeout(r, 200));
     // Get last added timings
     let res = performance.getEntriesByName(href).pop();
     console.log("Request duration: " + res.duration);
@@ -78,7 +78,7 @@ async function ifCached2(url) {
     let image = new Image();
     image.src = href;
     // Wait for request to be added to performance.getEntriesByName();
-    await new Promise(r => setTimeout(r, 1000));
+    await new Promise(r => setTimeout(r, 200));
     // Get last added timings
     let res = performance.getEntriesByName(href).pop();
     console.log("Request duration: " + res.duration);
