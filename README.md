@@ -1,4 +1,7 @@
 # XS-Leaks Wiki
+[![Hugo](https://img.shields.io/badge/hugo-0.78.1-blue.svg)](https://gohugo.io)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+[![Actions Status](https://github.com/xsleaks/wiki/workflows/GitHub%20Pages/badge.svg)](https://github.com/xsleaks/wiki/actions)
 
 ## Build Process
 
