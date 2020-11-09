@@ -77,8 +77,7 @@ Unless [CORB](https://fetch.spec.whatwg.org/#corb) is triggered (resource is htm
 async function ifCached2(url) {
     let href = new URL(url).href;
     // Using an image instead of fetch() as some requests had duration = 0
-    let image = new Image();
-    image.src = href;
+    let image = new Image().src = href;
     // Wait for request to be added to performance.getEntriesByName();
     await new Promise(r => setTimeout(r, 200));
     // Get last added timings
