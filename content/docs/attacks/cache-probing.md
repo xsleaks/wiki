@@ -45,7 +45,7 @@ Cache Probing with [Error Events]({{< ref "../attacks/error-events.md" >}}) [^2]
 
 To invalidate a resource from the cache the attacker must force the server to return an error when fetching that subresource. There are a couple of ways to achieve this:
 
-- A fetch request with `cache:'reload'`option that is aborted with [`AbortController.abort()`](https://developer.mozilla.org/en-US/docs/Web/API/AbortController/abort) before new content has been received, but after the request was initiated by the browser. 
+- A fetch request with `cache:'reload'`option that is aborted with [`AbortController.abort()`](https://developer.mozilla.org/en-US/docs/Web/API/AbortController/abort) before new content has been received, but after the request was initiated by the browser.
 - A request with an [overlong referer header](https://lists.archive.carbon60.com/apache/users/316239) and `'cache':'reload'`. This might not work as browsers [capped](https://github.com/whatwg/fetch/issues/903) the length of the referrer to prevent this.
 - A `POST` request with a `fetch` `no-cors`. Sometimes even in cases where an error is not returned the browser invalidates the cache.
 - Request headers such as Content-Type, Accept, Accept-Language, etc that may cause the server to fail (more application dependent).
@@ -63,20 +63,20 @@ async function ifCached(url, purge = false) {
     // The timeout might need to be adjusted for the attack to work properly.
     // Purging content seems to take slightly less time than probing
     var wait_time = (purge) ? 3 : 9;
-    var timeout = await setTimeout(() => { 
+    var timeout = await setTimeout(() => {
         controller.abort();
     }, wait_time);
     try {
         // credentials option is needed for Firefox
         let options = {
-            mode: "no-cors", 
-            credentials: "include", 
+            mode: "no-cors",
+            credentials: "include",
             signal: signal
         };
-        // If the option "cache: reload" is set, the browser will purge 
+        // If the option "cache: reload" is set, the browser will purge
         // the resource from the browser cache
         if(purge) options.cache = "reload";
-        
+
         await fetch(url, options);
     } catch (err) {
         // When controller.abort() is called, the fetch will throw an Exception
@@ -88,7 +88,7 @@ async function ifCached(url, purge = false) {
     // wait_time which means that the resource must have arrived from the cache
     clearTimeout(timeout);
     console.log("The resource is cached");
-    
+
     return true;
 }
 
@@ -115,7 +115,7 @@ Currently there are no good defense mechanisms that would allow websites to full
 
 A promising defense against this attack is [partitioning the HTTP cache]({{< ref "../defenses/secure-defaults/partitioned-cache.md" >}}) by the requesting origin. This browser provided protection prevents an attacker's origin from interfering with cached resources of other origins.
 
-{{< hint warning >}}
+{{< hint important >}}
 As of November 2020, Partitioned Caches are not available in most browsers, so applications cannot rely on them.
 {{< /hint >}}
 

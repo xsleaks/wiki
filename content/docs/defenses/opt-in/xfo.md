@@ -12,8 +12,8 @@ A considerable number of XS-Leaks rely on some of the properties of iframes. If 
 
 Since a website enforcing Framing Protections can't be embedded from an attacker origin, the website is not rendered and the JavaScript does not run. Therefore, none of its subresources (images, JS, or CSS) are retrieved by the browser.
 
-{{< hint warning >}}
-The [CSP frame-ancestors directive](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/frame-ancestors) is the more modern way of enabling framing protections. However, it is not supported by Internet Explorer, so in many cases it is recommended to use it in conjunction with the [`X-Frame-Options` header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options). 
+{{< hint tip >}}
+The [CSP frame-ancestors directive](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/frame-ancestors) is the more modern way of enabling framing protections. However, it is not supported by Internet Explorer, so in many cases it is recommended to use it in conjunction with the [`X-Frame-Options` header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options).
 {{< /hint >}}
 
 ## Considerations

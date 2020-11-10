@@ -12,7 +12,7 @@ Cross-Site Leaks (aka XS-Leaks, XSLeaks) are a class of vulnerabilities derived 
 
 ## The principle of an XS-Leak
 
-The fact that websites interact with each other is core to the behavior of the web. Browsers provide a wide variety of interfaces to support such interactions between different web applications. These interfaces have different security measures built on top which are intended to constrain the behavior of websites (e.g. the [Same-Origin Policy](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy)). XS-Leaks take advantage of small pieces of information that can leak during these interactions in order to infer sensitive information about users such as their data on other websites, operating systems they use, or internal networks they are connected to. 
+The fact that websites interact with each other is core to the behavior of the web. Browsers provide a wide variety of interfaces to support such interactions between different web applications. These interfaces have different security measures built on top which are intended to constrain the behavior of websites (e.g. the [Same-Origin Policy](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy)). XS-Leaks take advantage of small pieces of information that can leak during these interactions in order to infer sensitive information about users such as their data on other websites, operating systems they use, or internal networks they are connected to.
 
 These pieces of information usually have a binary form and are referred to as "oracles". These oracles usually answer with *YES* or *NO* to cleverly prepared questions. For example, an oracle can be asked:
 
@@ -34,7 +34,7 @@ Browsers provide a wide range of different APIs that, while well-intended, can e
 
 Websites are generally not allowed to access data on other websites. For example, *evil.com* is forbidden from explicitly reading a response from *bank.com*, but *evil.com* can attempt to load a script from *bank.com* since that was originally judged to be harmless [^harmless]. However, *evil.com* can also determine whether or not the script successfully loaded.
 
-{{< hint info >}}
+{{< hint example >}}
 
 Suppose that *bank.com* has an API endpoint that returns data about a user's receipt for a given query.
 
@@ -89,10 +89,10 @@ In addition, we would also like to acknowledge the users who [contributed](https
 
 
 ## References
-[^side-channel]: Side Channel Vulnerabilities on the Web - Detection and Prevention, [link](https://owasp.org/www-pdf-archive/Side_Channel_Vulnerabilities.pdf)  
-[^csrf]: Cross Site Request Forgery (CSRF), [link](https://owasp.org/www-community/attacks/csrf)  
-[^browser-features]: In some cases, these features are maintained to preserve backwards compatibility. But, in other cases, new features are added to browsers regardless of the fact that they introduce potential Cross-Site Leaks (e.g. [Scroll to Text Fragment]({{< ref "scroll-to-text-fragment.md" >}})), as the benefits are considered to outweigh the downsides.  
-[^harmless]: Websites being able to interact and include resources from each other is a key part of how the web works. For example, many websites allow users to post content that includes images embedded from elsewhere on the web. Fundamentally, this is an intended behavior of the web. But, over time, the downsides of this sort of interaction have become better understood.  
-[^old-wiki]: Browser Side Channels, [link](https://github.com/xsleaks/xsleaks/wiki/Browser-Side-Channels)  
-[^xs-search-first]: Cross-Site Search Attacks, [link](https://446h.cybersec.fun/xssearch.pdf)  
-[^spectre]: Meltdown and Spectre, [link](https://spectreattack.com/)  
+[^side-channel]: Side Channel Vulnerabilities on the Web - Detection and Prevention, [link](https://owasp.org/www-pdf-archive/Side_Channel_Vulnerabilities.pdf)
+[^csrf]: Cross Site Request Forgery (CSRF), [link](https://owasp.org/www-community/attacks/csrf)
+[^browser-features]: In some cases, these features are maintained to preserve backwards compatibility. But, in other cases, new features are added to browsers regardless of the fact that they introduce potential Cross-Site Leaks (e.g. [Scroll to Text Fragment]({{< ref "scroll-to-text-fragment.md" >}})), as the benefits are considered to outweigh the downsides.
+[^harmless]: Websites being able to interact and include resources from each other is a key part of how the web works. For example, many websites allow users to post content that includes images embedded from elsewhere on the web. Fundamentally, this is an intended behavior of the web. But, over time, the downsides of this sort of interaction have become better understood.
+[^old-wiki]: Browser Side Channels, [link](https://github.com/xsleaks/xsleaks/wiki/Browser-Side-Channels)
+[^xs-search-first]: Cross-Site Search Attacks, [link](https://446h.cybersec.fun/xssearch.pdf)
+[^spectre]: Meltdown and Spectre, [link](https://spectreattack.com/)

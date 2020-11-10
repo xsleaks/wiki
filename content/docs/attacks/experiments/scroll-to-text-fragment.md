@@ -21,7 +21,7 @@ In early discussions for the specification of this feature it was shown that sev
 
 ## Current Issues
 
-{{< hint info >}}
+{{< hint warning >}}
 These XS-Leaks require some type of markup injection on the target page.
 {{< /hint >}}
 
@@ -30,12 +30,12 @@ During the development process of STTF new attacks and tricks to detect a fragme
 - A web page that embeds an attacker-controlled `iframe` might allow the attacker to determine whether a scroll to the text has occurred. This can be done using the [`IntersectionObserver`](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) API [^2] [^3] [^4].
 - If a page contains images with [Lazy Loading](https://web.dev/native-lazy-loading/) an attacker might known if a fragment navigation that included an image occurred by checking whether it was [cached in the browser]({{< ref "../cache-probing.md" >}}). This occurs because [Lazy Loading](https://web.dev/native-lazy-loading/) images are only fetched (and cached) when they appear in the viewport.
 
-{{< hint warning >}}
+{{< hint important >}}
 Scroll to Text Fragment is only available in Chrome. Its [draft](https://wicg.github.io/scroll-to-text-fragment/) specification is under active discussion.
 {{< /hint >}}
 
-{{< hint good >}}
-Scroll to Text Fragment XS-Leaks allow attackers to extract 1 bit of information at a time as it's only possible to observe whether a group of words is present in a page. This is because STTF matching is based on words, so attackers won't be able to leak information character by character.
+{{< hint info >}}
+Scroll to Text Fragment XS-Leaks allow attackers to extract 1 bit of information at a time as it's only possible to observe whether a single word exists on the page and only when an user performed some kind of interaction with the page (e.g. mouse click).
 {{< /hint >}}
 
 ## Why is this a problem?
