@@ -35,7 +35,7 @@ Scroll to Text Fragment is only available in Chrome. Its [draft](https://wicg.gi
 {{< /hint >}}
 
 {{< hint info >}}
-Scroll to Text Fragment XS-Leaks allow attackers to extract 1 bit of information at a time as it's only possible to observe whether a single word exists on the page and only when an user performed some kind of interaction with the page (e.g. mouse click).
+Scroll to Text Fragment XS-Leaks allow attackers to extract 1 bit of information at a time as it's only possible to observe whether a single word exists on the page and only when a user performed some kind of interaction with the page (e.g. mouse click).
 {{< /hint >}}
 
 ## Why is this a problem?
