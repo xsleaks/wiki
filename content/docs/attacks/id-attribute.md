@@ -29,7 +29,9 @@ Some web applications set `id` attributes in `focusable` elements that may lead 
 The below snippet presents an example way of detecting the ID attribute from another site.
 ```javascript
 // Listen to onblur event
-onblur = () => alert('Focus was lost, so there was a focusable element with the specified ID');
+onblur = () => {
+  alert('Focus was lost, so there is a focusable element with the specified ID');
+}
 var ifr = document.createElement('iframe');
 // If a page has a focusable element with id="x" it will gain focus
 // E.g. <input id="x" value="test" />
@@ -37,7 +39,7 @@ ifr.src = 'https://example.org/#x';
 document.body.appendChild(ifr);
 ```
 
-{{< hint good >}}
+{{< hint info >}}
 The above technique doesn't seem to work in Firefox.
 {{< /hint >}}
 

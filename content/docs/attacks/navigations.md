@@ -55,7 +55,7 @@ setTimeout(() => {
 }, 2000);
 ```
 
-{{< hint warning >}}
+{{< hint important >}}
 This attack is only possible in Chromium-based browsers with automatic downloads enabled. The attack can't be also repeated since the user needs to close the download bar for it to be measurable again.
 {{< /hint >}}
 
@@ -86,10 +86,10 @@ iframe.onload = () => {
 ```
 
 {{< hint info >}}
-When there is no navigation inside an iframe caused by a download attempt the iframe will not trigger an `onload` event directly. Because of that, in the example above, an outer iframe was used instead, that listens for `onload` event which triggers when subresources finished loading, including iframes.
+When there is no navigation inside an iframe caused by a download attempt, the iframe will not trigger an `onload` event directly. Because of that, in the example above, an outer iframe was used instead, that listens for `onload` event which triggers when subresources finished loading, including iframes.
 {{< /hint >}}
 
-{{< hint info >}}
+{{< hint important >}}
 This attack will work regardless of any [Framing Protections]({{< ref "xfo" >}}), because the `X-Frame-Options` and `Content-Security-Policy` headers are ignored if `Content-Disposition: attachment` is specified.
 {{< /hint >}}
 
@@ -122,7 +122,7 @@ setTimeout(() => {
 
 A server-side redirect can be detected from a cross-origin page if the destination URL increases in size and contains an attacker controlled input (either in the form of a query string parameter or a path). The following technique relies on the fact that it is possible to induce an error in most web-servers by generating big requests parameters/paths. Since the redirect increases the size of the URL, it can be detected by sending exactly one character less than the server maximum capacity. That way if the size increases the server will respond with an error that can be detected from a cross-origin page (eg via Error Events).
 
-{{< hint info >}}
+{{< hint example >}}
 An example of this attack can be seen [here](https://xsleaks.github.io/xsleaks/examples/redirect/).
 {{< /hint >}}
 ## Cross-Origin Redirects

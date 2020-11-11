@@ -29,7 +29,7 @@ To exploit the existence of this limit attackers can:
 |     ✔️ [(if Strict)]({{< ref "../../defenses/opt-in/same-site-cookies.md#lax-vs-strict" >}})         |      ✔️         |  ❌   |          ❌         |
 
 
-{{< hint good >}}
+{{< hint info >}}
 Similarly to [partitioned caches]({{< ref "../../defenses/secure-defaults/partitioned-cache.md" >}}) some browsers are considering to extend the principle of "split per site/origin" of resources to [socket pools](https://bugzilla.mozilla.org/show_bug.cgi?id=1572544).
 {{< /hint >}}
 

@@ -32,7 +32,7 @@ Some techniques can exploit this model to steal secrets from a cross-origin page
 - Infer how long code from a different origin takes to run by measuring how long it takes to run next in the event pool [^1] [^2]. The attacker keeps sending events to the event loop with fixed properties, which will eventually be dispatched if the pool is empty. Other origins will dispatch events to the same pool, and this is where an attacker infers the timing difference by detecting if a delay occurred with one of its tasks.
 - Steal a secret from a cross-origin page if the said secret is being compared by an attacker-controlled string. The leak is a result of comparing timing differences in the event loop of a char-by-char string comparison [^2] (using the previous technique). In browsers without [process isolation](https://www.chromium.org/Home/chromium-security/site-isolation), cross-window communications between different origins will run in the same thread, thus sharing the same event loop.
 
-{{< hint warning >}}
+{{< hint important >}}
 This attack is no longer possible in Browsers with process isolation mechanisms in place. Such mechanisms are only present in Chromium-Based browsers with [Site Isolation](https://www.chromium.org/Home/chromium-security/site-isolation) and *soon* in Firefox under [Project Fission](https://wiki.mozilla.org/Project_Fission).
 {{< /hint >}}
 
@@ -83,7 +83,7 @@ Since no navigation actually occurs, steps from 3 to 5 can be repeated to get mo
 
 ## CSS Injections
 
-{{< hint info >}}
+{{< hint warning >}}
 This group of XS-Leaks requires a CSS Injection on the target page.
 {{< /hint >}}
 
@@ -99,17 +99,13 @@ A timing attack is possible because the expression is compared from right to lef
 $("*:has(*:has(*:has(*)) *:has(*:has(*:has(*))) *:has(*:has(*:has(*)))) main[id='site-main']")
 ```
 
-{{< hint good >}}
-This attack is no longer possible in Browsers with process isolation mechanisms in place. Such mechanisms are only present in Chromium-Based browsers with [Site Isolation](https://www.chromium.org/Home/chromium-security/site-isolation) and *soon* in Firefox under [Project Fission](https://wiki.mozilla.org/Project_Fission).
-{{< /hint >}}
-
-{{< hint good >}}
+{{< hint tip >}}
 In browsers with process isolation mechanisms, [Service Workers]({{< ref "execution-timing.md#service-workers" >}}) can be abused to obtain the execution timing measurement or tricks like [Busy Event Loop tricks]({{< ref "#busy-event-loop" >}}) to circumvent Site Isolation.
 {{< /hint >}}
 
 ## ReDoS
 
-{{< hint info >}}
+{{< hint warning >}}
 This group of XS-Leaks requires an injection of Regex Expressions on the target page.
 {{< /hint >}}
 

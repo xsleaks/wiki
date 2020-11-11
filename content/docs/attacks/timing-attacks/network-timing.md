@@ -29,7 +29,7 @@ This side-channel allows attackers to infer information from a cross-site reques
 - The number and size of sub-resources.
 - [Cache status]({{< ref "../cache-probing.md" >}}).
 
-{{< hint good >}}
+{{< hint tip >}}
 Learn more about the different types of clocks in the [Clocks Article]({{< ref "clocks.md" >}}).
 {{< /hint >}}
 
@@ -72,8 +72,8 @@ script.onload = () => {
 }
 ```
 
-{{< hint good >}}
-A similar technique can be used for other HTML elements, e.g. `<img>`, `<link>`, `<iframe>` which could be used in scenarios where other techniques fail. For example, if [Fetch Metadata]({{< ref "/docs/defenses/opt-in/fetch-metadata.md">}}) blocked loading of a resource into a script tag it may allow it into an image tag. 
+{{< hint tip >}}
+A similar technique can be used for other HTML elements, e.g. `<img>`, `<link>`, `<iframe>` which could be used in scenarios where other techniques fail. For example, if [Fetch Metadata]({{< ref "/docs/defenses/opt-in/fetch-metadata.md">}}) blocked loading of a resource into a script tag it may allow it into an image tag.
 {{< /hint >}}
 
 ## Sandboxed Frame Timing Attacks
@@ -110,10 +110,10 @@ var start = performance.now();
 // Define the loop
 function measure(){
   try{
-    // If the page has loaded, then it will be on a different origin 
+    // If the page has loaded, then it will be on a different origin
     // so `win.origin` will throw an exception
     win.origin;
-    // If the window is still same-origin, immediately repeat the loop but 
+    // If the window is still same-origin, immediately repeat the loop but
     // without blocking the event loop
     setTimeout(measure, 0);
   }catch(e){
@@ -125,10 +125,10 @@ function measure(){
 // Initiate the loop that breaks when the window switches origins
 measure();
 ```
-{{< hint info >}}
-Note that this POC uses `setTimeout` in order to create the rough equivalent of a `while(true)` loop. It is necessary to implement this way in order to avoid blocking the JS event loop. 
+{{< hint note >}}
+Note that this POC uses `setTimeout` in order to create the rough equivalent of a `while(true)` loop. It is necessary to implement this way in order to avoid blocking the JS event loop.
 {{< /hint >}}
-{{< hint good >}}
+{{< hint tip >}}
 This technique can also be adapted to measure the Execution Timing of a page by [making the event loop busy]({{< ref "execution-timing.md#busy-event-loop" >}}).
 {{< /hint >}}
 
@@ -138,11 +138,11 @@ Other attacks do not consider the notion of time to perform a timing attack [^3]
 
 The advantage of this technique is the independence on network jitter and uncertain delays, something that is always present in the remaining techniques.
 
-{{< hint warning >}}
+{{< hint note >}}
 The original research needs to be adapted to work in a browser since it handles all network-specific tasks.
 {{< /hint >}}
 
-{{< hint warning >}}
+{{< hint important >}}
 This attack is limited to specific versions of HTTP and joint scenarios. It makes certain assumptions and has requirements regarding server behaviors.
 {{< /hint >}}
 

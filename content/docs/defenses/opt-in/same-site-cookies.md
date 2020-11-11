@@ -16,10 +16,10 @@ The following SameSite cookie modes are available:
 
 * `None` – Disables all protections and restores the old behavior of cookies. This mode is not recommended.
 
-    {{< hint warning >}}
-The `None` attribute must be accompanied by the `Secure` flag [^same-site-none].
-[^same-site-none]: SameSite cookies explained, [link](https://web.dev/samesite-cookies-explained/#samesitenone-must-be-secure)
-{{< /hint >}}
+  {{< hint important >}}
+  The `None` attribute must be accompanied by the `Secure` flag [^same-site-none].
+  [^same-site-none]: SameSite cookies explained, [link](https://web.dev/samesite-cookies-explained/#samesitenone-must-be-secure)
+  {{< /hint >}}
 
 
 * `Strict` – Causes the browser to not include cookies in any cross-site requests. This means `<script src="example.com/resource">`, `<img src="example.com/resource">`, `fetch()`, and `XHR` will all make requests without the SameSite `Strict` cookies attached. Even if the user clicks on a link to `example.com/resource`, their cookies are not included.
