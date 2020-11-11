@@ -89,7 +89,7 @@ iframe.onload = () => {
 When there is no navigation inside an iframe caused by a download attempt, the iframe will not trigger an `onload` event directly. Because of that, in the example above, an outer iframe was used instead, that listens for `onload` event which triggers when subresources finished loading, including iframes.
 {{< /hint >}}
 
-{{< hint info >}}
+{{< hint important >}}
 This attack will work regardless of any [Framing Protections]({{< ref "xfo" >}}), because the `X-Frame-Options` and `Content-Security-Policy` headers are ignored if `Content-Disposition: attachment` is specified.
 {{< /hint >}}
 
