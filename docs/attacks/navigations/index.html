@@ -18,59 +18,59 @@ To detect if any kind of navigation occurred, an attacker can:
 <a href=/defenses/coop/>COOP</a>,
 <a href=/defenses/framing-protections/>Framing Protections</a></div><p><p>Detecting if a cross-site page triggered a navigation (or didn&rsquo;t) can be useful to an attacker. For example, a website may trigger a navigation in a certain endpoint <a href=#case-scenarios>depending on the status of the user</a>.</p><p>To detect if any kind of navigation occurred, an attacker can:</p><ul><li>Use an <code>iframe</code> and count the number of times the <code>onload</code> event is triggered.</li><li>Check the value of <code>history.length</code>, accessible through any window reference. This gives the number of entries in the history of a victim either changed by <code>history.pushState</code> or regular navigations. To get the value of <code>history.length</code> an attacker changes the location of the window reference with the target website, changes back to same-origin, and finally reads the value.</li></ul><h2 id=download-trigger>Download Trigger
 <a class=anchor href=#download-trigger>#</a></h2><p>When an endpoint sets the <a href=https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition><code>Content-Disposition: attachment</code></a> header, it instructs the browser to download the response as an attachment instead of navigating to it. Detecting if this behavior occurred might allow attackers to leak private information if the outcome depends on the state of the victim&rsquo;s account.</p><h3 id=download-bar>Download bar
-<a class=anchor href=#download-bar>#</a></h3><p>In Chromium-based browsers when a file is downloaded, a preview of the download process appears in a bar at the bottom, integrated into the browser window. By monitoring the window height attackers could detect whether the &ldquo;download bar&rdquo; opened.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#75715e>// Read the current height of the window
-</span><span style=color:#75715e></span><span style=color:#66d9ef>var</span> <span style=color:#a6e22e>screenHeight</span> <span style=color:#f92672>=</span> window.<span style=color:#a6e22e>innerHeight</span>;
-<span style=color:#75715e>// Load the page that may or may not trigger the download
-</span><span style=color:#75715e></span>window.<span style=color:#a6e22e>open</span>(<span style=color:#e6db74>&#39;https://example.org&#39;</span>);
-<span style=color:#75715e>// Wait for the tab to load
-</span><span style=color:#75715e></span><span style=color:#a6e22e>setTimeout</span>(() =&gt; {
-    <span style=color:#75715e>// If the download bar appears, the height of all tabs will be smaller
-</span><span style=color:#75715e></span>    <span style=color:#66d9ef>if</span> (window.<span style=color:#a6e22e>innerHeight</span> <span style=color:#f92672>&lt;</span> <span style=color:#a6e22e>screenHeight</span>) {
-      <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#39;Download bar detected&#39;</span>);
-    } <span style=color:#66d9ef>else</span> {
-      <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#39;Download bar not detected&#39;</span>);
+<a class=anchor href=#download-bar>#</a></h3><p>In Chromium-based browsers when a file is downloaded, a preview of the download process appears in a bar at the bottom, integrated into the browser window. By monitoring the window height attackers could detect whether the &ldquo;download bar&rdquo; opened.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#6272a4>// Read the current height of the window
+</span><span style=color:#6272a4></span><span style=color:#8be9fd;font-style:italic>var</span> screenHeight <span style=color:#ff79c6>=</span> <span style=color:#8be9fd;font-style:italic>window</span>.innerHeight;
+<span style=color:#6272a4>// Load the page that may or may not trigger the download
+</span><span style=color:#6272a4></span><span style=color:#8be9fd;font-style:italic>window</span>.open(<span style=color:#f1fa8c>&#39;https://example.org&#39;</span>);
+<span style=color:#6272a4>// Wait for the tab to load
+</span><span style=color:#6272a4></span>setTimeout(() =&gt; {
+    <span style=color:#6272a4>// If the download bar appears, the height of all tabs will be smaller
+</span><span style=color:#6272a4></span>    <span style=color:#ff79c6>if</span> (<span style=color:#8be9fd;font-style:italic>window</span>.innerHeight <span style=color:#ff79c6>&lt;</span> screenHeight) {
+      console.log(<span style=color:#f1fa8c>&#39;Download bar detected&#39;</span>);
+    } <span style=color:#ff79c6>else</span> {
+      console.log(<span style=color:#f1fa8c>&#39;Download bar not detected&#39;</span>);
     }
-}, <span style=color:#ae81ff>2000</span>);
+}, <span style=color:#bd93f9>2000</span>);
 </code></pre></div><blockquote class="book-hint2 important"><p class="hint-title important"><svg class="book-icon"><use href="/svg/hint-icons.svg#important-notice"/></svg><span>important</span></p>This attack is only possible in Chromium-based browsers with automatic downloads enabled. The attack can&rsquo;t be also repeated since the user needs to close the download bar for it to be measurable again.</blockquote><h3 id=download-navigation-with-iframes>Download Navigation (with iframes)
-<a class=anchor href=#download-navigation-with-iframes>#</a></h3><p>Another way to test for the <a href=https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition><code>Content-Disposition: attachment</code></a> header is to check if a navigation occurred. If a page load causes a download, it will not trigger a navigation and the window will stay within the same origin.</p><p>The following snippet can be used to detect whether such a navigation has occurred and therefore detect a download attempt.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#75715e>// Set the destination URL to test for the download attempt
-</span><span style=color:#75715e></span><span style=color:#66d9ef>var</span> <span style=color:#a6e22e>url</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;https://example.org/&#39;</span>;
-<span style=color:#75715e>// Create an outer iframe to measure onload event
-</span><span style=color:#75715e></span><span style=color:#66d9ef>var</span> <span style=color:#a6e22e>iframe</span> <span style=color:#f92672>=</span> document.<span style=color:#a6e22e>createElement</span>(<span style=color:#e6db74>&#39;iframe&#39;</span>);
-document.<span style=color:#a6e22e>body</span>.<span style=color:#a6e22e>appendChild</span>(<span style=color:#a6e22e>iframe</span>);
-<span style=color:#75715e>// Create an inner iframe to test for the download attempt
-</span><span style=color:#75715e></span><span style=color:#a6e22e>iframe</span>.<span style=color:#a6e22e>srcdoc</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>`&lt;iframe src=&#34;</span><span style=color:#e6db74>${</span><span style=color:#a6e22e>url</span><span style=color:#e6db74>}</span><span style=color:#e6db74>&#34; &gt;&lt;/iframe&gt;`</span>;
-<span style=color:#a6e22e>iframe</span>.<span style=color:#a6e22e>onload</span> <span style=color:#f92672>=</span> () =&gt; {
-      <span style=color:#66d9ef>try</span> {
-          <span style=color:#75715e>// If a navigation occurs, the iframe will be cross-origin,
-</span><span style=color:#75715e></span>          <span style=color:#75715e>// so accessing &#34;inner.origin&#34; will throw an exception
-</span><span style=color:#75715e></span>          <span style=color:#a6e22e>iframe</span>.<span style=color:#a6e22e>contentWindow</span>.<span style=color:#a6e22e>frames</span>[<span style=color:#ae81ff>0</span>].<span style=color:#a6e22e>origin</span>;
-          <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#39;Download attempt detected&#39;</span>);
-      } <span style=color:#66d9ef>catch</span>(<span style=color:#a6e22e>e</span>) {
-          <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#39;No download attempt detected&#39;</span>);
+<a class=anchor href=#download-navigation-with-iframes>#</a></h3><p>Another way to test for the <a href=https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition><code>Content-Disposition: attachment</code></a> header is to check if a navigation occurred. If a page load causes a download, it will not trigger a navigation and the window will stay within the same origin.</p><p>The following snippet can be used to detect whether such a navigation has occurred and therefore detect a download attempt.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#6272a4>// Set the destination URL to test for the download attempt
+</span><span style=color:#6272a4></span><span style=color:#8be9fd;font-style:italic>var</span> url <span style=color:#ff79c6>=</span> <span style=color:#f1fa8c>&#39;https://example.org/&#39;</span>;
+<span style=color:#6272a4>// Create an outer iframe to measure onload event
+</span><span style=color:#6272a4></span><span style=color:#8be9fd;font-style:italic>var</span> iframe <span style=color:#ff79c6>=</span> <span style=color:#8be9fd;font-style:italic>document</span>.createElement(<span style=color:#f1fa8c>&#39;iframe&#39;</span>);
+<span style=color:#8be9fd;font-style:italic>document</span>.body.appendChild(iframe);
+<span style=color:#6272a4>// Create an inner iframe to test for the download attempt
+</span><span style=color:#6272a4></span>iframe.srcdoc <span style=color:#ff79c6>=</span> <span style=color:#f1fa8c>`&lt;iframe src=&#34;</span><span style=color:#f1fa8c>${</span>url<span style=color:#f1fa8c>}</span><span style=color:#f1fa8c>&#34; &gt;&lt;/iframe&gt;`</span>;
+iframe.onload <span style=color:#ff79c6>=</span> () =&gt; {
+      <span style=color:#ff79c6>try</span> {
+          <span style=color:#6272a4>// If a navigation occurs, the iframe will be cross-origin,
+</span><span style=color:#6272a4></span>          <span style=color:#6272a4>// so accessing &#34;inner.origin&#34; will throw an exception
+</span><span style=color:#6272a4></span>          iframe.contentWindow.frames[<span style=color:#bd93f9>0</span>].origin;
+          console.log(<span style=color:#f1fa8c>&#39;Download attempt detected&#39;</span>);
+      } <span style=color:#ff79c6>catch</span>(e) {
+          console.log(<span style=color:#f1fa8c>&#39;No download attempt detected&#39;</span>);
       }
 }
 </code></pre></div><blockquote class="book-hint2 info"><p class="hint-title info"><svg class="book-icon"><use href="/svg/hint-icons.svg#info-notice"/></svg><span>info</span></p>When there is no navigation inside an iframe caused by a download attempt, the iframe will not trigger an <code>onload</code> event directly. Because of that, in the example above, an outer iframe was used instead, that listens for <code>onload</code> event which triggers when subresources finished loading, including iframes.</blockquote><blockquote class="book-hint2 important"><p class="hint-title important"><svg class="book-icon"><use href="/svg/hint-icons.svg#important-notice"/></svg><span>important</span></p>This attack will work regardless of any <a href=https://xsleaks.dev/docs/defenses/opt-in/xfo/>Framing Protections</a>, because the <code>X-Frame-Options</code> and <code>Content-Security-Policy</code> headers are ignored if <code>Content-Disposition: attachment</code> is specified.</blockquote><h3 id=download-navigation-without-iframes>Download Navigation (without iframes)
-<a class=anchor href=#download-navigation-without-iframes>#</a></h3><p>A variation of the technique presented in the previous section can also be effectively tested using <code>window</code> objects.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#75715e>// Set the destination URL
-</span><span style=color:#75715e></span><span style=color:#66d9ef>var</span> <span style=color:#a6e22e>url</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;https://example.org&#39;</span>;
-<span style=color:#75715e>// Get a window reference
-</span><span style=color:#75715e></span><span style=color:#66d9ef>var</span> <span style=color:#a6e22e>win</span> <span style=color:#f92672>=</span> window.<span style=color:#a6e22e>open</span>(<span style=color:#a6e22e>url</span>);
+<a class=anchor href=#download-navigation-without-iframes>#</a></h3><p>A variation of the technique presented in the previous section can also be effectively tested using <code>window</code> objects.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#6272a4>// Set the destination URL
+</span><span style=color:#6272a4></span><span style=color:#8be9fd;font-style:italic>var</span> url <span style=color:#ff79c6>=</span> <span style=color:#f1fa8c>&#39;https://example.org&#39;</span>;
+<span style=color:#6272a4>// Get a window reference
+</span><span style=color:#6272a4></span><span style=color:#8be9fd;font-style:italic>var</span> win <span style=color:#ff79c6>=</span> <span style=color:#8be9fd;font-style:italic>window</span>.open(url);
 
-<span style=color:#75715e>// Wait for the window to load.
-</span><span style=color:#75715e></span><span style=color:#a6e22e>setTimeout</span>(() =&gt; {
-      <span style=color:#66d9ef>try</span> {
-          <span style=color:#75715e>// If a navigation occurs, the iframe will be cross-origin,
-</span><span style=color:#75715e></span>          <span style=color:#75715e>// so accessing &#34;win.origin&#34; will throw an exception
-</span><span style=color:#75715e></span>          <span style=color:#a6e22e>win</span>.<span style=color:#a6e22e>origin</span>;
-          <span style=color:#a6e22e>parent</span>.<span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#39;Download attempt detected&#39;</span>);
-      } <span style=color:#66d9ef>catch</span>(<span style=color:#a6e22e>e</span>) {
-          <span style=color:#a6e22e>parent</span>.<span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#39;No download attempt detected&#39;</span>);
+<span style=color:#6272a4>// Wait for the window to load.
+</span><span style=color:#6272a4></span>setTimeout(() =&gt; {
+      <span style=color:#ff79c6>try</span> {
+          <span style=color:#6272a4>// If a navigation occurs, the iframe will be cross-origin,
+</span><span style=color:#6272a4></span>          <span style=color:#6272a4>// so accessing &#34;win.origin&#34; will throw an exception
+</span><span style=color:#6272a4></span>          win.origin;
+          parent.console.log(<span style=color:#f1fa8c>&#39;Download attempt detected&#39;</span>);
+      } <span style=color:#ff79c6>catch</span>(e) {
+          parent.console.log(<span style=color:#f1fa8c>&#39;No download attempt detected&#39;</span>);
       }
-}, <span style=color:#ae81ff>2000</span>);
+}, <span style=color:#bd93f9>2000</span>);
 </code></pre></div><h2 id=server-side-redirects>Server-Side Redirects
 <a class=anchor href=#server-side-redirects>#</a></h2><h3 id=inflation>Inflation
 <a class=anchor href=#inflation>#</a></h3><p>A server-side redirect can be detected from a cross-origin page if the destination URL increases in size and contains an attacker controlled input (either in the form of a query string parameter or a path). The following technique relies on the fact that it is possible to induce an error in most web-servers by generating big requests parameters/paths. Since the redirect increases the size of the URL, it can be detected by sending exactly one character less than the server maximum capacity. That way if the size increases the server will respond with an error that can be detected from a cross-origin page (eg via Error Events).</p><blockquote class="book-hint2 example"><p class="hint-title example"><svg class="book-icon"><use href="/svg/hint-icons.svg#example-notice"/></svg><span>example</span></p>An example of this attack can be seen <a href=https://xsleaks.github.io/xsleaks/examples/redirect/>here</a>.</blockquote><h2 id=cross-origin-redirects>Cross-Origin Redirects
 <a class=anchor href=#cross-origin-redirects>#</a></h2><h3 id=csp-violations>CSP Violations
-<a class=anchor href=#csp-violations>#</a></h3><p><a href=https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP>Content-Security-Policy</a> (CSP) is an in-depth defense mechanism against XSS and data injection attacks. When a CSP is violated, a <code>SecurityPolicyViolationEvent</code> is thrown. An attacker can set up a CSP which will trigger a <code>Violation</code> event every time a <code>fetch</code> follows an URL not set in the CSP directive. This will allow an attacker to detect if a redirect to another origin occurred <sup id=fnref:1><a href=#fn:1 class=footnote-ref role=doc-noteref>1</a></sup> <sup id=fnref:2><a href=#fn:2 class=footnote-ref role=doc-noteref>2</a></sup>.</p><p>The example below will trigger a <code>SecurityPolicyViolationEvent</code> if the website set in fetch API (line 6) redirects to a website different then <code>target.page</code>.</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+<a class=anchor href=#csp-violations>#</a></h3><p><a href=https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP>Content-Security-Policy</a> (CSP) is an in-depth defense mechanism against XSS and data injection attacks. When a CSP is violated, a <code>SecurityPolicyViolationEvent</code> is thrown. An attacker can set up a CSP which will trigger a <code>Violation</code> event every time a <code>fetch</code> follows an URL not set in the CSP directive. This will allow an attacker to detect if a redirect to another origin occurred <sup id=fnref:1><a href=#fn:1 class=footnote-ref role=doc-noteref>1</a></sup> <sup id=fnref:2><a href=#fn:2 class=footnote-ref role=doc-noteref>2</a></sup>.</p><p>The example below will trigger a <code>SecurityPolicyViolationEvent</code> if the website set in fetch API (line 6) redirects to a website different then <code>target.page</code>.</p><div class=highlight><div style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
@@ -85,21 +85,21 @@ document.<span style=color:#a6e22e>body</span>.<span style=color:#a6e22e>appendC
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=color:#75715e>&lt;!-- Set the Content-Security-Policy to only allow example.org --&gt;</span>
-&lt;<span style=color:#f92672>meta</span> <span style=color:#a6e22e>http-equiv</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;Content-Security-Policy&#34;</span>
-      <span style=color:#a6e22e>content</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;connect-src https://example.org&#34;</span>&gt;
-&lt;<span style=color:#f92672>script</span>&gt;
-<span style=color:#75715e>// Listen for a CSP violation event
-</span><span style=color:#75715e></span>document.<span style=color:#a6e22e>addEventListener</span>(<span style=color:#e6db74>&#39;securitypolicyviolation&#39;</span>, () =&gt; {
-  <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#34;Detected a redirect to somewhere other than example.org&#34;</span>);
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=color:#6272a4>&lt;!-- Set the Content-Security-Policy to only allow example.org --&gt;</span>
+&lt;<span style=color:#ff79c6>meta</span> <span style=color:#50fa7b>http-equiv</span><span style=color:#ff79c6>=</span><span style=color:#f1fa8c>&#34;Content-Security-Policy&#34;</span>
+      <span style=color:#50fa7b>content</span><span style=color:#ff79c6>=</span><span style=color:#f1fa8c>&#34;connect-src https://example.org&#34;</span>&gt;
+&lt;<span style=color:#ff79c6>script</span>&gt;
+<span style=color:#6272a4>// Listen for a CSP violation event
+</span><span style=color:#6272a4></span><span style=color:#8be9fd;font-style:italic>document</span>.addEventListener(<span style=color:#f1fa8c>&#39;securitypolicyviolation&#39;</span>, () =&gt; {
+  console.log(<span style=color:#f1fa8c>&#34;Detected a redirect to somewhere other than example.org&#34;</span>);
 });
-<span style=color:#75715e>// Try to fetch example.org. If it redirects to anoter cross-site website
-</span><span style=color:#75715e>// it will trigger a CSP violation event
-</span><span style=color:#75715e></span><span style=color:#a6e22e>fetch</span>(<span style=color:#e6db74>&#39;https://example.org/might_redirect&#39;</span>, {
-  <span style=color:#a6e22e>mode</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;no-cors&#39;</span>,
-  <span style=color:#a6e22e>credentials</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;include&#39;</span>
+<span style=color:#6272a4>// Try to fetch example.org. If it redirects to anoter cross-site website
+</span><span style=color:#6272a4>// it will trigger a CSP violation event
+</span><span style=color:#6272a4></span>fetch(<span style=color:#f1fa8c>&#39;https://example.org/might_redirect&#39;</span>, {
+  mode<span style=color:#ff79c6>:</span> <span style=color:#f1fa8c>&#39;no-cors&#39;</span>,
+  credentials<span style=color:#ff79c6>:</span> <span style=color:#f1fa8c>&#39;include&#39;</span>
 });
-&lt;/<span style=color:#f92672>script</span>&gt;</code></pre></td></tr></table></div></div><h2 id=case-scenarios>Case Scenarios
+&lt;/<span style=color:#ff79c6>script</span>&gt;</code></pre></td></tr></table></div></div><h2 id=case-scenarios>Case Scenarios
 <a class=anchor href=#case-scenarios>#</a></h2><ul><li>An online bank decides to redirect wealthy users to unmissable stock opportunities by triggering a navigation to a reserved space on the website when users are consulting the account balance. If this is only done to a specific group of users, it becomes possible for an attacker to leak the &ldquo;client status&rdquo; of the user.</li></ul><h2 id=defense>Defense
 <a class=anchor href=#defense>#</a></h2><table><thead><tr><th style=text-align:center>Attack Alternative</th><th style=text-align:center><a href=https://xsleaks.dev/docs/defenses/opt-in/same-site-cookies/>Same-Site Cookies</a></th><th style=text-align:center><a href=https://xsleaks.dev/docs/defenses/opt-in/fetch-metadata/>Fetch Metadata</a></th><th style=text-align:center><a href=https://xsleaks.dev/docs/defenses/opt-in/coop/>COOP</a></th><th style=text-align:center><a href=https://xsleaks.dev/docs/defenses/opt-in/xfo/>Framing Protections</a></th></tr></thead><tbody><tr><td style=text-align:center>iframe</td><td style=text-align:center>✔️</td><td style=text-align:center>✔️</td><td style=text-align:center>❌</td><td style=text-align:center>✔️</td></tr><tr><td style=text-align:center><code>history.length</code> (iframe)</td><td style=text-align:center>✔️</td><td style=text-align:center>✔️</td><td style=text-align:center>❌</td><td style=text-align:center>✔️</td></tr><tr><td style=text-align:center><code>history.length</code> (window.open)</td><td style=text-align:center>✔️ <a href=https://xsleaks.dev/docs/defenses/opt-in/same-site-cookies/#lax-vs-strict>(if Strict)</a></td><td style=text-align:center>✔️</td><td style=text-align:center>✔️</td><td style=text-align:center>❌</td></tr><tr><td style=text-align:center>Download bar</td><td style=text-align:center>✔️</td><td style=text-align:center>✔️</td><td style=text-align:center>✔️</td><td style=text-align:center>✔️</td></tr><tr><td style=text-align:center>Download Navigation (w/ timeout)</td><td style=text-align:center>✔️ <a href=https://xsleaks.dev/docs/defenses/opt-in/same-site-cookies/#lax-vs-strict>(if Strict)</a></td><td style=text-align:center>✔️</td><td style=text-align:center>❓</td><td style=text-align:center>✔️</td></tr><tr><td style=text-align:center>Download Navigation (no timeout)</td><td style=text-align:center>✔️</td><td style=text-align:center>✔️</td><td style=text-align:center>✔️</td><td style=text-align:center>✔️</td></tr><tr><td style=text-align:center>CSP Violations</td><td style=text-align:center>✔️</td><td style=text-align:center>✔️</td><td style=text-align:center>❌</td><td style=text-align:center>❌</td></tr></tbody></table><h2 id=real-world-examples>Real-World Examples
 <a class=anchor href=#real-world-examples>#</a></h2><ul><li>A vulnerability reported to Twitter used this technique to leak the contents of private tweets using <a href=https://xsleaks.dev/docs/attacks/xs-search/>XS-Search</a>. This attack was possible because the page would only trigger a navigation depending on whether there were results to the user query <sup id=fnref:3><a href=#fn:3 class=footnote-ref role=doc-noteref>3</a></sup>.</li></ul><h2 id=references>References

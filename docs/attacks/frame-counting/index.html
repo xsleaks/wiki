@@ -10,29 +10,29 @@ One of the accessible attributes is window.length which provides the number of f
 <a href=/defenses/samesite-cookies/>SameSite Cookies</a>,
 <a href=/defenses/coop/>COOP</a>,
 <a href=/defenses/framing-protections/>Framing Protections</a></div><p><p>Window references allow cross-origin pages to get access to some attributes of other pages. These references become available when using or allowing <code>iframe</code> and <code>window.open</code>. They provide some information (although limited) about the window as they still respect the Same Origin Policy.</p><p>One of the accessible attributes is <code>window.length</code> which provides the number of frames in the window. This attribute can give valuable information about a page to an attacker.</p><p>Websites commonly use frames (or <code>iframes</code>) and this choice doesn&rsquo;t necessarily imply security issues. There are however cases where a website might change the number of frames in a page depending on some user information. This could happen for example on a page that changes layout depending on the <code>GET</code> parameters and the victim data. It might be possible for an attacker to infer information about the victim by measuring the value of <code>window.length</code> on different pages.</p><h2 id=code-snippet>Code snippet
-<a class=anchor href=#code-snippet>#</a></h2><p>The below snippet demonstrates how to access the information about the number of frames on a cross-site page.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#75715e>// Get a reference to the window
-</span><span style=color:#75715e></span><span style=color:#66d9ef>var</span> <span style=color:#a6e22e>win</span> <span style=color:#f92672>=</span> window.<span style=color:#a6e22e>open</span>(<span style=color:#e6db74>&#39;https://example.org&#39;</span>);
+<a class=anchor href=#code-snippet>#</a></h2><p>The below snippet demonstrates how to access the information about the number of frames on a cross-site page.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#6272a4>// Get a reference to the window
+</span><span style=color:#6272a4></span><span style=color:#8be9fd;font-style:italic>var</span> win <span style=color:#ff79c6>=</span> <span style=color:#8be9fd;font-style:italic>window</span>.open(<span style=color:#f1fa8c>&#39;https://example.org&#39;</span>);
 
-<span style=color:#75715e>// Wait for the page to load
-</span><span style=color:#75715e></span><span style=color:#a6e22e>setTimeout</span>(() =&gt; {
-  <span style=color:#75715e>// Read the number of iframes loaded
-</span><span style=color:#75715e></span>  <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#34;%d iframes detected&#34;</span>, <span style=color:#a6e22e>win</span>.<span style=color:#a6e22e>length</span>);
-}, <span style=color:#ae81ff>2000</span>);
+<span style=color:#6272a4>// Wait for the page to load
+</span><span style=color:#6272a4></span>setTimeout(() =&gt; {
+  <span style=color:#6272a4>// Read the number of iframes loaded
+</span><span style=color:#6272a4></span>  console.log(<span style=color:#f1fa8c>&#34;%d iframes detected&#34;</span>, win.length);
+}, <span style=color:#bd93f9>2000</span>);
 </code></pre></div><h2 id=attack-alternatives>Attack alternatives
-<a class=anchor href=#attack-alternatives>#</a></h2><p>In some cases, different application states have the same number of <code>frames</code>, preventing attackers from being able to distinguish them. However, continuously recording the frame count while the page is loading may show a pattern that might leak information to the attacker.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#75715e>// Get a reference to the window
-</span><span style=color:#75715e></span><span style=color:#66d9ef>var</span> <span style=color:#a6e22e>win</span> <span style=color:#f92672>=</span> window.<span style=color:#a6e22e>open</span>(<span style=color:#e6db74>&#34;https://example.org&#34;</span>);
-<span style=color:#66d9ef>var</span> <span style=color:#a6e22e>pattern</span> <span style=color:#f92672>=</span> [];
+<a class=anchor href=#attack-alternatives>#</a></h2><p>In some cases, different application states have the same number of <code>frames</code>, preventing attackers from being able to distinguish them. However, continuously recording the frame count while the page is loading may show a pattern that might leak information to the attacker.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#6272a4>// Get a reference to the window
+</span><span style=color:#6272a4></span><span style=color:#8be9fd;font-style:italic>var</span> win <span style=color:#ff79c6>=</span> <span style=color:#8be9fd;font-style:italic>window</span>.open(<span style=color:#f1fa8c>&#34;https://example.org&#34;</span>);
+<span style=color:#8be9fd;font-style:italic>var</span> pattern <span style=color:#ff79c6>=</span> [];
 
-<span style=color:#75715e>// In a loop, register the number of iframes at 60ms interval
-</span><span style=color:#75715e></span><span style=color:#66d9ef>var</span> <span style=color:#a6e22e>recorder</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>setInterval</span>(() =&gt; {
-  <span style=color:#a6e22e>pattern</span>.<span style=color:#a6e22e>push</span>(<span style=color:#a6e22e>win</span>.<span style=color:#a6e22e>length</span>)
-}, <span style=color:#ae81ff>60</span>);
+<span style=color:#6272a4>// In a loop, register the number of iframes at 60ms interval
+</span><span style=color:#6272a4></span><span style=color:#8be9fd;font-style:italic>var</span> recorder <span style=color:#ff79c6>=</span> setInterval(() =&gt; {
+  pattern.push(win.length)
+}, <span style=color:#bd93f9>60</span>);
 
-<span style=color:#75715e>// Break the loop after 6 seconds
-</span><span style=color:#75715e></span><span style=color:#a6e22e>setTimeout</span>(() =&gt; {
-   <span style=color:#a6e22e>clearInterval</span>(<span style=color:#a6e22e>recorder</span>);
-   <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#34;The pattern is: %s&#34;</span>, <span style=color:#a6e22e>pattern</span>.<span style=color:#a6e22e>join</span>(<span style=color:#e6db74>&#39;, &#39;</span>));
-}, <span style=color:#ae81ff>6</span> <span style=color:#f92672>*</span> <span style=color:#ae81ff>1000</span>);
+<span style=color:#6272a4>// Break the loop after 6 seconds
+</span><span style=color:#6272a4></span>setTimeout(() =&gt; {
+   clearInterval(recorder);
+   console.log(<span style=color:#f1fa8c>&#34;The pattern is: %s&#34;</span>, pattern.join(<span style=color:#f1fa8c>&#39;, &#39;</span>));
+}, <span style=color:#bd93f9>6</span> <span style=color:#ff79c6>*</span> <span style=color:#bd93f9>1000</span>);
 </code></pre></div><h2 id=case-scenarios>Case Scenarios
 <a class=anchor href=#case-scenarios>#</a></h2><ul><li>A website lets a user search for user information in a search engine, if the page structure has a different number of <code>iframes</code> depending on whether there are results to the user query, an attacker could use the <a href=https://xsleaks.dev/docs/attacks/xs-search/>XS-Search</a> technique to leak those secrets.</li><li>A website structures the user profile page differently based on gender or other PII. An attacker can easily leak this information by just opening the page and counting frames.</li></ul><h2 id=defense>Defense
 <a class=anchor href=#defense>#</a></h2><table><thead><tr><th style=text-align:center>Attack Alternative</th><th style=text-align:center><a href=https://xsleaks.dev/docs/defenses/opt-in/same-site-cookies/>Same-Site Cookies</a></th><th style=text-align:center><a href=https://xsleaks.dev/docs/defenses/opt-in/fetch-metadata/>Fetch Metadata</a></th><th style=text-align:center><a href=https://xsleaks.dev/docs/defenses/opt-in/coop/>COOP</a></th><th style=text-align:center><a href=https://xsleaks.dev/docs/defenses/opt-in/xfo/>Framing Protections</a></th></tr></thead><tbody><tr><td style=text-align:center>iframe</td><td style=text-align:center>✔️</td><td style=text-align:center>✔️</td><td style=text-align:center>❌</td><td style=text-align:center>✔️</td></tr><tr><td style=text-align:center>window.open</td><td style=text-align:center>✔️ <a href=https://xsleaks.dev/docs/defenses/opt-in/same-site-cookies/#lax-vs-strict>(if Strict)</a></td><td style=text-align:center>✔️</td><td style=text-align:center>✔️</td><td style=text-align:center>❌</td></tr></tbody></table><h2 id=real-world-example>Real World Example

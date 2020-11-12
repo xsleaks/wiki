@@ -10,70 +10,70 @@ To obtain timing measurements attackers must use a clock, either an implicit or 
 <a href=/defenses/samesite-cookies/>SameSite Cookies</a>,
 <a href=/defenses/coop/>COOP</a>,
 <a href=/defenses/framing-protections/>Framing Protections</a></div><p><p>Network Timing side-channels have been present on the web since its beginning <sup id=fnref:1><a href=#fn:1 class=footnote-ref role=doc-noteref>1</a></sup> <sup id=fnref:2><a href=#fn:2 class=footnote-ref role=doc-noteref>2</a></sup>. These attacks have had different levels of impact over time, gaining new attention when browsers started shipping high precision timers like <a href=https://xsleaks.dev/docs/attacks/timing-attacks/clocks/#performancenow>performance.now()</a>.</p><p>To obtain timing measurements attackers must use a <a href=https://xsleaks.dev/docs/attacks/timing-attacks/clocks/>clock</a>, either an implicit or explicit one. These clocks are usually interchangeable for the purposes of XS-Leaks and only vary in accuracy and availability. For simplicity, this article will assume use of the <code>performance.now()</code> API, an explicit clock present in all modern browsers.</p><p>This side-channel allows attackers to infer information from a cross-site request based on how much time it takes to complete that request <sup id=fnref:3><a href=#fn:3 class=footnote-ref role=doc-noteref>3</a></sup>. The network timing measurement may vary based on a user state and it&rsquo;s usually connected to:</p><ul><li>The resource size.</li><li>The computation time in the backend.</li><li>The number and size of sub-resources.</li><li><a href=https://xsleaks.dev/docs/attacks/cache-probing/>Cache status</a>.</li></ul><blockquote class="book-hint2 tip"><p class="hint-title tip"><svg class="book-icon"><use href="/svg/hint-icons.svg#tip-notice"/></svg><span>tip</span></p>Learn more about the different types of clocks in the <a href=https://xsleaks.dev/docs/attacks/timing-attacks/clocks/>Clocks Article</a>.</blockquote><h2 id=modern-web-timing-attacks>Modern Web Timing Attacks
-<a class=anchor href=#modern-web-timing-attacks>#</a></h2><p>The <a href=https://xsleaks.dev/docs/attacks/timing-attacks/clocks/#performancenow>performance.now()</a> API can be used to measure how much time it takes to perform a request.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#75715e>// Start the clock
-</span><span style=color:#75715e></span><span style=color:#66d9ef>var</span> <span style=color:#a6e22e>start</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>performance</span>.<span style=color:#a6e22e>now</span>()
+<a class=anchor href=#modern-web-timing-attacks>#</a></h2><p>The <a href=https://xsleaks.dev/docs/attacks/timing-attacks/clocks/#performancenow>performance.now()</a> API can be used to measure how much time it takes to perform a request.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#6272a4>// Start the clock
+</span><span style=color:#6272a4></span><span style=color:#8be9fd;font-style:italic>var</span> start <span style=color:#ff79c6>=</span> performance.now()
 
-<span style=color:#75715e>// Measure how long it takes to complete the fetch requests
-</span><span style=color:#75715e></span><span style=color:#a6e22e>fetch</span>(<span style=color:#e6db74>&#39;https://example.org&#39;</span>, {
-  <span style=color:#a6e22e>mode</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;no-cors&#39;</span>,
-  <span style=color:#a6e22e>credentials</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;include&#39;</span>
-}).<span style=color:#a6e22e>then</span>(() =&gt; {
-  <span style=color:#75715e>// When fetch finishes, calculate the difference
-</span><span style=color:#75715e></span>  <span style=color:#66d9ef>var</span> <span style=color:#a6e22e>time</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>performance</span>.<span style=color:#a6e22e>now</span>() <span style=color:#f92672>-</span> <span style=color:#a6e22e>start</span>;
-  <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#34;The request took %d ms.&#34;</span>, <span style=color:#a6e22e>time</span>);
+<span style=color:#6272a4>// Measure how long it takes to complete the fetch requests
+</span><span style=color:#6272a4></span>fetch(<span style=color:#f1fa8c>&#39;https://example.org&#39;</span>, {
+  mode<span style=color:#ff79c6>:</span> <span style=color:#f1fa8c>&#39;no-cors&#39;</span>,
+  credentials<span style=color:#ff79c6>:</span> <span style=color:#f1fa8c>&#39;include&#39;</span>
+}).then(() =&gt; {
+  <span style=color:#6272a4>// When fetch finishes, calculate the difference
+</span><span style=color:#6272a4></span>  <span style=color:#8be9fd;font-style:italic>var</span> time <span style=color:#ff79c6>=</span> performance.now() <span style=color:#ff79c6>-</span> start;
+  console.log(<span style=color:#f1fa8c>&#34;The request took %d ms.&#34;</span>, time);
 });
 </code></pre></div><h2 id=onload-events>Onload events
-<a class=anchor href=#onload-events>#</a></h2><p>A similar process can be used to measure how long it takes to fetch a resource by simply watching for an onload event.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#75715e>// Create a script element pointing to the page we want to time
-</span><span style=color:#75715e></span><span style=color:#66d9ef>var</span> <span style=color:#a6e22e>script</span> <span style=color:#f92672>=</span> document.<span style=color:#a6e22e>createElement</span>(<span style=color:#e6db74>&#39;script&#39;</span>);
-<span style=color:#a6e22e>script</span>.<span style=color:#a6e22e>src</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;https://example.org&#34;</span>;
-document.<span style=color:#a6e22e>body</span>.<span style=color:#a6e22e>appendChild</span>(<span style=color:#a6e22e>script</span>);
+<a class=anchor href=#onload-events>#</a></h2><p>A similar process can be used to measure how long it takes to fetch a resource by simply watching for an onload event.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#6272a4>// Create a script element pointing to the page we want to time
+</span><span style=color:#6272a4></span><span style=color:#8be9fd;font-style:italic>var</span> script <span style=color:#ff79c6>=</span> <span style=color:#8be9fd;font-style:italic>document</span>.createElement(<span style=color:#f1fa8c>&#39;script&#39;</span>);
+script.src <span style=color:#ff79c6>=</span> <span style=color:#f1fa8c>&#34;https://example.org&#34;</span>;
+<span style=color:#8be9fd;font-style:italic>document</span>.body.appendChild(script);
 
-<span style=color:#75715e>// Start the clock
-</span><span style=color:#75715e></span><span style=color:#66d9ef>var</span> <span style=color:#a6e22e>start</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>performance</span>.<span style=color:#a6e22e>now</span>();
+<span style=color:#6272a4>// Start the clock
+</span><span style=color:#6272a4></span><span style=color:#8be9fd;font-style:italic>var</span> start <span style=color:#ff79c6>=</span> performance.now();
 
-<span style=color:#75715e>// When script loads, caculate the time it took to finish the request
-</span><span style=color:#75715e></span><span style=color:#a6e22e>script</span>.<span style=color:#a6e22e>onload</span> <span style=color:#f92672>=</span> () =&gt; {
-  <span style=color:#66d9ef>var</span> <span style=color:#a6e22e>time</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>performance</span>.<span style=color:#a6e22e>now</span>() <span style=color:#f92672>-</span> <span style=color:#a6e22e>start</span>;
-  <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#34;The request took %d ms.&#34;</span>, <span style=color:#a6e22e>time</span>)
+<span style=color:#6272a4>// When script loads, caculate the time it took to finish the request
+</span><span style=color:#6272a4></span>script.onload <span style=color:#ff79c6>=</span> () =&gt; {
+  <span style=color:#8be9fd;font-style:italic>var</span> time <span style=color:#ff79c6>=</span> performance.now() <span style=color:#ff79c6>-</span> start;
+  console.log(<span style=color:#f1fa8c>&#34;The request took %d ms.&#34;</span>, time)
 }
 </code></pre></div><blockquote class="book-hint2 tip"><p class="hint-title tip"><svg class="book-icon"><use href="/svg/hint-icons.svg#tip-notice"/></svg><span>tip</span></p>A similar technique can be used for other HTML elements, e.g. <code>&lt;img></code>, <code>&lt;link></code>, <code>&lt;iframe></code> which could be used in scenarios where other techniques fail. For example, if <a href=https://xsleaks.dev/docs/defenses/opt-in/fetch-metadata/>Fetch Metadata</a> blocked loading of a resource into a script tag it may allow it into an image tag.</blockquote><h2 id=sandboxed-frame-timing-attacks>Sandboxed Frame Timing Attacks
-<a class=anchor href=#sandboxed-frame-timing-attacks>#</a></h2><p>If a page doesn&rsquo;t have any <a href=https://xsleaks.dev/docs/defenses/opt-in/xfo/>Framing Protections</a> implemented, an attacker can time how long it takes for the page and all subresources to load over the network. By default, the <code>onload</code> handler for an iframe will be invoked after all the resources have been loaded and all Javascript has finished executing. But, an attacker can eliminate the noise of script execution by including the <a href=https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe><code>sandbox</code></a> attribute in the <code>&lt;iframe></code>. This attribute will block a lot of features including Javascript execution, which results in almost pure network measurement.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#66d9ef>var</span> <span style=color:#a6e22e>iframe</span> <span style=color:#f92672>=</span> document.<span style=color:#a6e22e>createElement</span>(<span style=color:#e6db74>&#39;iframe&#39;</span>);
-<span style=color:#75715e>// Set the URL of the destination website
-</span><span style=color:#75715e></span><span style=color:#a6e22e>iframe</span>.<span style=color:#a6e22e>src</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;https://example.org&#34;</span>;
-<span style=color:#75715e>// Set sandbox attribute to block script execution
-</span><span style=color:#75715e></span><span style=color:#a6e22e>iframe</span>.<span style=color:#a6e22e>sandbox</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;&#34;</span>;
-document.<span style=color:#a6e22e>body</span>.<span style=color:#a6e22e>appendChild</span>(<span style=color:#a6e22e>iframe</span>);
+<a class=anchor href=#sandboxed-frame-timing-attacks>#</a></h2><p>If a page doesn&rsquo;t have any <a href=https://xsleaks.dev/docs/defenses/opt-in/xfo/>Framing Protections</a> implemented, an attacker can time how long it takes for the page and all subresources to load over the network. By default, the <code>onload</code> handler for an iframe will be invoked after all the resources have been loaded and all Javascript has finished executing. But, an attacker can eliminate the noise of script execution by including the <a href=https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe><code>sandbox</code></a> attribute in the <code>&lt;iframe></code>. This attribute will block a lot of features including Javascript execution, which results in almost pure network measurement.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#8be9fd;font-style:italic>var</span> iframe <span style=color:#ff79c6>=</span> <span style=color:#8be9fd;font-style:italic>document</span>.createElement(<span style=color:#f1fa8c>&#39;iframe&#39;</span>);
+<span style=color:#6272a4>// Set the URL of the destination website
+</span><span style=color:#6272a4></span>iframe.src <span style=color:#ff79c6>=</span> <span style=color:#f1fa8c>&#34;https://example.org&#34;</span>;
+<span style=color:#6272a4>// Set sandbox attribute to block script execution
+</span><span style=color:#6272a4></span>iframe.sandbox <span style=color:#ff79c6>=</span> <span style=color:#f1fa8c>&#34;&#34;</span>;
+<span style=color:#8be9fd;font-style:italic>document</span>.body.appendChild(iframe);
 
-<span style=color:#75715e>// Measure the time before the request was initiated
-</span><span style=color:#75715e></span><span style=color:#66d9ef>var</span> <span style=color:#a6e22e>start</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>performance</span>.<span style=color:#a6e22e>now</span>();
+<span style=color:#6272a4>// Measure the time before the request was initiated
+</span><span style=color:#6272a4></span><span style=color:#8be9fd;font-style:italic>var</span> start <span style=color:#ff79c6>=</span> performance.now();
 
-<span style=color:#a6e22e>iframe</span>.<span style=color:#a6e22e>onload</span> <span style=color:#f92672>=</span> () =&gt; {
-  <span style=color:#75715e>// When iframe loads, calculate the time difference
-</span><span style=color:#75715e></span>  <span style=color:#66d9ef>var</span> <span style=color:#a6e22e>time</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>performance</span>.<span style=color:#a6e22e>now</span>() <span style=color:#f92672>-</span> <span style=color:#a6e22e>start</span>;
-  <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#34;The iframe and subresources took %d ms to load.&#34;</span>, <span style=color:#a6e22e>time</span>)
+iframe.onload <span style=color:#ff79c6>=</span> () =&gt; {
+  <span style=color:#6272a4>// When iframe loads, calculate the time difference
+</span><span style=color:#6272a4></span>  <span style=color:#8be9fd;font-style:italic>var</span> time <span style=color:#ff79c6>=</span> performance.now() <span style=color:#ff79c6>-</span> start;
+  console.log(<span style=color:#f1fa8c>&#34;The iframe and subresources took %d ms to load.&#34;</span>, time)
 }
 </code></pre></div><h2 id=cross-window-timing-attacks>Cross-window Timing Attacks
-<a class=anchor href=#cross-window-timing-attacks>#</a></h2><p>An attacker can also measure the network timing of a page by opening a new window with <code>window.open</code> and waiting for the <code>window</code> to start loading. The snippet below shows how to make this measurement.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#75715e>// Open a new window to measure when the iframe starts loading
-</span><span style=color:#75715e></span><span style=color:#66d9ef>var</span> <span style=color:#a6e22e>win</span> <span style=color:#f92672>=</span> window.<span style=color:#a6e22e>open</span>(<span style=color:#e6db74>&#39;https://example.org&#39;</span>);
-<span style=color:#75715e>// Measure the initial time
-</span><span style=color:#75715e></span><span style=color:#66d9ef>var</span> <span style=color:#a6e22e>start</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>performance</span>.<span style=color:#a6e22e>now</span>();
-<span style=color:#75715e>// Define the loop
-</span><span style=color:#75715e></span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>measure</span>(){
-  <span style=color:#66d9ef>try</span>{
-    <span style=color:#75715e>// If the page has loaded, then it will be on a different origin
-</span><span style=color:#75715e></span>    <span style=color:#75715e>// so `win.origin` will throw an exception
-</span><span style=color:#75715e></span>    <span style=color:#a6e22e>win</span>.<span style=color:#a6e22e>origin</span>;
-    <span style=color:#75715e>// If the window is still same-origin, immediately repeat the loop but
-</span><span style=color:#75715e></span>    <span style=color:#75715e>// without blocking the event loop
-</span><span style=color:#75715e></span>    <span style=color:#a6e22e>setTimeout</span>(<span style=color:#a6e22e>measure</span>, <span style=color:#ae81ff>0</span>);
-  }<span style=color:#66d9ef>catch</span>(<span style=color:#a6e22e>e</span>){
-    <span style=color:#75715e>// Once the window has loaded, calculate the time difference
-</span><span style=color:#75715e></span>    <span style=color:#66d9ef>var</span> <span style=color:#a6e22e>time</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>performance</span>.<span style=color:#a6e22e>now</span>() <span style=color:#f92672>-</span> <span style=color:#a6e22e>start</span>;
-    <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#39;It took %d ms to load the window&#39;</span>, <span style=color:#a6e22e>time</span>);
+<a class=anchor href=#cross-window-timing-attacks>#</a></h2><p>An attacker can also measure the network timing of a page by opening a new window with <code>window.open</code> and waiting for the <code>window</code> to start loading. The snippet below shows how to make this measurement.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#6272a4>// Open a new window to measure when the iframe starts loading
+</span><span style=color:#6272a4></span><span style=color:#8be9fd;font-style:italic>var</span> win <span style=color:#ff79c6>=</span> <span style=color:#8be9fd;font-style:italic>window</span>.open(<span style=color:#f1fa8c>&#39;https://example.org&#39;</span>);
+<span style=color:#6272a4>// Measure the initial time
+</span><span style=color:#6272a4></span><span style=color:#8be9fd;font-style:italic>var</span> start <span style=color:#ff79c6>=</span> performance.now();
+<span style=color:#6272a4>// Define the loop
+</span><span style=color:#6272a4></span><span style=color:#8be9fd;font-style:italic>function</span> measure(){
+  <span style=color:#ff79c6>try</span>{
+    <span style=color:#6272a4>// If the page has loaded, then it will be on a different origin
+</span><span style=color:#6272a4></span>    <span style=color:#6272a4>// so `win.origin` will throw an exception
+</span><span style=color:#6272a4></span>    win.origin;
+    <span style=color:#6272a4>// If the window is still same-origin, immediately repeat the loop but
+</span><span style=color:#6272a4></span>    <span style=color:#6272a4>// without blocking the event loop
+</span><span style=color:#6272a4></span>    setTimeout(measure, <span style=color:#bd93f9>0</span>);
+  }<span style=color:#ff79c6>catch</span>(e){
+    <span style=color:#6272a4>// Once the window has loaded, calculate the time difference
+</span><span style=color:#6272a4></span>    <span style=color:#8be9fd;font-style:italic>var</span> time <span style=color:#ff79c6>=</span> performance.now() <span style=color:#ff79c6>-</span> start;
+    console.log(<span style=color:#f1fa8c>&#39;It took %d ms to load the window&#39;</span>, time);
   }
 }
-<span style=color:#75715e>// Initiate the loop that breaks when the window switches origins
-</span><span style=color:#75715e></span><span style=color:#a6e22e>measure</span>();
+<span style=color:#6272a4>// Initiate the loop that breaks when the window switches origins
+</span><span style=color:#6272a4></span>measure();
 </code></pre></div><p><blockquote class="book-hint2 note"><p class="hint-title note"><svg class="book-icon"><use href="/svg/hint-icons.svg#note-notice"/></svg><span>note</span></p>Note that this POC uses <code>setTimeout</code> in order to create the rough equivalent of a <code>while(true)</code> loop. It is necessary to implement this way in order to avoid blocking the JS event loop.</blockquote><blockquote class="book-hint2 tip"><p class="hint-title tip"><svg class="book-icon"><use href="/svg/hint-icons.svg#tip-notice"/></svg><span>tip</span></p>This technique can also be adapted to measure the Execution Timing of a page by <a href=https://xsleaks.dev/docs/attacks/timing-attacks/execution-timing/#busy-event-loop>making the event loop busy</a>.</blockquote></p><h2 id=timeless-timing-attacks>Timeless Timing Attacks
 <a class=anchor href=#timeless-timing-attacks>#</a></h2><p>Other attacks do not consider the notion of time to perform a timing attack <sup id=fnref:4><a href=#fn:4 class=footnote-ref role=doc-noteref>4</a></sup>. Timeless attacks consist of fitting two <code>HTTP</code> requests in a single packet, the baseline and the attacked request, to guarantee they arrive at the same time to the server. The server <em>will</em> process the requests concurrently, and return a response based on their execution time as soon as possible. One of the two requests will arrive first, allowing the attacker to get the timing difference by comparing the order in which the requests arrived.</p><p>The advantage of this technique is the independence on network jitter and uncertain delays, something that is always present in the remaining techniques.</p><blockquote class="book-hint2 note"><p class="hint-title note"><svg class="book-icon"><use href="/svg/hint-icons.svg#note-notice"/></svg><span>note</span></p>The original research needs to be adapted to work in a browser since it handles all network-specific tasks.</blockquote><blockquote class="book-hint2 important"><p class="hint-title important"><svg class="book-icon"><use href="/svg/hint-icons.svg#important-notice"/></svg><span>important</span></p>This attack is limited to specific versions of HTTP and joint scenarios. It makes certain assumptions and has requirements regarding server behaviors.</blockquote><h2 id=defense>Defense
 <a class=anchor href=#defense>#</a></h2><table><thead><tr><th style=text-align:center>Attack Alternative</th><th style=text-align:center><a href=https://xsleaks.dev/docs/defenses/opt-in/same-site-cookies/>Same-Site Cookies</a></th><th style=text-align:center><a href=https://xsleaks.dev/docs/defenses/opt-in/fetch-metadata/>Fetch Metadata</a></th><th style=text-align:center><a href=https://xsleaks.dev/docs/defenses/opt-in/coop/>COOP</a></th><th style=text-align:center><a href=https://xsleaks.dev/docs/defenses/opt-in/xfo/>Framing Protections</a></th></tr></thead><tbody><tr><td style=text-align:center>Modern Timing Attacks</td><td style=text-align:center>✔️</td><td style=text-align:center>✔️</td><td style=text-align:center>❌</td><td style=text-align:center>❌</td></tr><tr><td style=text-align:center>Frame Timing (Network)</td><td style=text-align:center>✔️</td><td style=text-align:center>✔️</td><td style=text-align:center>❌</td><td style=text-align:center>-</td></tr><tr><td style=text-align:center>Frame Timing (Sandbox)</td><td style=text-align:center>✔️</td><td style=text-align:center>✔️</td><td style=text-align:center>❌</td><td style=text-align:center>-</td></tr><tr><td style=text-align:center>Cross-window Timing</td><td style=text-align:center>✔️ <a href=https://xsleaks.dev/docs/defenses/opt-in/same-site-cookies/#lax-vs-strict>(if Strict)</a></td><td style=text-align:center>✔️</td><td style=text-align:center>❌</td><td style=text-align:center>❌</td></tr><tr><td style=text-align:center>Timeless Timing</td><td style=text-align:center>✔️</td><td style=text-align:center>❓</td><td style=text-align:center>❌</td><td style=text-align:center>❌</td></tr></tbody></table><h2 id=references>References

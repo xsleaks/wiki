@@ -17,54 +17,54 @@ resources are cached it may be enough to leak whether a user accessed a specific
 <a class=anchor href=#attack-principle>#</a></h2><p>An attacker wants to know whether a user visited a certain social network.</p><ol><li>A user visits a social network and some of the subresources will be cached.</li><li>The user visits an attacker controlled page which will fetch a resource that is usually fetched by that social network.</li><li>Using a <a href=https://xsleaks.dev/docs/attacks/timing-attacks/network-timing/>Network Timing XS-Leak</a>, the attacker page can detect the difference from a response coming from the cache (step 1 happened) or coming from the network (step 1 did not happen). The delay will be significantly lower in a request served from the cache.</li></ol><h2 id=cache-probing-with-error-events>Cache Probing with Error Events
 <a class=anchor href=#cache-probing-with-error-events>#</a></h2><p>Cache Probing with <a href=https://xsleaks.dev/docs/attacks/error-events/>Error Events</a> <sup id=fnref:2><a href=#fn:2 class=footnote-ref role=doc-noteref>2</a></sup> allows more accurate attacks. Instead of relying on timing measurements, this leverages <a href=https://xsleaks.dev/docs/attacks/error-events/>Error Events</a> and some server-side behavior to detect whether a resource was cached. The attack works as follows:</p><ol><li><a href=#invalidate-the-cache>Invalidate the resource</a> from the browser cache. This step is required to make sure the attack will not consider a resource previously cached in another visit.</li><li>Perform a request that will cause different items to be cached depending on the user&rsquo;s state. For example, load a page that will include a specific image only if the user is logged in. This request can be triggered by navigating to the target website with <code>&lt;link rel=prerender..</code>, embedding the website in an <code>iframe</code>, or opening a new window with <code>window.open</code>.</li><li>Trigger a request that will cause the server to reject the request. For example, include an <a href=https://lists.archive.carbon60.com/apache/users/316239>overlong referer header</a> that will make the server reject the request. If the resource was cached in step 2, this request will succeed instead of triggering an error event.</li></ol><h3 id=invalidate-the-cache>Invalidate the cache
 <a class=anchor href=#invalidate-the-cache>#</a></h3><p>To invalidate a resource from the cache the attacker must force the server to return an error when fetching that subresource. There are a couple of ways to achieve this:</p><ul><li>A fetch request with <code>cache:'reload'</code>option that is aborted with <a href=https://developer.mozilla.org/en-US/docs/Web/API/AbortController/abort><code>AbortController.abort()</code></a> before new content has been received, but after the request was initiated by the browser.</li><li>A request with an <a href=https://lists.archive.carbon60.com/apache/users/316239>overlong referer header</a> and <code>'cache':'reload'</code>. This might not work as browsers <a href=https://github.com/whatwg/fetch/issues/903>capped</a> the length of the referrer to prevent this.</li><li>A <code>POST</code> request with a <code>fetch</code> <code>no-cors</code>. Sometimes even in cases where an error is not returned the browser invalidates the cache.</li><li>Request headers such as Content-Type, Accept, Accept-Language, etc that may cause the server to fail (more application dependent).</li><li>Other request properties.</li></ul><p>Often some of these methods might be considered a bug in the browser (e.g. <a href="https://bugs.chromium.org/p/chromium/issues/detail?id=959789#c9">this bug</a>).</p><h2 id=fetch-with-abortcontroller>Fetch with AbortController
-<a class=anchor href=#fetch-with-abortcontroller>#</a></h2><p>The below snippet shows how the <a href=https://developer.mozilla.org/en-US/docs/Web/API/AbortController><code>AbortController</code></a> interface could be combined with <em>fetch</em> and <em>setTimeout</em> to both detect whether the resource is cached and to evict a specific resource from the browser cache. A nice feature about this technique is that the probing occurs without caching new content in the process.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#66d9ef>async</span> <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>ifCached</span>(<span style=color:#a6e22e>url</span>, <span style=color:#a6e22e>purge</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>false</span>) {
-    <span style=color:#66d9ef>var</span> <span style=color:#a6e22e>controller</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>AbortController</span>();
-    <span style=color:#66d9ef>var</span> <span style=color:#a6e22e>signal</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>controller</span>.<span style=color:#a6e22e>signal</span>;
-    <span style=color:#75715e>// After 9ms, abort the request (before the request was finished).
-</span><span style=color:#75715e></span>    <span style=color:#75715e>// The timeout might need to be adjusted for the attack to work properly.
-</span><span style=color:#75715e></span>    <span style=color:#75715e>// Purging content seems to take slightly less time than probing
-</span><span style=color:#75715e></span>    <span style=color:#66d9ef>var</span> <span style=color:#a6e22e>wait_time</span> <span style=color:#f92672>=</span> (<span style=color:#a6e22e>purge</span>) <span style=color:#f92672>?</span> <span style=color:#ae81ff>3</span> <span style=color:#f92672>:</span> <span style=color:#ae81ff>9</span>;
-    <span style=color:#66d9ef>var</span> <span style=color:#a6e22e>timeout</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>await</span> <span style=color:#a6e22e>setTimeout</span>(() =&gt; {
-        <span style=color:#a6e22e>controller</span>.<span style=color:#a6e22e>abort</span>();
-    }, <span style=color:#a6e22e>wait_time</span>);
-    <span style=color:#66d9ef>try</span> {
-        <span style=color:#75715e>// credentials option is needed for Firefox
-</span><span style=color:#75715e></span>        <span style=color:#66d9ef>let</span> <span style=color:#a6e22e>options</span> <span style=color:#f92672>=</span> {
-            <span style=color:#a6e22e>mode</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;no-cors&#34;</span>,
-            <span style=color:#a6e22e>credentials</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;include&#34;</span>,
-            <span style=color:#a6e22e>signal</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>signal</span>
+<a class=anchor href=#fetch-with-abortcontroller>#</a></h2><p>The below snippet shows how the <a href=https://developer.mozilla.org/en-US/docs/Web/API/AbortController><code>AbortController</code></a> interface could be combined with <em>fetch</em> and <em>setTimeout</em> to both detect whether the resource is cached and to evict a specific resource from the browser cache. A nice feature about this technique is that the probing occurs without caching new content in the process.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#ff79c6>async</span> <span style=color:#8be9fd;font-style:italic>function</span> ifCached(url, purge <span style=color:#ff79c6>=</span> <span style=color:#ff79c6>false</span>) {
+    <span style=color:#8be9fd;font-style:italic>var</span> controller <span style=color:#ff79c6>=</span> <span style=color:#ff79c6>new</span> AbortController();
+    <span style=color:#8be9fd;font-style:italic>var</span> signal <span style=color:#ff79c6>=</span> controller.signal;
+    <span style=color:#6272a4>// After 9ms, abort the request (before the request was finished).
+</span><span style=color:#6272a4></span>    <span style=color:#6272a4>// The timeout might need to be adjusted for the attack to work properly.
+</span><span style=color:#6272a4></span>    <span style=color:#6272a4>// Purging content seems to take slightly less time than probing
+</span><span style=color:#6272a4></span>    <span style=color:#8be9fd;font-style:italic>var</span> wait_time <span style=color:#ff79c6>=</span> (purge) <span style=color:#ff79c6>?</span> <span style=color:#bd93f9>3</span> <span style=color:#ff79c6>:</span> <span style=color:#bd93f9>9</span>;
+    <span style=color:#8be9fd;font-style:italic>var</span> timeout <span style=color:#ff79c6>=</span> <span style=color:#ff79c6>await</span> setTimeout(() =&gt; {
+        controller.abort();
+    }, wait_time);
+    <span style=color:#ff79c6>try</span> {
+        <span style=color:#6272a4>// credentials option is needed for Firefox
+</span><span style=color:#6272a4></span>        <span style=color:#8be9fd;font-style:italic>let</span> options <span style=color:#ff79c6>=</span> {
+            mode<span style=color:#ff79c6>:</span> <span style=color:#f1fa8c>&#34;no-cors&#34;</span>,
+            credentials<span style=color:#ff79c6>:</span> <span style=color:#f1fa8c>&#34;include&#34;</span>,
+            signal<span style=color:#ff79c6>:</span> signal
         };
-        <span style=color:#75715e>// If the option &#34;cache: reload&#34; is set, the browser will purge
-</span><span style=color:#75715e></span>        <span style=color:#75715e>// the resource from the browser cache
-</span><span style=color:#75715e></span>        <span style=color:#66d9ef>if</span>(<span style=color:#a6e22e>purge</span>) <span style=color:#a6e22e>options</span>.<span style=color:#a6e22e>cache</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;reload&#34;</span>;
+        <span style=color:#6272a4>// If the option &#34;cache: reload&#34; is set, the browser will purge
+</span><span style=color:#6272a4></span>        <span style=color:#6272a4>// the resource from the browser cache
+</span><span style=color:#6272a4></span>        <span style=color:#ff79c6>if</span>(purge) options.cache <span style=color:#ff79c6>=</span> <span style=color:#f1fa8c>&#34;reload&#34;</span>;
 
-        <span style=color:#66d9ef>await</span> <span style=color:#a6e22e>fetch</span>(<span style=color:#a6e22e>url</span>, <span style=color:#a6e22e>options</span>);
-    } <span style=color:#66d9ef>catch</span> (<span style=color:#a6e22e>err</span>) {
-        <span style=color:#75715e>// When controller.abort() is called, the fetch will throw an Exception
-</span><span style=color:#75715e></span>        <span style=color:#66d9ef>if</span>(<span style=color:#a6e22e>purge</span>) <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#34;The resource was purged from the cache&#34;</span>);
-        <span style=color:#66d9ef>else</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#34;The resource is not cached&#34;</span>);
-        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>false</span>
+        <span style=color:#ff79c6>await</span> fetch(url, options);
+    } <span style=color:#ff79c6>catch</span> (err) {
+        <span style=color:#6272a4>// When controller.abort() is called, the fetch will throw an Exception
+</span><span style=color:#6272a4></span>        <span style=color:#ff79c6>if</span>(purge) console.log(<span style=color:#f1fa8c>&#34;The resource was purged from the cache&#34;</span>);
+        <span style=color:#ff79c6>else</span> console.log(<span style=color:#f1fa8c>&#34;The resource is not cached&#34;</span>);
+        <span style=color:#ff79c6>return</span> <span style=color:#ff79c6>false</span>
     }
-    <span style=color:#75715e>// clearTimeout will only be called if this line was reached in less than
-</span><span style=color:#75715e></span>    <span style=color:#75715e>// wait_time which means that the resource must have arrived from the cache
-</span><span style=color:#75715e></span>    <span style=color:#a6e22e>clearTimeout</span>(<span style=color:#a6e22e>timeout</span>);
-    <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#34;The resource is cached&#34;</span>);
+    <span style=color:#6272a4>// clearTimeout will only be called if this line was reached in less than
+</span><span style=color:#6272a4></span>    <span style=color:#6272a4>// wait_time which means that the resource must have arrived from the cache
+</span><span style=color:#6272a4></span>    clearTimeout(timeout);
+    console.log(<span style=color:#f1fa8c>&#34;The resource is cached&#34;</span>);
 
-    <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>true</span>;
+    <span style=color:#ff79c6>return</span> <span style=color:#ff79c6>true</span>;
 }
 
-<span style=color:#75715e>// purge https://example.org from the cache
-</span><span style=color:#75715e></span><span style=color:#66d9ef>await</span> <span style=color:#a6e22e>ifCached</span>(<span style=color:#e6db74>&#39;https://example.org&#39;</span>, <span style=color:#66d9ef>true</span>);
+<span style=color:#6272a4>// purge https://example.org from the cache
+</span><span style=color:#6272a4></span><span style=color:#ff79c6>await</span> ifCached(<span style=color:#f1fa8c>&#39;https://example.org&#39;</span>, <span style=color:#ff79c6>true</span>);
 
-<span style=color:#75715e>// Put https://example.org into the cache
-</span><span style=color:#75715e>// Skip this step to simulate a case where example.org is not cached
-</span><span style=color:#75715e></span><span style=color:#a6e22e>open</span>(<span style=color:#e6db74>&#39;https://example.org&#39;</span>);
+<span style=color:#6272a4>// Put https://example.org into the cache
+</span><span style=color:#6272a4>// Skip this step to simulate a case where example.org is not cached
+</span><span style=color:#6272a4></span>open(<span style=color:#f1fa8c>&#39;https://example.org&#39;</span>);
 
-<span style=color:#75715e>// wait 1 second (until example.org loads)
-</span><span style=color:#75715e></span><span style=color:#66d9ef>await</span> <span style=color:#66d9ef>new</span> Promise(<span style=color:#a6e22e>resolve</span> =&gt; <span style=color:#a6e22e>setTimeout</span>(<span style=color:#a6e22e>resolve</span>, <span style=color:#ae81ff>1000</span>));
+<span style=color:#6272a4>// wait 1 second (until example.org loads)
+</span><span style=color:#6272a4></span><span style=color:#ff79c6>await</span> <span style=color:#ff79c6>new</span> <span style=color:#8be9fd;font-style:italic>Promise</span>(resolve =&gt; setTimeout(resolve, <span style=color:#bd93f9>1000</span>));
 
-<span style=color:#75715e>// Check if https://example.org is in the cache
-</span><span style=color:#75715e></span><span style=color:#66d9ef>await</span> <span style=color:#a6e22e>ifCached</span>(<span style=color:#e6db74>&#39;https://example.org&#39;</span>);
+<span style=color:#6272a4>// Check if https://example.org is in the cache
+</span><span style=color:#6272a4></span><span style=color:#ff79c6>await</span> ifCached(<span style=color:#f1fa8c>&#39;https://example.org&#39;</span>);
 </code></pre></div><h2 id=defense>Defense
 <a class=anchor href=#defense>#</a></h2><p>Currently there are no good defense mechanisms that would allow websites to fully protect against Cache Probing attacks. Nonetheless, a website might mitigate the attack surface by deploying <a href=https://xsleaks.dev/docs/defenses/design-protections/cache-protections/>Cache Protections</a>, such as:</p><ul><li><a href=https://xsleaks.dev/docs/defenses/design-protections/cache-protections/#cache-protection-via-cache-control-headers>Cache-control header</a> used to prevent the resource from caching.</li><li><a href=https://xsleaks.dev/docs/defenses/design-protections/cache-protections/#cache-protection-via-random-tokens>Random Tokens</a> used to make the URLs unpredictable for attackers.</li><li><a href=https://xsleaks.dev/docs/defenses/design-protections/cache-protections/#cache-protection-via-fetch-metadata>Vary: Sec-Fetch-Site</a> used to segregate the cache by a group of origins.</li></ul><p>A promising defense against this attack is <a href=https://xsleaks.dev/docs/defenses/secure-defaults/partitioned-cache/>partitioning the HTTP cache</a> by the requesting origin. This browser provided protection prevents an attacker&rsquo;s origin from interfering with cached resources of other origins.</p><blockquote class="book-hint2 important"><p class="hint-title important"><svg class="book-icon"><use href="/svg/hint-icons.svg#important-notice"/></svg><span>important</span></p>As of November 2020, Partitioned Caches are not available in most browsers, so applications cannot rely on them.</blockquote><h2 id=real-world-example>Real World Example
 <a class=anchor href=#real-world-example>#</a></h2><ol><li>An attacker using the <a href=#cache-probing-with-error-events>Error Events Cache Probing</a> could detect whether a user watched a specific YouTube Video by checking if the video thumbnail ended up in browser cache <sup id=fnref:3><a href=#fn:3 class=footnote-ref role=doc-noteref>3</a></sup>.</li></ol><h2 id=references>References
