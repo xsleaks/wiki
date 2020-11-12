@@ -27,3 +27,7 @@ theme = "book"
   abuse = "Abuse"
   category = "Category"
   defense = "Defenses"
+
+[markup]
+  [markup.highlight]
+    style = "dracula"
