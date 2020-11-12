@@ -135,8 +135,8 @@ The SharedArrayBuffer can be used to create a high-resolution timer however due 
 Cross-Origin-Embedder-Policy: "require-corp"  
 Cross-Origin-Opener-Policy: "same-origin"  
 ```
-To enable cross origin isolation so there will be restrictions for cross origin requests.
-This example uses an iframe so no extra window will be needed however it still works even if the websites blocks the use of iframes.
+To enable cross origin isolation so there will be restrictions for cross origin requests.  
+This example uses an iframe so no extra window will be needed however it still works even if the website blocks the use of iframes.
 ```javascript
 "use strict";
 
