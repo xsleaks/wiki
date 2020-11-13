@@ -28,7 +28,7 @@ Detecting if a cross-site page triggered a navigation (or didn't) can be useful 
 To detect if any kind of navigation occurred, an attacker can:
 
 - Use an `iframe` and count the number of times the `onload` event is triggered.
-- Check the value of `history.length`, accessible through any window reference. This gives the number of entries in the history of a victim either changed by `history.pushState` or regular navigations. To get the value of `history.length` an attacker changes the location of the window reference with the target website, changes back to same-origin, and finally reads the value.
+- Check the value of `history.length`, which is accessible through any window reference. This provides the number of entries in the history of a victim that were either changed by `history.pushState` or by regular navigations. To get the value of `history.length`, an attacker changes the location of the window reference to the target website, then changes back to same-origin, and finally reads the value.
 
 ## Download Trigger
 
@@ -36,7 +36,7 @@ When an endpoint sets the [`Content-Disposition: attachment`](https://developer.
 
 ### Download bar
 
-In Chromium-based browsers when a file is downloaded, a preview of the download process appears in a bar at the bottom, integrated into the browser window. By monitoring the window height attackers could detect whether the "download bar" opened.
+In Chromium-based browsers, when a file is downloaded, a preview of the download process appears in a bar at the bottom, integrated into the browser window. By monitoring the window height, attackers can detect whether the "download bar" opened:
 
 
 ```javascript
@@ -56,14 +56,14 @@ setTimeout(() => {
 ```
 
 {{< hint important >}}
-This attack is only possible in Chromium-based browsers with automatic downloads enabled. The attack can't be also repeated since the user needs to close the download bar for it to be measurable again.
+This attack is only possible in Chromium-based browsers with automatic downloads enabled. In addition, the attack can't be repeated since the user needs to close the download bar for it to be measurable again.
 {{< /hint >}}
 
 ### Download Navigation (with iframes)
 
-Another way to test for the [`Content-Disposition: attachment`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition) header is to check if a navigation occurred. If a page load causes a download, it will not trigger a navigation and the window will stay within the same origin.
+Another way to test for the [`Content-Disposition: attachment`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition) header is to check if a navigation occurred. If a page load causes a download, it does not trigger a navigation and the window stays within the same origin.
 
-The following snippet can be used to detect whether such a navigation has occurred and therefore detect a download attempt.
+The following snippet can be used to detect whether such a navigation has occurred and therefore detect a download attempt:
 
 ```javascript
 // Set the destination URL to test for the download attempt
@@ -86,16 +86,16 @@ iframe.onload = () => {
 ```
 
 {{< hint info >}}
-When there is no navigation inside an iframe caused by a download attempt, the iframe will not trigger an `onload` event directly. Because of that, in the example above, an outer iframe was used instead, that listens for `onload` event which triggers when subresources finished loading, including iframes.
+When there is no navigation inside an `iframe` caused by a download attempt, the `iframe` does not trigger an `onload` event directly. For this reason, in the example above, an outer `iframe` was used instead, which listens for an `onload` event which triggers when subresources finish loading, including `iframe`s.
 {{< /hint >}}
 
 {{< hint important >}}
-This attack will work regardless of any [Framing Protections]({{< ref "xfo" >}}), because the `X-Frame-Options` and `Content-Security-Policy` headers are ignored if `Content-Disposition: attachment` is specified.
+This attack works regardless of any [Framing Protections]({{< ref "xfo" >}}), because the `X-Frame-Options` and `Content-Security-Policy` headers are ignored if `Content-Disposition: attachment` is specified.
 {{< /hint >}}
 
 ### Download Navigation (without iframes)
 
-A variation of the technique presented in the previous section can also be effectively tested using `window` objects.
+A variation of the technique presented in the previous section can also be effectively tested using `window` objects:
 
 ```javascript
 // Set the destination URL
@@ -120,7 +120,7 @@ setTimeout(() => {
 
 ### Inflation
 
-A server-side redirect can be detected from a cross-origin page if the destination URL increases in size and contains an attacker controlled input (either in the form of a query string parameter or a path). The following technique relies on the fact that it is possible to induce an error in most web-servers by generating big requests parameters/paths. Since the redirect increases the size of the URL, it can be detected by sending exactly one character less than the server maximum capacity. That way if the size increases the server will respond with an error that can be detected from a cross-origin page (eg via Error Events).
+A server-side redirect can be detected from a cross-origin page if the destination URL increases in size and contains an attacker-controlled input (either in the form of a query string parameter or a path). The following technique relies on the fact that it is possible to induce an error in most web-servers by generating large request parameters/paths. Since the redirect increases the size of the URL, it can be detected by sending exactly one character less than the server's maximum capacity. That way, if the size increases, the server will respond with an error that can be detected from a cross-origin page (e.g. via Error Events).
 
 {{< hint example >}}
 An example of this attack can be seen [here](https://xsleaks.github.io/xsleaks/examples/redirect/).
@@ -129,9 +129,9 @@ An example of this attack can be seen [here](https://xsleaks.github.io/xsleaks/e
 
 ### CSP Violations
 
-[Content-Security-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) (CSP) is an in-depth defense mechanism against XSS and data injection attacks. When a CSP is violated, a `SecurityPolicyViolationEvent` is thrown. An attacker can set up a CSP which will trigger a `Violation` event every time a `fetch` follows an URL not set in the CSP directive. This will allow an attacker to detect if a redirect to another origin occurred [^2] [^3].
+[Content-Security-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) (CSP) is an in-depth defense mechanism against XSS and data injection attacks. When a CSP is violated, a `SecurityPolicyViolationEvent` is thrown. An attacker can set up a CSP which triggers a `Violation` event every time a `fetch` follows an URL not set in the CSP directive. This allows an attacker to detect if a redirect to another origin occurred [^2] [^3].
 
-The example below will trigger a `SecurityPolicyViolationEvent` if the website set in fetch API (line 6) redirects to a website different then `target.page`.
+The example below triggers a `SecurityPolicyViolationEvent` if the website set in the fetch API (line 6) redirects to a website other than `target.page`:
 
 {{< highlight html "linenos=table,linenostart=1" >}}
 <!-- Set the Content-Security-Policy to only allow example.org -->
@@ -153,12 +153,12 @@ fetch('https://example.org/might_redirect', {
 
 ## Case Scenarios
 
-- An online bank decides to redirect wealthy users to unmissable stock opportunities by triggering a navigation to a reserved space on the website when users are consulting the account balance. If this is only done to a specific group of users, it becomes possible for an attacker to leak the "client status" of the user.
+An online bank decides to redirect wealthy users to attractive stock opportunities by triggering a navigation to a reserved space on the website when these users consult their account balance. If this is only done for a specific group of users, it becomes possible for an attacker to leak the "client status" of the user.
 
 
 ## Defense
 
-| Attack Alternative  | [Same-Site Cookies]({{< ref "../defenses/opt-in/same-site-cookies.md" >}})  | [Fetch Metadata]({{< ref "../defenses/opt-in/fetch-metadata.md" >}})  | [COOP]({{< ref "../defenses/opt-in/coop.md" >}})  |  [Framing Protections]({{< ref "../defenses/opt-in/xfo.md" >}}) |
+| Attack Alternative  | [SameSite Cookies]({{< ref "../defenses/opt-in/same-site-cookies.md" >}})  | [Fetch Metadata]({{< ref "../defenses/opt-in/fetch-metadata.md" >}})  | [COOP]({{< ref "../defenses/opt-in/coop.md" >}})  |  [Framing Protections]({{< ref "../defenses/opt-in/xfo.md" >}}) |
 |:----------------------------------:|:--------------------------:|:---------------:|:-----:|:--------------------:|
 | iframe                             |         ✔️                 |      ✔️          |  ❌   |          ✔️          |
 | `history.length` (iframe)          |         ✔️                 |      ✔️          |  ❌   |          ✔️          |
@@ -170,7 +170,7 @@ fetch('https://example.org/might_redirect', {
 
 ## Real-World Examples
 
-- A vulnerability reported to Twitter used this technique to leak the contents of private tweets using [XS-Search]({{< ref "../attacks/xs-search.md" >}}). This attack was possible because the page would only trigger a navigation depending on whether there were results to the user query [^1].
+A vulnerability reported to Twitter used this technique to leak the contents of private tweets using [XS-Search]({{< ref "../attacks/xs-search.md" >}}). This attack was possible because the page would only trigger a navigation if there were results to the user query [^1].
 
 ## References
 
