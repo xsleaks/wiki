@@ -183,7 +183,7 @@ async function getDuration(url) {
       let time = Atomics.load(sharedArray, 0);
       resolve(time - start);
     };
-    // Set start incase onunload does not get run in time
+    // Set start incase onbeforeunload does not get run in time
     start = Atomics.load(sharedArray, 0);
     // Go to target
     test.src = url;
