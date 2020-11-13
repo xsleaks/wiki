@@ -19,14 +19,14 @@ weight = 2
 +++
 
 
-Window references allow cross-origin pages to get access to some attributes of other pages. These references become available when using or allowing `iframe` and `window.open`. They provide some information (although limited) about the window as they still respect the Same Origin Policy.
+Window references allow cross-origin pages to get access to some of the attributes of other pages. These references become available when using or allowing `iframe` and `window.open`. The references provide (limited) information about the window as they still respect the same-origin policy.
 
-One of the accessible attributes is `window.length` which provides the number of frames in the window. This attribute can give valuable information about a page to an attacker.
+One of the accessible attributes is `window.length` which provides the number of frames in the window. This attribute can provide valuable information about a page to an attacker.
 
-Websites commonly use frames (or `iframes`) and this choice doesn't necessarily imply security issues.  There are however cases where a website might change the number of frames in a page depending on some user information. This could happen for example on a page that changes layout depending on the `GET` parameters and the victim data. It might be possible for an attacker to infer information about the victim by measuring the value of `window.length` on different pages.
+Websites commonly use frames (or `iframes`) and this choice doesn't necessarily imply security issues. There are, however, cases where a website might change the number of frames on a page depending on some user information. For example, this could happen on a page that changes its layout depending on the `GET` parameters and the victim's data. It might be possible for an attacker to infer information about the victim by measuring the value of `window.length` on different pages.
 
-## Code snippet
-The below snippet demonstrates how to access the information about the number of frames on a cross-site page.
+## Code Snippet
+The below snippet demonstrates how to access the information about the number of frames on a cross-site page:
 ```javascript
 // Get a reference to the window
 var win = window.open('https://example.org');
@@ -38,9 +38,9 @@ setTimeout(() => {
 }, 2000);
 ```
 
-## Attack alternatives
+## Attack Alternatives
 
-In some cases, different application states have the same number of `frames`, preventing attackers from being able to distinguish them. However, continuously recording the frame count while the page is loading may show a pattern that might leak information to the attacker.
+In some cases, different application states have the same number of `frames`, preventing attackers from being able to distinguish them. However, continuously recording the frame count while the page is loading may show a pattern that might leak information to an attacker:
 
 ```javascript
 // Get a reference to the window
@@ -61,8 +61,10 @@ setTimeout(() => {
 
 ## Case Scenarios
 
-- A website lets a user search for user information in a search engine, if the page structure has a different number of `iframes` depending on whether there are results to the user query, an attacker could use the [XS-Search]({{< ref "xs-search.md" >}}) technique to leak those secrets.
-- A website structures the user profile page differently based on gender or other PII. An attacker can easily leak this information by just opening the page and counting frames.
+Some examples of frame counting attacks are:
+
+- A website lets a user search for user information in a search engine. If the page structure has a different number of `iframes` depending on whether there are results to the user query, an attacker could use the [XS-Search]({{< ref "xs-search.md" >}}) technique to leak those secrets.
+- A website structures the user profile page differently based on gender or other PII. An attacker can easily leak this information by opening the page and counting frames.
 
 ## Defense
 
@@ -74,7 +76,7 @@ setTimeout(() => {
 
 ## Real World Example
 
-A Vulnerability reported to Facebook used this technique to leak user-related information such as specific contents published in posts, religious information about friends, or photo locations[^1].
+A vulnerability reported to Facebook used this technique to leak user-related information such as specific content published in posts, religious information about friends, or photo locations[^1].
 
 ## References
 
