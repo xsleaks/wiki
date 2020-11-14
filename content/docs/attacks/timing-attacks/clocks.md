@@ -35,7 +35,11 @@ The [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Glo
 ### SharedArrayBuffer and Web Workers
 
 With the introduction of `Web Workers`, new mechanisms to exchange data between threads were created [^1]. `SharedArrayBuffer`, one of those mechanisms, provides memory sharing between the main thread and a worker thread. Attackers can create an implicit clock by using two workers and a shared buffer. One worker runs in an infinite loop incrementing a number in the buffer. The other work can observe this number get incremented and use this to measure the relative passage of time.
-
+due to security conserns you need to set the following server headers:  
+```
+Cross-Origin-Embedder-Policy: "require-corp"  
+Cross-Origin-Opener-Policy: "same-origin"  
+```
 ```javascript
 // Load worker directly
 function worker_function() {
