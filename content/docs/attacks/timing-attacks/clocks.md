@@ -37,23 +37,27 @@ The [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Glo
 With the introduction of `Web Workers`, new mechanisms to exchange data between threads were created [^1]. `SharedArrayBuffer`, one of those mechanisms, provides memory sharing between the main thread and a worker thread. Attackers can create an implicit clock by using two workers and a shared buffer. One worker runs in an infinite loop incrementing a number in the buffer. The other work can observe this number get incremented and use this to measure the relative passage of time.
 
 ```javascript
-// -------- Main Thread clock creation --------
-var buffer = new SharedArrayBuffer(16);
-var counter = new Worker("counter.js");
-counter.postMessage([buffer],[buffer]);
-var arr = new UintArray(buffer);
-relative_time = arr[0];
-
-// -------- Web Worker counter.js --------
-self.onmessage = function(event){
-  var[buffer] = event.data ;
-  var arr = newUintArray(buffer);
-  while(1){
-    arr[0]++;
-  }
+// Load worker directly
+function worker_function() {
+  "use strict";
+  self.onmessage = function(event) {
+    const sharedBuffer = event.data;
+    const sharedArray = new Uint32Array(sharedBuffer);
+    while (true) Atomics.add(sharedArray, 0, 1);
+  };
 }
+const worker = new Worker(URL.createObjectURL(new Blob(["(" + worker_function.toString() + ")()"], {type: "text/javascript"})));
 
+// Create buffer
+const sharedBuffer = new SharedArrayBuffer(Uint32Array.BYTES_PER_ELEMENT);
+const sharedArray = new Uint32Array(sharedBuffer);
+worker.postMessage(sharedBuffer);
 ```
+To get the relative time you can use the [Atomics API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Atomics)
+```javascript
+Atomics.load(sharedArray, 0);
+```
+[^5]
 {{< hint important >}}
 `SharedArrayBuffer` was removed from browsers with the publication of [Spectre](https://spectreattack.com/). It was reintroduced later in 2020 requiring documents to be in a [secure context](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer) to make use of the API. Since secure contexts cannot reference any cross-origin content that has not explicitly opted in to being accessed, this means SharedArrayBuffers cannot be used as clocks for XS-Leaks.
 {{< /hint >}}
@@ -72,3 +76,4 @@ There are a considerable number of APIs attackers can abuse to create implicit c
 [^2]: Fantastic Timers and Where to Find Them: High-Resolution Microarchitectural Attacks in JavaScript, [link](https://gruss.cc/files/fantastictimers.pdf)
 [^3]: Exposing Private Information by Timing Web Applications, [link](http://crypto.stanford.edu/~dabo/papers/webtiming.pdf)
 [^4]: Trusted Browsers for Uncertain Times, [link](https://www.usenix.org/system/files/conference/usenixsecurity16/sec16_paper_kohlbrenner.pdf)
+[^5]: Minimal Spectre PoCs, [link](https://github.com/cgvwzq/spectre)
