@@ -130,7 +130,7 @@ This technique can also be adapted to measure the Execution Timing of a page by 
 {{< /hint >}}
 
 ## Network timing using the unload events with a SharedArrayBuffer
-The SharedArrayBuffer can be used to create a high-resolution timer [link]({{< ref "clocks.md#sharedarraybuffer-and-web-workers">}}) however due to security conserns you need to set the following server headers:  
+The [SharedArrayBuffer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer) can be used to create a high-resolution timer [link]({{< ref "clocks.md#sharedarraybuffer-and-web-workers">}}) however due to security conserns you need to set the following server headers:  
 ```
 Cross-Origin-Embedder-Policy: "require-corp"  
 Cross-Origin-Opener-Policy: "same-origin"  
