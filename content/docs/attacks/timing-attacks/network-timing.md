@@ -129,12 +129,13 @@ Note that this POC uses `setTimeout` in order to create the rough equivalent of 
 This technique can also be adapted to measure the Execution Timing of a page by [making the event loop busy]({{< ref "execution-timing.md#busy-event-loop" >}}).
 {{< /hint >}}
 
-## Network timing using the unload events with a timing
-The SharedArrayBuffer can be used to create a high-resolution timer however due to security conserns you need to set the following server headers:  
+## Network timing using the unload events with a SharedArrayBuffer
+The SharedArrayBuffer can be used to create a high-resolution timer [link]({{< ref "clocks.md#sharedarraybuffer-and-web-workers">}}) however due to security conserns you need to set the following server headers:  
 ```
 Cross-Origin-Embedder-Policy: "require-corp"  
 Cross-Origin-Opener-Policy: "same-origin"  
 ```
+
 To enable cross origin isolation so there will be restrictions for cross origin requests.  
 However the timing diffrence between the beforeunload and unload event of iframes can still be used.
 ```javascript
