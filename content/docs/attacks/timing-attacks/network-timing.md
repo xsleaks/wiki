@@ -137,7 +137,17 @@ Cross-Origin-Opener-Policy: "same-origin"
 ```
 To enable cross origin isolation so there will be restrictions for cross origin requests.  
 However the timing diffrence between the beforeunload and unload event of iframes can still be used.
-
+```javascript
+iframe.contentWindow.onbeforeunload = _ => {
+  // Get time during navigation
+  start = Atomics.load(sharedArray, 0);
+}
+iframe.contentWindow.onunload = _ => {
+  // Get time after navigation
+  let time = Atomics.load(sharedArray, 0);
+  console.log(time - start);
+};
+```
 ## Timeless Timing Attacks
 
 Other attacks do not consider the notion of time to perform a timing attack [^3]. Timeless attacks consist of fitting two `HTTP` requests in a single packet, the baseline and the attacked request, to guarantee they arrive at the same time to the server. The server *will* process the requests concurrently, and return a response based on their execution time as soon as possible. One of the two requests will arrive first, allowing the attacker to get the timing difference by comparing the order in which the requests arrived.
