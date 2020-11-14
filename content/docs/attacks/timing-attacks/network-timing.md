@@ -130,13 +130,7 @@ This technique can also be adapted to measure the Execution Timing of a page by 
 {{< /hint >}}
 
 ## Network timing using the unload events with a SharedArrayBuffer
-The [SharedArrayBuffer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer) can be used to create a high-resolution timer [link]({{< ref "clocks.md#sharedarraybuffer-and-web-workers">}}) however due to security conserns you need to set the following server headers:  
-```
-Cross-Origin-Embedder-Policy: "require-corp"  
-Cross-Origin-Opener-Policy: "same-origin"  
-```
-
-To enable cross origin isolation so there will be restrictions for cross origin requests.  
+The [SharedArrayBuffer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer) can be used to create a high-resolution timer [link]({{< ref "clocks.md#sharedarraybuffer-and-web-workers">}})
 However the timing diffrence between the beforeunload and unload event of iframes can still be used.
 ```javascript
 iframe.contentWindow.onbeforeunload = _ => {
