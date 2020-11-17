@@ -111,7 +111,7 @@ This technique can also be adapted to measure the Execution Timing of a page by 
 ## Unload events
 
 The duration is not affected by the x-frame-options (XFO) header because the network request still needs to be made in order to check for the header.
-On page navigation the ```beforeunload``` event is received then after the request is finshed the current page will be unloaded and the ```unload``` event will be received. this is before ```load``` event of the next page [spec](https://html.spec.whatwg.org/multipage/browsing-the-web.html)
+On page navigation the ```beforeunload``` event is received then after the request is finshed the current page will be unloaded and the ```unload``` event will be received. this is before the ```load``` event of the next page [spec](https://html.spec.whatwg.org/multipage/browsing-the-web.html)
 
 The below snippet makes use of [SharedArrayBuffer clock]({{< ref "clocks.md#sharedarraybuffer-and-web-workers" >}}) which needs to be initiated before the snippet is ran.
 ```javascript
