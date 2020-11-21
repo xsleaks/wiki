@@ -96,3 +96,17 @@ async function ifCached2(url) {
     return res.duration < 10;
 }
 ```
+# Get speed of connection in octets
+```javascript
+async function getSpeed() {
+  var best = null;
+  for (let i = 0; i < 10; i++) {
+    await fetch(location.href, { cache: "no-store" });
+    await new Promise(r => setTimeout(r, 200));
+    let page = window.performance.getEntriesByName(location.href).pop();
+    let result = (page.responseEnd - page.responseStart) / page.transferSize;
+    if (best === null || (result < best && result > 0)) best = result;
+  }
+  return best;
+}
+```
