@@ -96,7 +96,7 @@ async function ifCached2(url) {
     return res.duration < 10;
 }
 ```
-# Get speed of connection in octets
+## Get speed of connection in octets
 ```javascript
 async function getSpeed() {
   var best = null;
