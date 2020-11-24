@@ -25,7 +25,7 @@ Applications often use [postMessage broadcasts](https://developer.mozilla.org/en
 
 ## Defense
 
-There is no clear solution to mitigate this XS-Leak as it depends deeply on the purpose of sending a postMessage broadcast. Applications should limit postMessage communications to a group of known origins, and, when this is not possible, the communications should behave consistently regardless of the state to prevent attackers from inferring any differences.
+There is no clear solution to mitigate this XS-Leak as it depends deeply on the purpose of sending a postMessage broadcast. Applications should limit postMessage communications to a group of known origins. When this is not possible, the communications should behave consistently regardless of the state to prevent attackers from inferring information based on differences between the communications.
 
 ## References
 
