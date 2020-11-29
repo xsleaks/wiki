@@ -7,28 +7,27 @@ bookToc: false
 # XS-Leaks Wiki
 ## Overview
 
-Cross-Site Leaks (aka XS-Leaks, XSLeaks) are a class of vulnerabilities derived from browser side-channel techniques [^side-channel]. These techniques are similar to Cross-Site Request Forgery [^csrf] (CSRF) techniques, but instead of allowing other websites to perform actions on behalf of a user, they can be used to infer information about a user. This is done by exploiting a variety of features built in to browsers [^browser-features].
+Cross-site leaks (aka XS-Leaks, XSLeaks) are a class of vulnerabilities using side-channels [^side-channel] built into the web platform. They take advantage of the web's core principle of composability, which allows websites to interact with each other, and abuse legitimate mechanisms to infer information about the user.
 
+Browsers provide a wide variety of features to support interactions between different web applications; for example, they permit a website to load subresources, navigate, or send messages to another application. While such behaviors are generally constrained by security mechanisms built into the web platform (e.g. the [same-origin policy](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy)), XS-Leaks take advantage of small pieces of information which are exposed during interactions between websites. This information may let an attacker reveal sensitive information about users, such as their data in other web applications, details about their local environment, or internal networks they are connected to.
 
 ## The principle of an XS-Leak
 
-The fact that websites interact with each other is core to the behavior of the web. Browsers provide a wide variety of interfaces to support such interactions between different web applications. These interfaces have different security measures built on top which are intended to constrain the behavior of websites (e.g. the [Same-Origin Policy](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy)). XS-Leaks take advantage of small pieces of information that can leak during these interactions in order to infer sensitive information about users such as their data on other websites, operating systems they use, or internal networks they are connected to.
+The pieces of information used for an XS-Leak usually have a binary form and are referred to as "oracles". Oracles generally answer with *YES* or *NO* to cleverly prepared questions in a way that is visible to an attacker. For example, an oracle can be asked:
 
-These pieces of information usually have a binary form and are referred to as "oracles". These oracles usually answer with *YES* or *NO* to cleverly prepared questions. For example, an oracle can be asked:
+> Does the word *secret* appear in the user's search results in another web application?
 
-> Does the word *secret* exist in the search results?
+This question might be equivalent to asking:
 
-In a vulnerable application, the above question might be equivalent to asking:
+> Does the query *?query=secret* return an *HTTP 200* status code?
 
-> Does the query *?query=secret* return *HTTP200* status code?
+Since it is possible to detect the *HTTP 200* status code with [Error Events]({{< ref "./docs/attacks/error-events.md" >}}), this has the same effect as asking:
 
-Since it is possible to detect the *HTTP200* status code with [Error Events]({{< ref "./docs/attacks/error-events.md" >}}), this has the same effect as asking:
+> Does loading a resource from *?query=secret* in the application trigger the *onload* event?
 
-> Does the query *?query=secret* trigger the *onload* event?
+The above query could be repeated by an attacker for many different keywords, and as a result the answers could be used to infer sensitive information about the user's data.
 
-The above query could be repeated by an attacker for many different keywords, and as a result the answers could be used to infer sensitive information about the user from a cross-site website.
-
-Browsers provide a wide range of different APIs that, while well-intended, can end up leaking small amounts of cross-origin information.
+Browsers provide a wide range of different APIs that, while well-intended, can end up leaking small amounts of cross-origin information. They are described in detail throughout this wiki.
 
 ## Example
 
@@ -90,7 +89,6 @@ In addition, we would also like to acknowledge the users who [contributed](https
 
 ## References
 [^side-channel]: Side Channel Vulnerabilities on the Web - Detection and Prevention, [link](https://owasp.org/www-pdf-archive/Side_Channel_Vulnerabilities.pdf)
-[^csrf]: Cross Site Request Forgery (CSRF), [link](https://owasp.org/www-community/attacks/csrf)
 [^browser-features]: In some cases, these features are maintained to preserve backwards compatibility. But, in other cases, new features are added to browsers regardless of the fact that they introduce potential Cross-Site Leaks (e.g. [Scroll to Text Fragment]({{< ref "scroll-to-text-fragment.md" >}})), as the benefits are considered to outweigh the downsides.
 [^harmless]: Websites being able to interact and include resources from each other is a key part of how the web works. For example, many websites allow users to post content that includes images embedded from elsewhere on the web. Fundamentally, this is an intended behavior of the web. But, over time, the downsides of this sort of interaction have become better understood.
 [^old-wiki]: Browser Side Channels, [link](https://github.com/xsleaks/xsleaks/wiki/Browser-Side-Channels)
