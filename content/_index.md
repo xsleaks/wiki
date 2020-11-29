@@ -32,19 +32,18 @@ Browsers provide a wide range of different APIs that, while well-intended, can e
 
 ## Example
 
-Websites are generally not allowed to access data on other websites. For example, *evil.com* is forbidden from explicitly reading a response from *bank.com*, but *evil.com* can attempt to load a script from *bank.com* since that was originally judged to be harmless [^harmless]. However, *evil.com* can also determine whether or not the script successfully loaded.
+Websites are not allowed to directly access data on other websites, but they can load resources from them and observe the side effects. For example, *evil.com* is forbidden from explicitly reading a response from *bank.com*, but *evil.com* can attempt to load a script from *bank.com* and determine whether or not it successfully loaded.
 
 {{< hint example >}}
 
-Suppose that *bank.com* has an API endpoint that returns data about a user's receipt for a given query.
+Suppose that *bank.com* has an API endpoint that returns data about a user's receipt for a given type of transaction.
 
-1. The page *evil.com* could attempt to load the URL *bank.com/my_receipt?q=groceries* as a script, since by default, the browser attaches cookies with the request.
-2. If the user has recently bought groceries, the URL loads successfully (because of the *HTTP200* status code).
-3. But if they haven't bought groceries, the URL triggers an [Error Event]({{< ref "./docs/attacks/error-events.md" >}}) (because of the *HTTP404* status code) that *evil.com* can listen for.
-4. By repeating this approach with different queries, the attacker could infer a significant amount of information about the user's transaction history.
+1. *evil.com* can attempt to load the URL *bank.com/my_receipt?q=groceries* as a script. By default, the browser attaches cookies when loading resources, so the request to *bank.com* will carry the user's credentials.
+2. If the user has recently bought groceries, the script loads successfully with an *HTTP 200* status code. If the user hasn't bought groceries, the request fails to load with an *HTTP 404* status code, which triggers an [Error Event]({{< ref "./docs/attacks/error-events.md" >}}).
+3. By listening to the error event and repeating this approach with different queries, the attacker can infer a significant amount of information about the user's transaction history.
 {{< /hint >}}
 
-In the above example, two websites of two different origins (*evil.com* and *bank.com*) interacted through an API that browsers allow websites to use. None of this exploited a bug in the browser or a bug in *bank.com*. But nonetheless, it allowed *evil.com* to gain a small amount of information about the user on *bank.com*.  
+In the example above, two websites of two different origins (*evil.com* and *bank.com*) interacted through an API that browsers allow websites to use.  This interaction didn't exploit any vulnerabilities in the browser or in *bank.com*, but it still allowed *evil.com* to gain information about the user's data on *bank.com*.  
 
 
 
@@ -96,7 +95,6 @@ In addition, we would also like to acknowledge the users who [contributed](https
 [^side-channel]: Side Channel Vulnerabilities on the Web - Detection and Prevention, [link](https://owasp.org/www-pdf-archive/Side_Channel_Vulnerabilities.pdf)
 [^csrf]: Cross Site Request Forgery (CSRF), [link](https://owasp.org/www-community/attacks/csrf)
 [^browser-features]: In some cases, these features are maintained to preserve backwards compatibility. But, in other cases, new features are added to browsers regardless of the fact that they introduce potential Cross-Site Leaks (e.g. [Scroll to Text Fragment]({{< ref "scroll-to-text-fragment.md" >}})), as the benefits are considered to outweigh the downsides.
-[^harmless]: Websites being able to interact and include resources from each other is a key part of how the web works. For example, many websites allow users to post content that includes images embedded from elsewhere on the web. Fundamentally, this is an intended behavior of the web. But, over time, the downsides of this sort of interaction have become better understood.
 [^old-wiki]: Browser Side Channels, [link](https://github.com/xsleaks/xsleaks/wiki/Browser-Side-Channels)
 [^xs-search-first]: Cross-Site Search Attacks, [link](https://446h.cybersec.fun/xssearch.pdf)
 [^spectre]: Meltdown and Spectre, [link](https://spectreattack.com/)
