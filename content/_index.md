@@ -60,7 +60,11 @@ We can distinguish different sources of XS-Leaks, such as:
 
 ## A little bit of history
 
-XS-Leaks have always been part of the web platform, but have attracted more attention in recent years [^old-wiki] as new techniques were found to increase their impact. [Timing attacks]({{< ref "network-timing.md" >}}) against the web have been discussed since at least [2000](https://dl.acm.org/doi/10.1145/352600.352606). In 2015, Gelernter and Herzberg published "Cross-Site Search Attacks" [^xs-search-first] which covered their work on exploiting timing attacks to implement high impact XS-Search attacks against Google and Microsoft. Since then, more XS-Leak techniques have been discovered and tested. Recently, browsers have been improved to include a variety of new standards that make it easier to defend applications against XS-Leaks.
+XS-Leaks have long been part of the web platform;  [timing attacks]({{< ref "network-timing.md" >}}) to leak information about the user's web activity have been known since at least [2000](https://dl.acm.org/doi/10.1145/352600.352606).
+
+This class of issues has steadily attracted more attention [^old-wiki] as new techniques were found to increase their impact. In 2015, Gelernter and Herzberg published "Cross-Site Search Attacks" [^xs-search-first] which covered their work on exploiting timing attacks to implement high impact XS-Search attacks against web applications built by Google and Microsoft. Since then, more XS-Leak techniques have been discovered and tested. 
+
+Recently, browsers have implemented a variety of new [defense mechanisms]({{< ref "defenses" >}}) that make it easier to protect applications from XS-Leaks.
 
 ## About this wiki
 
