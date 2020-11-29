@@ -10,14 +10,6 @@ Defending against all possible [XS-Leaks Attack Vectors]({{< ref "../attacks/" >
 
 Browsers now provide a number of useful opt-in mechanisms that can be used to mitigate XS-Leaks. While these provide strong protections, the disadvantage is that they are not yet well supported by every browser. Defending against XS-Leaks effectively requires a mixture of different techniques, each of which is described in detail below.
 
-## Application Design
-
-Application design [techniques]({{< ref "design-protections/_index.md" >}}) are focused on carefully designing the application in a way that prevents XS-Leaks. This is a very useful approach when it is not practical to enable stronger global protections immediately. The other big advantage is that careful application design can stop XS-Leaks even on older browsers that don't support the newest browser standards.
-
-{{< hint note >}}
-It is very difficult to use application design techniques to block every XS-Leak technique across an entire application. While application design techniques are effective at stopping severe leaks, [opt-in mechanisms]({{< relref "_index.md#opt-in-mechanisms" >}}) provided by the browser are a better overall solution.
-{{< /hint >}}
-
 ## Opt-in Mechanisms
 
 These [defense mechanisms]({{< ref "opt-in/_index.md" >}}) allow applications to address classes of similar XS-Leaks at the same time. These protections can either allow applications to change the behavior of the browser or provide additional information that applications can use to change their own behavior.
@@ -28,6 +20,14 @@ Deploying a combination of opt-in defense mechanisms should be the default strat
 
 {{< hint important >}}
 When using any mitigations that rely on browser support, be sure to check that they are well supported by your customers' browsers. For example, `fetch metadata` headers are a great tool, but are currently only supported in Chromium-based browsers. Check [MDN](https://developer.mozilla.org/en-US/) for up-to-date information on browser support for different standards.
+{{< /hint >}}
+
+## Application Design
+
+Application design [techniques]({{< ref "design-protections/_index.md" >}}) are focused on carefully designing the application in a way that prevents XS-Leaks. This is a very useful approach when it is not practical to enable stronger global protections immediately. The other big advantage is that careful application design can stop XS-Leaks even on older browsers that don't support the newest browser standards.
+
+{{< hint note >}}
+It is very difficult to use application design techniques to block every XS-Leak technique across an entire application. While application design techniques are effective at stopping severe leaks, [opt-in mechanisms]({{< relref "_index.md#opt-in-mechanisms" >}}) provided by the browser are a better overall solution.
 {{< /hint >}}
 
 ## Secure Defaults
