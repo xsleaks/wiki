@@ -7,7 +7,7 @@ bookToc: false
 # XS-Leaks Wiki
 ## Overview
 
-Cross-Site Leaks (aka XS-Leaks, XSLeaks) are a class of vulnerabilities derived from browser side-channel techniques [^side-channel]. These techniques are similar to Cross-Site Request Forgery [^csrf] (CSRF) techniques, but instead of allowing other websites to perform actions on behalf of a user, they can be used to infer information about a user. This is done by exploiting a variety of features built in to browsers [^browser-features].
+Cross-site leaks (aka XS-Leaks, XSLeaks) are a class of vulnerabilities derived from browser side-channel techniques [^side-channel]. These techniques are similar to Cross-site request Forgery [^csrf] (CSRF) techniques, but instead of allowing other websites to perform actions on behalf of a user, they can be used to infer information about a user. This is done by exploiting a variety of features built in to browsers [^browser-features].
 
 
 ## The principle of an XS-Leak
@@ -61,7 +61,7 @@ We can distinguish different sources of XS-Leaks, such as:
 
 XS-Leaks have long been part of the web platform;  [timing attacks]({{< ref "network-timing.md" >}}) to leak information about the user's web activity have been known since at least [2000](https://dl.acm.org/doi/10.1145/352600.352606).
 
-This class of issues has steadily attracted more attention [^old-wiki] as new techniques were found to increase their impact. In 2015, Gelernter and Herzberg published "Cross-Site Search Attacks" [^xs-search-first] which covered their work on exploiting timing attacks to implement high impact XS-Search attacks against web applications built by Google and Microsoft. Since then, more XS-Leak techniques have been discovered and tested. 
+This class of issues has steadily attracted more attention [^old-wiki] as new techniques were found to increase their impact. In 2015, Gelernter and Herzberg published "Cross-Site Search Attacks" [^xs-search-first] which covered their work on exploiting timing attacks to implement high impact XS-Search attacks against web applications built by Google and Microsoft. Since then, more XS-Leak techniques have been discovered and tested.
 
 Recently, browsers have implemented a variety of new [defense mechanisms]({{< ref "defenses" >}}) that make it easier to protect applications from XS-Leaks.
 
@@ -94,7 +94,7 @@ In addition, we would also like to acknowledge the users who [contributed](https
 ## References
 [^side-channel]: Side Channel Vulnerabilities on the Web - Detection and Prevention, [link](https://owasp.org/www-pdf-archive/Side_Channel_Vulnerabilities.pdf)
 [^csrf]: Cross Site Request Forgery (CSRF), [link](https://owasp.org/www-community/attacks/csrf)
-[^browser-features]: In some cases, these features are maintained to preserve backwards compatibility. But, in other cases, new features are added to browsers regardless of the fact that they introduce potential Cross-Site Leaks (e.g. [Scroll to Text Fragment]({{< ref "scroll-to-text-fragment.md" >}})), as the benefits are considered to outweigh the downsides.
+[^browser-features]: In some cases, these features are maintained to preserve backwards compatibility. But, in other cases, new features are added to browsers regardless of the fact that they introduce potential cross-site leaks (e.g. [Scroll to Text Fragment]({{< ref "scroll-to-text-fragment.md" >}})), as the benefits are considered to outweigh the downsides.
 [^old-wiki]: Browser Side Channels, [link](https://github.com/xsleaks/xsleaks/wiki/Browser-Side-Channels)
 [^xs-search-first]: Cross-Site Search Attacks, [link](https://446h.cybersec.fun/xssearch.pdf)
 [^spectre]: Meltdown and Spectre, [link](https://spectreattack.com/)
