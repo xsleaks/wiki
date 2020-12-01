@@ -47,39 +47,27 @@ We use the [Hugo Book Theme](https://themes.gohugo.io/hugo-book/) with custom mo
 We modified the default [Hints](https://themes.gohugo.io/theme/hugo-book/docs/shortcodes/hints/) used by the theme; the modified boxes are listed below:
 
 {{< hint info >}}
-```
-{{</* hint info */>}} TEXT {{</* /hint */>}}
-```
+This is an *Info* box for the `{{</* hint info */>}}` shortcode.
 {{< /hint >}}
 
 {{< hint note >}}
-```
-{{</* hint note */>}} TEXT {{</* /hint */>}}
-```
+This is a *Note* box for the `{{</* hint note */>}}` shortcode.
 {{< /hint >}}
 
 {{< hint example >}}
-```
-{{</* hint example */>}} TEXT {{</* /hint */>}}
-```
+This is an *Example* box for the `{{</* hint example */>}}` shortcode.
 {{< /hint >}}
 
 {{< hint tip >}}
-```
-{{</* hint tip */>}} TEXT {{</* /hint */>}}
-```
+This is a *Tip* box for the `{{</* hint tip */>}}` shortcode.
 {{< /hint >}}
 
 {{< hint important >}}
-```
-{{</* hint important */>}} TEXT {{</* /hint */>}}
-```
+This is an *Important* box for the `{{</* hint important */>}}` shortcode.
 {{< /hint >}}
 
 {{< hint warning >}}
-```
-{{</* hint warning */>}} TEXT {{</* /hint */>}}
-```
+This is a *Warning* box for the `{{</* hint warning */>}}` shortcode.
 {{< /hint >}}
 
 ### Original style
