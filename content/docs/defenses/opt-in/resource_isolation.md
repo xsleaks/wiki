@@ -15,6 +15,12 @@ resource requests coming from your application as well as direct navigations.
 ```
 # Reject cross-origin requests to protect from CSRF, XSSI, and other bugs
 def allow_request(req):
+  # [OPTIONAL] Exempt paths/endpoints meant to be served cross-origin.
+  if req.path in ('/my_CORS_endpoint', '/favicon.png'):
+    return True
+ 
+  # Safe to set `Cross-Origin-Resource-Policy: same-site`. (see Considerations)
+
   # Allow requests from browsers which don't send Fetch Metadata
   if not req['sec-fetch-site']:
     return True
@@ -27,13 +33,13 @@ def allow_request(req):
   if req['sec-fetch-mode'] == 'navigate' and req.method == 'GET':
       return True
 
-  # [OPTIONAL] Exempt paths/endpoints meant to be served cross-origin.
-  if req.path in ('/my_CORS_endpoint', '/favicon.png'):
-    return True
-
   # Reject all other requests
   return False
 ```
+
+## Considerations
+It should be safe to set a `Cross-Origin-Resource-Policy: same-site` response header on all requests that have not explicitly been exempted from Resource Isolation Policy. See [CORP]({{< ref "corp.md" >}})
+
 
 ## Deployment
 
