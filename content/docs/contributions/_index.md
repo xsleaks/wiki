@@ -79,9 +79,9 @@ The original hint style can be used by adding a third parameter, `noTitle`, to t
 
 {{< /hint >}}
 
-## Acknowledgement
+## Acknowledgements
 
-We would like to acknowledge the following users who [contributed](https://github.com/xsleaks/wiki/graphs/contributors) to this XS-Leaks wiki:
+We would like to thank the following users who [contributed](https://github.com/xsleaks/wiki/graphs/contributors) to this XS-Leaks wiki:
 
 [Manuel Sousa](https://github.com/manuelvsousa), [terjanq](https://github.com/terjanq),
 [Roberto Clapis](https://github.com/empijei), [David Dworken](https://github.com/ddworken),
