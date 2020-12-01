@@ -1,7 +1,7 @@
 +++
 title = "Resource Isolation"
 description = ""
-date = "2020-10-01"
+date = "2020-11-30"
 category = [
     "Defense",
 ]
@@ -31,7 +31,7 @@ def allow_request(req):
   if req.path in ('/my_CORS_endpoint', '/favicon.png'):
     return True
 
-  # Reject all other requests that are cross-site and not navigational
+  # Reject all other requests
   return False
 ```
 
