@@ -69,27 +69,7 @@ Recently, browsers have implemented a variety of new [defense mechanisms]({{< re
 
 This wiki is meant to both introduce readers to XS-Leaks and serve as a reference guide for experienced researchers exploiting XS-Leaks. While this wiki contains information on many different techniques, new techniques are always emerging. Improvements, whether they add new techniques or expand existing pages, are always appreciated!
 
-### Contributors
-
-The following users [contributed](https://github.com/xsleaks/wiki/graphs/contributors) to the XS-Leaks wiki:
-
-* [Manuel Sousa](https://github.com/manuelvsousa) (creator of this wiki)
-* [terjanq](https://github.com/terjanq)
-* [Roberto Clapis](https://github.com/empijei)
-* [David Dworken](https://github.com/ddworken)
-* [NDevTK](https://github.com/NDevTK)
-
-In addition, we would also like to acknowledge the users who [contributed](https://github.com/xsleaks/xsleaks/wiki/Browser-Side-Channels/_history) to the predecessor of the current XS-Leaks wiki:
-
-* [Eduardo' Vela" \<Nava> (sirdarckcat)](https://github.com/sirdarckcat)
-* [Ron Masas](https://github.com/masasron)
-* [Luan Herrera](https://github.com/lbherrera)
-* [Sigurd](https://github.com/DonSheddow)
-* [larson reever](https://github.com/larsonreever)
-* [Frederik Braun](https://github.com/mozfreddyb)
-* [Masato Kinugawa](https://github.com/masatokinugawa)
-* [sroettger](https://github.com/sroettger)
-
+More information about contributions can be found in the [Contributions]({{< ref "contributions.md" >}}) article where also all the contributors are acknnowledged.
 
 ## References
 [^side-channel]: Side Channel Vulnerabilities on the Web - Detection and Prevention, [link](https://owasp.org/www-pdf-archive/Side_Channel_Vulnerabilities.pdf)
