@@ -69,7 +69,7 @@ Recently, browsers have implemented a variety of new [defense mechanisms]({{< re
 
 This wiki is meant to both introduce readers to XS-Leaks and serve as a reference guide for experienced researchers exploiting XS-Leaks. While this wiki contains information on many different techniques, new techniques are always emerging. Improvements, whether they add new techniques or expand existing pages, are always appreciated!
 
-More information about contributions can be found in the [Contributions]({{< ref "contributions.md" >}}) article where also all the contributors are acknnowledged.
+Find out how you can contribute to this wiki and view the list of contributors in the [Contributions]({{< ref "contributions.md" >}}) article.
 
 ## References
 [^side-channel]: Side Channel Vulnerabilities on the Web - Detection and Prevention, [link](https://owasp.org/www-pdf-archive/Side_Channel_Vulnerabilities.pdf)
