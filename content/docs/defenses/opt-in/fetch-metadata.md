@@ -34,4 +34,4 @@ The usefulness of Fetch Metadata headers is dependent on the application coverag
 
 ## Policies
 
-See [Resource Isolation Policy]({{< ref "resource_isolation.md" >}}) and [Framing Isolation Policy]({{< ref "framing_isolation.md" >}}) for specific policies utilizing Fetch Metadata Request Headers.
+See [Resource Isolation Policy]({{< ref "../isolation-policies/resource-isolation.md" >}}) and [Framing Isolation Policy]({{< ref "../isolation-policies/framing-isolation.md" >}}) for specific policies utilizing Fetch Metadata Request Headers.

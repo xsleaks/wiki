@@ -7,11 +7,14 @@ category = [
 ]
 menu = "main"
 +++
-Framing Isolation Policy supplements [Resource Isolation Policy]({{< ref "resource_isolation.md" >}}) to protect against cross-origin information leaks by
+Framing Isolation Policy supplements [Resource Isolation Policy]({{< ref "resource-isolation.md" >}}) to protect against cross-origin information leaks by
 additionally blocking framing requests to non-framable endpoints.
 
 ## Example
-```
+
+The below snippet showcases an example implemention of the Framing Isolation Policy by the application.
+
+```py
 # Reject cross-origin requests to protect from CSRF, XSSI, and other bugs
 def allow_request(req):
   # Allow requests from browsers which don't send Fetch Metadata
