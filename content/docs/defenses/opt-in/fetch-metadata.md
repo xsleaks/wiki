@@ -1,14 +1,14 @@
 +++
 title = "Fetch Metadata"
 description = ""
-date = "2020-10-01"
+date = "2020-11-30"
 category = [
     "Defense",
 ]
 menu = "main"
 +++
 
-Fetch Metadata headers are sent by browsers with HTTP requests. These headers provide context on how a request was initiated so that applications are able to make more informed decisions on how to respond to them. This allows servers to behave differently when they detect potential attacks (e.g. unexpected cross-origin requests)[^1]. This can be very effective against cross-origin attacks like XSSI, XS-Leaks, Clickjacking, and CSRF if a strict policy is deployed on the server.
+[Fetch Metadata Request Headers](https://www.w3.org/TR/fetch-metadata/) are sent by browsers with HTTPS requests. These headers provide context on how a request was initiated so that applications are able to make more informed decisions on how to respond to them. This allows servers to behave differently when they detect potential attacks (e.g. unexpected cross-origin requests)[^1]. This can be very effective against cross-origin attacks like XSSI, XS-Leaks, Clickjacking, and CSRF if a strict policy is deployed on the server.
 
 In the XS-Leaks scenario, servers have the ability to know when a request was made cross-origin (e.g. attacker origin) and can return a different response with no user data. This kind of response is not useful to the attacker since it does not carry any information or state about the user. Fetch Metadata can also be used to block framing or even navigational requests.
 
@@ -26,20 +26,12 @@ Fetch Metadata headers can be used to extend the protections provided by SameSit
 
 This allows for a more precise deployment of protections in scenarios where SameSite cookies could break a service's functionalities. One disadvantage of Fetch Metadata compared to SameSite cookies is that the latter can also protect unencrypted requests (HTTP) while the former can't.
 
-{{< hint important >}}
-In the _Defense_ sections you can find in the articles under **Attacks** on this wiki, we assume that the service runs on HTTPS, and therefore, a protection using Fetch Metadata can be applied.
-{{< /hint >}}
-
 ## Considerations
 
 Fetch Metadata headers are a useful tool for a defense-in-depth strategy, but should not be seen as a replacement for mechanisms such as [SameSite Cookies]({{< ref "same-site-cookies.md" >}}), [COOP]({{< ref "coop.md" >}}), or [Framing Protections]({{< ref "xfo.md" >}}). Even though Fetch Metadata headers can be used to achieve similar results, it is a best practice to enforce these restrictions on the client side in addition to the server.
 
 The usefulness of Fetch Metadata headers is dependent on the application coverage and correctness of the deployment.
 
-## Deployment
+## Policies
 
-Check out this [web.dev](https://web.dev/fetch-metadata/) article to learn more about this protection, some different policies, and tips on how to deploy it.
-
-## References
-
-[^1]: Protect your resources from web attacks with Fetch Metadata, [link](https://web.dev/fetch-metadata/)
+See [Resource Isolation Policy]({{< ref "../isolation-policies/resource-isolation.md" >}}) and [Framing Isolation Policy]({{< ref "../isolation-policies/framing-isolation.md" >}}) for specific policies utilizing Fetch Metadata Request Headers.

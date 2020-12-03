@@ -14,7 +14,7 @@ menu = "main"
 weight = 1
 +++
 
-Cross-Site Search (XS-Search) is an important attack and principle in the family of XS-Leaks. The attack abuses Query-Based Search Systems to leak user information from an attacker origin [^1] [^2]. The original attack used timing measurements to detect whether or not a search system returned results and works as follows:
+Cross-site search (XS-Search) is an important attack and principle in the family of XS-Leaks. The attack abuses Query-Based Search Systems to leak user information from an attacker origin [^1] [^2]. The original attack used timing measurements to detect whether or not a search system returned results and works as follows:
 
 1. Establish a baseline time for a request returning results (hit) and a baseline for a request with no results (miss).
 2. Start a [timing attack]({{< ref "./timing-attacks/network-timing.md" >}}) on the request to the search endpoint, brute-forcing the first character (`?q=r`).
