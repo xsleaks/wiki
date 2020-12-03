@@ -6,13 +6,18 @@ category = [
     "Defense",
 ]
 menu = "main"
+weight = 2
 +++
 Framing Isolation Policy supplements [Resource Isolation Policy]({{< ref "resource-isolation.md" >}}) to protect against cross-origin information leaks by
 additionally blocking framing requests to non-framable endpoints.
 
-## Example
+{{< hint tip >}}
+Instead of rejecting all non-framable endpoints, the user could be prompted to confirm the action, e.g. *Confirm that you visited this page from a trusted origin* to mitigate the risk of attacks in the background. This could help with the unintended breakages of an application.
+{{< /hint >}}
 
-The below snippet showcases an example implemention of the Framing Isolation Policy by the application.
+## Implementation with Fetch Metadata
+
+The below snippet showcases an example implemention of the Framing Isolation Policy by an application.
 
 ```py
 # Reject cross-origin requests to protect from CSRF, XSSI, and other bugs
