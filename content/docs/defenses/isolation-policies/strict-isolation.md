@@ -18,7 +18,7 @@ However, this would only work for navigational requests, since the resources are
 
 ## Implementation with Fetch Metadata
 
-The below snippet showcases an example implemention of the Resource Isolation Policy by an application.
+The below snippet showcases an example implementation of Strict Isolation Policy by an application.
 
 ```py
 # Reject cross-origin requests to protect from CSRF, XSSI, and other bugs
