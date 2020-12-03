@@ -36,7 +36,7 @@ def allow_request(req):
 ```
 
 ## Implementation with SameSite cookies
-If a server sends a cookie with [`SameSite: strict`]({{< ref "../opt-in/same-site-cookies/#samesite-cookie-modes" >}}) flag, any received request back that doesn't contain that cookie could be rejected.
+If a server sends a cookie with [`SameSite=strict`]({{< ref "../opt-in/same-site-cookies/#samesite-cookie-modes" >}}) flag, any received request back that doesn't contain that cookie could be rejected.
 
 ```py
 # Reject cross-origin requests to protect from CSRF, XSSI, and other bugs
