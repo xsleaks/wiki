@@ -67,13 +67,3 @@ def allow_request(req):
 {{< hint important >}}
 It is not guaranteed that every request will contain the Referer header which could potentialy break an application. It is also possible to set the value of the `Referer` to `null` so be aware of that!
 {{< /hint >}}
-
-
-
-## Deployment
-
-Check out this [web.dev](https://web.dev/fetch-metadata/) article to learn more about this protection, some different policies, and tips on how to deploy it.
-
-<!-- ## References
-
-[^1]: Protect your resources from web attacks with Fetch Metadata, [link](https://web.dev/fetch-metadata/) -->
