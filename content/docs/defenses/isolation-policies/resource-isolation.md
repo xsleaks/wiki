@@ -26,15 +26,15 @@ def allow_request(req):
   # Safe to set `Cross-Origin-Resource-Policy: same-site`. (see Considerations)
 
   # Allow requests from browsers which don't send Fetch Metadata
-  if not req['sec-fetch-site']:
+  if not req['headers']['sec-fetch-site']:
     return True
 
   # Allow same-site and browser-initiated requests
-  if req['sec-fetch-site'] in ('same-origin', 'same-site', 'none'):
+  if req['headers']['sec-fetch-site'] in ('same-origin', 'same-site', 'none'):
     return True
 
   # Allow simple top-level navigations except <object> and <embed>
-  if req['sec-fetch-mode'] == 'navigate' and req.method == 'GET':
+  if req['headers']['sec-fetch-mode'] == 'navigate' and req.method == 'GET':
       return True
 
   # Reject all other requests

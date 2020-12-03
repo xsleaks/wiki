@@ -24,11 +24,11 @@ The below snippet showcases an example implemention of the Resource Isolation Po
 # Reject cross-origin requests to protect from CSRF, XSSI, and other bugs
 def allow_request(req):
   # Allow requests from browsers which don't send Fetch Metadata
-  if not req['sec-fetch-site']:
+  if not req['headers']['sec-fetch-site']:
     return True
 
   # Block any cross-site request
-  if req['sec-fetch-site'] == 'cross-site':
+  if req['headers']['sec-fetch-site'] == 'cross-site':
     return False
 
   # Allow all other requests

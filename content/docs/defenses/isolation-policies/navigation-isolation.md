@@ -22,11 +22,11 @@ The below snippet showcases an example implemention of the Navigation Isolation 
 # Reject cross-origin requests to protect from CSRF, XSSI, and other bugs
 def allow_request(req):
   # Allow any request that is not cross-site
-  if req['sec-fetch-site'] != 'cross-site':
+  if req['headers']['sec-fetch-site'] != 'cross-site':
     return True
 
   # Block all top-level cross-site navigations
-  if req['sec-fetch-mode'] in ('navigate', 'nested-navigate'):
+  if req['headers']['sec-fetch-mode'] in ('navigate', 'nested-navigate'):
       return False
 
   # Allow all other requests

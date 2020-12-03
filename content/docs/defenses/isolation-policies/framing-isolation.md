@@ -23,15 +23,19 @@ The below snippet showcases an example implemention of the Framing Isolation Pol
 # Reject cross-origin requests to protect from CSRF, XSSI, and other bugs
 def allow_request(req):
   # Allow requests from browsers which don't send Fetch Metadata
-  if not req['sec-fetch-site'] or not req['sec-fetch-mode'] or not req['sec-fetch-dest']:
+  if not req['headers']['sec-fetch-site']:
+    return True
+  if not req['headers']['sec-fetch-mode']:
+    return True
+  if not req['headers']['sec-fetch-dest']:
     return True
 
   # Allow non-navigational requests
-  if req['sec-fetch-mode'] not in ('navigate', 'nested-navigate'):
+  if req['headers']['sec-fetch-mode'] not in ('navigate', 'nested-navigate'):
     return True
 
   # Allow non-frameable requests.
-  if req['sec-fetch-dest'] not in ('frame', 'iframe', 'embed', 'object'):
+  if req['headers']['sec-fetch-dest'] not in ('frame', 'iframe', 'embed', 'object'):
       return True
 
   # [OPTIONAL] Exempt paths/endpoints meant to be served cross-origin.
