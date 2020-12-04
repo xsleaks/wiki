@@ -10,7 +10,7 @@ weight = 2
 +++
 Framing Isolation Policy is a stricter version of [Framing Protections]({{< ref "../opt-in/xfo" >}}) where the request gets blocked at the application level rather than the browser. This is intended to protect against various attacks (e.g. XSSI, CSRF, XS-Leaks) by blocking framing requests to endpoints not intended to be framable.
 
-It might be combined with [Resource Isolation Policy]({{< ref "resource-isolation.md" >}}) to effectively tighten the attac k surface within cross-site information leaks.
+It might be combined with [Resource Isolation Policy]({{< ref "resource-isolation.md" >}}) to effectively tighten the attack surface within cross-site information leaks.
 
 {{< hint tip >}}
 Instead of rejecting all non-framable endpoints, the user could be prompted to confirm the action, e.g. *Confirm that you visited this page from a trusted origin* to mitigate the risk of attacks in the background, and at the same time, help with the unintended breakages of an application.
