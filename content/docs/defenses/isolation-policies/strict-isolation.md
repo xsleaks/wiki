@@ -8,10 +8,10 @@ category = [
 menu = "main"
 weight = 4
 +++
-Strict Isolation Policy is intended to protect against all cross-site interactions (including navigations to the application through hyperlinks). This is a very strict policy that could potentialy break applications from functioning properly.
+Strict Isolation Policy is intended to protect against all cross-site interactions (including navigations to the application through hyperlinks). This is a very strict policy that has the potential to prevent applications from functioning properly.
 
 {{< hint tip >}}
-Instead of rejecting all cross-site interactions, the user could be prompted to confirm the action, e.g. *Confirm that you visited this page from a trusted origin* to mitigate the risk of attacks in the background, and at the same time, help with the unintended breakages of an application.
+Instead of rejecting all cross-site interactions, the user could be prompted to confirm the action, e.g. *Confirm that you visited this page from a trusted origin*, to mitigate the risk of attacks in the background, and, at the same time, help prevent unintended breakages of an application.
 
 However, this would only work for navigational requests, since other resources are loaded in the background.
 {{< /hint >}}
@@ -19,7 +19,7 @@ However, this would only work for navigational requests, since other resources a
 
 ## Implementation with Fetch Metadata
 
-The below snippet showcases an example implementation of Strict Isolation Policy by an application.
+The below snippet showcases an example implementation of Strict Isolation Policy by an application:
 
 ```py
 # Reject cross-origin requests to protect from CSRF, XSSI, and other bugs
@@ -37,7 +37,7 @@ def allow_request(req):
 ```
 
 ## Implementation with SameSite cookies
-If a server sends a cookie with [`SameSite=strict`]({{< ref "../opt-in/same-site-cookies/#samesite-cookie-modes" >}}) flag, any received request back that doesn't contain that cookie could be rejected.
+If a server sends a cookie with the [`SameSite=strict`]({{< ref "../opt-in/same-site-cookies/#samesite-cookie-modes" >}}) flag, any returned request that doesn't contain that cookie can be rejected, as showcased in this snippet:
 
 ```py
 # Reject cross-origin requests to protect from CSRF, XSSI, and other bugs
@@ -46,12 +46,12 @@ def allow_request(req):
   if req['cookies']['strict-cookie'] == 'true':
     return True
 
-  # Block reuqests without a strict cookie
+  # Block requests without a strict cookie
   return False
 ```
 
 ## Implementation with Referer
-It is also possible to reject requests from untrusted origins with the [`Referer`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referer) header.
+It is also possible to reject requests from untrusted origins with the [`Referer`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referer) header:
 
 ```py
 # Reject requests that came from untrusted referrers
@@ -61,13 +61,13 @@ def allow_request(req):
   if req['headers']['referer'] in trusted_referers:
     return True
 
-  # Block reuqests without a strict cookie
+  # Block requests without a strict cookie
   return False
 ```
 
 {{< hint important >}}
-It is not guaranteed that every request will contain the Referer header (e.g. extensions stripping the header) which could potentialy break an application. It is also possible to set the value of the `Referer` to `null` so be aware of that.
+It is not guaranteed that every request will contain the Referer header (e.g. extensions can strip the header) which could potentially break an application. Also be aware that it is possible to set the value of `Referer` to `null`.
 
-Twitter deployed [^twitter_silhouette] a similar protection against XS-Leaks, you can see their solutions there.
+Twitter deployed [^twitter_silhouette] a similar protection against XS-Leaks.
 [^twitter_silhouette]: Protecting user identity against Silhouette, [link](https://blog.twitter.com/engineering/en_us/topics/insights/2018/twitter_silhouette.html)
 {{< /hint >}}
