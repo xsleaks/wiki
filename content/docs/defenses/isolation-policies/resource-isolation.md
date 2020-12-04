@@ -8,11 +8,11 @@ category = [
 menu = "main"
 weight = 1
 +++
-Resource Isolation Policy prevents your resources from being requested by external websites. Blocking such traffic mitigates common web vulnerabilities such as CSRF, XSSI or XS-Leaks. The policy can be enabled for applications whose endpoints are not intended to be loaded in a cross-site context and will allow resource requests coming from your application as well as direct navigations.
+Resource Isolation Policy prevents external websites from requesting your resources. Blocking such traffic mitigates common web vulnerabilities such as CSRF, XSSI, or XS-Leaks. The policy can be enabled for applications whose endpoints are not intended to be loaded in a cross-site context and will allow resource requests coming from your application as well as direct navigations.
 
 ## Implementation with Fetch Metadata
 
-The below snippet showcases an example implemention of the Resource Isolation Policy with the use of [Fetch Metadata]({{< ref "../opt-in/fetch-metadata.md">}}) headers.
+The below snippet showcases an example implemention of the Resource Isolation Policy with the use of [Fetch Metadata]({{< ref "../opt-in/fetch-metadata.md">}}) headers:
 
 ```py
 # Reject cross-origin requests to protect from , XSSI, XS-Leaks, and other bugs
@@ -40,7 +40,7 @@ def allow_request(req):
 ```
 
 ## Considerations
-It should be safe to set a `Cross-Origin-Resource-Policy: same-site` response header on all requests that have not explicitly been exempted from Resource Isolation Policy. See [CORP]({{< ref "../opt-in/corp.md" >}})
+It should be safe to set a `Cross-Origin-Resource-Policy: same-site` response header on all requests that have not explicitly been exempted from Resource Isolation Policy. See [CORP]({{< ref "../opt-in/corp.md" >}}).
 
 
 ## Deployment
