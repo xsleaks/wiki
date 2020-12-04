@@ -47,13 +47,6 @@ Attackers can abuse STTF to leak private information about the user that is disp
 - A user is logged in to their National Health System website, where it is possible to access information about the user's past diseases and health problems. An attacker can lure the user to one of their pages and use STTF to possibly infer the user's health details. For example an attacker would find out if the victim suffers from a disease if they detect a page scroll when searching for that disease name.
 
 
-## Defense
-
-| Attack Alternative  | [Same-Site Cookies]({{< ref "../../defenses/opt-in/same-site-cookies.md" >}})  | [Fetch Metadata]({{< ref "../../defenses/opt-in/fetch-metadata.md" >}})  | [COOP]({{< ref "../../defenses/opt-in/coop.md" >}})  |  [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}) |
-|:-------------------:|:------------------:|:---------------:|:-----:|:--------------------:|
-| IntersectionObserver (iframes)|         ❌         |      ❌         |  ❌   |          ❌         |
-| Lazy Loading        |         ✔️         |      ✔️         |  ❌   |          ❌         |
-
 ## References
 
 [^1]: Privacy concerns with proposal through inducing network requests, [link](https://github.com/WICG/scroll-to-text-fragment/issues/76)
