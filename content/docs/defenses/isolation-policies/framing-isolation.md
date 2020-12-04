@@ -8,11 +8,16 @@ category = [
 menu = "main"
 weight = 2
 +++
-Framing Isolation Policy supplements [Resource Isolation Policy]({{< ref "resource-isolation.md" >}}) to protect against cross-origin information leaks by
-additionally blocking framing requests to non-framable endpoints.
+Framing Isolation Policy is a stricter version of [Framing Protections]({{< ref "../opt-in/xfo" >}}) where the request gets blocked at the application level rather than the browser. This is intended to protect against various attacks (e.g. XSSI, CSRF, XS-Leaks) by blocking framing requests to endpoints not intended to be framable.
+
+It might be combined with [Resource Isolation Policy]({{< ref "resource-isolation.md" >}}) to effectively tighten the attac k surface within cross-site information leaks.
 
 {{< hint tip >}}
-Instead of rejecting all non-framable endpoints, the user could be prompted to confirm the action, e.g. *Confirm that you visited this page from a trusted origin* to mitigate the risk of attacks in the background. This could help with the unintended breakages of an application.
+Instead of rejecting all non-framable endpoints, the user could be prompted to confirm the action, e.g. *Confirm that you visited this page from a trusted origin* to mitigate the risk of attacks in the background, and at the same time, help with the unintended breakages of an application.
+{{< /hint >}}
+
+{{< hint tip >}}
+When deployed together with [Resource Isolation Policy]({{< ref "resource-isolation.md" >}}), would not protect against leaks utilising window references (e.g. `window.length`), so other navigational protections such as [COOP]({{< ref "../opt-in/coop" >}}] or [Navigation Isolation Policy]({{< ref "navigation-isolation" >}}) might be helpful.
 {{< /hint >}}
 
 ## Implementation with Fetch Metadata
@@ -20,7 +25,7 @@ Instead of rejecting all non-framable endpoints, the user could be prompted to c
 The below snippet showcases an example implemention of the Framing Isolation Policy by an application.
 
 ```py
-# Reject cross-origin requests to protect from CSRF, XSSI, and other bugs
+# Reject cross-site requests to protect from CSRF, XSSI, XS-Leaks, and other bugs
 def allow_request(req):
   # Allow requests from browsers which don't send Fetch Metadata
   if not req['headers']['sec-fetch-site']:
@@ -34,11 +39,11 @@ def allow_request(req):
   if req['headers']['sec-fetch-mode'] not in ('navigate', 'nested-navigate'):
     return True
 
-  # Allow non-frameable requests.
+  # Allow requests not originated from embeddable elements
   if req['headers']['sec-fetch-dest'] not in ('frame', 'iframe', 'embed', 'object'):
       return True
 
-  # [OPTIONAL] Exempt paths/endpoints meant to be served cross-origin.
+  # [OPTIONAL] Exempt paths/endpoints meant to be served cross-site.
   if req.path in ('/my_frame_ancestors_host_src'):
     return True
 

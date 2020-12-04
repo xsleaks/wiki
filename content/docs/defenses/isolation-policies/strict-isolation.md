@@ -8,13 +8,14 @@ category = [
 menu = "main"
 weight = 4
 +++
-Strict Isolation Policy is intended to protect against all cross-site interactions. This is a very strict policy that could potentialy break applications from functioning properly.
+Strict Isolation Policy is intended to protect against all cross-site interactions (including navigations to the application through hyperlinks). This is a very strict policy that could potentialy break applications from functioning properly.
 
 {{< hint tip >}}
-Instead of rejecting all cross-site interactions, the user could be prompted to confirm the action, e.g. *Confirm that you visited this page from a trusted origin* to mitigate the risk of attacks in the background. This could help with the unintended breakages of an application.
+Instead of rejecting all cross-site interactions, the user could be prompted to confirm the action, e.g. *Confirm that you visited this page from a trusted origin* to mitigate the risk of attacks in the background, and at the same time, help with the unintended breakages of an application.
 
-However, this would only work for navigational requests, since the resources are loaded in the background.
+However, this would only work for navigational requests, since other resources are loaded in the background.
 {{< /hint >}}
+
 
 ## Implementation with Fetch Metadata
 
@@ -65,5 +66,8 @@ def allow_request(req):
 ```
 
 {{< hint important >}}
-It is not guaranteed that every request will contain the Referer header which could potentialy break an application. It is also possible to set the value of the `Referer` to `null` so be aware of that!
+It is not guaranteed that every request will contain the Referer header (e.g. extensions stripping the header) which could potentialy break an application. It is also possible to set the value of the `Referer` to `null` so be aware of that.
+
+Twitter deployed [^twitter_silhouette] a similar protection against XS-Leaks, you can see their solutions there.
+[^twitter_silhouette]: Protecting user identity against Silhouette, [link](https://blog.twitter.com/engineering/en_us/topics/insights/2018/twitter_silhouette.html)
 {{< /hint >}}
