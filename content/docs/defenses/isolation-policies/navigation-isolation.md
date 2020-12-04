@@ -29,7 +29,7 @@ def allow_request(req):
   if req.path in whitelisted_paths:
     return True
 
-  # Block all top-level cross-site navigations
+  # Block all top-level cross-site navigations, including embeds
   if req['headers']['sec-fetch-mode'] in ('navigate', 'nested-navigate'):
       return False
 
