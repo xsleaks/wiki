@@ -1,6 +1,6 @@
 ---
 title: "Isolation Policies"
-weight: 30
+weight: 3
 ---
 
 # Isolation Policies
