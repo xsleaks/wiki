@@ -48,15 +48,17 @@ probeError('https://google.com/');
 
 ## Defense
 
-The mitigation of this XS-Leak often varies depending on how applications handle certain resources. The general approach is to adopt consistent behaviors whereever possible. In specific scenarios, applications might use [Subresource Protections]({{< ref "../defenses/design-protections/subresource-protections.md" >}}) to prevent attackers from predicting a URL and going forward with an attack.
+The mitigation of this XS-Leak often varies depending on how applications handle certain resources. The general approach is to adopt consistent behaviors whereever possible. In specific scenarios, applications might use [Subresource Protections]({{< ref "/docs/defenses/design-protections/subresource-protections.md" >}}) to prevent attackers from predicting a URL and going forward with an attack.
 
 Finally, without applying bigger changes in the logic of applications, generic web platform security features can be deployed to mitigate this XS-Leak at a larger scale.
 
-| [Same-Site Cookies]({{< ref "../defenses/opt-in/same-site-cookies.md" >}})  | [Fetch Metadata]({{< ref "../defenses/opt-in/fetch-metadata.md" >}})  | [COOP]({{< ref "../defenses/opt-in/coop.md" >}})  |  [Framing Protections]({{< ref "../defenses/opt-in/xfo.md" >}}) |
-|:--------------------------:|:---------------:|:-----:|:--------------------:|
-|         ✔️{{< katex>}}^{🔗}{{< /katex >}}                 |      ✔️        |  ❌   |          ✔️{{< katex>}}^{🔗}{{< /katex >}}          |
+| [SameSite Cookies (Lax)]({{< ref "/docs/defenses/opt-in/same-site-cookies.md" >}}) | [COOP]({{< ref "/docs/defenses/opt-in/coop.md" >}}) | [Framing Protections]({{< ref "/docs/defenses/opt-in/xfo.md" >}}) |                  [Isolation Policies]({{< ref "/docs/defenses/isolation-policies" >}})                   |
+| :--------------------------------------------------------------------------------: | :-------------------------------------------------: | :---------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------: |
+|                                         ✔️                                          |                          ❌                          |                                 ❌                                 | [RIP]({{< ref "/docs/defenses/isolation-policies/resource-isolation" >}}) {{< katex>}}^{1}{{< /katex >}} |
 
-🔗 – Defense mechanisms must be combined to be effective against different scenarios.
+____
+
+1. The resource isolation policy should be enough to prevent error-based cross-site leaks, although in some scenarios without the [Framing Isolation Policy]({{< ref "/docs/defenses/isolation-policies/framing-isolation" >}}), the error events could be leaked through iframes.
 
 ## Real World Example
 

@@ -46,6 +46,6 @@ iframe.onload = () => {
 
 ## Defense
 
-| Attack Alternative  | [Same-Site Cookies]({{< ref "../../defenses/opt-in/same-site-cookies.md" >}})  | [Fetch Metadata]({{< ref "../../defenses/opt-in/fetch-metadata.md" >}})  | [COOP]({{< ref "../../defenses/opt-in/coop.md" >}})  |  [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}) |
-|:----------------------:|:------------------:|:---------------:|:-----:|:--------------------:|
-| Frame Timing (Hybrid)  |         ✔️       |      ✔️       |  ❌   |          ✔️          |
+|  Attack Alternative   | [SameSite Cookies (Lax)]({{< ref "/docs/defenses/opt-in/same-site-cookies.md" >}}) | [COOP]({{< ref "/docs/defenses/opt-in/coop.md" >}}) | [Framing Protections]({{< ref "/docs/defenses/opt-in/xfo.md" >}}) |  [Isolation Policies]({{< ref "/docs/defenses/isolation-policies" >}})   |
+| :-------------------: | :--------------------------------------------------------------------------------: | :-------------------------------------------------: | :---------------------------------------------------------------: | :----------------------------------------------------------------------: |
+| Frame Timing (Hybrid) |                                         ✔️                                          |                          ❌                          |                                 ✔️                                 | [FIP]({{< ref "/docs/defenses/isolation-policies/framing-isolation" >}}) |

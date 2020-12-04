@@ -148,13 +148,16 @@ This attack is limited to specific versions of HTTP and joint scenarios. It make
 
 ## Defense
 
-| Attack Alternative  | [Same-Site Cookies]({{< ref "../../defenses/opt-in/same-site-cookies.md" >}})  | [Fetch Metadata]({{< ref "../../defenses/opt-in/fetch-metadata.md" >}})  | [COOP]({{< ref "../../defenses/opt-in/coop.md" >}})  |  [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}) |
-|:-------------------:|:------------------:|:---------------:|:-----:|:--------------------:|
-| Modern Timing Attacks              |         ✔️         |      ✔️         |  ❌   |          ❌         |
-| Frame Timing (Network) |         ✔️       |      ✔️         |  ❌   |          -
-| Frame Timing (Sandbox) |         ✔️       |      ✔️         |  ❌   |          -
-| Cross-window Timing  |         ✔️  [(if Strict)]({{< ref "../../defenses/opt-in/same-site-cookies.md#lax-vs-strict" >}})      |      ✔️         |  ❌   |          ❌         |
-| Timeless Timing  |         ✔️        |      ❓         |  ❌   |          ❌         |
+|   Attack Alternative   | [SameSite Cookies (Lax)]({{< ref "/docs/defenses/opt-in/same-site-cookies.md" >}}) | [COOP]({{< ref "/docs/defenses/opt-in/coop.md" >}}) | [Framing Protections]({{< ref "/docs/defenses/opt-in/xfo.md" >}}) |                                          [Isolation Policies]({{< ref "/docs/defenses/isolation-policies" >}})                                          |
+| :--------------------: | :--------------------------------------------------------------------------------: | :-------------------------------------------------: | :---------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------: |
+| Modern Timing Attacks  |                                         ✔️                                          |                          ❌                          |                                 ❌                                 | [RIP]({{< ref "/docs/defenses/isolation-policies/resource-isolation" >}}) 🔗 [NIP]({{< ref "/docs/defenses/isolation-policies/navigation-isolation" >}}) |
+| Frame Timing (Network) |                                         ✔️                                          |                          ❌                          |                                 ❌                                 |                                        [FIP]({{< ref "/docs/defenses/isolation-policies/framing-isolation" >}})                                         |
+| Frame Timing (Sandbox) |                                         ✔️                                          |                          ❌                          |                                 ❌                                 |                                        [FIP]({{< ref "/docs/defenses/isolation-policies/framing-isolation" >}})                                         |
+|  Cross-window Timing   |                                         ❌                                          |                          ✔️                          |                                 ❌                                 |                                       [NIP]({{< ref "/docs/defenses/isolation-policies/navigation-isolation" >}})                                       |
+|    Timeless Timing     |                                         ✔️                                          |                          ✔️                          |                                 ❌                                 |                                                                            ❓                                                                            |
+
+🔗 – Defense mechanisms must be combined to be effective against different scenarios.
+
 
 ## References
 
