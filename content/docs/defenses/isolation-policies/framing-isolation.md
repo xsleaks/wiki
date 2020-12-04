@@ -8,21 +8,21 @@ category = [
 menu = "main"
 weight = 2
 +++
-Framing Isolation Policy is a stricter version of [Framing Protections]({{< ref "../opt-in/xfo" >}}) where the request gets blocked at the application level rather than the browser. This is intended to protect against various attacks (e.g. XSSI, CSRF, XS-Leaks) by blocking framing requests to endpoints not intended to be framable.
+Framing Isolation Policy is a stricter version of [Framing Protections]({{< ref "../opt-in/xfo" >}}) where the request gets blocked at the application level rather than by the browser. This is designed to protect against various attacks (e.g. XSSI, CSRF, XS-Leaks) by blocking framing requests to endpoints that are not intended to be framable.
 
-It might be combined with [Resource Isolation Policy]({{< ref "resource-isolation.md" >}}) to effectively tighten the attack surface within cross-site information leaks.
+It can be combined with [Resource Isolation Policy]({{< ref "resource-isolation.md" >}}) to effectively tighten the attack surface within cross-site information leaks.
 
 {{< hint tip >}}
-Instead of rejecting all non-framable endpoints, the user could be prompted to confirm the action, e.g. *Confirm that you visited this page from a trusted origin* to mitigate the risk of attacks in the background, and at the same time, help with the unintended breakages of an application.
+Instead of rejecting all non-framable endpoints, the user could be prompted to confirm the action, e.g. *Confirm that you visited this page from a trusted origin* to mitigate the risk of attacks in the background, and, at the same time, help prevent unintended breakages of an application.
 {{< /hint >}}
 
 {{< hint tip >}}
-When deployed together with [Resource Isolation Policy]({{< ref "resource-isolation.md" >}}), would not protect against leaks utilising window references (e.g. `window.length`), so other navigational protections such as [COOP]({{< ref "../opt-in/coop" >}}) or [Navigation Isolation Policy]({{< ref "navigation-isolation" >}}) might be helpful.
+When deployed together with [Resource Isolation Policy]({{< ref "resource-isolation.md" >}}), Framing Isolation Policy does not protect against leaks utilizing window references (e.g. `window.length`), so other navigational protections such as [COOP]({{< ref "../opt-in/coop" >}}) or [Navigation Isolation Policy]({{< ref "navigation-isolation" >}}) can be helpful.
 {{< /hint >}}
 
 ## Implementation with Fetch Metadata
 
-The below snippet showcases an example implemention of the Framing Isolation Policy by an application.
+The below snippet showcases an example implemention of the Framing Isolation Policy by an application:
 
 ```py
 # Reject cross-site requests to protect from CSRF, XSSI, XS-Leaks, and other bugs
@@ -52,5 +52,5 @@ def allow_request(req):
 ```
 
 ## Considerations
-1. Framing Isolation Policy cannot be applied if an endpoint allows framing requests from specific origins via  `X-Frame-Options` and/or Content Security Policy's
+Framing Isolation Policy cannot be applied if an endpoint allows framing requests from specific origins via  `X-Frame-Options` and/or Content Security Policy's
 `frame-ancestors` directive.
