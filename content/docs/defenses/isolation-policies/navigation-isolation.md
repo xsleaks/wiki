@@ -8,15 +8,15 @@ category = [
 menu = "main"
 weight = 3
 +++
-Navigation Isolation Policy is a server-side protection mechanism intended to mitigate CSRF, clickjacking, reflected XSS and some XS-Leaks that take use of the cross-site window contexts. This is a strict policy and could potentialy break an application since all the cross-site navigations would be blocked, including navigations through hyperlinks.
+Navigation Isolation Policy is a server-side protection mechanism intended to mitigate CSRF, clickjacking, reflected XSS, and XS-Leaks that make use of cross-site window contexts. This is a strict policy and has the potential to break an application since it blocks all cross-site navigations, including navigations through hyperlinks.
 
 {{< hint tip >}}
-Instead of rejecting all cross-site interactions, the user could be prompted to confirm the action, e.g. *Confirm that you visited this page from a trusted origin* to mitigate the risk of attacks in the background, and at the same time, help with the unintended breakages of an application.
+Instead of rejecting all cross-site interactions, the user could be prompted to confirm the action, e.g. *Confirm that you visited this page from a trusted origin*, to mitigate the risk of attacks in the background, and, at the same time, help prevent unintended breakages of an application.
 {{< /hint >}}
 
 ## Implementation with Fetch Metadata
 
-The below snippet showcases an example implemention of the Navigation Isolation Policy with the use of [Fetch Metadata]({{< ref "../opt-in/fetch-metadata.md">}}) headers [^secmetadata].
+The below snippet showcases an example implemention of the Navigation Isolation Policy with the use of [Fetch Metadata]({{< ref "../opt-in/fetch-metadata.md">}}) headers [^secmetadata]:
 
 ```py
 # Reject cross-site requests to protect from clickjacking, XS-Leaks, and other bugs
