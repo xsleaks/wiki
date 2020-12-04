@@ -17,7 +17,7 @@ Instead of rejecting all non-framable endpoints, the user could be prompted to c
 {{< /hint >}}
 
 {{< hint tip >}}
-When deployed together with [Resource Isolation Policy]({{< ref "resource-isolation.md" >}}), would not protect against leaks utilising window references (e.g. `window.length`), so other navigational protections such as [COOP]({{< ref "../opt-in/coop" >}}] or [Navigation Isolation Policy]({{< ref "navigation-isolation" >}}) might be helpful.
+When deployed together with [Resource Isolation Policy]({{< ref "resource-isolation.md" >}}), would not protect against leaks utilising window references (e.g. `window.length`), so other navigational protections such as [COOP]({{< ref "../opt-in/coop" >}}) or [Navigation Isolation Policy]({{< ref "navigation-isolation" >}}) might be helpful.
 {{< /hint >}}
 
 ## Implementation with Fetch Metadata
