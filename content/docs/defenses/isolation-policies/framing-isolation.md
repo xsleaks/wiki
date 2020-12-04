@@ -13,7 +13,7 @@ Framing Isolation Policy is a stricter version of [Framing Protections]({{< ref 
 It can be combined with [Resource Isolation Policy]({{< ref "resource-isolation.md" >}}) to effectively tighten the attack surface within cross-site information leaks.
 
 {{< hint tip >}}
-Instead of rejecting all non-framable endpoints, the user could be prompted to confirm the action, e.g. *Confirm that you visited this page from a trusted origin* to mitigate the risk of attacks in the background, and, at the same time, help prevent unintended breakages of an application.
+Instead of rejecting all non-framable endpoints, the user could be prompted to confirm the action, e.g. *Confirm that you visited this page from a trusted origin*, to mitigate the risk of attacks in the background, and, at the same time, help prevent unintended breakages of an application.
 {{< /hint >}}
 
 {{< hint tip >}}
