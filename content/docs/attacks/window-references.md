@@ -18,7 +18,7 @@ weight = 2
 +++
 
 
-If a page sets its opener property to `null` or is using [COOP]({{< ref "/docs/defenses/opt-in/coop.md" >}}) depending on users' login status, it becomes possible to detect user's current status. For example, attackers can detect whether a user is logged in by opening an endpoint in an iframe (or a new window) which only authenticated users [^1] have access to, simply checking its window reference.
+If a page sets its opener property to `null` or is using [COOP]({{< ref "/docs/defenses/opt-in/coop.md" >}}) depending on users' login status, it becomes possible to detect user's current status. For example, attackers can detect whether a user is logged in by opening an endpoint in an iframe (or a new window) which only authenticated users have access to, simply checking its window reference.
 
 ## Code Snippet
 The below snippet demonstrates the attack where the target page is supposedly only accessible to authenticated users and is setting its `opener` property to null (or is using COOP with value other than `unsafe-none`):
