@@ -40,7 +40,3 @@ In case the page is not framable (or uses SameSite cookies), we can instead open
 ## Defense
 
 The mitigation of this XS-Leak is to be consistent everywhere- set it to the same value in all pages using COOP. Using JavaScript to set `opener` to `null` may have edge cases because it's possible to disable JavaScript entirely using iframe's sandbox attribute.
-
-## References
-
-[^1]: Twitter ID exposure via error-based side-channel attack, [link](https://hackerone.com/reports/505424)
