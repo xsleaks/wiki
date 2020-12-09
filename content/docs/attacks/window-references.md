@@ -21,7 +21,7 @@ weight = 2
 If a page sets its opener property to `null` or is using [COOP]({{< ref "/docs/defenses/opt-in/coop.md" >}}) protection depending on users' state, it becomes possible to infer cross-site information about that state. For example, attackers can detect whether a user is logged in by opening an endpoint in an iframe (or a new window) which only authenticated users have access to, simply checking its window reference. 
 
 ## Code Snippet
-The below snippet demonstrates how to detect whether `opener` property was set to `null`, or whether the [COOP]({{< ref "/docs/defenses/opt-in/coop.md" >}}) header is present with the value other than `unsafe-none`. This is can be done with both iframes and new windows.
+The below snippet demonstrates how to detect whether `opener` property was set to `null`, or whether the [COOP]({{< ref "/docs/defenses/opt-in/coop.md" >}}) header is present with the value other than `unsafe-none`. This can be done with both iframes and new windows.
 
 ```javascript
 // define the vulnerable URL
