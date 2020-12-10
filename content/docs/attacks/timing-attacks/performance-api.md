@@ -84,7 +84,6 @@ async function isRedirected(url) {
 # Detecting cached resources
 
 With the `performance` API it is possible to detect whether a resource was cached or not.
-{{< hint important >}} If your using firefox please change the Image() to ```await fetch(href, {mode:"no-cors", credentials: "include"});``` {{< /hint >}}
 Unless [Cross-Origin Read Blocking]({{< ref "../../defenses/secure-defaults/corb.md" >}}) is triggered (resource is html) the resource will get cached in the processs of the check.  
 ```javascript
 async function ifCached2(url) {
@@ -103,6 +102,7 @@ async function ifCached2(url) {
     // Use duration if theirs no Timing-Allow-Origin header
     return res.duration < 10;
 }
+{{< hint tip >}} If you're using Firefox please change the `Image()` to `await fetch(href, {mode:"no-cors", credentials: "include"});` {{< /hint >}}
 ```
 ## Connection speed
 
