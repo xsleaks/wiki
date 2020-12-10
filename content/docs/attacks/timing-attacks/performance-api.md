@@ -39,7 +39,8 @@ async function getNetworkDuration(url) {
     return res.duration
 }
 
-await getNetworkDuration('https://example.org')
+await getNetworkDuration('https://example.org');
+```
 ## Detect X-Frame-Options
 If displaying a page inside an embed (e.g. because of the `X-Frame-Options` header) it will not be added to the `performance` object in Chrome.
 If there was a known cached resource on page load firefox could also work.
@@ -60,7 +61,7 @@ async function ifFrameBlocked(url) {
 }
 
 await isFrameBlocked('https://example.org');
-
+```
 {{< hint note >}} This technique does seem to only work in Chromium based browsers {{< /hint >}}
 
 
@@ -102,8 +103,9 @@ async function ifCached2(url) {
     // Use duration if theirs no Timing-Allow-Origin header
     return res.duration < 10;
 }
-{{< hint tip >}} If you're using Firefox please change the `Image()` to `await fetch(href, {mode:"no-cors", credentials: "include"});` {{< /hint >}}
 ```
+{{< hint tip >}} If you're using Firefox please change the `Image()` to `await fetch(href, {mode:"no-cors", credentials: "include"});` {{< /hint >}}
+
 ## Connection speed
 
 It is possible to measure the speed of the connection in octets.
