@@ -41,7 +41,7 @@ async function getNetworkDuration(url) {
 
 await getNetworkDuration('https://example.org')
 ## Detect X-Frame-Options
-If a frame embed is blocked it will not be added to performance.getEntries  
+If displaying a page inside an embed (e.g. because of the `X-Frame-Options` header) it will not be added to the `performance` object in Chrome.
 If there was a known cached resource on page load firefox could also work.
 ```javascript
 async function ifFrame(url) {
