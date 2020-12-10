@@ -144,20 +144,6 @@ The [SharedArrayBuffer clock]({{< ref "clocks.md#sharedarraybuffer-and-web-worke
 The presented snippet makes use of iframes to make the measurement. A variation of this attack can also use window references which is harder to protect against.
 
 {{< /hint >}}
-{{< hint tip >}}
-Network performance changes may make it harder to derive the transfer size.  
-You can do something like the following to get the duration with the best network performance.
-```javascript
-var best = null;
-// Find the lowest duration possible
-for (let i = 0; i < 10; i++) {
-  let result = await getDuration(url);
-  await new Promise(resolve => (iframe.onload = resolve));
-  if (best === null || result < best && result > 0) best = result;
-}
-```
-{{< /hint >}}
-
 ## Sandboxed Frame Timing Attacks
 
 If a page doesn't have any [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}) implemented, an attacker can time how long it takes for the page and all subresources to load over the network. By default, the `onload` handler for an iframe will be invoked after all the resources have been loaded and all Javascript has finished executing. But, an attacker can eliminate the noise of script execution by including the [`sandbox`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe) attribute in the `<iframe>`. This attribute will block a lot of features including Javascript execution, which results in almost pure network measurement.
