@@ -65,7 +65,6 @@ await isFrameBlocked('https://example.org');
 
 
 ## Detecting redirects
-{{< hint important >}} This technique doesn't seem to work in Firefox {{< /hint >}}
 It seems that when a redirect occurs, a negative number will be present in Chrome. 
 ```javascript
 async function isRedirected(url) {  
@@ -80,6 +79,7 @@ async function isRedirected(url) {
     if(res.duration > -10) console.log("Redirect was cached");
     return true;
 }
+{{< hint important >}} This technique doesn't seem to work in Firefox {{< /hint >}}
 ```
 # Detecting cached resources
 
