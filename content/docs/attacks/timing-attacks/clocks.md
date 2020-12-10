@@ -34,33 +34,53 @@ The [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Glo
 
 ### SharedArrayBuffer and Web Workers
 
-With the introduction of `Web Workers`, new mechanisms to exchange data between threads were created [^1]. `SharedArrayBuffer`, one of those mechanisms, provides memory sharing between the main thread and a worker thread. Attackers can create an implicit clock by using two workers and a shared buffer. One worker runs in an infinite loop incrementing a number in the buffer. The other work can observe this number get incremented and use this to measure the relative passage of time.
-
-```javascript
-// -------- Main Thread clock creation --------
-var buffer = new SharedArrayBuffer(16);
-var counter = new Worker("counter.js");
-counter.postMessage([buffer],[buffer]);
-var arr = new UintArray(buffer);
-relative_time = arr[0];
-
-// -------- Web Worker counter.js --------
-self.onmessage = function(event){
-  var[buffer] = event.data ;
-  var arr = newUintArray(buffer);
-  while(1){
-    arr[0]++;
-  }
-}
-
-```
-{{< hint important >}}
-`SharedArrayBuffer` was removed from browsers with the publication of [Spectre](https://spectreattack.com/). It was reintroduced later in 2020 requiring documents to be in a [secure context](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer) to make use of the API. Since secure contexts cannot reference any cross-origin content that has not explicitly opted in to being accessed, this means SharedArrayBuffers cannot be used as clocks for XS-Leaks.
-{{< /hint >}}
+With the introduction of `Web Workers`, new mechanisms to exchange data between threads were created [^1]. One of those mechanisms is `SharedArrayBuffer` which provides memory sharing between the main and a worker threads. A malicious website can create an implicit clock by loading a worker running an infinite loop that incrementates a number in the buffer. Then the value can be accessed by the main thread at any time and read how many incrementations were performed.
 
 {{< hint info >}}
-Since Firefox 79, this API can be used with [full resolution](https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/Releases/79) in documents which do not share a browsing context group with cross-origin documents. This will require an application interested in this precision to explicitly opt-in to [COOP]({{< ref "../../defenses/opt-in/coop.md" >}}) and [COEP](https://web.dev/coop-coep/).
+`SharedArrayBuffer` was removed from browsers with the publication of [Spectre](https://spectreattack.com/). It was reintroduced later in 2020 requiring documents to be in a [secure context](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer) to make use of the API. Since secure contexts cannot reference any cross-origin content that has not explicitly opted in to being accessed, this means SharedArrayBuffers cannot be used as clocks for some XS-Leaks.
+
+To make use of the `SharedArrayBuffer` in modern browsers, an application needs to explicitly opt-in to [COOP]({{< ref "../../defenses/opt-in/coop.md" >}}) and [COEP](https://web.dev/coop-coep/) by setting the following headers:
+```http
+Cross-Origin-Opener-Policy: same-origin
+Cross-Origin-Embedder-Policy: require-corp
+```
 {{< /hint >}}
+
+
+```javascript
+// Define a function to be ran inside a WebWorker
+function worker_function() {
+  self.onmessage = function (event) {
+    const sharedBuffer = event.data;
+    const sharedArray = new Uint32Array(sharedBuffer);
+
+    // Infinitely increase the uint32 number
+    while (true) Atomics.add(sharedArray, 0, 1);
+  };
+}
+
+// Create the WebWorker from the JS function and invoke it
+const worker = new Worker(
+  URL.createObjectURL(
+    new Blob([`(${worker_function})()`], {
+      type: "text/javascript"
+    }))
+);
+
+// Create a Shared buffer between the WebWorker and a document
+const sharedBuffer = new SharedArrayBuffer(Uint32Array.BYTES_PER_ELEMENT);
+const sharedArray = new Uint32Array(sharedBuffer);
+worker.postMessage(sharedBuffer);
+```
+
+{{< hint tip >}}
+To get the relative time in a main thread, you can use the [Atomics API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Atomics).
+```javascript
+Atomics.load(sharedArray, 0);
+```
+
+{{< /hint >}}
+
 
 ### Other Clocks
 
