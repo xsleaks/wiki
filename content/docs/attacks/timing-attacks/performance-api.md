@@ -66,7 +66,7 @@ await isFrameBlocked('https://example.org');
 
 ## Detecting redirects
 {{< hint important >}} This technique doesn't seem to work in Firefox {{< /hint >}}
-On chrome the duration is negative when theres a redirect.
+It seems that when a redirect occurs, a negative number will be present in Chrome. 
 ```javascript
 async function isRedirected(url) {  
     let href = new URL(url).href;
