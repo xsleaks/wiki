@@ -110,8 +110,11 @@ This technique can also be adapted to measure the Execution Timing of a page by 
 
 ## Unload events
 
-The duration is not affected by the x-frame-options (XFO) header because the network request still needs to be made in order to check for the header.
-On page navigation the ```beforeunload``` event is received then after the request is finshed the current page will be unloaded and the ```pagehide``` event will be received. this is before the ```unload``` event of the current page and the ```load``` event of the next page [spec](https://html.spec.whatwg.org/multipage/browsing-the-web.html)
+The events [`unload`](https://developer.mozilla.org/en-US/docs/Web/API/Window/unload_event) and [`beforeunload`](https://developer.mozilla.org/en-US/docs/Web/API/Window/beforeunload_event) could be used to measure the time it takes to fetch the resource. It happens that the `beforeunload` is triggered when the browser requests a new navigation request, while `unload` is triggered when that navigation actually occurs. Because of that behaviour, it is possible to calculate the timing difference between these two events and measure the time it took the browser to complete fetching the resource. 
+
+{{< hint info >}}
+The timing difference between `unload` and `beforeunload` is not affected by the `x-frame-options` (XFO) header because the event is triggered before the browser learns about the response headers. 
+{{< /hint >}}
 
 The below snippet makes use of [SharedArrayBuffer clock]({{< ref "clocks.md#sharedarraybuffer-and-web-workers" >}}) which needs to be initiated before the snippet is ran.
 ```javascript
