@@ -41,7 +41,6 @@ async function getNetworkDuration(url) {
 
 await getNetworkDuration('https://example.org')
 ## Detect X-Frame-Options
-{{< hint important >}} This technique doesn't seem to work in Firefox {{< /hint >}}
 If a frame embed is blocked it will not be added to performance.getEntries  
 If there was a known cached resource on page load firefox could also work.
 ```javascript
