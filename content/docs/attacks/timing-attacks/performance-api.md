@@ -80,10 +80,12 @@ async function isRedirected(url) {
     if(res.duration > -10) console.log("Redirect was cached");
     return true;
 }
+```
 {{< hint important >}} This technique doesn't seem to work in Firefox {{< /hint >}}
-
-await isRedirected('https://google.com'); // should yield a negative number
-await isRedirected('https://www.google.com'); // should yield 0
+```javascript
+await isRedirected('https://google.com'); // should yield a negative number and return true
+await isRedirected('https://www.google.com'); // should yield 0 and return false
+```
 # Detecting cached resources
 
 With the `performance` API it is possible to detect whether a resource was cached or not.
