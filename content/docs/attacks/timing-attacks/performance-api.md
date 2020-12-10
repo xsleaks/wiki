@@ -110,12 +110,20 @@ It is possible to measure the speed of the connection in octets.
 ```javascript
 async function getSpeed(count = 10) {
     var total = 0;
+    // Make multiple requests for average
     for (let i = 0; i < count; i++) {
+        // Make request to the current origin bypassing cache
         await fetch(location.href, {cache: "no-store"});
+        // Wait for timings to get added
         await new Promise(r => setTimeout(r, 200));
+        // Get latest timing for location
         let page = window.performance.getEntriesByName(location.href).pop();
+        // Get response time divided by transferSize
         total += (page.responseEnd - page.responseStart) / page.transferSize;
     }
+    // Get average response time for requests
     return total/count
 }
+
+await averageSpeed = getSpeed();
 ```
