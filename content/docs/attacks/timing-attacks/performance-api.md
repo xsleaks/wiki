@@ -68,7 +68,7 @@ await isFrameBlocked('https://example.org');
 {{< hint important >}} This technique doesn't seem to work in Firefox {{< /hint >}}
 On chrome the duration is negative when theres a redirect.
 ```javascript
-async function ifRedirect(url) {  
+async function isRedirected(url) {  
     let href = new URL(url).href;
     await fetch(href, {mode: "no-cors", credentials: "include" });
     // Wait for request to be added to performance.getEntriesByName();
