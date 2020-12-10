@@ -140,7 +140,10 @@ iframe.contentWindow.onpagehide = () => {
 {{< hint tip >}}
 The [SharedArrayBuffer clock]({{< ref "clocks.md#sharedarraybuffer-and-web-workers" >}}) was used to create a high-resolution timer, however, the timing diffrence between the beforeunload and unload event of iframes can be measured with other clocks as well, e.g. *performance.now()*.
 {{< /hint >}}
+{{< hint tip >}}
+The presented snippet makes use of iframes to make the measurement. A variation of this attack can also use window references which is harder to protect against.
 
+{{< /hint >}}
 {{< hint tip >}}
 Network performance changes may make it harder to derive the transfer size.  
 You can do something like the following to get the duration with the best network performance.
