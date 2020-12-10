@@ -67,7 +67,7 @@ await isFrameBlocked('https://example.org');
 
 
 ## Detecting redirects
-It seems that when a redirect occurs, a negative number will be present in Chrome. 
+It seems that when a redirect occurs, a negative number will be present in Edge, Brave, Chrome, vivaldi
 ```javascript
 async function isRedirected(url) {  
     let href = new URL(url).href;
