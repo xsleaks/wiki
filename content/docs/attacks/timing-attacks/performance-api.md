@@ -59,7 +59,11 @@ async function ifFrame(url) {
     return performance.getEntriesByName(href).length > start_count;
 }
 ```
-## Detect if a redirect is used or cached
+
+{{< hint note >}} This technique does seem to only work in Chromium based browsers {{< /hint >}}
+
+
+## Detecting redirects
 {{< hint important >}} This technique doesn't seem to work in Firefox {{< /hint >}}
 On chrome the duration is negative when theres a redirect.
 ```javascript
