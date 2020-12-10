@@ -44,7 +44,7 @@ await getNetworkDuration('https://example.org')
 If displaying a page inside an embed (e.g. because of the `X-Frame-Options` header) it will not be added to the `performance` object in Chrome.
 If there was a known cached resource on page load firefox could also work.
 ```javascript
-async function ifFrame(url) {
+async function ifFrameBlocked(url) {
     let href = new URL(url).href;
     // There may be requests for this url before the function was run.
     let start_count = performance.getEntriesByName(href).length;
