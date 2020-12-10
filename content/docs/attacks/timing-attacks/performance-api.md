@@ -58,7 +58,8 @@ async function ifFrameBlocked(url) {
     document.body.removeChild(embed)
     return performance.getEntriesByName(href).length > start_count;
 }
-```
+
+await isFrameBlocked('https://example.org');
 
 {{< hint note >}} This technique does seem to only work in Chromium based browsers {{< /hint >}}
 
