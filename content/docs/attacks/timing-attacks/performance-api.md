@@ -43,8 +43,6 @@ await getNetworkDuration('https://example.org');
 ```
 {{< hint info >}} Unlike other browsers, Firefox provides the measurements in milliseconds. {{< /hint >}}
 
-{{< hint tip >}} If you're using Firefox please change the `Image()` to `await fetch(href, {mode:"no-cors", credentials: "include"});` {{< /hint >}}  
-
 ## Detecting X-Frame-Options
 If displaying a page inside an embed (e.g. because of the `X-Frame-Options` header) it will not be added to the `performance` object in Chrome.
 ```javascript
@@ -109,7 +107,6 @@ async function ifCached2(url) {
     return res.duration < 10;
 }
 ```
-{{< hint tip >}} If you're using Firefox please change the `Image()` to `await fetch(href, {mode:"no-cors", credentials: "include"});` {{< /hint >}}
 
 ## Connection speed
 
