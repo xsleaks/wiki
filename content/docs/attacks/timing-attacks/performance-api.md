@@ -22,11 +22,12 @@ This data can be accessed by using [`performance.getEntries`](https://developer.
 It can also be used to get the execution time using the difference of [`performance.now()`](https://developer.mozilla.org/en-US/docs/Web/API/Performance/now) however this seems to be less precise for a chrome fetch because it only provides the milliseconds.
 
 ## Get duration of a network request
-{{< hint warning >}} Firefox only provides the milliseconds {{< /hint >}}
-{{< hint important >}} If your using firefox please change the Image() to ```await fetch(href, {mode:"no-cors", credentials: "include"});``` {{< /hint >}}  
-This creates a network request then after 200ms it gets the duration from ```performance.getEntriesByName()```
+It is possible to retrieve the network duration of a request from the `performance` API.
+
+The below snippet performs a network request then after 200ms it gets the duration from the `performance` object. 
+
 ```javascript
-async function getDuration(url) {
+async function getNetworkDuration(url) {
     let href = new URL(url).href;
     // Using an image instead of fetch() as some requests had duration = 0
     let image = new Image().src = href;
@@ -37,7 +38,8 @@ async function getDuration(url) {
     console.log("Request duration: " + res.duration);
     return res.duration
 }
-```
+
+await getNetworkDuration('https://example.org')
 ## Detect X-Frame-Options
 {{< hint important >}} This technique doesn't seem to work in Firefox {{< /hint >}}
 If a frame embed is blocked it will not be added to performance.getEntries  
