@@ -101,7 +101,9 @@ async function ifCached2(url) {
     return res.duration < 10;
 }
 ```
-## Get speed of connection in octets
+## Connection speed
+
+It is possible to measure the speed of the connection in octets.
 ```javascript
 async function getSpeed(count = 10) {
     var total = 0;
