@@ -21,7 +21,7 @@ which provides the timings of network requests such as the duration but when the
 This data can be accessed by using [`performance.getEntries`](https://developer.mozilla.org/en-US/docs/Web/API/Performance/getEntries) or [`performance.getEntriesByName`](https://developer.mozilla.org/en-US/docs/Web/API/Performance/getEntriesByName)
 It can also be used to get the execution time using the difference of [`performance.now()`](https://developer.mozilla.org/en-US/docs/Web/API/Performance/now) however this seems to be less precise for a chrome fetch because it only provides the milliseconds.
 
-## Get duration of a network request
+## Network duration
 It is possible to retrieve the network duration of a request from the `performance` API.
 
 The below snippet performs a network request then after 200ms it gets the duration from the `performance` object. 
