@@ -69,7 +69,7 @@ On chrome the duration is negative when theres a redirect.
 ```javascript
 async function ifRedirect(url) {  
     let href = new URL(url).href;
-    await fetch(href, {mode:"no-cors"});
+    await fetch(href, {mode: "no-cors", credentials: "include" });
     // Wait for request to be added to performance.getEntriesByName();
     await new Promise(r => setTimeout(r, 200));
     // Get last added timings
