@@ -84,7 +84,7 @@ async function isRedirected(url) {
 await isRedirected('https://google.com'); // should yield a negative number and return true
 await isRedirected('https://www.google.com'); // should yield 0 and return false
 ```
-{{< hint important >}} This technique doesn't seem to work in Firefox {{< /hint >}}
+{{< hint note >}} This technique does seem to only work in Chromium based browsers {{< /hint >}}
 # Detecting cached resources
 
 With the `performance` API it is possible to detect whether a resource was cached or not.
