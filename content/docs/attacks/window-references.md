@@ -18,10 +18,10 @@ weight = 2
 +++
 
 
-If a page sets its opener property to `null` or is using [COOP]({{< ref "/docs/defenses/opt-in/coop.md" >}}) protection depending on users' state, it becomes possible to infer cross-site information about that state. For example, attackers can detect whether a user is logged in by opening an endpoint in an iframe (or a new window) which only authenticated users have access to, simply checking its window reference. 
+If a page sets its `opener` property to `null` or is using [COOP]({{< ref "/docs/defenses/opt-in/coop.md" >}}) protection depending on the users' state, it becomes possible to infer cross-site information about that state. For example, attackers can detect whether a user is logged in by opening an endpoint in an iframe (or a new window) which only authenticated users have access to, simply by checking its window reference. 
 
 ## Code Snippet
-The below snippet demonstrates how to detect whether `opener` property was set to `null`, or whether the [COOP]({{< ref "/docs/defenses/opt-in/coop.md" >}}) header is present with the value other than `unsafe-none`. This can be done with both iframes and new windows.
+The below snippet demonstrates how to detect whether the `opener` property was set to `null`, or whether the [COOP]({{< ref "/docs/defenses/opt-in/coop.md" >}}) header is present with a value other than `unsafe-none`. This can be done with both iframes and new windows.
 
 ```javascript
 // define the vulnerable URL
@@ -55,4 +55,4 @@ exploit(v_url, 1);
 
 ## Defense
 
-The mitigation of this XS-Leak is to be consistent across diferent pages; set it to the same value in all pages using COOP. Using JavaScript to set `opener` to `null` may have edge cases because it's possible to disable JavaScript entirely using iframe's sandbox attribute.
+To mitigate this type of XS-Leak, be consistent across different pages: set the `opener` property to the same value on all pages using COOP. Using JavaScript to set `opener` to `null` can result in edge cases because it's possible to disable JavaScript entirely using iframe's sandbox attribute.
