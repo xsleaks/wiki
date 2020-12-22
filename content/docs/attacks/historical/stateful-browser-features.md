@@ -17,7 +17,7 @@ Some browser features/extensions change the way requests are processed, dependin
 
 ### Root Cause
 
-To classify whether a website has tracking capabilities, ITP collects statistics on resource loads as well as user interactions with websites such as clicks, taps, or text entries. Based on the classification of these statistics, ITP gives a strike to a website if it is believed to have tracking capabilities. After 3 strikes, a website is put on a deny list and is treated differently by the browser in future requests.
+To classify whether a website has tracking capabilities, ITP collects statistics on resource loads as well as on user interactions with websites such as clicks, taps, or text entries. Based on the classification of these statistics, ITP gives a strike to a website if it is believed to have tracking capabilities. After 3 strikes, a website is put on a deny list and is treated differently by the browser in future requests.
 
 #### Issues
 
