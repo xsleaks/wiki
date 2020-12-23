@@ -7,7 +7,7 @@ menu = "main"
 weight = 1
 +++
 
-We can distinguish two types of clocks - Explicit and Implicit. Explicit clocks are the ones developers use to get direct timing measurements and such mechanisms are offered explicitly by the browser. Implicit clocks on the other hand, utilise particular web features to create unintended clocks that allow measuring the relative passage of time.
+We can distinguish two types of clocks – explicit and implicit. Explicit clocks are used by developers to get direct timing measurements, mechanisms of this type are offered explicitly by the browser. In contrast, implicit clocks utilize particular web features to create unintended clocks that allow measuring the relative passage of time.
 
 
 ## Explicit Clocks
@@ -17,7 +17,7 @@ We can distinguish two types of clocks - Explicit and Implicit. Explicit clocks 
 The [performance.now()](https://developer.mozilla.org/en-US/docs/Web/API/Performance/now) API allows developers to get high-resolution timing measurements.
 
 {{< hint info >}}
-In order to mitigate some XS-Leaks, `performance.now()`'s accuracy was reduced from a range of nanoseconds to a microsecond precision in all modern browsers [^1] [^2] [^3].
+In order to mitigate some types of XS-Leaks, `performance.now()`'s accuracy was reduced from a range of nanoseconds to microsecond precision in all modern browsers [^1] [^2] [^3].
 <!-- TODO: "to mitigate some" means Size XS-Leaks that were fixed -->
 
 [^1]: Reduce resolution of performance.now (Webkit). [link](https://bugs.webkit.org/show_bug.cgi?id=146531)
@@ -27,19 +27,19 @@ In order to mitigate some XS-Leaks, `performance.now()`'s accuracy was reduced f
 
 ### Date API
 
-The [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) API is the oldest API present in browsers to obtain timing measurements. It allows developers to get dates, and get Unix timestamps with `Date.now()`. These measurements are much less precise than [performance.now()](https://developer.mozilla.org/en-US/docs/Web/API/Performance/now). Before the introduction of newer APIs attacks used to leverage this instead [^3].
+The [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) API is the oldest API present in browsers which can be used to obtain timing measurements. It allows developers to get dates, and get Unix timestamps with `Date.now()`. These measurements are much less precise than [performance.now()](https://developer.mozilla.org/en-US/docs/Web/API/Performance/now). Before the introduction of newer APIs, attacks used to leverage this API [^3].
 
 
 ## Implicit Clocks
 
 ### SharedArrayBuffer and Web Workers
 
-With the introduction of `Web Workers`, new mechanisms to exchange data between threads were created [^1]. One of those mechanisms is `SharedArrayBuffer` which provides memory sharing between the main and a worker threads. A malicious website can create an implicit clock by loading a worker running an infinite loop that incrementates a number in the buffer. Then the value can be accessed by the main thread at any time and read how many incrementations were performed.
+With the introduction of `Web Workers`, new mechanisms to exchange data between threads were created [^1]. One of those mechanisms is `SharedArrayBuffer` which provides memory sharing between the main thread and a worker thread. A malicious website can create an implicit clock by loading a worker running an infinite loop that increments a number in the buffer. This value can then be accessed by the main thread at any time to read how many incrementations were performed.
 
 {{< hint info >}}
-`SharedArrayBuffer` was removed from browsers with the publication of [Spectre](https://spectreattack.com/). It was reintroduced later in 2020 requiring documents to be in a [secure context](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer) to make use of the API. Since secure contexts cannot reference any cross-origin content that has not explicitly opted in to being accessed, this means SharedArrayBuffers cannot be used as clocks for some XS-Leaks.
+`SharedArrayBuffer` was removed from browsers with the publication of [Spectre](https://spectreattack.com/). It was reintroduced later in 2020, requiring documents to be in a [secure context](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer) to make use of the API. Since secure contexts cannot reference any cross-origin content that has not explicitly opted in to being accessed, this means SharedArrayBuffers cannot be used as clocks for some XS-Leaks.
 
-To make use of the `SharedArrayBuffer` in modern browsers, an application needs to explicitly opt-in to [COOP]({{< ref "../../defenses/opt-in/coop.md" >}}) and [COEP](https://web.dev/coop-coep/) by setting the following headers:
+To make use of `SharedArrayBuffer` in modern browsers, an application needs to explicitly opt in to [COOP]({{< ref "../../defenses/opt-in/coop.md" >}}) and [COEP](https://web.dev/coop-coep/) by setting the following headers:
 ```http
 Cross-Origin-Opener-Policy: same-origin
 Cross-Origin-Embedder-Policy: require-corp
@@ -84,7 +84,7 @@ Atomics.load(sharedArray, 0);
 
 ### Other Clocks
 
-There are a considerable number of APIs attackers can abuse to create implicit clocks: [Broadcast Channel API](https://developer.mozilla.org/en-US/docs/Web/API/Broadcast_Channel_API), [Message Channel API](https://developer.mozilla.org/en-US/docs/Web/API/MessageChannel), [requestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame), [setTimeout](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout), CSS animations and others [^2] [^4].
+There are a considerable number of APIs attackers can abuse to create implicit clocks: [Broadcast Channel API](https://developer.mozilla.org/en-US/docs/Web/API/Broadcast_Channel_API), [Message Channel API](https://developer.mozilla.org/en-US/docs/Web/API/MessageChannel), [requestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame), [setTimeout](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout), CSS animations, and others [^2] [^4].
 
 ## References
 
