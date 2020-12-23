@@ -25,20 +25,20 @@ Measuring the time of JavaScript execution in a browser can give attackers infor
 
 ## Timing the Event Loop
 
-JavaScript's concurrency model is based on a [single-threaded event loop](https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop) which means it can only run one task at a time. If, for example, some time-consuming task blocks the event loop, the user can perceive a freeze on a page as a result of the UI thread being starved. Other tasks must wait until the blocking one runs to conclusion. Each browser implements different [process models](https://www.chromium.org/developers/design-documents/process-models), which means some web sites might run in different threads (and event loops) depending on their relations.
+JavaScript's concurrency model is based on a [single-threaded event loop](https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop) which means it can only run one task at a time. If, for example, some time-consuming task blocks the event loop, the user can perceive a freeze on a page as a result of the UI thread being starved. Other tasks must wait until the blocking task finishes. Each browser implements different [process models](https://www.chromium.org/developers/design-documents/process-models), which means some web sites might run in different threads (and event loops) depending on their relations.
 
 Some techniques can exploit this model to steal secrets from a cross-origin page:
 
-- Infer how long code from a different origin takes to run by measuring how long it takes to run next in the event pool [^1] [^2]. The attacker keeps sending events to the event loop with fixed properties, which will eventually be dispatched if the pool is empty. Other origins will dispatch events to the same pool, and this is where an attacker infers the timing difference by detecting if a delay occurred with one of its tasks.
-- Steal a secret from a cross-origin page if the said secret is being compared by an attacker-controlled string. The leak is a result of comparing timing differences in the event loop of a char-by-char string comparison [^2] (using the previous technique). In browsers without [process isolation](https://www.chromium.org/Home/chromium-security/site-isolation), cross-window communications between different origins will run in the same thread, thus sharing the same event loop.
+- Inferring how long code from a different origin takes to run by measuring how long it takes to run next in the event pool [^1] [^2]. The attacker keeps sending events to the event loop with fixed properties, which will eventually be dispatched if the pool is empty. Other origins dispatch events to the same pool, and this is where an attacker infers the time difference by detecting if a delay occurred with one of its tasks.
+- Stealing a secret from a cross-origin page if the said secret is being compared by an attacker-controlled string. The leak is a result of comparing time differences in the event loop of a char-by-char string comparison [^2] (using the previous technique). In browsers without [process isolation](https://www.chromium.org/Home/chromium-security/site-isolation), cross-window communications between different origins run in the same thread, thus sharing the same event loop.
 
 {{< hint important >}}
-This attack is no longer possible in Browsers with process isolation mechanisms in place. Such mechanisms are only present in Chromium-Based browsers with [Site Isolation](https://www.chromium.org/Home/chromium-security/site-isolation) and *soon* in Firefox under [Project Fission](https://wiki.mozilla.org/Project_Fission).
+The latter attack is no longer possible in browsers with process isolation mechanisms in place. Such mechanisms are currently only present in Chromium-based browsers with [Site Isolation](https://www.chromium.org/Home/chromium-security/site-isolation); they are coming to Firefox *soon* under the name [Project Fission](https://wiki.mozilla.org/Project_Fission).
 {{< /hint >}}
 
 ## Busy Event Loop
 
-Another technique to measure JavaScript Execution consists of blocking the event loop of a thread and timing how long it takes for the event loop to become available again. One of the main advantages of this technique is its ability to circumvent Site Isolation as an attacker origin can mess with the execution of another origin. The attack works as follows:
+Another technique used to measure JavaScript execution consists of blocking the event loop of a thread and timing how long it takes for the event loop to become available again. One of the main advantages of this technique is its ability to circumvent Site Isolation, as an attacker origin can influence the execution of another origin. The attack works as follows:
 
 1. Navigate the target website in a separate window with `window.open` or inside an `iframe` (if [Framing Protections]({{< ref "../../defenses/opt-in/xfo.md" >}}) are not in place).
 2. Wait for the long computation to start.
@@ -69,38 +69,38 @@ ifr.onload = () => {
 
 ## Service Workers
 
-[Service Workers](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API) can be used to offer offline solutions to web applications but they can be abused by attackers to measure the timing of javascript execution[^4]. They serve as a proxy between the browser and the network and allow applications to intercept any network requests made by the main thread (document).
+[Service Workers](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API) can be used to offer offline solutions to web applications, but they can be abused by attackers to measure the timing of JavaScript execution[^4]. They serve as a proxy between the browser and the network and allow applications to intercept any network requests made by the main thread (document).
 
-To make a timing measurement an attacker can perform the following steps:
+To make a timing measurement, an attacker can perform the following steps:
 
-1. The attacker registers a service worker in one of its domains (attacker.com).
+1. The attacker registers a service worker in one of their domains (attacker.com).
 2. In the main document, the attacker issues a navigation (window.open) to the target website and instructs the Service Worker to start a timer.
-3. When the new window starts loading the attacker will navigate the reference obtained in step 2 to a page handled by the service worker.
-4. When the request performed in step 3 arrives to the Service Worker it will return a 204 (No Content) response, which will abort the navigation.
-5. At this point the Service Worker will collect a measurement from the timer started in step 2. This measurement will be affected by how long JavaScript blocked the navigation for.
+3. When the new window starts loading, the attacker navigates the reference obtained in step 2 to a page handled by the Service Worker.
+4. When the request performed in step 3 arrives at the service worker, it returns a 204 (No Content) response, which aborts the navigation.
+5. At this point, the Service Worker collects a measurement from the timer started in step 2. This measurement is affected by how long JavaScript blocked the navigation.
 
-Since no navigation actually occurs, steps from 3 to 5 can be repeated to get more measurements on successive JavaScript execution timings.
+Since no navigation actually occurs, steps 3 to 5 can be repeated to obtain more measurements on successive JavaScript execution timings.
 
 ## CSS Injections
 
 {{< hint warning >}}
-This group of XS-Leaks requires a CSS Injection on the target page.
+This group of XS-Leaks requires a CSS injection on the target page.
 {{< /hint >}}
 
-Among the different CSS Injection vectors, the most noticeable one is the abuse of CSS Selectors. They can be used as an expression to match and select certain HTML elements. For example, the selector `input[value^="a"]` will be matched if the value of an `input` tag starts with the character "a". So, to detect if a CSS Selector matched the expression, attackers could trigger a callback to one of their websites using certain properties like `background`, `@import`, etc [^6] [^7]. The matching process can be easily brute-forced, and extended to the full string.
+Among the different CSS injection vectors, the most noticeable one is the abuse of CSS Selectors. They can be used as an expression to match and select certain HTML elements. For example, the selector `input[value^="a"]` is matched if the value of an `input` tag starts with the character "a". So, to detect if a CSS Selector matches the expression, attackers can trigger a callback to one of their websites using certain properties like `background`, `@import`, etc. [^6] [^7]. The matching process can easily be brute-forced, and extended to the full string.
 
 ### jQuery, CSS Selectors & Short-circuit Timing
 
-Attackers can abuse another interesting behavior of CSS selectors which is `short-circuit` evaluation of expressions. This expression is received in an `URL` hash and evaluated if the page executes `jQuery(location.hash)` [^3].
+Attackers can abuse another interesting behavior of CSS selectors which is `short-circuit` evaluation of expressions. This expression is received in a `URL` hash and evaluated if the page executes `jQuery(location.hash)` [^3].
 
-A timing attack is possible because the expression is compared from right to left, so if the selector `main[id='site-main']` does not match and fails to evaluate, the other parts of the selector (`*:has(*:has(*:has(*))))`) which take longer to execute, are ignored (just like the `and` operator but backwards).
+A timing attack is possible because the expression is compared from right to left, so if the selector `main[id='site-main']` does not match and fails to evaluate, the other parts of the selector (`*:has(*:has(*:has(*))))`), which take longer to execute, are ignored (just like the `and` operator, but backwards).
 
 ```javascript
 $("*:has(*:has(*:has(*)) *:has(*:has(*:has(*))) *:has(*:has(*:has(*)))) main[id='site-main']")
 ```
 
 {{< hint tip >}}
-In browsers with process isolation mechanisms, [Service Workers]({{< ref "execution-timing.md#service-workers" >}}) can be abused to obtain the execution timing measurement or tricks like [Busy Event Loop tricks]({{< ref "#busy-event-loop" >}}) to circumvent Site Isolation.
+In browsers with process isolation mechanisms, [Service Workers]({{< ref "execution-timing.md#service-workers" >}}) can be abused to obtain the execution timing measurement or tricks like [Busy Event Loop tricks]({{< ref "#busy-event-loop" >}}) can be used to circumvent Site Isolation.
 {{< /hint >}}
 
 ## ReDoS
@@ -109,7 +109,7 @@ In browsers with process isolation mechanisms, [Service Workers]({{< ref "execut
 This group of XS-Leaks requires an injection of Regex Expressions on the target page.
 {{< /hint >}}
 
-Regular Expression Denial of Service (ReDoS) is a technique which results in a Denial of Service in applications that allow Regex as user input [^2] [^5]. Maliciously crafted regular expressions can be made to run in exponential time. This can be used as an XS-Leak vector if a regex can be injected that has a different runtime depending on some data on the page. This could happen on the client-side or the server-side.
+Regular Expression Denial of Service (ReDoS) is a technique which results in a Denial of Service in applications that allow regex as user input [^2] [^5]. Maliciously crafted regular expressions can be made to run in exponential time. This can be used as an XS-Leak vector if a regex can be injected that has a different runtime depending on the data on the page. This could happen on the client-side or the server-side.
 
 
 ## Defense
