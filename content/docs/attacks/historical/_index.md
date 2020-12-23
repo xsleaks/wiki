@@ -5,9 +5,9 @@ weight: 11
 
 # Historical Attacks
 
-The articles in this section present XS-Leaks that were addressed within the browser and don't work anymore. Some of the mitigations consist of:
+The articles in this section present XS-Leaks that have been addressed within browsers and no longer work. Different mitigation strategies were applied, such as:
 
-- Reduce the accuracy of some powerful APIs.
-- Add noise to a certain measurement to prevent any malicious inference from it.
-- Deprecate and remove features and APIs.
-- Change feature behavior.
+- Reducing the accuracy of some powerful APIs.
+- Adding noise to a certain measurement to prevent any malicious inference from it.
+- Deprecating and removing features and APIs.
+- Changing the feature's behavior.
