@@ -172,10 +172,6 @@ Other types of attacks do not consider the notion of time to perform a timing at
 
 The advantage of this technique is the independence from network jitter and uncertain delays, something that is always present in the remaining techniques.
 
-{{< hint note >}}
-The original research needs to be adapted to working in a browser, since it handles all network-specific tasks.
-{{< /hint >}}
-
 {{< hint important >}}
 This attack is limited to specific versions of HTTP and joint scenarios. It makes certain assumptions and has requirements regarding server behavior.
 {{< /hint >}}
