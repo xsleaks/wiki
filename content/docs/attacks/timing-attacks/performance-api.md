@@ -65,26 +65,6 @@ await isFrameBlocked('https://example.org');
 ```
 {{< hint note >}} This technique does seem to only work in Chromium based browsers {{< /hint >}}
 
-
-## Detecting redirects
-It seems that when a redirect occurs, a negative number will be present in Edge, Brave, Chrome, vivaldi
-```javascript
-async function isRedirected(url) {  
-    let href = new URL(url).href;
-    await fetch(href, {mode: "no-cors", credentials: "include" });
-    // Wait for request to be added to performance.getEntriesByName();
-    await new Promise(r => setTimeout(r, 200));
-    // Get last added timings
-    let res = performance.getEntriesByName(href).pop();
-    console.log("Request duration: " + res.duration);
-    if(res.duration >= 0) return false
-    if(res.duration > -10) console.log("Redirect was cached");
-    return true;
-}
-await isRedirected('https://google.com'); // should yield a negative number and return true
-await isRedirected('https://www.google.com'); // should yield 0 and return false
-```
-{{< hint note >}} This technique does seem to only work in Chromium based browsers {{< /hint >}}
 # Detecting cached resources
 
 With the `performance` API it is possible to detect whether a resource was cached or not.
