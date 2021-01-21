@@ -46,7 +46,7 @@ await getNetworkDuration('https://example.org');
 ## Detecting X-Frame-Options
 If displaying a page inside an embed (e.g. because of the `X-Frame-Options` header) it will not be added to the `performance` object in Chrome.
 ```javascript
-async function ifFrameBlocked(url) {
+async function isFrameBlocked(url) {
     let href = new URL(url).href;
     // There may be requests for this url before the function was run.
     let start_count = performance.getEntriesByName(href).length;
@@ -55,10 +55,10 @@ async function ifFrameBlocked(url) {
     embed.src = href;
     document.body.appendChild(embed);
     // Wait for request to be added to performance.getEntriesByName();
-    await new Promise(r => setTimeout(r, 200));
+    await new Promise(r => setTimeout(r, 1000));
     // Remove test embed
     document.body.removeChild(embed)
-    return performance.getEntriesByName(href).length > start_count;
+    return performance.getEntriesByName(href).length === start_count;
 }
 
 await isFrameBlocked('https://example.org');
