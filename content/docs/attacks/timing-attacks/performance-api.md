@@ -72,8 +72,7 @@ Unless [Cross-Origin Read Blocking]({{< ref "../../defenses/secure-defaults/corb
 ```javascript
 async function ifCached2(url) {
     let href = new URL(url).href;
-    // Using an image instead of fetch() as some requests had duration = 0
-    let image = new Image().src = href;
+    await fetch(href, {mode: "no-cors", credentials: "include"});
     // Wait for request to be added to performance.getEntriesByName();
     await new Promise(r => setTimeout(r, 200));
     // Get last added timings
