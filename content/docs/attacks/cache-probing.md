@@ -52,6 +52,14 @@ To invalidate a resource from the cache, the attacker must force the server to r
 
 Often, some of these methods might be considered a bug in the browser (e.g. [this bug](https://bugs.chromium.org/p/chromium/issues/detail?id=959789#c9)).
 
+## CORS error on Origin Reflection misconfiguration
+
+Origin reflection is a behaviour in which a gobally accessible resource is provided with a [Access-Control-Allow-Orign (ACAO)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin) header value that reflects the origin which initialized the request insted of respond with the wildcard `*`. This can be considered as a [CORS misconfiguration](https://web-in-security.blogspot.com/2017/07/cors-misconfigurations-on-large-scale.html) even if some backend frameworks such as Python Flask and Ruby on Rails promote origin reflection as a default behaviour for a globally accessible API. What happens is that, under the assumption of a resource hosted on target.com, when it is visualized from target.com itself then it is provided with `Access-Control-Allow-Origin: target.com` header. What is important is that this information is stored toghether with the resource in browser cache memory. Now, following the same concepts, if a third-party website called attacker.com fetches the same resource two possible ways can be followed:
+- The resource was never seen before: the resource will be fetched and served and stored toghether with `Access-Control-Allow-Origin: attacker.com` header.
+- The resource was already visualized by the victim: it will generate a cache hit, so it will be found in browser cache memory but it will also generate a CORS error due to the ACAO header value mismatch with the requesting origin. 
+This method provides a highly reliable way to make cache probing since it exploits error events which do not suffer from network performances. The best way to mitigate this is to avoid origin reflection and use the wildcard * for globally accessible resources.
+
+
 ## Fetch with AbortController
 The below snippet shows how the [`AbortController`](https://developer.mozilla.org/en-US/docs/Web/API/AbortController) interface could be combined with *fetch* and *setTimeout* to both detect whether the resource is cached and to evict a specific resource from the browser cache. A nice feature of this technique is that the probing occurs without caching new content in the process.
 ```javascript
