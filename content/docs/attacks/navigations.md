@@ -157,9 +157,10 @@ fetch('https://example.org/might_redirect', {
 An online bank decides to redirect wealthy users to attractive stock opportunities by triggering a navigation to a reserved space on the website when these users consult their account balance. If this is only done for a specific group of users, it becomes possible for an attacker to leak the "client status" of the user.
 
 ## Partitioned HTTP Cache Bypass
-A window can prevent a navigation with window.stop()
-This can be used to detect if a resource is cached by checking if window.location results in an error.
+A window can prevent a navigation to a different origin with window.stop() but if the window is not accessible window.close() or replacing the window location could also work.
+Because content from the on device cache is normaly faster then using the network the navagtion can be cancelled before a noncached request can be completed.
 When the target resource is on the same origin as the target website this will bypass partitioned cache.
+{{< hint important >}} An example of a vulnerable resource is https://http.cat/images/200.jpg as it will get cached when the user goes to https://http.cat {{< /hint >}}
 ```javascript
 async function ifCached_window(url) {
   return new Promise(resolve => {
@@ -173,20 +174,25 @@ async function ifCached_window(url) {
     // Get result
     setTimeout(() => {
       try {
-        if (checker.location.href !== "about:blank") {
-          // Origin has changed
-          resolve(true);
-          checker.location = "about:blank";
-        }
+        let origin = checker.origin;
+        // Origin has not changed before timeout.
+        resolve(false);
       } catch {
-        // No permission for origin
+        // Origin has changed.
         resolve(true);
         checker.location = "about:blank";
       }
-      resolve(false);
     }, 50);
   });
 }
+```
+Create window (makes it possible to go back after a successful check)
+```javascript
+let checker = window.open("about:blank");
+```
+Usage
+```javascript
+await ifCached_window("https://example.org");
 ```
 
 ## Defense
