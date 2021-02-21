@@ -67,11 +67,6 @@ If a resource hosted on `server.com` is requested from `target.com` then the ori
 {{< hint tip >}}
 The best way to mitigate this is to avoid origin reflection and use the header `Access-Control-Allow-Origin: *` instead for globally accessible and unauthenticated resources.
 {{< /hint >}}
-- The resource was never seen before: the resource will be fetched and served and stored toghether with `Access-Control-Allow-Origin: attacker.com` header.
-- The resource was already visualized by the victim: it will generate a cache hit, so it will be found in browser cache memory but it will also generate a CORS error due to the ACAO header value mismatch with the requesting origin. 
-This method provides a highly reliable way to make cache probing since it exploits error events which do not suffer from network performances. The best way to mitigate this is to avoid origin reflection and use the wildcard * for globally accessible resources.
-
-
 ## Fetch with AbortController
 The below snippet shows how the [`AbortController`](https://developer.mozilla.org/en-US/docs/Web/API/AbortController) interface could be combined with *fetch* and *setTimeout* to both detect whether the resource is cached and to evict a specific resource from the browser cache. A nice feature of this technique is that the probing occurs without caching new content in the process.
 ```javascript
