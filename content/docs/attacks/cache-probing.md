@@ -54,7 +54,19 @@ Often, some of these methods might be considered a bug in the browser (e.g. [thi
 
 ## CORS error on Origin Reflection misconfiguration
 
-Origin reflection is a behaviour in which a gobally accessible resource is provided with a [Access-Control-Allow-Orign (ACAO)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin) header value that reflects the origin which initialized the request insted of respond with the wildcard `*`. This can be considered as a [CORS misconfiguration](https://web-in-security.blogspot.com/2017/07/cors-misconfigurations-on-large-scale.html) even if some backend frameworks such as Python Flask and Ruby on Rails promote origin reflection as a default behaviour for a globally accessible API. What happens is that, under the assumption of a resource hosted on target.com, when it is visualized from target.com itself then it is provided with `Access-Control-Allow-Origin: target.com` header. What is important is that this information is stored toghether with the resource in browser cache memory. Now, following the same concepts, if a third-party website called attacker.com fetches the same resource two possible ways can be followed:
+Origin reflection is a behavior in which a globally accessible resource is provided with a [Access-Control-Allow-Orign (ACAO)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin) header whose value reflects the origin that initialized the request. This can be considered as CORS misconfiguration [^5] and can be used to detect whether the resource exists in the browser cache.
+
+{{< hint info >}} 
+Some backend frameworks such as Python Flask and Ruby on Rails promote origin reflection as the default behavior for a globally accessible API. 
+{{< /hint info >}}
+
+If a resource hosted on `server.com` is requested from `target.com` then the origin could be reflected in the response headers as: `Access-Control-Allow-Origin: target.com`. If the resource is cached, this information is stored together with the resource in the browser cache. With that, if `attacker.com` tries to fetch the same resource there are two possible scenarios:
+- The resource is not in cache: the resource could be fetched and stored together with the `Access-Control-Allow-Origin: attacker.com` header.
+- The resource was already in cache: fetch attempt will try to fetch the resource from the cache but it will also generate a CORS error due to the ACAO header value mismatch with the requesting origin (`target.com` origin was expected but `attacker.com` was provided). 
+
+{{< hint tip >}}
+The best way to mitigate this is to avoid origin reflection and use the header `Access-Control-Allow-Origin: *` instead for globally accessible and unauthenticated resources.
+{{< /hint >}}
 - The resource was never seen before: the resource will be fetched and served and stored toghether with `Access-Control-Allow-Origin: attacker.com` header.
 - The resource was already visualized by the victim: it will generate a cache hit, so it will be found in browser cache memory but it will also generate a CORS error due to the ACAO header value mismatch with the requesting origin. 
 This method provides a highly reliable way to make cache probing since it exploits error events which do not suffer from network performances. The best way to mitigate this is to avoid origin reflection and use the wildcard * for globally accessible resources.
