@@ -57,7 +57,7 @@ Often, some of these methods might be considered a bug in the browser (e.g. [thi
 Origin reflection is a behavior in which a globally accessible resource is provided with a [Access-Control-Allow-Orign (ACAO)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin) header whose value reflects the origin that initialized the request. This can be considered as CORS misconfiguration [^5] and can be used to detect whether the resource exists in the browser cache.
 
 {{< hint info >}} 
-Some backend frameworks such as Python Flask and Ruby on Rails promote origin reflection as the default behavior for a globally accessible API.[^6][^7] 
+As an example Python Flask promote origin reflection as the default behavior for a globally accessible API.[^6] 
 {{< /hint >}}
 
 If a resource hosted on `server.com` is requested from `target.com` then the origin could be reflected in the response headers as: `Access-Control-Allow-Origin: target.com`. If the resource is cached, this information is stored together with the resource in the browser cache. With that, if `attacker.com` tries to fetch the same resource there are two possible scenarios:
@@ -147,4 +147,3 @@ An attacker using [Error Events Cache Probing]({{< ref "#cache-probing-with-erro
 [^4]: Timing Attacks on Web Privacy, [link](http://www.cs.jhu.edu/~fabian/courses/CS600.424/course_papers/webtiming.pdf)
 [^5]: CORS misconfiguration, [link](https://web-in-security.blogspot.com/2017/07/cors-misconfigurations-on-large-scale.html)
 [^6]: Python Flask `send_wildcard` default configuration, [link](https://flask-cors.readthedocs.io/en/latest/api.htm)
-[^7]: Ruby on Rails Rack CORS issue, [link](https://github.com/cyu/rack-cors/issues/126)
