@@ -58,7 +58,7 @@ Origin reflection is a behavior in which a globally accessible resource is provi
 
 {{< hint info >}} 
 Some backend frameworks such as Python Flask and Ruby on Rails promote origin reflection as the default behavior for a globally accessible API. 
-{{< /hint info >}}
+{{< /hint >}}
 
 If a resource hosted on `server.com` is requested from `target.com` then the origin could be reflected in the response headers as: `Access-Control-Allow-Origin: target.com`. If the resource is cached, this information is stored together with the resource in the browser cache. With that, if `attacker.com` tries to fetch the same resource there are two possible scenarios:
 - The resource is not in cache: the resource could be fetched and stored together with the `Access-Control-Allow-Origin: attacker.com` header.
