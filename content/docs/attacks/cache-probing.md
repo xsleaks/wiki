@@ -57,8 +57,8 @@ Often, some of these methods might be considered a bug in the browser (e.g. [thi
 Origin reflection is a behavior in which a globally accessible resource is provided with a [Access-Control-Allow-Orign (ACAO)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin) header whose value reflects the origin that initialized the request. This can be considered as CORS misconfiguration [^5] and can be used to detect whether the resource exists in the browser cache.
 
 {{< hint info >}} 
-Some backend frameworks such as Python Flask and Ruby on Rails promote origin reflection as the default behavior for a globally accessible API. 
-{{< /hint info >}}
+As an example Python Flask promote origin reflection as the default behavior for a globally accessible API.[^6] 
+{{< /hint >}}
 
 If a resource hosted on `server.com` is requested from `target.com` then the origin could be reflected in the response headers as: `Access-Control-Allow-Origin: target.com`. If the resource is cached, this information is stored together with the resource in the browser cache. With that, if `attacker.com` tries to fetch the same resource there are two possible scenarios:
 - The resource is not in cache: the resource could be fetched and stored together with the `Access-Control-Allow-Origin: attacker.com` header.
@@ -67,7 +67,9 @@ If a resource hosted on `server.com` is requested from `target.com` then the ori
 {{< hint tip >}}
 The best way to mitigate this is to avoid origin reflection and use the header `Access-Control-Allow-Origin: *` instead for globally accessible and unauthenticated resources.
 {{< /hint >}}
+
 ## Fetch with AbortController
+
 The below snippet shows how the [`AbortController`](https://developer.mozilla.org/en-US/docs/Web/API/AbortController) interface could be combined with *fetch* and *setTimeout* to both detect whether the resource is cached and to evict a specific resource from the browser cache. A nice feature of this technique is that the probing occurs without caching new content in the process.
 ```javascript
 async function ifCached(url, purge = false) {
@@ -143,3 +145,5 @@ An attacker using [Error Events Cache Probing]({{< ref "#cache-probing-with-erro
 [^2]: HTTP Cache Cross-Site Leaks, [link](http://sirdarckcat.blogspot.com/2019/03/http-cache-cross-site-leaks.html)
 [^3]: Mass XS-Search using Cache Attack, [link](https://terjanq.github.io/Bug-Bounty/Google/cache-attack-06jd2d2mz2r0/index.html#VIII-YouTube-watching-history)
 [^4]: Timing Attacks on Web Privacy, [link](http://www.cs.jhu.edu/~fabian/courses/CS600.424/course_papers/webtiming.pdf)
+[^5]: CORS misconfiguration, [link](https://web-in-security.blogspot.com/2017/07/cors-misconfigurations-on-large-scale.html)
+[^6]: Python Flask `send_wildcard` default configuration, [link](https://flask-cors.readthedocs.io/en/latest/api.htm)
