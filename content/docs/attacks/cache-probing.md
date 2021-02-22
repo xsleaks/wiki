@@ -63,6 +63,25 @@ As an example Python Flask promote origin reflection as the default behavior for
 If a resource hosted on `server.com` is requested from `target.com` then the origin could be reflected in the response headers as: `Access-Control-Allow-Origin: target.com`. If the resource is cached, this information is stored together with the resource in the browser cache. With that, if `attacker.com` tries to fetch the same resource there are two possible scenarios:
 - The resource is not in cache: the resource could be fetched and stored together with the `Access-Control-Allow-Origin: attacker.com` header.
 - The resource was already in cache: fetch attempt will try to fetch the resource from the cache but it will also generate a CORS error due to the ACAO header value mismatch with the requesting origin (`target.com` origin was expected but `attacker.com` was provided). 
+```javascript
+// The function simply take a url and fetch it in CORS mode
+// if the fetch rise an error, it will be a CORS error due to the 
+// origin mismatch between attacker.com and victim's ip
+function checkCachedResource(url) {
+    fetch(url, {
+        mode: "cors"
+        }).catch((e) => {
+            return true
+        });
+    return false
+}
+
+// This have sense only if the attacker alredy knows that server.com suffer
+// from origin reflection CORS misconfiguration
+var resource_url = "server.com/reflected_origin_resource.html"
+verdict = checkCachedResource(resource_url)
+console.log("Resource was cached: " + verdict)
+```
 
 {{< hint tip >}}
 The best way to mitigate this is to avoid origin reflection and use the header `Access-Control-Allow-Origin: *` instead for globally accessible and unauthenticated resources.
