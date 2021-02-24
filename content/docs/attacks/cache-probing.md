@@ -84,7 +84,7 @@ console.log("Resource was cached: " + verdict)
 ```
 
 {{< hint tip >}}
-The best way to mitigate this is to avoid origin reflection and use the header `Access-Control-Allow-Origin: *` instead for globally accessible and unauthenticated resources.
+The best way to mitigate this is to avoid origin reflection and use the header `Access-Control-Allow-Origin: *` for globally accessible and unauthenticated resources.
 {{< /hint >}}
 
 ## Fetch with AbortController
