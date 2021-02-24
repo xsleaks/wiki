@@ -65,7 +65,7 @@ If a resource hosted on `server.com` is requested from `target.com` then the ori
 - The resource was already in cache: fetch attempt will try to fetch the resource from the cache but it will also generate a CORS error due to the ACAO header value mismatch with the requesting origin (`target.com` origin was expected but `attacker.com` was provided). Here below is provided an example code snippet epxloting this vulnerability to infer the cache status of the victim's browser. 
 ```javascript
 // The function simply take a url and fetch it in CORS mode
-// if the fetch rise an error, it will be a CORS error due to the 
+// if the fetch raise an error, it will be a CORS error due to the 
 // origin mismatch between attacker.com and victim's ip
 function checkCachedResource(url) {
     fetch(url, {
