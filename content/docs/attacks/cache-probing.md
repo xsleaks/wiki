@@ -165,4 +165,3 @@ An attacker using [Error Events Cache Probing]({{< ref "#cache-probing-with-erro
 [^3]: Mass XS-Search using Cache Attack, [link](https://terjanq.github.io/Bug-Bounty/Google/cache-attack-06jd2d2mz2r0/index.html#VIII-YouTube-watching-history)
 [^4]: Timing Attacks on Web Privacy, [link](http://www.cs.jhu.edu/~fabian/courses/CS600.424/course_papers/webtiming.pdf)
 [^5]: CORS misconfiguration, [link](https://web-in-security.blogspot.com/2017/07/cors-misconfigurations-on-large-scale.html)
-[^6]: Python Flask `send_wildcard` default configuration, [link](https://flask-cors.readthedocs.io/en/latest/api.htm)
