@@ -73,6 +73,9 @@ script.onload = () => {
 {{< hint tip >}}
 A similar technique can be used for other HTML elements, e.g. `<img>`, `<link>`, or `<iframe>`, which could be used in scenarios where other techniques fail. For example, if [Fetch Metadata]({{< ref "/docs/defenses/opt-in/fetch-metadata.md">}}) blocks loading a resource into a script tag, it may allow loading it into an image tag.
 {{< /hint >}}
+{{< hint tip >}}
+An alternative way could be to use `image.complete` property. More information [here](https://riccardomerlano.github.io/xs-leaks/cache-probing-through-image.complete-property/).
+{{< /hint >}}
 
 ## Cross-window Timing Attacks
 
