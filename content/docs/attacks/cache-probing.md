@@ -57,7 +57,7 @@ Often, some of these methods might be considered a bug in the browser (e.g. [thi
 Origin reflection is a behavior in which a globally accessible resource is provided with a [Access-Control-Allow-Orign (ACAO)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin) header whose value reflects the origin that initialized the request. This can be considered as CORS misconfiguration [^5] and can be used to detect whether the resource exists in the browser cache.
 
 {{< hint info >}} 
-As an example Python Flask promote origin reflection as the default behavior for a globally accessible API.[^6] 
+For example, Flask framework [promotes](https://flask-cors.readthedocs.io/en/latest/api.htm) origin reflection as the default behavior.
 {{< /hint >}}
 
 If a resource hosted on `server.com` is requested from `target.com` then the origin could be reflected in the response headers as: `Access-Control-Allow-Origin: target.com`. If the resource is cached, this information is stored together with the resource in the browser cache. With that, if `attacker.com` tries to fetch the same resource there are two possible scenarios:
@@ -65,7 +65,7 @@ If a resource hosted on `server.com` is requested from `target.com` then the ori
 - The resource was already in cache: fetch attempt will try to fetch the resource from the cache but it will also generate a CORS error due to the ACAO header value mismatch with the requesting origin (`target.com` origin was expected but `attacker.com` was provided). Here below is provided an example code snippet epxloting this vulnerability to infer the cache status of the victim's browser. 
 ```javascript
 // The function simply take a url and fetch it in CORS mode
-// if the fetch rise an error, it will be a CORS error due to the 
+// if the fetch raises an error, it will be a CORS error due to the 
 // origin mismatch between attacker.com and victim's ip
 function checkCachedResource(url) {
     fetch(url, {
@@ -84,7 +84,7 @@ console.log("Resource was cached: " + verdict)
 ```
 
 {{< hint tip >}}
-The best way to mitigate this is to avoid origin reflection and use the header `Access-Control-Allow-Origin: *` instead for globally accessible and unauthenticated resources.
+The best way to mitigate this is to avoid origin reflection and use the header `Access-Control-Allow-Origin: *` for globally accessible and unauthenticated resources.
 {{< /hint >}}
 
 ## Fetch with AbortController
@@ -165,4 +165,3 @@ An attacker using [Error Events Cache Probing]({{< ref "#cache-probing-with-erro
 [^3]: Mass XS-Search using Cache Attack, [link](https://terjanq.github.io/Bug-Bounty/Google/cache-attack-06jd2d2mz2r0/index.html#VIII-YouTube-watching-history)
 [^4]: Timing Attacks on Web Privacy, [link](http://www.cs.jhu.edu/~fabian/courses/CS600.424/course_papers/webtiming.pdf)
 [^5]: CORS misconfiguration, [link](https://web-in-security.blogspot.com/2017/07/cors-misconfigurations-on-large-scale.html)
-[^6]: Python Flask `send_wildcard` default configuration, [link](https://flask-cors.readthedocs.io/en/latest/api.htm)
