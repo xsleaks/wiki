@@ -39,6 +39,33 @@ async function getType(url) {
     if (image.width) return "image";
 }
 ```
+
+## CORB
+CORB is a feature of Chrome that replaces reposnses if the wrong content type is used.
+This means that if the type is wrong it wont be cached.
+
+```javascript
+async function isType(url, type = "script") {
+  // Preload resource
+  var a = document.createElement(type);
+  a.src = url;
+  document.head.appendChild(a);
+  await new Promise(r => a.onload = r);
+  return await new Promise(r => {
+    // Check resource
+    a = document.createElement(type);
+    a.src = url;
+    a.onload = e => {
+      r(true);
+    }
+    document.head.appendChild(a);
+    requestIdleCallback(() => {
+      r(false);
+    });
+  });
+}
+```
+
 ## Defense
 
 |       Attack Alternative        | [SameSite Cookies (Lax)]({{< ref "/docs/defenses/opt-in/same-site-cookies.md" >}}) | [COOP]({{< ref "/docs/defenses/opt-in/coop.md" >}}) | [Framing Protections]({{< ref "/docs/defenses/opt-in/xfo.md" >}}) |                                          [Isolation Policies]({{< ref "/docs/defenses/isolation-policies" >}})                                          |
