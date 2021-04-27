@@ -50,14 +50,16 @@ async function isType(url, type = "script") {
   // Purge url
   await ifCached(url, true);
   // Attempt to load resource
-  let a = document.createElement(type);
-  a.onerror = () => error = true;
-  a.src = url;
-  document.head.appendChild(a);
+  let e = document.createElement(type);
+  e.onerror = () => error = true;
+  e.src = url;
+  document.head.appendChild(e);
   // Wait for it to be cached if its allowed by CORB
   await new Promise(resolve => setTimeout(resolve, 500));
   // Fix for "images" that get blocked differently.
   if (error) return false
+  // Cleanup
+  document.head.removeChild(e);
   return ifCached(url);
 }
 ```
