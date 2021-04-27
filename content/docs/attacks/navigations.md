@@ -157,9 +157,13 @@ fetch('https://example.org/might_redirect', {
 An online bank decides to redirect wealthy users to attractive stock opportunities by triggering a navigation to a reserved space on the website when these users consult their account balance. If this is only done for a specific group of users, it becomes possible for an attacker to leak the "client status" of the user.
 
 ## Partitioned HTTP Cache Bypass
-A window can prevent a navigation to a different origin with window.stop() but if the window is not accessible window.close() or replacing the window location could also work.
-Because content from the on device cache is normaly faster then using the network the navagtion can be cancelled before a noncached request can be completed.
-When the target resource is on the same origin as the target website this will bypass partitioned cache.
+
+A direct window navigation to a resource even from a different initiator is the same key as a user on the same eTLD+1 (this may allow for subdomains).
+So, the same cache partition gets used. for Chrome the key is top-level eTLD+1 and frame eTLD+1.
+
+Because a window can prevent a navigation to a different origin with window.stop() and the on-device cache is faster than the network,
+It can detect if a resource is cached by checking if the origin changed before the stop() could be run.
+
 {{< hint important >}} An example of a vulnerable resource is https://http.cat/images/200.jpg as it will get cached when the user goes to https://http.cat {{< /hint >}}
 ```javascript
 async function ifCached_window(url) {
