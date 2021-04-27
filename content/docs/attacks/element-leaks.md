@@ -41,7 +41,7 @@ async function getType(url) {
 ```
 
 ## Abusing CORB
-CORB is a feature of Chrome that replaces reposnses if the wrong content type is used.
+CORB is a feature of Chrome that makes reposnses empty if the wrong content type is used.
 This means that if the type is wrong its not cached.
 A ifCached function can be found at [Cache Probing]({{< ref "/docs/attacks/cache-probing.md" >}})
 ```javascript
@@ -56,7 +56,7 @@ async function isType(url, type = "script") {
   document.head.appendChild(a);
   // Wait for it to be cached if its allowed by CORB
   await new Promise(resolve => setTimeout(resolve, 500));
-  // Fix for images that get blocked differently
+  // Fix for images that get blocked differently.
   if (error) return false
   return ifCached(url);
 }
