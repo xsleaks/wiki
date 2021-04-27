@@ -40,29 +40,19 @@ async function getType(url) {
 }
 ```
 
-## CORB
+## Abusing CORB
 CORB is a feature of Chrome that replaces reposnses if the wrong content type is used.
 This means that if the type is wrong it wont be cached.
-
+A ifCached function can be found at [Cache Probing]({{< ref "/docs/attacks/cache-probing/" >}})
 ```javascript
 async function isType(url, type = "script") {
-  // Preload resource
-  var a = document.createElement(type);
+  // Attempt to load resource
+  let a = document.createElement(type);
   a.src = url;
   document.head.appendChild(a);
-  await new Promise(r => a.onload = r);
-  return await new Promise(r => {
-    // Check resource
-    a = document.createElement(type);
-    a.src = url;
-    a.onload = e => {
-      r(true);
-    }
-    document.head.appendChild(a);
-    requestIdleCallback(() => {
-      r(false);
-    });
-  });
+  // Wait for it to be cached if its allowed by CORB
+  await new Promise(resolve => setTimeout(resolve, 500));
+  return await ifCached(url);
 }
 ```
 
