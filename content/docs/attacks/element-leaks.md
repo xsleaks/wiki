@@ -56,10 +56,10 @@ async function isType(url, type = "script") {
   document.head.appendChild(e);
   // Wait for it to be cached if its allowed by CORB
   await new Promise(resolve => setTimeout(resolve, 500));
-  // Fix for "images" that get blocked differently.
-  if (error) return false
   // Cleanup
   document.head.removeChild(e);
+  // Fix for "images" that get blocked differently.
+  if (error) return false
   return ifCached(url);
 }
 ```
