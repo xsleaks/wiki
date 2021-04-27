@@ -46,6 +46,8 @@ This means that if the type is wrong its not cached.
 A ifCached function can be found at [Cache Probing]({{< ref "/docs/attacks/cache-probing.md" >}})
 ```javascript
 async function isType(url, type = "script") {
+  // Purge url
+  await ifCached(url, true);
   // Attempt to load resource
   let a = document.createElement(type);
   a.src = url;
