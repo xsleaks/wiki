@@ -46,14 +46,18 @@ This means that if the type is wrong its not cached.
 A ifCached function can be found at [Cache Probing]({{< ref "/docs/attacks/cache-probing.md" >}})
 ```javascript
 async function isType(url, type = "script") {
+  let error = false;
   // Purge url
   await ifCached(url, true);
   // Attempt to load resource
   let a = document.createElement(type);
+  a.onerror = () => error = true;
   a.src = url;
   document.head.appendChild(a);
   // Wait for it to be cached if its allowed by CORB
   await new Promise(resolve => setTimeout(resolve, 500));
+  // Fix for images that get blocked differently
+  if (error) return false
   return ifCached(url);
 }
 ```
