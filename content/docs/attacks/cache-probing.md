@@ -36,7 +36,7 @@ An attacker wants to know whether a user visited a certain social network:
 
 Cache Probing with [Error Events]({{< ref "../attacks/error-events.md" >}}) [^2] allows more accurate attacks. Instead of relying on timing measurements, this approach leverages [Error Events]({{< ref "../attacks/error-events.md" >}}) and some server-side behavior to detect whether a resource was cached. The attack requires the following steps:
 
-1. [Invalidating the resource]({{< ref "#invalidate-the-cache" >}}) from the browser cache. This step is required to make sure the attack does not consider a resource previously cached in another visit.
+1. [Invalidating the resource]({{< ref "#invalidating-the-cache" >}}) from the browser cache. This step is required to make sure the attack does not consider a resource previously cached in another visit.
 2. Performing a request that causes different items to be cached depending on the user's state. For example, loading a page that includes a specific image only if the user is logged in. This request can be triggered by navigating to the target website with `<link rel=prerender..`, embedding the website in an `iframe`, or opening a new window with `window.open`.
 3. Triggering a request that causes the server to reject the request. For example, including an [overlong referer header](https://lists.archive.carbon60.com/apache/users/316239) that  makes the server reject the request. If the resource was cached in step 2, this request succeeds instead of triggering an error event.
 
