@@ -64,6 +64,24 @@ async function isType(url, type = "script") {
 }
 ```
 
+## Abusing getComputedStyle
+getComputedStyle can be used to leak CSS style sheets.
+This function just checks if there has been a style appled to the body.
+```javascript
+async function isCSS(url) {
+    let link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = url;
+    let style1 = JSON.stringify(getComputedStyle(document.body));
+    document.head.appendChild(link);
+    await new Promise(resolve => setTimeout(resolve, 500));
+    let style2 = JSON.stringify(getComputedStyle(document.body));
+    document.head.removeChild(link);
+    return (style1 !== style2);
+}
+```
+
 ## Defense
 
 |       Attack Alternative        | [SameSite Cookies (Lax)]({{< ref "/docs/defenses/opt-in/same-site-cookies.md" >}}) | [COOP]({{< ref "/docs/defenses/opt-in/coop.md" >}}) | [Framing Protections]({{< ref "/docs/defenses/opt-in/xfo.md" >}}) |                                          [Isolation Policies]({{< ref "/docs/defenses/isolation-policies" >}})                                          |
