@@ -18,7 +18,7 @@ weight = 2
 CSS can be used to trick a user into exposing information such as embeded pixel values by making visual changes that are affected by the embed.
 
 ## Getting history
-An PoC of this attack can be found [here](https://lcamtuf.coredump.cx/whack/).  
+A PoC of this attack can be found [here](https://lcamtuf.coredump.cx/whack/).  
 Because CSS has a [`:visited`](https://developer.mozilla.org/en-US/docs/Web/CSS/:visited) class it’s possible to apply a different style for URLs that have been visited.  
 Previously it was possible to use [`getComputedStyle()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle) to detect this difference but now browsers prevent this. [source](https://developer.mozilla.org/en-US/docs/Web/CSS/Privacy_and_the_:visited_selector)  
 So, it may be needed to trick the user into clicking an area that the CSS has affected this can be done using [`mix-blend-mode`](https://developer.mozilla.org/en-US/docs/Web/CSS/mix-blend-mode). [source](https://lcamtuf.blogspot.com/2016/08/css-mix-blend-mode-is-bad-for-keeping.html)   
