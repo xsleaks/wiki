@@ -19,9 +19,9 @@ CSS can be used to trick a user into exposing information such as embeded pixel 
 
 ## Getting history
 An PoC of this attack can be found [here](https://lcamtuf.coredump.cx/whack/).  
-Because CSS has a [`:visited`](https://developer.mozilla.org/en-US/docs/Web/CSS/:visited) class it’s possible to apply a different style for URLs that have been visited. [source](https://developer.mozilla.org/en-US/docs/Web/CSS/Privacy_and_the_:visited_selector)  
-Previously it was possible to use [`getComputedStyle()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle) to detect this difference but now browsers prevent this.  
-So, it may be needed to trick the user into clicking an area that the CSS has affected this can be done using  [`mix-blend-mode`](https://developer.mozilla.org/en-US/docs/Web/CSS/mix-blend-mode).  [source](https://lcamtuf.blogspot.com/2016/08/css-mix-blend-mode-is-bad-for-keeping.html)   
+Because CSS has a [`:visited`](https://developer.mozilla.org/en-US/docs/Web/CSS/:visited) class it’s possible to apply a different style for URLs that have been visited.  
+Previously it was possible to use [`getComputedStyle()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle) to detect this difference but now browsers prevent this. [source](https://developer.mozilla.org/en-US/docs/Web/CSS/Privacy_and_the_:visited_selector)  
+So, it may be needed to trick the user into clicking an area that the CSS has affected this can be done using [`mix-blend-mode`](https://developer.mozilla.org/en-US/docs/Web/CSS/mix-blend-mode). [source](https://lcamtuf.blogspot.com/2016/08/css-mix-blend-mode-is-bad-for-keeping.html)   
 Render timings have also been abused to do this without tricking the user. [source](https://www.contextis.com/en/resources/white-papers/pixel-perfect-timing-attacks-with-html5)  
 
 ## Evil Captcha
