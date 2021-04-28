@@ -31,7 +31,7 @@ This can be prevented with XFO.
 ## Defence
 Some of the attacks can be prevented by using XFO,
 The history attack can be prevented by disabling history or if on Firefox it’s possible to fix this by setting the `layout.css.visited_links_enabled` option in `about:config` to `false`.
-A chrome issue for this attack can be found [here](https://bugs.chromium.org/p/chromium/issues/detail?id=712246) [here](https://bugs.chromium.org/p/chromium/issues/detail?id=713521) and [here](https://bugzilla.mozilla.org/show_bug.cgi?id=147777)
+A bug reports for this attack can be found [here](https://bugs.chromium.org/p/chromium/issues/detail?id=712246) [here](https://bugs.chromium.org/p/chromium/issues/detail?id=713521) and [here](https://bugzilla.mozilla.org/show_bug.cgi?id=147777)
 
 | [SameSite Cookies (Lax)]({{< ref "/docs/defenses/opt-in/same-site-cookies.md" >}}) | [COOP]({{< ref "/docs/defenses/opt-in/coop.md" >}}) | [Framing Protections]({{< ref "/docs/defenses/opt-in/xfo.md" >}}) |                  [Isolation Policies]({{< ref "/docs/defenses/isolation-policies" >}})                   |
 | :--------------------------------------------------------------------------------: | :-------------------------------------------------: | :---------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------: |
