@@ -41,7 +41,7 @@ async function getType(url) {
 ```
 
 ## Abusing CORB
-CORB is a feature of Chrome that makes reposnses empty if the wrong content type is used.
+[CORB]({{< ref "/docs/attacks/browser-features/corb.md" >}}) is a feature of Chrome that makes reposnses empty if the wrong content type is used.
 This means that if the type is wrong its not cached.
 A ifCached function can be found at [Cache Probing]({{< ref "/docs/attacks/cache-probing.md" >}})
 ```javascript
@@ -79,6 +79,19 @@ async function isCSS(url) {
     let style2 = JSON.stringify(getComputedStyle(document.body));
     document.head.removeChild(link);
     return (style1 !== style2);
+}
+```
+## PDF
+There are [Open URL Parameters](https://www.adobe.com/content/dam/acom/en/devnet/acrobat/pdfs/pdf_open_parameters.pdf) that allow some control over the content such as `zoom`, `view`, `page`, `toolbar`.  
+For chrome a PDF can be detected using frame counting because an `embed` is used internally.
+However there will be false positives if the page has other embeds.
+```javascript
+async function isPDF(url) {
+    let w = open(url);
+    await new Promise(resolve => setTimeout(resolve, 500));
+    let result = (w.length === 1);
+    w.close();
+    return result;
 }
 ```
 
