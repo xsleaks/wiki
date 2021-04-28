@@ -14,7 +14,8 @@ menu = "main"
 weight = 2
 +++
 
-CSS can be used to trick a user into exposing information by making visual changes that are affected by the embed.
+## CSS Tricks
+CSS can be used to trick a user into exposing information such as embeded pixel values by making visual changes that are affected by the embed.
 
 ## Getting history
 An PoC of this attack can be found [here](https://lcamtuf.coredump.cx/whack/).  
