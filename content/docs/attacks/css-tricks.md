@@ -9,6 +9,7 @@ abuse = [
     "CSS"
 ]
 defenses = [
+    "Framing Protections"
 ]
 menu = "main"
 weight = 2
