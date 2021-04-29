@@ -42,6 +42,10 @@ input.style = "position:absolute;right:-500px;bottom:-21.9px";
 input.onkeypress = e => {
     e.preventDefault();
 }
+window.onmousedown = e => {
+    // ignore mouse clicks
+    e.preventDefault();
+}
 input.onchange = e => {
     alert(e.srcElement.value);
     e.srcElement.value = "";
