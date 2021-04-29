@@ -56,6 +56,13 @@ setInterval(() => {
 }, 1000);
 ```
 
+## Custom cursor
+Might not leak data directly but it may help trick the user.
+```css
+:root {
+   cursor: url(URL), auto;            
+}
+```
 
 ## Defence
 Some of the attacks can be prevented by using XFO,
