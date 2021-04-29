@@ -26,7 +26,8 @@ So, it may be needed to trick the user into clicking an area that the CSS has af
 Render timings have also been abused to do this without tricking the user. [source](https://www.contextis.com/en/resources/white-papers/pixel-perfect-timing-attacks-with-html5)  
 
 ## Evil Captcha
-Using CSS, it’s possible to take an embed out of context. [source](https://ronmasas.com/posts/the-human-side-channel)  
+Using CSS, it’s possible to take an embed out of context.  
+An example of this is pretending its a captcha. [source](https://ronmasas.com/posts/the-human-side-channel)  
 This can be prevented with XFO.
 
 ## Abusing autocomplete
