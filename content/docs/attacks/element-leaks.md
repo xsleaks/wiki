@@ -65,7 +65,7 @@ async function isType(url, type = "script") {
 ```
 
 ## Abusing getComputedStyle
-[getComputedStyle](https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle) can be used to leak CSS style sheets.
+[getComputedStyle](https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle) can be used to leak CSS style sheets.  
 This function just checks if there has been a style appled to the body.
 ```javascript
 async function isCSS(url) {
