@@ -31,7 +31,7 @@ This can be prevented with XFO.
 
 ## Abusing autocomplete
 If a website uses [autocomplete](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete) it may be possible to leak data such as email addresses.
-This does require the user to be tricked into pressing the Up or Down arrow keys then pressing Enter or Tab.
+This does require the user to be tricked into pressing the Up or Down arrow key then pressing Enter or Tab.
 ```javascript
 let input = document.createElement("input");
 input.type = "email";
