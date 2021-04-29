@@ -39,6 +39,9 @@ input.autocomplete = "email";
 input.name = "email";
 input.size = "1";
 input.style = "position:absolute;right:-500px;bottom:-21.9px";
+input.onkeypress = e => {
+    e.preventDefault();
+}
 input.onchange = e => {
     alert(e.srcElement.value);
     e.srcElement.value = "";
