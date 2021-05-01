@@ -158,13 +158,11 @@ An online bank decides to redirect wealthy users to attractive stock opportuniti
 
 ## Partitioned HTTP Cache Bypass
 
-A direct window navigation to a resource even from a different initiator is the same key as a user on the same eTLD+1 (this may allow for subdomains).
-So, the same cache partition gets used. for Chrome the key is top-level eTLD+1 and frame eTLD+1.
+If a site `example.com` includes a resource from `*.example.com/resource` then that resource will have the same caching key as if the resource was directly requested through top-level navigation. That is because the caching key is consisted of top-level eTLD+1 and frame eTLD+1. [^cache-bypass]
 
 Because a window can prevent a navigation to a different origin with window.stop() and the on-device cache is faster than the network,
-It can detect if a resource is cached by checking if the origin changed before the stop() could be run.
+it can detect if a resource is cached by checking if the origin changed before the stop() could be run. 
 
-{{< hint important >}} An example of a vulnerable resource is https://http.cat/images/200.jpg as it will get cached when the user goes to https://http.cat {{< /hint >}}
 ```javascript
 async function ifCached_window(url) {
   return new Promise(resolve => {
@@ -227,3 +225,4 @@ A vulnerability reported to Twitter used this technique to leak the contents of 
 [^1]: Protected tweets exposure through the url, [link](https://hackerone.com/reports/491473)
 [^2]: Disclose domain of redirect destination taking advantage of CSP, [link](https://bugs.chromium.org/p/chromium/issues/detail?id=313737)
 [^3]: Using Content-Security-Policy for Evil, [link](http://homakov.blogspot.com/2014/01/using-content-security-policy-for-evil.html)
+[^cache-bypass]: [github.com/xsleaks/wiki/pull/106](https://github.com/xsleaks/wiki/pull/106)
