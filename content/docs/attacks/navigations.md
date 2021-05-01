@@ -158,10 +158,10 @@ An online bank decides to redirect wealthy users to attractive stock opportuniti
 
 ## Partitioned HTTP Cache Bypass
 
-If a site `example.com` includes a resource from `*.example.com/resource` then that resource will have the same caching key as if the resource was directly requested through top-level navigation. That is because the caching key is consisted of top-level eTLD+1 and frame eTLD+1. [^cache-bypass]
+If a site `example.com` includes a resource from `*.example.com/resource` then that resource will have the same caching key as if the resource was directly requested through top-level navigation. That is because the caching key is consisted of top-level *eTLD+1* and frame *eTLD+1*. [^cache-bypass]
 
-Because a window can prevent a navigation to a different origin with window.stop() and the on-device cache is faster than the network,
-it can detect if a resource is cached by checking if the origin changed before the stop() could be run. 
+Because a window can prevent a navigation to a different origin with `window.stop()` and the on-device cache is faster than the network,
+it can detect if a resource is cached by checking if the origin changed before the `stop()` could be run. 
 
 ```javascript
 async function ifCached_window(url) {
