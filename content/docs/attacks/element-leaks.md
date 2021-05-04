@@ -116,7 +116,7 @@ This seems to send a request to [http.cat](https://http.cat) when theirs a 404 o
 <img loading="lazy" src="https://http.cat/200">
 </object>
 ```
-The [CSS attribute selector](https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors) could be used to detect the type then callback to a server using `@import`
+{{< hint info >}} Unlike other browsers, Firefox does not defer Lazy loading when JavaScript is disabled as an anti-tracking measure. {{< /hint >}}
 
 ## Defense
 
