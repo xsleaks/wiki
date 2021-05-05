@@ -108,16 +108,6 @@ window.Array.prototype.push = function() {
 ```
 {{< hint tip >}} A paper was made using this attack [link](https://www.usenix.org/system/files/conference/usenixsecurity15/sec15-paper-lekies.pdf) {{< /hint >}}
 
-## When Javascript cant be used
-If the `error` event cant be used [fallback content](https://html.spec.whatwg.org/multipage/dom.html#fallback-content) might be an alternative.  
-This sends a request to [http.cat](https://http.cat) when theirs a 404 on [example.com](https://example.com).
-```html
-<object data="https://example.com/404">
-<img loading="lazy" src="https://http.cat/200">
-</object>
-```
-{{< hint info >}} Unlike other browsers, Firefox does not defer Lazy loading when JavaScript is disabled as an anti-tracking measure. {{< /hint >}}
-
 ## Defense
 
 |       Attack Alternative        | [SameSite Cookies (Lax)]({{< ref "/docs/defenses/opt-in/same-site-cookies.md" >}}) | [COOP]({{< ref "/docs/defenses/opt-in/coop.md" >}}) | [Framing Protections]({{< ref "/docs/defenses/opt-in/xfo.md" >}}) |                                          [Isolation Policies]({{< ref "/docs/defenses/isolation-policies" >}})                                          |
