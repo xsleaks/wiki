@@ -109,8 +109,8 @@ window.Array.prototype.push = function() {
 {{< hint tip >}} A paper was made using this attack [link](https://www.usenix.org/system/files/conference/usenixsecurity15/sec15-paper-lekies.pdf) {{< /hint >}}
 
 ## When Javascript cant be used
-If the `error` event cant be used [fallback content](https://html.spec.whatwg.org/multipage/dom.html#fallback-content) might be an alternative.
-This seems to send a request to [http.cat](https://http.cat) when theirs a 404 on [example.com](https://example.com).
+If the `error` event cant be used [fallback content](https://html.spec.whatwg.org/multipage/dom.html#fallback-content) might be an alternative.  
+This sends a request to [http.cat](https://http.cat) when theirs a 404 on [example.com](https://example.com).
 ```html
 <object data="https://example.com/404">
 <img loading="lazy" src="https://http.cat/200">
