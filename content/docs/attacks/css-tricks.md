@@ -16,7 +16,7 @@ weight = 2
 +++
 
 ## CSS Tricks
-CSS can be used to trick a user into exposing information such as embeded pixel values by making visual changes that are affected by the embed.
+CSS can be used to trick a user into exposing information such as embedded pixel values by making visual changes that are affected by the embed.
 
 ## Getting history
 A PoC of this attack can be found [here](https://lcamtuf.coredump.cx/whack/).  
@@ -27,7 +27,7 @@ Render timings have also been abused to do this without tricking the user. [sour
 
 ## Evil Captcha
 Using CSS, it’s possible to take an embed out of context.  
-An example of this is pretending its a captcha. [source](https://ronmasas.com/posts/the-human-side-channel)  
+An example of this is pretending it’s a captcha. [source](https://ronmasas.com/posts/the-human-side-channel)  
 This can be prevented with XFO.
 
 ## Abusing autocomplete
@@ -73,3 +73,4 @@ Bug reports for this attack can be found [here](https://bugs.chromium.org/p/chro
 | [SameSite Cookies (Lax)]({{< ref "/docs/defenses/opt-in/same-site-cookies.md" >}}) | [COOP]({{< ref "/docs/defenses/opt-in/coop.md" >}}) | [Framing Protections]({{< ref "/docs/defenses/opt-in/xfo.md" >}}) |                  [Isolation Policies]({{< ref "/docs/defenses/isolation-policies" >}})                   |
 | :--------------------------------------------------------------------------------: | :-------------------------------------------------: | :---------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------: |
 |                                         ❌                                          |                          ❌                          |                                 ✔️                                 |  |
+
