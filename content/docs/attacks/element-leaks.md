@@ -113,7 +113,7 @@ If the `error` event cant be used [fallback content](https://html.spec.whatwg.or
 This sends a request to [example.org](https://example.org) when theirs a 404 on [example.com](https://example.com).
 ```html
 <object data="https://example.com/404">
-<object data="https://example.org/?event=error">
+<object data="https://example.org/?event=error"></object>
 </object>
 ```
 
