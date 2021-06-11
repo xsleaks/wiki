@@ -98,9 +98,7 @@ async function isPDF(url) {
 {{< hint warning  >}} There will be false positives if the page has other embeds. {{< /hint >}}
 
 ## Script tag
-Leaks the contents of a cross origin script during execution.  
-The contents of a function can be leaked using `.toString()` and variables may also be assigned to the `window`.  
-Even if the data is not accessible from the window it’s still possible to hook a function that it uses.  
+When a cross-origin script is included on a page it's not directly possible to read its contents. However, if a script uses any built-in functions, it's possible to overwrite them and read their arguments which might leak valuable information [^script-leaks].
 ```javascript
 let hook = window.Array.prototype.push;
 window.Array.prototype.push = function() {
