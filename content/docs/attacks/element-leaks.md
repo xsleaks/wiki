@@ -85,7 +85,7 @@ async function isCSS(url) {
 ```
 ## PDF
 There are [Open URL Parameters](https://bugs.chromium.org/p/chromium/issues/detail?id=64309#c113) that allow some control over the content such as `zoom`, `view`, `page`, `toolbar`.  
-For chrome a PDF can be detected using [frame counting]({{< ref "/docs/attacks/frame-counting.md" >}}) because an `embed` is used internally.
+For chrome, a PDF can be detected with [frame counting]({{< ref "/docs/attacks/frame-counting.md" >}}) because an `embed` is used internally.
 ```javascript
 async function isPDF(url) {
     let w = open(url);
