@@ -18,7 +18,7 @@ weight = 2
 ## CSS Tricks
 CSS can be used to trick a user into exposing information such as embedded pixel values by making visual changes that are affected by the embed.
 
-## Getting history
+## Retrieving user's history
 A PoC of this attack can be found [^leak-1].  
 Using the CSS [`:visited`](https://developer.mozilla.org/en-US/docs/Web/CSS/:visited) selector, it’s possible to apply a different style for URLs that have been visited.  
 Previously it was possible to use [`getComputedStyle()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle) to detect this difference but now browsers prevent this. [^changes-1]   
@@ -81,4 +81,3 @@ Number of bugs were reported about the issue: [^bug-1], [^bug-2], [^bug-3]
 [^bug-1]: CSS :visited with mix-blend-mode can leak browser history, [link](https://bugs.chromium.org/p/chromium/issues/detail?id=712246)  
 [^bug-2]: Eliminate :visited privacy issues once and for all, [link](https://bugs.chromium.org/p/chromium/issues/detail?id=713521)  
 [^bug-3]: :visited support allows queries into global history, [link](https://bugzilla.mozilla.org/show_bug.cgi?id=147777)  
-
