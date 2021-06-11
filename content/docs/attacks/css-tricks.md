@@ -61,6 +61,7 @@ setInterval(() => {
 
 ## Custom cursor
 Might not leak data directly but it may help trick the user.
+As a large cursor may overlay the autocomplete dialog and other native ui.
 ```html
 <style>
 :root {
