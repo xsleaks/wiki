@@ -28,8 +28,9 @@ Render timings have also been abused to do this without tricking the user. [^ren
 
 ## Evil Captcha
 Using CSS, it’s possible to take an embed out of context.  
-An example of this is pretending it’s a captcha. [^leak-2]
-This can be prevented with XFO.
+An example of this is pretending it’s a captcha as seen in [^leak-2]  
+This works by setting the width and hight of the embed so that only the target characters is shown,
+this may use multiple embeds to change the order of the characters being displayed so that its harder for a user to know what there providing.
 
 ## Abusing autocomplete
 If a website uses text inputs and does not opt-out of [autocomplete](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete) using ```autocomplete="off"``` it may be possible to leak data such as email addresses. By tricking the user into pressing the keys to navagtie the autocomplete ui for a javascript focused text input.
@@ -60,10 +61,12 @@ setInterval(() => {
 
 ## Custom cursor
 Might not leak data directly but it may help trick the user.
-```css
+```html
+<style>
 :root {
-   cursor: url(URL), auto;            
+  cursor: url('https://www.google.com/favicon.ico'), auto;
 }
+</style>
 ```
 
 ## Defense
