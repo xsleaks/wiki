@@ -22,7 +22,7 @@ For example, the below media resources can leak information about its size, dura
 - [HTMLImageElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement) leaks the `height` and `width` but if the image is invalid they will be 0 
   and [`image.decode()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/decode) will get rejected.
 
-Some HTML Elements have properties that predictability change when a valid resource is used this can be checked to detect what the resource type is.
+It's possible to differentiate between media types via unique property for a given media type. For example, it is `videoWidth` for a `<video>`, or `duration` for an `<audio>`. The below snippet shows an example code that returns the type of a resource. 
 ```javascript
 async function getType(url) {
     // Detect if resource is audio or video
