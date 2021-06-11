@@ -29,11 +29,11 @@ Render timings have also been abused to do this without tricking the user. [^ren
 Using CSS, it’s possible to take an embed out of context.  
 An example of this is pretending it’s a captcha as seen in [^leak-2]  
 This works by setting the width and hight of an embed so that only the target characters are shown,
-this may use multiple embeds to change the order of the characters being displayed so that its harder for a user to know what there providing.
+this may use multiple embeds to change the order of the characters being displayed so that its harder for a user to know what infomation there providing.
 
 ## Abusing autocomplete
-If a website uses text inputs and does not opt-out of [autocomplete](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete) using ```autocomplete="off"``` it may be possible to leak data such as email addresses. By tricking the user into pressing the keys to navagtie the autocomplete ui for a javascript focused text input.
-For chrome this requires the user to be tricked into pressing the Up or Down arrow key this opens the dialog and selects a value then pressing Enter or Tab this submits the data. 
+If a website uses text inputs and does not opt-out of [autocomplete](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete) using ```autocomplete="off"``` it may be possible to leak data such as email addresses. By tricking the user into pressing the keys to navigate the autocomplete ui for a javascript focused text input.
+For chrome this requires the user to be tricked into pressing the Up or Down arrow key which opens the dialog and selects a value then by pressing Enter or Tab the value gets inserted into the page.
 ```javascript
 let input = document.createElement("input");
 input.type = "email";
@@ -59,8 +59,8 @@ setInterval(() => {
 ```
 
 ## Custom cursor
-Might not leak data directly but it may help trick the user.
-As a large cursor may overlay the autocomplete dialog and other native ui.
+Might not leak data directly but it may help trick the user,
+as a large cursor may overlay the autocomplete dialog and other native ui.
 ```html
 <style>
 :root {
