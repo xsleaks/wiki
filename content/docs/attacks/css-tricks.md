@@ -71,11 +71,10 @@ Some of the attacks can be prevented by using XFO,
 The history attack can be prevented by disabling history or if on Firefox it’s possible to fix this by setting the `layout.css.visited_links_enabled` option in `about:config` to `false`.  
 | [SameSite Cookies (Lax)]({{< ref "/docs/defenses/opt-in/same-site-cookies.md" >}}) | [COOP]({{< ref "/docs/defenses/opt-in/coop.md" >}}) | [Framing Protections]({{< ref "/docs/defenses/opt-in/xfo.md" >}}) |                  [Isolation Policies]({{< ref "/docs/defenses/isolation-policies" >}})                   |
 | :--------------------------------------------------------------------------------: | :-------------------------------------------------: | :---------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------: |
-|                                         ❌                                          |                          ❌                          |                                 ✔️                                 |  |
+|                                         ❌                                          |                          ❌                          |                                 ✔️                                 | ❌  |
 ## References
 [^leak-1]: Whack a mole game, [link](https://lcamtuf.coredump.cx/whack/)  
 [^changes-1]: Privacy and the :visited selector, [link](https://developer.mozilla.org/en-US/docs/Web/CSS/Privacy_and_the_:visited_selector)  
 [^blend-mode]: CSS mix-blend-mode is bad for your browsing history, [link](https://lcamtuf.blogspot.com/2016/08/css-mix-blend-mode-is-bad-for-keeping.html)  
 [^render-timings]: Pixel Perfect Timing Attacks with HTML5, [link](https://go.contextis.com/rs/140-OCV-459/images/Pixel_Perfect_Timing_Attacks_with_HTML5_Whitepaper%20%281%29.pdf)  
 [^leak-2]: The Human Side Channel, [link](https://ronmasas.com/posts/the-human-side-channel)  
-
