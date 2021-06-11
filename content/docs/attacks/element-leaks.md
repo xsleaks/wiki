@@ -13,6 +13,7 @@ weight = 2
 +++
 
 Some HTML Elements might be used to leak a portion of data to a cross-origin page.
+For example, the below media resources can leak information about its size, duration, type. 
 
 - [HTMLMediaElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement) leaks the media `duration` and the `buffered` times.
 - [HTMLVideoElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLVideoElement) leaks the `videoHeight` and `videoWidth` 
