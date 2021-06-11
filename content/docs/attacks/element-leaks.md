@@ -45,7 +45,7 @@ async function getType(url) {
 ## Abusing CORB
 [CORB]({{< ref "/docs/attacks/browser-features/corb.md" >}}) is a feature of Chrome that makes responses empty if the wrong content type is used.
 This means that if the type is wrong it’s not cached.
-An ifCached function can be found at [Cache Probing]({{< ref "/docs/attacks/cache-probing.md" >}})
+An `ifCached` function can be found in [Cache Probing]({{< ref "/docs/attacks/cache-probing.md" >}}) article.
 ```javascript
 async function isType(url, type = "script") {
   let error = false;
