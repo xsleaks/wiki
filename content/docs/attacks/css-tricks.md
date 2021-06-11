@@ -24,7 +24,7 @@ Using the CSS [`:visited`](https://developer.mozilla.org/en-US/docs/Web/CSS/:vis
 Previously it was possible to use [`getComputedStyle()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle) to detect this difference but now browsers prevent this. [^changes-1]   
 So, it may be needed to trick the user into clicking an area that the CSS has affected this can be done using [`mix-blend-mode`](https://developer.mozilla.org/en-US/docs/Web/CSS/mix-blend-mode). [^blend-mode]   
 Render timings have also been abused to do this without tricking the user. [^render-timings]  
-<{{ hint info }}>Multiple bugs were reported about this issue: [^bug-1](https://bugs.chromium.org/p/chromium/issues/detail?id=712246), [^bug-2](https://bugs.chromium.org/p/chromium/issues/detail?id=713521), [^bug-3](https://bugzilla.mozilla.org/show_bug.cgi?id=147777){{< /hint >}}
+{{< hint info >}}Multiple bugs were reported about this issue: [^bug-1](https://bugs.chromium.org/p/chromium/issues/detail?id=712246), [^bug-2](https://bugs.chromium.org/p/chromium/issues/detail?id=713521), [^bug-3](https://bugzilla.mozilla.org/show_bug.cgi?id=147777){{< /hint >}}
 
 ## Evil Captcha
 Using CSS, it’s possible to take an embed out of context.  
