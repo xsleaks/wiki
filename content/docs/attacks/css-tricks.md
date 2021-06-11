@@ -32,8 +32,8 @@ An example of this is pretending it’s a captcha. [^leak-2]
 This can be prevented with XFO.
 
 ## Abusing autocomplete
-If a website uses [autocomplete](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete) it may be possible to leak data such as email addresses.
-This does require the user to be tricked into pressing the Up or Down arrow key then pressing Enter or Tab.
+If a website uses text inputs and does not opt-out of [autocomplete](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete) using ```autocomplete="off"``` it may be possible to leak data such as email addresses. By tricking the user into pressing the keys to navagtie the autocomplete ui for a javascript focused text input.
+For chrome this requires the user to be tricked into pressing the Up or Down arrow key this opens the dialog and selects a value then pressing Enter or Tab this submits the data. 
 ```javascript
 let input = document.createElement("input");
 input.type = "email";
