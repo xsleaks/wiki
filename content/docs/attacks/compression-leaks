@@ -17,6 +17,7 @@ weight = 2
 +++
 When HTTP compression is used and theres reflected input such as from the URL it maybe possible to leak the contents of a website.
 This is because when content is repeated it is more compressible this results in a smaler download that is detectable using timing attacks such as using the window "unload" event.
+The benfit of this is that the size change is controled by the attacker the server always respond with same responce.
 
 ## HIST
 An example of this attack is [HIST](https://www.blackhat.com/docs/us-16/materials/us-16-VanGoethem-HEIST-HTTP-Encrypted-Information-Can-Be-Stolen-Through-TCP-Windows.pdf)
