@@ -25,5 +25,5 @@ The primany defense for this attack is to disable third-party cookies however wi
 So also setting a Cross-Origin-Opener-Policy may make this attack harder since it prevents a window from being reused after a navagtion away has been completed.
 
 ## Projects
-There are multiple tools to exploit this behaviour such as [decrypto-org/rupture](https://github.com/decrypto-org/rupture)
+There are multiple tools to exploit this behaviour such as [decrypto-org/rupture](https://github.com/decrypto-org/rupture) and
 [nealharris/BREACH](https://github.com/nealharris/BREACH)
