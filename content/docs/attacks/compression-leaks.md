@@ -27,7 +27,12 @@ So also setting a Cross-Origin-Opener-Policy may make this attack harder since i
 ## BREACH
 An example of this attack for leaking HTTPS traffic is [BREACH](http://breachattack.com/resources/BREACH%20-%20SSL,%20gone%20in%2030%20seconds.pdf) this uses a network sniffer to perform the timings attacks.
 
-
 ## Projects
 There are multiple tools to exploit this behaviour such as [decrypto-org/rupture](https://github.com/decrypto-org/rupture) and
 [nealharris/BREACH](https://github.com/nealharris/BREACH)
+
+## Defenses
+- Seprate requests for secrets
+- Disable compression
+- SameSite cookies
+- Cross-Origin-Opener-Policy
