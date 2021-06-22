@@ -19,15 +19,18 @@ When compression is used and theres reflected input such as from the URL or chat
 This is because when content is repeated it is more compressible which results in a smaler download that is detectable using timing attacks such as using the window "unload" event.
 The benfit of this is that the size change is controled by the attacker so the server can always respond with same responce.
 
-## HIST
+## HIST (2016)
 An example of this attack is [HIST](https://www.blackhat.com/docs/us-16/materials/us-16-VanGoethem-HEIST-HTTP-Encrypted-Information-Can-Be-Stolen-Through-TCP-Windows.pdf)
 The primany defense for this attack is to disable third-party cookies however window navgation timings are not affected by this.
 So also setting a Cross-Origin-Opener-Policy may make this attack harder since it prevents a window from being reused after a navagtion away has been completed.
 
-## BREACH
+## BREACH (2013)
 An example of this attack for leaking HTTPS traffic is [BREACH](http://breachattack.com/resources/BREACH%20-%20SSL,%20gone%20in%2030%20seconds.pdf) this uses a network sniffer to get the response size.
 
-## CRIME
+## TIME (2013)
+Simular to HIST, [TIME](https://owasp.org/www-pdf-archive/A_Perfect_CRIME_TIME_Will_Tell_-_Tal_Beery.pdf) used timings attacks to detect the size differences.
+
+## CRIME (2012)
 Migrated for SPDY and TLS-level compression.
 
 ## Projects
