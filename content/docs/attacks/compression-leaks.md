@@ -32,7 +32,7 @@ There are multiple tools to exploit this behaviour such as [decrypto-org/rupture
 [nealharris/BREACH](https://github.com/nealharris/BREACH)
 
 ## Defenses
-- Seprate requests for secrets
 - Disable compression
-- SameSite cookies
-- Cross-Origin-Opener-Policy
+- Using seprate requests for secrets prevents an attacker from injecting data.
+- SameSite cookies prevents cookies being sent in cross origin elements.
+- Cross-Origin-Opener-Policy prevents window reuse for timing attacks.
