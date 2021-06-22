@@ -25,7 +25,7 @@ The primany defense for this attack is to disable third-party cookies however wi
 So also setting a Cross-Origin-Opener-Policy may make this attack harder since it prevents a window from being reused after a navagtion away has been completed.
 
 ## BREACH
-An example of this attack for leaking HTTPS traffic is [BREACH](http://breachattack.com/resources/BREACH%20-%20SSL,%20gone%20in%2030%20seconds.pdf) this uses a network sniffer to perform the timings attacks.
+An example of this attack for leaking HTTPS traffic is [BREACH](http://breachattack.com/resources/BREACH%20-%20SSL,%20gone%20in%2030%20seconds.pdf) this uses a network sniffer to get the response size.
 
 ## Projects
 There are multiple tools to exploit this behaviour such as [decrypto-org/rupture](https://github.com/decrypto-org/rupture) and
