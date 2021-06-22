@@ -15,7 +15,7 @@ defenses = [
 menu = "main"
 weight = 2
 +++
-When HTTP compression is used and theres reflected input such as from the URL or chat messages it maybe possible to leak the contents of a website.
+When compression is used and theres reflected input such as from the URL or chat messages it maybe possible to leak the contents of a website.
 This is because when content is repeated it is more compressible this results in a smaler download that is detectable using timing attacks such as using the window "unload" event.
 The benfit of this is that the size change is controled by the attacker so the server can always respond with same responce.
 
