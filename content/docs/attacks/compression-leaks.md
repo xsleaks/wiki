@@ -21,6 +21,7 @@ The benefit of this is that the size change is controlled by the attacker so the
 
 ## HIST (2016)
 An example of this attack is [HIST](https://www.blackhat.com/docs/us-16/materials/us-16-VanGoethem-HEIST-HTTP-Encrypted-Information-Can-Be-Stolen-Through-TCP-Windows.pdf)
+this used timing attacks so that no MITM is needed,  
 The primary defence for this attack is to disable third-party cookies however window navigation timings are not affected by this.
 So also setting a Cross-Origin-Opener-Policy may make this attack harder since it prevents a window from being reused after a navigation away has been completed.
 
