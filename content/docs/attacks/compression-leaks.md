@@ -23,7 +23,6 @@ The benefit of this is that the size change is controlled by the attacker so the
 An example of this attack is [HIST](https://www.blackhat.com/docs/us-16/materials/us-16-VanGoethem-HEIST-HTTP-Encrypted-Information-Can-Be-Stolen-Through-TCP-Windows.pdf)
 this used timing attacks so that no MITM is needed,  
 The primary defence for this attack is to disable third-party cookies however window navigation timings are not affected by this.
-So also setting a Cross-Origin-Opener-Policy may make this attack harder since it prevents a window from being reused after a navigation away has been completed.
 
 ## BREACH (2013)
 An example of this attack for leaking HTTPS traffic is [BREACH](http://breachattack.com/resources/BREACH%20-%20SSL,%20gone%20in%2030%20seconds.pdf) this uses a network sniffer to get the response size.
@@ -39,7 +38,7 @@ There are multiple tools to exploit this behaviour such as [decrypto-org/rupture
 [nealharris/BREACH](https://github.com/nealharris/BREACH)
 
 ## Defences
-- Disable compression
-- Using separate requests for secrets prevents an attacker from injecting data.
+- Disable compression.
+- Using separate requests for secrets prevents an attacker from injecting data and with CSRF protection it can also prevent timing attacks with the unload event.
 - SameSite cookies prevents cookies being sent in cross origin elements.
 - Cross-Origin-Opener-Policy prevents window reuse for timing attacks.
