@@ -1,25 +1,272 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Detecting if a cross-site page triggered a navigation (or didn&rsquo;t) can be useful to an attacker. For example, a website may trigger a navigation in a certain endpoint depending on the status of the user.
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=description content="Detecting if a cross-site page triggered a navigation (or didn&rsquo;t) can be useful to an attacker. For example, a website may trigger a navigation in a certain endpoint depending on the status of the user.
 To detect if any kind of navigation occurred, an attacker can:
- Use an iframe and count the number of times the onload event is triggered. Check the value of history.length, which is accessible through any window reference."><meta name=theme-color content="#FFFFFF"><meta property="og:title" content="Navigations"><meta property="og:description" content="Detecting if a cross-site page triggered a navigation (or didn&rsquo;t) can be useful to an attacker. For example, a website may trigger a navigation in a certain endpoint depending on the status of the user.
+ Use an iframe and count the number of times the onload event is triggered. Check the value of history.length, which is accessible through any window reference.">
+<meta name=theme-color content="#FFFFFF"><meta property="og:title" content="Navigations">
+<meta property="og:description" content="Detecting if a cross-site page triggered a navigation (or didn&rsquo;t) can be useful to an attacker. For example, a website may trigger a navigation in a certain endpoint depending on the status of the user.
 To detect if any kind of navigation occurred, an attacker can:
- Use an iframe and count the number of times the onload event is triggered. Check the value of history.length, which is accessible through any window reference."><meta property="og:type" content="article"><meta property="og:url" content="https://xsleaks.dev/docs/attacks/navigations/"><meta property="article:section" content="docs"><meta property="article:published_time" content="2020-10-01T00:00:00+00:00"><meta property="article:modified_time" content="2021-05-01T20:10:00+01:00"><title>Navigations | XS-Leaks Wiki</title><link rel=manifest href=/manifest.json><link rel=icon href=/favicon.png type=image/x-icon><link rel=stylesheet href=/book.min.1c9a9009be3c645cbccbe64eb0a90e28621e4118971d9a502db4aaa9bec96cfc.css integrity="sha256-HJqQCb48ZFy8y+ZOsKkOKGIeQRiXHZpQLbSqqb7JbPw="><script defer src=/en.search.min.3fd7f82651ade342949984a366884780b87e6b9d58b638930da884061f7231a8.js integrity="sha256-P9f4JlGt40KUmYSjZohHgLh+a51YtjiTDaiEBh9yMag="></script><script defer src=/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js integrity="sha256-b2+Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC+NdcPIvZhzk="></script></head><body><input type=checkbox class="hidden toggle" id=menu-control>
-<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><nav><h2 class=book-brand><a href=/><span>XS-Leaks Wiki</span></a></h2><div class=book-search><input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><ul><li class=book-section-flat><span>Attacks</span><ul><li><a href=/docs/attacks/xs-search/>XS-Search</a></li><li><a href=/docs/attacks/window-references/>Window References</a></li><li><a href=/docs/attacks/error-events/>Error Events</a></li><li><a href=/docs/attacks/frame-counting/>Frame Counting</a></li><li><a href=/docs/attacks/navigations/ class=active>Navigations</a></li><li><a href=/docs/attacks/cache-probing/>Cache Probing</a></li><li><a href=/docs/attacks/element-leaks/>Element leaks</a></li><li><a href=/docs/attacks/id-attribute/>ID Attribute</a></li><li><a href=/docs/attacks/postmessage-broadcasts/>postMessage Broadcasts</a></li><li><span>Browser Features</span><ul><li><a href=/docs/attacks/browser-features/corb/>CORB Leaks</a></li><li><a href=/docs/attacks/browser-features/corp/>CORP Leaks</a></li></ul></li><li><span>Timing Attacks</span><ul><li><a href=/docs/attacks/timing-attacks/clocks/>Clocks</a></li><li><a href=/docs/attacks/timing-attacks/network-timing/>Network Timing</a></li><li><a href=/docs/attacks/timing-attacks/performance-api/>Performance API</a></li><li><a href=/docs/attacks/timing-attacks/execution-timing/>Execution Timing</a></li><li><a href=/docs/attacks/timing-attacks/hybrid-timing/>Hybrid Timing</a></li><li><a href=/docs/attacks/timing-attacks/connection-pool/>Connection Pool</a></li></ul></li><li><a href=/docs/attacks/experiments/ class=collapsed>Experiments</a></li><li><a href=/docs/attacks/historical/ class=collapsed>Historical</a></li></ul></li><li class=book-section-flat><a href=/docs/defenses/>Defense Mechanisms</a><ul><li><a href=/docs/defenses/design-protections/>Application Design</a><ul><li><a href=/docs/defenses/design-protections/cache-protections/>Cache Protections</a></li><li><a href=/docs/defenses/design-protections/subresource-protections/>Subresource Protections</a></li></ul></li><li><a href=/docs/defenses/opt-in/>Opt-In Mechanisms</a><ul><li><a href=/docs/defenses/opt-in/fetch-metadata/>Fetch Metadata</a></li><li><a href=/docs/defenses/opt-in/coop/>Cross-Origin-Opener-Policy</a></li><li><a href=/docs/defenses/opt-in/corp/>Cross-Origin-Resource-Policy</a></li><li><a href=/docs/defenses/opt-in/xfo/>Framing Protections</a></li><li><a href=/docs/defenses/opt-in/same-site-cookies/>SameSite Cookies</a></li></ul></li><li><a href=/docs/defenses/isolation-policies/>Isolation Policies</a><ul><li><a href=/docs/defenses/isolation-policies/resource-isolation/>Resource Isolation Policy</a></li><li><a href=/docs/defenses/isolation-policies/framing-isolation/>Framing Isolation Policy</a></li><li><a href=/docs/defenses/isolation-policies/navigation-isolation/>Navigation Isolation Policy</a></li><li><a href=/docs/defenses/isolation-policies/strict-isolation/>Strict Isolation Policy</a></li></ul></li><li><a href=/docs/defenses/secure-defaults/>Secure Defaults</a><ul><li><a href=/docs/defenses/secure-defaults/corb/>Cross-Origin Read Blocking</a></li><li><a href=/docs/defenses/secure-defaults/partitioned-cache/>Partitioned HTTP Cache</a></li></ul></li></ul></li><li class=book-section-flat><a href=/docs/contributions/>Contributions</a><ul></ul></li></ul></nav><script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/svg/menu.svg class=book-icon alt=Menu></label>
+ Use an iframe and count the number of times the onload event is triggered. Check the value of history.length, which is accessible through any window reference.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://xsleaks.dev/docs/attacks/navigations/"><meta property="article:section" content="docs">
+<meta property="article:published_time" content="2020-10-01T00:00:00+00:00">
+<meta property="article:modified_time" content="2021-05-01T20:10:00+01:00">
+<title>Navigations | XS-Leaks Wiki</title>
+<link rel=manifest href=/manifest.json>
+<link rel=icon href=/favicon.png type=image/x-icon>
+<link rel=stylesheet href=/book.min.1c9a9009be3c645cbccbe64eb0a90e28621e4118971d9a502db4aaa9bec96cfc.css integrity="sha256-HJqQCb48ZFy8y+ZOsKkOKGIeQRiXHZpQLbSqqb7JbPw=">
+<script defer src=/en.search.min.adf212d3d9775304bd71f39187748f16409ee829813a20a29aafa3de13e297a6.js integrity="sha256-rfIS09l3UwS9cfORh3SPFkCe6CmBOiCimq+j3hPil6Y="></script>
+<script defer src=/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js integrity="sha256-b2+Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC+NdcPIvZhzk="></script>
+</head>
+<body>
+<input type=checkbox class="hidden toggle" id=menu-control>
+<input type=checkbox class="hidden toggle" id=toc-control>
+<main class="container flex">
+<aside class=book-menu>
+<nav>
+<h2 class=book-brand>
+<a href=/><span>XS-Leaks Wiki</span>
+</a>
+</h2>
+<div class=book-search>
+<input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/>
+<div class="book-search-spinner hidden"></div>
+<ul id=book-search-results></ul>
+</div>
+<ul>
+<li class=book-section-flat>
+<span>Attacks</span>
+<ul>
+<li>
+<a href=/docs/attacks/xs-search/>XS-Search</a>
+</li>
+<li>
+<a href=/docs/attacks/window-references/>Window References</a>
+</li>
+<li>
+<a href=/docs/attacks/css-tricks/>CSS Tricks</a>
+</li>
+<li>
+<a href=/docs/attacks/error-events/>Error Events</a>
+</li>
+<li>
+<a href=/docs/attacks/frame-counting/>Frame Counting</a>
+</li>
+<li>
+<a href=/docs/attacks/navigations/ class=active>Navigations</a>
+</li>
+<li>
+<a href=/docs/attacks/cache-probing/>Cache Probing</a>
+</li>
+<li>
+<a href=/docs/attacks/element-leaks/>Element leaks</a>
+</li>
+<li>
+<a href=/docs/attacks/id-attribute/>ID Attribute</a>
+</li>
+<li>
+<a href=/docs/attacks/postmessage-broadcasts/>postMessage Broadcasts</a>
+</li>
+<li>
+<span>Browser Features</span>
+<ul>
+<li>
+<a href=/docs/attacks/browser-features/corb/>CORB Leaks</a>
+</li>
+<li>
+<a href=/docs/attacks/browser-features/corp/>CORP Leaks</a>
+</li>
+</ul>
+</li>
+<li>
+<span>Timing Attacks</span>
+<ul>
+<li>
+<a href=/docs/attacks/timing-attacks/clocks/>Clocks</a>
+</li>
+<li>
+<a href=/docs/attacks/timing-attacks/network-timing/>Network Timing</a>
+</li>
+<li>
+<a href=/docs/attacks/timing-attacks/performance-api/>Performance API</a>
+</li>
+<li>
+<a href=/docs/attacks/timing-attacks/execution-timing/>Execution Timing</a>
+</li>
+<li>
+<a href=/docs/attacks/timing-attacks/hybrid-timing/>Hybrid Timing</a>
+</li>
+<li>
+<a href=/docs/attacks/timing-attacks/connection-pool/>Connection Pool</a>
+</li>
+</ul>
+</li>
+<li>
+<a href=/docs/attacks/experiments/ class=collapsed>Experiments</a>
+</li>
+<li>
+<a href=/docs/attacks/historical/ class=collapsed>Historical</a>
+</li>
+</ul>
+</li>
+<li class=book-section-flat>
+<a href=/docs/defenses/>Defense Mechanisms</a>
+<ul>
+<li>
+<a href=/docs/defenses/design-protections/>Application Design</a>
+<ul>
+<li>
+<a href=/docs/defenses/design-protections/cache-protections/>Cache Protections</a>
+</li>
+<li>
+<a href=/docs/defenses/design-protections/subresource-protections/>Subresource Protections</a>
+</li>
+</ul>
+</li>
+<li>
+<a href=/docs/defenses/opt-in/>Opt-In Mechanisms</a>
+<ul>
+<li>
+<a href=/docs/defenses/opt-in/fetch-metadata/>Fetch Metadata</a>
+</li>
+<li>
+<a href=/docs/defenses/opt-in/coop/>Cross-Origin-Opener-Policy</a>
+</li>
+<li>
+<a href=/docs/defenses/opt-in/corp/>Cross-Origin-Resource-Policy</a>
+</li>
+<li>
+<a href=/docs/defenses/opt-in/xfo/>Framing Protections</a>
+</li>
+<li>
+<a href=/docs/defenses/opt-in/same-site-cookies/>SameSite Cookies</a>
+</li>
+</ul>
+</li>
+<li>
+<a href=/docs/defenses/isolation-policies/>Isolation Policies</a>
+<ul>
+<li>
+<a href=/docs/defenses/isolation-policies/resource-isolation/>Resource Isolation Policy</a>
+</li>
+<li>
+<a href=/docs/defenses/isolation-policies/framing-isolation/>Framing Isolation Policy</a>
+</li>
+<li>
+<a href=/docs/defenses/isolation-policies/navigation-isolation/>Navigation Isolation Policy</a>
+</li>
+<li>
+<a href=/docs/defenses/isolation-policies/strict-isolation/>Strict Isolation Policy</a>
+</li>
+</ul>
+</li>
+<li>
+<a href=/docs/defenses/secure-defaults/>Secure Defaults</a>
+<ul>
+<li>
+<a href=/docs/defenses/secure-defaults/corb/>Cross-Origin Read Blocking</a>
+</li>
+<li>
+<a href=/docs/defenses/secure-defaults/partitioned-cache/>Partitioned HTTP Cache</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class=book-section-flat>
+<a href=/docs/contributions/>Contributions</a>
+<ul>
+</ul>
+</li>
+</ul>
+</nav>
+<script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+</aside>
+<div class=book-page>
+<header class=book-header>
+<div class="flex align-center justify-between">
+<label for=menu-control>
+<img src=/svg/menu.svg class=book-icon alt=Menu>
+</label>
 <strong>Navigations</strong>
-<label for=toc-control><img src=/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><a href=#download-trigger>Download Trigger</a><ul><li><a href=#download-bar>Download bar</a></li><li><a href=#download-navigation-with-iframes>Download Navigation (with iframes)</a></li><li><a href=#download-navigation-without-iframes>Download Navigation (without iframes)</a></li></ul></li><li><a href=#server-side-redirects>Server-Side Redirects</a><ul><li><a href=#inflation>Inflation</a></li></ul></li><li><a href=#cross-origin-redirects>Cross-Origin Redirects</a><ul><li><a href=#csp-violations>CSP Violations</a></li></ul></li><li><a href=#case-scenarios>Case Scenarios</a></li><li><a href=#partitioned-http-cache-bypass>Partitioned HTTP Cache Bypass</a></li><li><a href=#defense>Defense</a></li><li><a href=#real-world-examples>Real-World Examples</a></li><li><a href=#references>References</a></li></ul></nav></aside></header><article class=markdown><h1>Navigations</h1><h5>October 1, 2020</h5><div>Abuse
+<label for=toc-control>
+<img src=/svg/toc.svg class=book-icon alt="Table of Contents">
+</label>
+</div>
+<aside class="hidden clearfix">
+<nav id=TableOfContents>
+<ul>
+<li><a href=#download-trigger>Download Trigger</a>
+<ul>
+<li><a href=#download-bar>Download bar</a></li>
+<li><a href=#download-navigation-with-iframes>Download Navigation (with iframes)</a></li>
+<li><a href=#download-navigation-without-iframes>Download Navigation (without iframes)</a></li>
+</ul>
+</li>
+<li><a href=#server-side-redirects>Server-Side Redirects</a>
+<ul>
+<li><a href=#inflation>Inflation</a></li>
+</ul>
+</li>
+<li><a href=#cross-origin-redirects>Cross-Origin Redirects</a>
+<ul>
+<li><a href=#csp-violations>CSP Violations</a></li>
+</ul>
+</li>
+<li><a href=#case-scenarios>Case Scenarios</a></li>
+<li><a href=#partitioned-http-cache-bypass>Partitioned HTTP Cache Bypass</a></li>
+<li><a href=#defense>Defense</a></li>
+<li><a href=#real-world-examples>Real-World Examples</a></li>
+<li><a href=#references>References</a></li>
+</ul>
+</nav>
+</aside>
+</header>
+<article class=markdown>
+<h1>
+Navigations
+</h1>
+<h5>October 1, 2020</h5>
+<div>
+Abuse
 <a href=/abuse/downloads/>Downloads</a>,
 <a href=/abuse/history/>History</a>,
 <a href=/abuse/csp-violations/>CSP Violations</a>,
 <a href=/abuse/redirects/>Redirects</a>,
 <a href=/abuse/window.open/>window.open</a>,
 <a href=/abuse/window.stop/>window.stop</a>,
-<a href=/abuse/iframes/>iframes</a></div><div>Category
-<a href=/category/attack/>Attack</a></div><div>Defenses
+<a href=/abuse/iframes/>iframes</a>
+</div>
+<div>
+Category
+<a href=/category/attack/>Attack</a>
+</div>
+<div>
+Defenses
 <a href=/defenses/fetch-metadata/>Fetch Metadata</a>,
 <a href=/defenses/samesite-cookies/>SameSite Cookies</a>,
 <a href=/defenses/coop/>COOP</a>,
-<a href=/defenses/framing-protections/>Framing Protections</a></div><p><p>Detecting if a cross-site page triggered a navigation (or didn&rsquo;t) can be useful to an attacker. For example, a website may trigger a navigation in a certain endpoint <a href=#case-scenarios>depending on the status of the user</a>.</p><p>To detect if any kind of navigation occurred, an attacker can:</p><ul><li>Use an <code>iframe</code> and count the number of times the <code>onload</code> event is triggered.</li><li>Check the value of <code>history.length</code>, which is accessible through any window reference. This provides the number of entries in the history of a victim that were either changed by <code>history.pushState</code> or by regular navigations. To get the value of <code>history.length</code>, an attacker changes the location of the window reference to the target website, then changes back to same-origin, and finally reads the value.</li></ul><h2 id=download-trigger>Download Trigger
-<a class=anchor href=#download-trigger>#</a></h2><p>When an endpoint sets the <a href=https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition><code>Content-Disposition: attachment</code></a> header, it instructs the browser to download the response as an attachment instead of navigating to it. Detecting if this behavior occurred might allow attackers to leak private information if the outcome depends on the state of the victim&rsquo;s account.</p><h3 id=download-bar>Download bar
-<a class=anchor href=#download-bar>#</a></h3><p>In Chromium-based browsers, when a file is downloaded, a preview of the download process appears in a bar at the bottom, integrated into the browser window. By monitoring the window height, attackers can detect whether the &ldquo;download bar&rdquo; opened:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#6272a4>// Read the current height of the window
+<a href=/defenses/framing-protections/>Framing Protections</a>
+</div>
+<p><p>Detecting if a cross-site page triggered a navigation (or didn&rsquo;t) can be useful to an attacker. For example, a website may trigger a navigation in a certain endpoint <a href=#case-scenarios>depending on the status of the user</a>.</p>
+<p>To detect if any kind of navigation occurred, an attacker can:</p>
+<ul>
+<li>Use an <code>iframe</code> and count the number of times the <code>onload</code> event is triggered.</li>
+<li>Check the value of <code>history.length</code>, which is accessible through any window reference. This provides the number of entries in the history of a victim that were either changed by <code>history.pushState</code> or by regular navigations. To get the value of <code>history.length</code>, an attacker changes the location of the window reference to the target website, then changes back to same-origin, and finally reads the value.</li>
+</ul>
+<h2 id=download-trigger>
+Download Trigger
+<a class=anchor href=#download-trigger>#</a>
+</h2>
+<p>When an endpoint sets the <a href=https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition><code>Content-Disposition: attachment</code></a> header, it instructs the browser to download the response as an attachment instead of navigating to it. Detecting if this behavior occurred might allow attackers to leak private information if the outcome depends on the state of the victim&rsquo;s account.</p>
+<h3 id=download-bar>
+Download bar
+<a class=anchor href=#download-bar>#</a>
+</h3>
+<p>In Chromium-based browsers, when a file is downloaded, a preview of the download process appears in a bar at the bottom, integrated into the browser window. By monitoring the window height, attackers can detect whether the &ldquo;download bar&rdquo; opened:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#6272a4>// Read the current height of the window
 </span><span style=color:#6272a4></span><span style=color:#8be9fd;font-style:italic>var</span> screenHeight <span style=color:#ff79c6>=</span> <span style=color:#8be9fd;font-style:italic>window</span>.innerHeight;
 <span style=color:#6272a4>// Load the page that may or may not trigger the download
 </span><span style=color:#6272a4></span><span style=color:#8be9fd;font-style:italic>window</span>.open(<span style=color:#f1fa8c>&#39;https://example.org&#39;</span>);
@@ -32,8 +279,19 @@ To detect if any kind of navigation occurred, an attacker can:
       console.log(<span style=color:#f1fa8c>&#39;Download bar not detected&#39;</span>);
     }
 }, <span style=color:#bd93f9>2000</span>);
-</code></pre></div><blockquote class="book-hint2 important"><p class="hint-title important"><svg class="book-icon"><use href="/svg/hint-icons.svg#important-notice"/></svg><span>important</span></p>This attack is only possible in Chromium-based browsers with automatic downloads enabled. In addition, the attack can&rsquo;t be repeated since the user needs to close the download bar for it to be measurable again.</blockquote><h3 id=download-navigation-with-iframes>Download Navigation (with iframes)
-<a class=anchor href=#download-navigation-with-iframes>#</a></h3><p>Another way to test for the <a href=https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition><code>Content-Disposition: attachment</code></a> header is to check if a navigation occurred. If a page load causes a download, it does not trigger a navigation and the window stays within the same origin.</p><p>The following snippet can be used to detect whether such a navigation has occurred and therefore detect a download attempt:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#6272a4>// Set the destination URL to test for the download attempt
+</code></pre></div>
+<blockquote class="book-hint2 important">
+<p class="hint-title important">
+<svg class="book-icon"><use href="/svg/hint-icons.svg#important-notice"/></svg><span>important</span></p>
+This attack is only possible in Chromium-based browsers with automatic downloads enabled. In addition, the attack can&rsquo;t be repeated since the user needs to close the download bar for it to be measurable again.
+</blockquote>
+<h3 id=download-navigation-with-iframes>
+Download Navigation (with iframes)
+<a class=anchor href=#download-navigation-with-iframes>#</a>
+</h3>
+<p>Another way to test for the <a href=https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition><code>Content-Disposition: attachment</code></a> header is to check if a navigation occurred. If a page load causes a download, it does not trigger a navigation and the window stays within the same origin.</p>
+<p>The following snippet can be used to detect whether such a navigation has occurred and therefore detect a download attempt:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#6272a4>// Set the destination URL to test for the download attempt
 </span><span style=color:#6272a4></span><span style=color:#8be9fd;font-style:italic>var</span> url <span style=color:#ff79c6>=</span> <span style=color:#f1fa8c>&#39;https://example.org/&#39;</span>;
 <span style=color:#6272a4>// Create an outer iframe to measure onload event
 </span><span style=color:#6272a4></span><span style=color:#8be9fd;font-style:italic>var</span> iframe <span style=color:#ff79c6>=</span> <span style=color:#8be9fd;font-style:italic>document</span>.createElement(<span style=color:#f1fa8c>&#39;iframe&#39;</span>);
@@ -50,8 +308,23 @@ iframe.onload <span style=color:#ff79c6>=</span> () =&gt; {
           console.log(<span style=color:#f1fa8c>&#39;No download attempt detected&#39;</span>);
       }
 }
-</code></pre></div><blockquote class="book-hint2 info"><p class="hint-title info"><svg class="book-icon"><use href="/svg/hint-icons.svg#info-notice"/></svg><span>info</span></p>When there is no navigation inside an <code>iframe</code> caused by a download attempt, the <code>iframe</code> does not trigger an <code>onload</code> event directly. For this reason, in the example above, an outer <code>iframe</code> was used instead, which listens for an <code>onload</code> event which triggers when subresources finish loading, including <code>iframe</code>s.</blockquote><blockquote class="book-hint2 important"><p class="hint-title important"><svg class="book-icon"><use href="/svg/hint-icons.svg#important-notice"/></svg><span>important</span></p>This attack works regardless of any <a href=https://xsleaks.dev/docs/defenses/opt-in/xfo/>Framing Protections</a>, because the <code>X-Frame-Options</code> and <code>Content-Security-Policy</code> headers are ignored if <code>Content-Disposition: attachment</code> is specified.</blockquote><h3 id=download-navigation-without-iframes>Download Navigation (without iframes)
-<a class=anchor href=#download-navigation-without-iframes>#</a></h3><p>A variation of the technique presented in the previous section can also be effectively tested using <code>window</code> objects:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#6272a4>// Set the destination URL
+</code></pre></div>
+<blockquote class="book-hint2 info">
+<p class="hint-title info">
+<svg class="book-icon"><use href="/svg/hint-icons.svg#info-notice"/></svg><span>info</span></p>
+When there is no navigation inside an <code>iframe</code> caused by a download attempt, the <code>iframe</code> does not trigger an <code>onload</code> event directly. For this reason, in the example above, an outer <code>iframe</code> was used instead, which listens for an <code>onload</code> event which triggers when subresources finish loading, including <code>iframe</code>s.
+</blockquote>
+<blockquote class="book-hint2 important">
+<p class="hint-title important">
+<svg class="book-icon"><use href="/svg/hint-icons.svg#important-notice"/></svg><span>important</span></p>
+This attack works regardless of any <a href=https://xsleaks.dev/docs/defenses/opt-in/xfo/>Framing Protections</a>, because the <code>X-Frame-Options</code> and <code>Content-Security-Policy</code> headers are ignored if <code>Content-Disposition: attachment</code> is specified.
+</blockquote>
+<h3 id=download-navigation-without-iframes>
+Download Navigation (without iframes)
+<a class=anchor href=#download-navigation-without-iframes>#</a>
+</h3>
+<p>A variation of the technique presented in the previous section can also be effectively tested using <code>window</code> objects:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#6272a4>// Set the destination URL
 </span><span style=color:#6272a4></span><span style=color:#8be9fd;font-style:italic>var</span> url <span style=color:#ff79c6>=</span> <span style=color:#f1fa8c>&#39;https://example.org&#39;</span>;
 <span style=color:#6272a4>// Get a window reference
 </span><span style=color:#6272a4></span><span style=color:#8be9fd;font-style:italic>var</span> win <span style=color:#ff79c6>=</span> <span style=color:#8be9fd;font-style:italic>window</span>.open(url);
@@ -67,11 +340,33 @@ iframe.onload <span style=color:#ff79c6>=</span> () =&gt; {
           parent.console.log(<span style=color:#f1fa8c>&#39;No download attempt detected&#39;</span>);
       }
 }, <span style=color:#bd93f9>2000</span>);
-</code></pre></div><h2 id=server-side-redirects>Server-Side Redirects
-<a class=anchor href=#server-side-redirects>#</a></h2><h3 id=inflation>Inflation
-<a class=anchor href=#inflation>#</a></h3><p>A server-side redirect can be detected from a cross-origin page if the destination URL increases in size and contains an attacker-controlled input (either in the form of a query string parameter or a path). The following technique relies on the fact that it is possible to induce an error in most web-servers by generating large request parameters/paths. Since the redirect increases the size of the URL, it can be detected by sending exactly one character less than the server&rsquo;s maximum capacity. That way, if the size increases, the server will respond with an error that can be detected from a cross-origin page (e.g. via Error Events).</p><blockquote class="book-hint2 example"><p class="hint-title example"><svg class="book-icon"><use href="/svg/hint-icons.svg#example-notice"/></svg><span>example</span></p>An example of this attack can be seen <a href=https://xsleaks.github.io/xsleaks/examples/redirect/>here</a>.</blockquote><h2 id=cross-origin-redirects>Cross-Origin Redirects
-<a class=anchor href=#cross-origin-redirects>#</a></h2><h3 id=csp-violations>CSP Violations
-<a class=anchor href=#csp-violations>#</a></h3><p><a href=https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP>Content-Security-Policy</a> (CSP) is an in-depth defense mechanism against XSS and data injection attacks. When a CSP is violated, a <code>SecurityPolicyViolationEvent</code> is thrown. An attacker can set up a CSP which triggers a <code>Violation</code> event every time a <code>fetch</code> follows an URL not set in the CSP directive. This allows an attacker to detect if a redirect to another origin occurred <sup id=fnref:1><a href=#fn:1 class=footnote-ref role=doc-noteref>1</a></sup> <sup id=fnref:2><a href=#fn:2 class=footnote-ref role=doc-noteref>2</a></sup>.</p><p>The example below triggers a <code>SecurityPolicyViolationEvent</code> if the website set in the fetch API (line 6) redirects to a website other than <code>target.page</code>:</p><div class=highlight><div style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</code></pre></div><h2 id=server-side-redirects>
+Server-Side Redirects
+<a class=anchor href=#server-side-redirects>#</a>
+</h2>
+<h3 id=inflation>
+Inflation
+<a class=anchor href=#inflation>#</a>
+</h3>
+<p>A server-side redirect can be detected from a cross-origin page if the destination URL increases in size and contains an attacker-controlled input (either in the form of a query string parameter or a path). The following technique relies on the fact that it is possible to induce an error in most web-servers by generating large request parameters/paths. Since the redirect increases the size of the URL, it can be detected by sending exactly one character less than the server&rsquo;s maximum capacity. That way, if the size increases, the server will respond with an error that can be detected from a cross-origin page (e.g. via Error Events).</p>
+<blockquote class="book-hint2 example">
+<p class="hint-title example">
+<svg class="book-icon"><use href="/svg/hint-icons.svg#example-notice"/></svg><span>example</span></p>
+An example of this attack can be seen <a href=https://xsleaks.github.io/xsleaks/examples/redirect/>here</a>.
+</blockquote>
+<h2 id=cross-origin-redirects>
+Cross-Origin Redirects
+<a class=anchor href=#cross-origin-redirects>#</a>
+</h2>
+<h3 id=csp-violations>
+CSP Violations
+<a class=anchor href=#csp-violations>#</a>
+</h3>
+<p><a href=https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP>Content-Security-Policy</a> (CSP) is an in-depth defense mechanism against XSS and data injection attacks. When a CSP is violated, a <code>SecurityPolicyViolationEvent</code> is thrown. An attacker can set up a CSP which triggers a <code>Violation</code> event every time a <code>fetch</code> follows an URL not set in the CSP directive. This allows an attacker to detect if a redirect to another origin occurred <sup id=fnref:1><a href=#fn:1 class=footnote-ref role=doc-noteref>1</a></sup> <sup id=fnref:2><a href=#fn:2 class=footnote-ref role=doc-noteref>2</a></sup>.</p>
+<p>The example below triggers a <code>SecurityPolicyViolationEvent</code> if the website set in the fetch API (line 6) redirects to a website other than <code>target.page</code>:</p>
+<div class=highlight><div style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
+<table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0>
+<pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
@@ -86,7 +381,9 @@ iframe.onload <span style=color:#ff79c6>=</span> () =&gt; {
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=color:#6272a4>&lt;!-- Set the Content-Security-Policy to only allow example.org --&gt;</span>
+</span></code></pre></td>
+<td style=vertical-align:top;padding:0;margin:0;border:0;width:100%>
+<pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=color:#6272a4>&lt;!-- Set the Content-Security-Policy to only allow example.org --&gt;</span>
 &lt;<span style=color:#ff79c6>meta</span> <span style=color:#50fa7b>http-equiv</span><span style=color:#ff79c6>=</span><span style=color:#f1fa8c>&#34;Content-Security-Policy&#34;</span>
       <span style=color:#50fa7b>content</span><span style=color:#ff79c6>=</span><span style=color:#f1fa8c>&#34;connect-src https://example.org&#34;</span>&gt;
 &lt;<span style=color:#ff79c6>script</span>&gt;
@@ -100,10 +397,22 @@ iframe.onload <span style=color:#ff79c6>=</span> () =&gt; {
   mode<span style=color:#ff79c6>:</span> <span style=color:#f1fa8c>&#39;no-cors&#39;</span>,
   credentials<span style=color:#ff79c6>:</span> <span style=color:#f1fa8c>&#39;include&#39;</span>
 });
-&lt;/<span style=color:#ff79c6>script</span>&gt;</code></pre></td></tr></table></div></div><h2 id=case-scenarios>Case Scenarios
-<a class=anchor href=#case-scenarios>#</a></h2><p>An online bank decides to redirect wealthy users to attractive stock opportunities by triggering a navigation to a reserved space on the website when these users consult their account balance. If this is only done for a specific group of users, it becomes possible for an attacker to leak the &ldquo;client status&rdquo; of the user.</p><h2 id=partitioned-http-cache-bypass>Partitioned HTTP Cache Bypass
-<a class=anchor href=#partitioned-http-cache-bypass>#</a></h2><p>If a site <code>example.com</code> includes a resource from <code>*.example.com/resource</code> then that resource will have the same caching key as if the resource was directly requested through top-level navigation. That is because the caching key is consisted of top-level <em>eTLD+1</em> and frame <em>eTLD+1</em>. <sup id=fnref:3><a href=#fn:3 class=footnote-ref role=doc-noteref>3</a></sup></p><p>Because a window can prevent a navigation to a different origin with <code>window.stop()</code> and the on-device cache is faster than the network,
-it can detect if a resource is cached by checking if the origin changed before the <code>stop()</code> could be run.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#ff79c6>async</span> <span style=color:#8be9fd;font-style:italic>function</span> ifCached_window(url) {
+&lt;/<span style=color:#ff79c6>script</span>&gt;</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id=case-scenarios>
+Case Scenarios
+<a class=anchor href=#case-scenarios>#</a>
+</h2>
+<p>An online bank decides to redirect wealthy users to attractive stock opportunities by triggering a navigation to a reserved space on the website when these users consult their account balance. If this is only done for a specific group of users, it becomes possible for an attacker to leak the &ldquo;client status&rdquo; of the user.</p>
+<h2 id=partitioned-http-cache-bypass>
+Partitioned HTTP Cache Bypass
+<a class=anchor href=#partitioned-http-cache-bypass>#</a>
+</h2>
+<p>If a site <code>example.com</code> includes a resource from <code>*.example.com/resource</code> then that resource will have the same caching key as if the resource was directly requested through top-level navigation. That is because the caching key is consisted of top-level <em>eTLD+1</em> and frame <em>eTLD+1</em>. <sup id=fnref:3><a href=#fn:3 class=footnote-ref role=doc-noteref>3</a></sup></p>
+<p>Because a window can prevent a navigation to a different origin with <code>window.stop()</code> and the on-device cache is faster than the network,
+it can detect if a resource is cached by checking if the origin changed before the <code>stop()</code> could be run.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#ff79c6>async</span> <span style=color:#8be9fd;font-style:italic>function</span> ifCached_window(url) {
   <span style=color:#ff79c6>return</span> <span style=color:#ff79c6>new</span> <span style=color:#8be9fd;font-style:italic>Promise</span>(resolve =&gt; {
     checker.location <span style=color:#ff79c6>=</span> url;
 
@@ -126,14 +435,176 @@ it can detect if a resource is cached by checking if the origin changed before t
     }, <span style=color:#bd93f9>50</span>);
   });
 }
-</code></pre></div><p>Create window (makes it possible to go back after a successful check)</p><div class=highlight><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#8be9fd;font-style:italic>let</span> checker <span style=color:#ff79c6>=</span> <span style=color:#8be9fd;font-style:italic>window</span>.open(<span style=color:#f1fa8c>&#34;about:blank&#34;</span>);
-</code></pre></div><p>Usage</p><div class=highlight><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#ff79c6>await</span> ifCached_window(<span style=color:#f1fa8c>&#34;https://example.org&#34;</span>);
-</code></pre></div><h2 id=defense>Defense
-<a class=anchor href=#defense>#</a></h2><table><thead><tr><th style=text-align:center>Attack Alternative</th><th style=text-align:center><a href=https://xsleaks.dev/docs/defenses/opt-in/same-site-cookies/>SameSite Cookies (Lax)</a></th><th style=text-align:center><a href=https://xsleaks.dev/docs/defenses/opt-in/coop/>COOP</a></th><th style=text-align:center><a href=https://xsleaks.dev/docs/defenses/opt-in/xfo/>Framing Protections</a></th><th style=text-align:center><a href=https://xsleaks.dev/docs/defenses/isolation-policies/>Isolation Policies</a></th></tr></thead><tbody><tr><td style=text-align:center><em>history.length</em> (iframes)</td><td style=text-align:center>✔️</td><td style=text-align:center>❌</td><td style=text-align:center>✔️</td><td style=text-align:center><a href=https://xsleaks.dev/docs/defenses/isolation-policies/framing-isolation/>FIP</a></td></tr><tr><td style=text-align:center><em>history.length</em> (windows)</td><td style=text-align:center>❌</td><td style=text-align:center>✔️</td><td style=text-align:center>❌</td><td style=text-align:center><a href=https://xsleaks.dev/docs/defenses/isolation-policies/navigation-isolation/>NIP</a></td></tr><tr><td style=text-align:center><em>onload</em> event inside an iframe</td><td style=text-align:center>✔️</td><td style=text-align:center>❌</td><td style=text-align:center>✔️</td><td style=text-align:center><a href=https://xsleaks.dev/docs/defenses/isolation-policies/framing-isolation/>FIP</a></td></tr><tr><td style=text-align:center>Download bar</td><td style=text-align:center>✔️</td><td style=text-align:center>❌</td><td style=text-align:center>❌
-<link rel=stylesheet href=/katex/katex.min.css><script defer src=/katex/katex.min.js></script><script defer src=/katex/auto-render.min.js onload=renderMathInElement(document.body)></script><span>\(^{1}\)</span></td><td style=text-align:center><a href=https://xsleaks.dev/docs/defenses/isolation-policies/navigation-isolation/>NIP</a></td></tr><tr><td style=text-align:center>Download Navigation (iframes)</td><td style=text-align:center>✔️</td><td style=text-align:center>❌</td><td style=text-align:center>❌<span>
-\(^{1}\)</span></td><td style=text-align:center><a href=https://xsleaks.dev/docs/defenses/isolation-policies/framing-isolation/>FIP</a></td></tr><tr><td style=text-align:center>Download Navigation (windows)</td><td style=text-align:center>❌</td><td style=text-align:center>❌<span>
-\(^{1}\)</span></td><td style=text-align:center>❌</td><td style=text-align:center><a href=https://xsleaks.dev/docs/defenses/isolation-policies/navigation-isolation/>NIP</a></td></tr><tr><td style=text-align:center>Inflation</td><td style=text-align:center>✔️</td><td style=text-align:center>❌</td><td style=text-align:center>❌</td><td style=text-align:center><a href=https://xsleaks.dev/docs/defenses/isolation-policies/resource-isolation/>RIP</a></td></tr><tr><td style=text-align:center>CSP Violations</td><td style=text-align:center>✔️</td><td style=text-align:center>❌</td><td style=text-align:center>❌</td><td style=text-align:center><a href=https://xsleaks.dev/docs/defenses/isolation-policies/resource-isolation/>RIP</a> 🔗 <a href=https://xsleaks.dev/docs/defenses/isolation-policies/navigation-isolation/>NIP</a></td></tr></tbody></table><p>🔗 – Defense mechanisms must be combined to be effective against different scenarios.</p><hr><ol><li>Neither <a href=https://xsleaks.dev/docs/defenses/opt-in/coop/>COOP</a> nor <a href=https://xsleaks.dev/docs/defenses/opt-in/xfo/>Framing Protections</a> helps with the mitigation of the redirect leaks because when the header <code>Content-Disposition</code> is present, other headers are being ignored.</li><li>SameSite cookies in Lax mode could protect against iframing a website, but won&rsquo;t help with the leaks through window references.</li></ol><h2 id=real-world-examples>Real-World Examples
-<a class=anchor href=#real-world-examples>#</a></h2><p>A vulnerability reported to Twitter used this technique to leak the contents of private tweets using <a href=https://xsleaks.dev/docs/attacks/xs-search/>XS-Search</a>. This attack was possible because the page would only trigger a navigation if there were results to the user query <sup id=fnref:4><a href=#fn:4 class=footnote-ref role=doc-noteref>4</a></sup>.</p><h2 id=references>References
-<a class=anchor href=#references>#</a></h2><section class=footnotes role=doc-endnotes><hr><ol><li id=fn:1 role=doc-endnote><p>Disclose domain of redirect destination taking advantage of CSP, <a href="https://bugs.chromium.org/p/chromium/issues/detail?id=313737">link</a>&#160;<a href=#fnref:1 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:2 role=doc-endnote><p>Using Content-Security-Policy for Evil, <a href=http://homakov.blogspot.com/2014/01/using-content-security-policy-for-evil.html>link</a>&#160;<a href=#fnref:2 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:3 role=doc-endnote><p><a href=https://github.com/xsleaks/wiki/pull/106>github.com/xsleaks/wiki/pull/106</a>&#160;<a href=#fnref:3 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:4 role=doc-endnote><p>Protected tweets exposure through the url, <a href=https://hackerone.com/reports/491473>link</a>&#160;<a href=#fnref:4 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li></ol></section></p></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/xsleaks/wiki/commit/e91ecb7491c5f011d99f616a6b379cc42d656155 title="Last modified by NDevTK | May 1, 2021" target=_blank rel=noopener><img src=/svg/calendar.svg class=book-icon alt=Calendar>
-<span>Last Modified: May 1, 2021</span></a></div><div><a class="flex align-center" href=https://github.com/xsleaks/wiki/edit/master/content//docs/attacks/navigations.md target=_blank rel=noopener><img src=/svg/edit.svg class=book-icon alt=Edit>
-<span>Edit this article</span></a></div></div></footer><div class=book-comments></div><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><nav id=TableOfContents><ul><li><a href=#download-trigger>Download Trigger</a><ul><li><a href=#download-bar>Download bar</a></li><li><a href=#download-navigation-with-iframes>Download Navigation (with iframes)</a></li><li><a href=#download-navigation-without-iframes>Download Navigation (without iframes)</a></li></ul></li><li><a href=#server-side-redirects>Server-Side Redirects</a><ul><li><a href=#inflation>Inflation</a></li></ul></li><li><a href=#cross-origin-redirects>Cross-Origin Redirects</a><ul><li><a href=#csp-violations>CSP Violations</a></li></ul></li><li><a href=#case-scenarios>Case Scenarios</a></li><li><a href=#partitioned-http-cache-bypass>Partitioned HTTP Cache Bypass</a></li><li><a href=#defense>Defense</a></li><li><a href=#real-world-examples>Real-World Examples</a></li><li><a href=#references>References</a></li></ul></nav></aside></main></body></html>
+</code></pre></div><p>Create window (makes it possible to go back after a successful check)</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#8be9fd;font-style:italic>let</span> checker <span style=color:#ff79c6>=</span> <span style=color:#8be9fd;font-style:italic>window</span>.open(<span style=color:#f1fa8c>&#34;about:blank&#34;</span>);
+</code></pre></div><p>Usage</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#ff79c6>await</span> ifCached_window(<span style=color:#f1fa8c>&#34;https://example.org&#34;</span>);
+</code></pre></div><h2 id=defense>
+Defense
+<a class=anchor href=#defense>#</a>
+</h2>
+<table>
+<thead>
+<tr>
+<th style=text-align:center>Attack Alternative</th>
+<th style=text-align:center><a href=https://xsleaks.dev/docs/defenses/opt-in/same-site-cookies/>SameSite Cookies (Lax)</a></th>
+<th style=text-align:center><a href=https://xsleaks.dev/docs/defenses/opt-in/coop/>COOP</a></th>
+<th style=text-align:center><a href=https://xsleaks.dev/docs/defenses/opt-in/xfo/>Framing Protections</a></th>
+<th style=text-align:center><a href=https://xsleaks.dev/docs/defenses/isolation-policies/>Isolation Policies</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style=text-align:center><em>history.length</em> (iframes)</td>
+<td style=text-align:center>✔️</td>
+<td style=text-align:center>❌</td>
+<td style=text-align:center>✔️</td>
+<td style=text-align:center><a href=https://xsleaks.dev/docs/defenses/isolation-policies/framing-isolation/>FIP</a></td>
+</tr>
+<tr>
+<td style=text-align:center><em>history.length</em> (windows)</td>
+<td style=text-align:center>❌</td>
+<td style=text-align:center>✔️</td>
+<td style=text-align:center>❌</td>
+<td style=text-align:center><a href=https://xsleaks.dev/docs/defenses/isolation-policies/navigation-isolation/>NIP</a></td>
+</tr>
+<tr>
+<td style=text-align:center><em>onload</em> event inside an iframe</td>
+<td style=text-align:center>✔️</td>
+<td style=text-align:center>❌</td>
+<td style=text-align:center>✔️</td>
+<td style=text-align:center><a href=https://xsleaks.dev/docs/defenses/isolation-policies/framing-isolation/>FIP</a></td>
+</tr>
+<tr>
+<td style=text-align:center>Download bar</td>
+<td style=text-align:center>✔️</td>
+<td style=text-align:center>❌</td>
+<td style=text-align:center>❌
+<link rel=stylesheet href=/katex/katex.min.css>
+<script defer src=/katex/katex.min.js></script>
+<script defer src=/katex/auto-render.min.js onload=renderMathInElement(document.body)></script><span>
+\(^{1}\)
+</span>
+</td>
+<td style=text-align:center><a href=https://xsleaks.dev/docs/defenses/isolation-policies/navigation-isolation/>NIP</a></td>
+</tr>
+<tr>
+<td style=text-align:center>Download Navigation (iframes)</td>
+<td style=text-align:center>✔️</td>
+<td style=text-align:center>❌</td>
+<td style=text-align:center>❌<span>
+\(^{1}\)
+</span>
+</td>
+<td style=text-align:center><a href=https://xsleaks.dev/docs/defenses/isolation-policies/framing-isolation/>FIP</a></td>
+</tr>
+<tr>
+<td style=text-align:center>Download Navigation (windows)</td>
+<td style=text-align:center>❌</td>
+<td style=text-align:center>❌<span>
+\(^{1}\)
+</span>
+</td>
+<td style=text-align:center>❌</td>
+<td style=text-align:center><a href=https://xsleaks.dev/docs/defenses/isolation-policies/navigation-isolation/>NIP</a></td>
+</tr>
+<tr>
+<td style=text-align:center>Inflation</td>
+<td style=text-align:center>✔️</td>
+<td style=text-align:center>❌</td>
+<td style=text-align:center>❌</td>
+<td style=text-align:center><a href=https://xsleaks.dev/docs/defenses/isolation-policies/resource-isolation/>RIP</a></td>
+</tr>
+<tr>
+<td style=text-align:center>CSP Violations</td>
+<td style=text-align:center>✔️</td>
+<td style=text-align:center>❌</td>
+<td style=text-align:center>❌</td>
+<td style=text-align:center><a href=https://xsleaks.dev/docs/defenses/isolation-policies/resource-isolation/>RIP</a> 🔗 <a href=https://xsleaks.dev/docs/defenses/isolation-policies/navigation-isolation/>NIP</a></td>
+</tr>
+</tbody>
+</table>
+<p>🔗 – Defense mechanisms must be combined to be effective against different scenarios.</p>
+<hr>
+<ol>
+<li>Neither <a href=https://xsleaks.dev/docs/defenses/opt-in/coop/>COOP</a> nor <a href=https://xsleaks.dev/docs/defenses/opt-in/xfo/>Framing Protections</a> helps with the mitigation of the redirect leaks because when the header <code>Content-Disposition</code> is present, other headers are being ignored.</li>
+<li>SameSite cookies in Lax mode could protect against iframing a website, but won&rsquo;t help with the leaks through window references.</li>
+</ol>
+<h2 id=real-world-examples>
+Real-World Examples
+<a class=anchor href=#real-world-examples>#</a>
+</h2>
+<p>A vulnerability reported to Twitter used this technique to leak the contents of private tweets using <a href=https://xsleaks.dev/docs/attacks/xs-search/>XS-Search</a>. This attack was possible because the page would only trigger a navigation if there were results to the user query <sup id=fnref:4><a href=#fn:4 class=footnote-ref role=doc-noteref>4</a></sup>.</p>
+<h2 id=references>
+References
+<a class=anchor href=#references>#</a>
+</h2>
+<section class=footnotes role=doc-endnotes>
+<hr>
+<ol>
+<li id=fn:1 role=doc-endnote>
+<p>Disclose domain of redirect destination taking advantage of CSP, <a href="https://bugs.chromium.org/p/chromium/issues/detail?id=313737">link</a>&#160;<a href=#fnref:1 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p>
+</li>
+<li id=fn:2 role=doc-endnote>
+<p>Using Content-Security-Policy for Evil, <a href=http://homakov.blogspot.com/2014/01/using-content-security-policy-for-evil.html>link</a>&#160;<a href=#fnref:2 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p>
+</li>
+<li id=fn:3 role=doc-endnote>
+<p><a href=https://github.com/xsleaks/wiki/pull/106>github.com/xsleaks/wiki/pull/106</a>&#160;<a href=#fnref:3 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p>
+</li>
+<li id=fn:4 role=doc-endnote>
+<p>Protected tweets exposure through the url, <a href=https://hackerone.com/reports/491473>link</a>&#160;<a href=#fnref:4 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+</p>
+</article>
+<footer class=book-footer>
+<div class="flex flex-wrap justify-between">
+<div><a class="flex align-center" href=https://github.com/xsleaks/wiki/commit/e91ecb7491c5f011d99f616a6b379cc42d656155 title="Last modified by NDevTK | May 1, 2021" target=_blank rel=noopener>
+<img src=/svg/calendar.svg class=book-icon alt=Calendar>
+<span>Last Modified: May 1, 2021</span>
+</a>
+</div>
+<div>
+<a class="flex align-center" href=https://github.com/xsleaks/wiki/edit/master/content//docs/attacks/navigations.md target=_blank rel=noopener>
+<img src=/svg/edit.svg class=book-icon alt=Edit>
+<span>Edit this article</span>
+</a>
+</div>
+</div>
+</footer>
+<div class=book-comments>
+</div>
+<label for=menu-control class="hidden book-menu-overlay"></label>
+</div>
+<aside class=book-toc>
+<nav id=TableOfContents>
+<ul>
+<li><a href=#download-trigger>Download Trigger</a>
+<ul>
+<li><a href=#download-bar>Download bar</a></li>
+<li><a href=#download-navigation-with-iframes>Download Navigation (with iframes)</a></li>
+<li><a href=#download-navigation-without-iframes>Download Navigation (without iframes)</a></li>
+</ul>
+</li>
+<li><a href=#server-side-redirects>Server-Side Redirects</a>
+<ul>
+<li><a href=#inflation>Inflation</a></li>
+</ul>
+</li>
+<li><a href=#cross-origin-redirects>Cross-Origin Redirects</a>
+<ul>
+<li><a href=#csp-violations>CSP Violations</a></li>
+</ul>
+</li>
+<li><a href=#case-scenarios>Case Scenarios</a></li>
+<li><a href=#partitioned-http-cache-bypass>Partitioned HTTP Cache Bypass</a></li>
+<li><a href=#defense>Defense</a></li>
+<li><a href=#real-world-examples>Real-World Examples</a></li>
+<li><a href=#references>References</a></li>
+</ul>
+</nav>
+</aside>
+</main>
+</body>
+</html>

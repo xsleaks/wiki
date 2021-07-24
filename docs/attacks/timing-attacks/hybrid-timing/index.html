@@ -1,15 +1,240 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Hybrid Timing Attacks allow attackers to measure the sum of a group of factors that influence the final timing measurement. These factors include:
- Network delays Document parsing Retrieval and processing of subresources Code execution  Some of the factors differ in value depending on the application. This means that Network Timing might be more significant for pages with more backend processing, while Execution Timing can be more significant in applications processing and displaying data within the browser."><meta name=theme-color content="#FFFFFF"><meta property="og:title" content="Hybrid Timing"><meta property="og:description" content="Hybrid Timing Attacks allow attackers to measure the sum of a group of factors that influence the final timing measurement. These factors include:
- Network delays Document parsing Retrieval and processing of subresources Code execution  Some of the factors differ in value depending on the application. This means that Network Timing might be more significant for pages with more backend processing, while Execution Timing can be more significant in applications processing and displaying data within the browser."><meta property="og:type" content="article"><meta property="og:url" content="https://xsleaks.dev/docs/attacks/timing-attacks/hybrid-timing/"><meta property="article:section" content="docs"><meta property="article:published_time" content="2020-10-01T00:00:00+00:00"><meta property="article:modified_time" content="2020-12-23T14:09:15+01:00"><title>Hybrid Timing | XS-Leaks Wiki</title><link rel=manifest href=/manifest.json><link rel=icon href=/favicon.png type=image/x-icon><link rel=stylesheet href=/book.min.1c9a9009be3c645cbccbe64eb0a90e28621e4118971d9a502db4aaa9bec96cfc.css integrity="sha256-HJqQCb48ZFy8y+ZOsKkOKGIeQRiXHZpQLbSqqb7JbPw="><script defer src=/en.search.min.3fd7f82651ade342949984a366884780b87e6b9d58b638930da884061f7231a8.js integrity="sha256-P9f4JlGt40KUmYSjZohHgLh+a51YtjiTDaiEBh9yMag="></script><script defer src=/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js integrity="sha256-b2+Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC+NdcPIvZhzk="></script></head><body><input type=checkbox class="hidden toggle" id=menu-control>
-<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><nav><h2 class=book-brand><a href=/><span>XS-Leaks Wiki</span></a></h2><div class=book-search><input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><ul><li class=book-section-flat><span>Attacks</span><ul><li><a href=/docs/attacks/xs-search/>XS-Search</a></li><li><a href=/docs/attacks/window-references/>Window References</a></li><li><a href=/docs/attacks/error-events/>Error Events</a></li><li><a href=/docs/attacks/frame-counting/>Frame Counting</a></li><li><a href=/docs/attacks/navigations/>Navigations</a></li><li><a href=/docs/attacks/cache-probing/>Cache Probing</a></li><li><a href=/docs/attacks/element-leaks/>Element leaks</a></li><li><a href=/docs/attacks/id-attribute/>ID Attribute</a></li><li><a href=/docs/attacks/postmessage-broadcasts/>postMessage Broadcasts</a></li><li><span>Browser Features</span><ul><li><a href=/docs/attacks/browser-features/corb/>CORB Leaks</a></li><li><a href=/docs/attacks/browser-features/corp/>CORP Leaks</a></li></ul></li><li><span>Timing Attacks</span><ul><li><a href=/docs/attacks/timing-attacks/clocks/>Clocks</a></li><li><a href=/docs/attacks/timing-attacks/network-timing/>Network Timing</a></li><li><a href=/docs/attacks/timing-attacks/performance-api/>Performance API</a></li><li><a href=/docs/attacks/timing-attacks/execution-timing/>Execution Timing</a></li><li><a href=/docs/attacks/timing-attacks/hybrid-timing/ class=active>Hybrid Timing</a></li><li><a href=/docs/attacks/timing-attacks/connection-pool/>Connection Pool</a></li></ul></li><li><a href=/docs/attacks/experiments/ class=collapsed>Experiments</a></li><li><a href=/docs/attacks/historical/ class=collapsed>Historical</a></li></ul></li><li class=book-section-flat><a href=/docs/defenses/>Defense Mechanisms</a><ul><li><a href=/docs/defenses/design-protections/>Application Design</a><ul><li><a href=/docs/defenses/design-protections/cache-protections/>Cache Protections</a></li><li><a href=/docs/defenses/design-protections/subresource-protections/>Subresource Protections</a></li></ul></li><li><a href=/docs/defenses/opt-in/>Opt-In Mechanisms</a><ul><li><a href=/docs/defenses/opt-in/fetch-metadata/>Fetch Metadata</a></li><li><a href=/docs/defenses/opt-in/coop/>Cross-Origin-Opener-Policy</a></li><li><a href=/docs/defenses/opt-in/corp/>Cross-Origin-Resource-Policy</a></li><li><a href=/docs/defenses/opt-in/xfo/>Framing Protections</a></li><li><a href=/docs/defenses/opt-in/same-site-cookies/>SameSite Cookies</a></li></ul></li><li><a href=/docs/defenses/isolation-policies/>Isolation Policies</a><ul><li><a href=/docs/defenses/isolation-policies/resource-isolation/>Resource Isolation Policy</a></li><li><a href=/docs/defenses/isolation-policies/framing-isolation/>Framing Isolation Policy</a></li><li><a href=/docs/defenses/isolation-policies/navigation-isolation/>Navigation Isolation Policy</a></li><li><a href=/docs/defenses/isolation-policies/strict-isolation/>Strict Isolation Policy</a></li></ul></li><li><a href=/docs/defenses/secure-defaults/>Secure Defaults</a><ul><li><a href=/docs/defenses/secure-defaults/corb/>Cross-Origin Read Blocking</a></li><li><a href=/docs/defenses/secure-defaults/partitioned-cache/>Partitioned HTTP Cache</a></li></ul></li></ul></li><li class=book-section-flat><a href=/docs/contributions/>Contributions</a><ul></ul></li></ul></nav><script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/svg/menu.svg class=book-icon alt=Menu></label>
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=description content="Hybrid Timing Attacks allow attackers to measure the sum of a group of factors that influence the final timing measurement. These factors include:
+ Network delays Document parsing Retrieval and processing of subresources Code execution  Some of the factors differ in value depending on the application. This means that Network Timing might be more significant for pages with more backend processing, while Execution Timing can be more significant in applications processing and displaying data within the browser.">
+<meta name=theme-color content="#FFFFFF"><meta property="og:title" content="Hybrid Timing">
+<meta property="og:description" content="Hybrid Timing Attacks allow attackers to measure the sum of a group of factors that influence the final timing measurement. These factors include:
+ Network delays Document parsing Retrieval and processing of subresources Code execution  Some of the factors differ in value depending on the application. This means that Network Timing might be more significant for pages with more backend processing, while Execution Timing can be more significant in applications processing and displaying data within the browser.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://xsleaks.dev/docs/attacks/timing-attacks/hybrid-timing/"><meta property="article:section" content="docs">
+<meta property="article:published_time" content="2020-10-01T00:00:00+00:00">
+<meta property="article:modified_time" content="2020-12-23T14:09:15+01:00">
+<title>Hybrid Timing | XS-Leaks Wiki</title>
+<link rel=manifest href=/manifest.json>
+<link rel=icon href=/favicon.png type=image/x-icon>
+<link rel=stylesheet href=/book.min.1c9a9009be3c645cbccbe64eb0a90e28621e4118971d9a502db4aaa9bec96cfc.css integrity="sha256-HJqQCb48ZFy8y+ZOsKkOKGIeQRiXHZpQLbSqqb7JbPw=">
+<script defer src=/en.search.min.adf212d3d9775304bd71f39187748f16409ee829813a20a29aafa3de13e297a6.js integrity="sha256-rfIS09l3UwS9cfORh3SPFkCe6CmBOiCimq+j3hPil6Y="></script>
+<script defer src=/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js integrity="sha256-b2+Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC+NdcPIvZhzk="></script>
+</head>
+<body>
+<input type=checkbox class="hidden toggle" id=menu-control>
+<input type=checkbox class="hidden toggle" id=toc-control>
+<main class="container flex">
+<aside class=book-menu>
+<nav>
+<h2 class=book-brand>
+<a href=/><span>XS-Leaks Wiki</span>
+</a>
+</h2>
+<div class=book-search>
+<input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/>
+<div class="book-search-spinner hidden"></div>
+<ul id=book-search-results></ul>
+</div>
+<ul>
+<li class=book-section-flat>
+<span>Attacks</span>
+<ul>
+<li>
+<a href=/docs/attacks/xs-search/>XS-Search</a>
+</li>
+<li>
+<a href=/docs/attacks/window-references/>Window References</a>
+</li>
+<li>
+<a href=/docs/attacks/css-tricks/>CSS Tricks</a>
+</li>
+<li>
+<a href=/docs/attacks/error-events/>Error Events</a>
+</li>
+<li>
+<a href=/docs/attacks/frame-counting/>Frame Counting</a>
+</li>
+<li>
+<a href=/docs/attacks/navigations/>Navigations</a>
+</li>
+<li>
+<a href=/docs/attacks/cache-probing/>Cache Probing</a>
+</li>
+<li>
+<a href=/docs/attacks/element-leaks/>Element leaks</a>
+</li>
+<li>
+<a href=/docs/attacks/id-attribute/>ID Attribute</a>
+</li>
+<li>
+<a href=/docs/attacks/postmessage-broadcasts/>postMessage Broadcasts</a>
+</li>
+<li>
+<span>Browser Features</span>
+<ul>
+<li>
+<a href=/docs/attacks/browser-features/corb/>CORB Leaks</a>
+</li>
+<li>
+<a href=/docs/attacks/browser-features/corp/>CORP Leaks</a>
+</li>
+</ul>
+</li>
+<li>
+<span>Timing Attacks</span>
+<ul>
+<li>
+<a href=/docs/attacks/timing-attacks/clocks/>Clocks</a>
+</li>
+<li>
+<a href=/docs/attacks/timing-attacks/network-timing/>Network Timing</a>
+</li>
+<li>
+<a href=/docs/attacks/timing-attacks/performance-api/>Performance API</a>
+</li>
+<li>
+<a href=/docs/attacks/timing-attacks/execution-timing/>Execution Timing</a>
+</li>
+<li>
+<a href=/docs/attacks/timing-attacks/hybrid-timing/ class=active>Hybrid Timing</a>
+</li>
+<li>
+<a href=/docs/attacks/timing-attacks/connection-pool/>Connection Pool</a>
+</li>
+</ul>
+</li>
+<li>
+<a href=/docs/attacks/experiments/ class=collapsed>Experiments</a>
+</li>
+<li>
+<a href=/docs/attacks/historical/ class=collapsed>Historical</a>
+</li>
+</ul>
+</li>
+<li class=book-section-flat>
+<a href=/docs/defenses/>Defense Mechanisms</a>
+<ul>
+<li>
+<a href=/docs/defenses/design-protections/>Application Design</a>
+<ul>
+<li>
+<a href=/docs/defenses/design-protections/cache-protections/>Cache Protections</a>
+</li>
+<li>
+<a href=/docs/defenses/design-protections/subresource-protections/>Subresource Protections</a>
+</li>
+</ul>
+</li>
+<li>
+<a href=/docs/defenses/opt-in/>Opt-In Mechanisms</a>
+<ul>
+<li>
+<a href=/docs/defenses/opt-in/fetch-metadata/>Fetch Metadata</a>
+</li>
+<li>
+<a href=/docs/defenses/opt-in/coop/>Cross-Origin-Opener-Policy</a>
+</li>
+<li>
+<a href=/docs/defenses/opt-in/corp/>Cross-Origin-Resource-Policy</a>
+</li>
+<li>
+<a href=/docs/defenses/opt-in/xfo/>Framing Protections</a>
+</li>
+<li>
+<a href=/docs/defenses/opt-in/same-site-cookies/>SameSite Cookies</a>
+</li>
+</ul>
+</li>
+<li>
+<a href=/docs/defenses/isolation-policies/>Isolation Policies</a>
+<ul>
+<li>
+<a href=/docs/defenses/isolation-policies/resource-isolation/>Resource Isolation Policy</a>
+</li>
+<li>
+<a href=/docs/defenses/isolation-policies/framing-isolation/>Framing Isolation Policy</a>
+</li>
+<li>
+<a href=/docs/defenses/isolation-policies/navigation-isolation/>Navigation Isolation Policy</a>
+</li>
+<li>
+<a href=/docs/defenses/isolation-policies/strict-isolation/>Strict Isolation Policy</a>
+</li>
+</ul>
+</li>
+<li>
+<a href=/docs/defenses/secure-defaults/>Secure Defaults</a>
+<ul>
+<li>
+<a href=/docs/defenses/secure-defaults/corb/>Cross-Origin Read Blocking</a>
+</li>
+<li>
+<a href=/docs/defenses/secure-defaults/partitioned-cache/>Partitioned HTTP Cache</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class=book-section-flat>
+<a href=/docs/contributions/>Contributions</a>
+<ul>
+</ul>
+</li>
+</ul>
+</nav>
+<script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+</aside>
+<div class=book-page>
+<header class=book-header>
+<div class="flex align-center justify-between">
+<label for=menu-control>
+<img src=/svg/menu.svg class=book-icon alt=Menu>
+</label>
 <strong>Hybrid Timing</strong>
-<label for=toc-control><img src=/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><a href=#frame-timing-attacks-hybrid>Frame Timing Attacks (Hybrid)</a></li><li><a href=#defense>Defense</a></li></ul></nav></aside></header><article class=markdown><h1>Hybrid Timing</h1><h5>October 1, 2020</h5><div>Abuse
-<a href=/abuse/iframes/>iframes</a></div><div>Category
-<a href=/category/attack/>Attack</a></div><div>Defenses
+<label for=toc-control>
+<img src=/svg/toc.svg class=book-icon alt="Table of Contents">
+</label>
+</div>
+<aside class="hidden clearfix">
+<nav id=TableOfContents>
+<ul>
+<li><a href=#frame-timing-attacks-hybrid>Frame Timing Attacks (Hybrid)</a></li>
+<li><a href=#defense>Defense</a></li>
+</ul>
+</nav>
+</aside>
+</header>
+<article class=markdown>
+<h1>
+Hybrid Timing
+</h1>
+<h5>October 1, 2020</h5>
+<div>
+Abuse
+<a href=/abuse/iframes/>iframes</a>
+</div>
+<div>
+Category
+<a href=/category/attack/>Attack</a>
+</div>
+<div>
+Defenses
 <a href=/defenses/fetch-metadata/>Fetch Metadata</a>,
 <a href=/defenses/samesite-cookies/>SameSite Cookies</a>,
-<a href=/defenses/coop/>COOP</a></div><p><p>Hybrid Timing Attacks allow attackers to measure the sum of a group of factors that influence the final timing measurement. These factors include:</p><ul><li><a href=https://xsleaks.dev/docs/attacks/timing-attacks/network-timing/>Network delays</a></li><li>Document parsing</li><li>Retrieval and processing of subresources</li><li><a href=https://xsleaks.dev/docs/attacks/timing-attacks/execution-timing/>Code execution</a></li></ul><p>Some of the factors differ in value depending on the application. This means that <a href=https://xsleaks.dev/docs/attacks/timing-attacks/network-timing/>Network Timing</a> might be more significant for pages with more backend processing, while <a href=https://xsleaks.dev/docs/attacks/timing-attacks/execution-timing/>Execution Timing</a> can be more significant in applications processing and displaying data within the browser. Attackers can also eliminate some of these factors to obtain more precise measurements. For example, an attacker could preload all of the subresources by embedding the page as an <code>iframe</code> (forcing the browser to cache the subresources) and then perform a second measurement, which excludes any delay introduced by the retrieval of those subresources.</p><h2 id=frame-timing-attacks-hybrid>Frame Timing Attacks (Hybrid)
-<a class=anchor href=#frame-timing-attacks-hybrid>#</a></h2><p>If a page does not set <a href=https://xsleaks.dev/docs/defenses/opt-in/xfo/>Framing Protections</a>, an attacker can obtain a hybrid measurement that considers all of the factors. This attack is similar to a <a href=https://xsleaks.dev/docs/attacks/timing-attacks/network-timing/#frame-timing-attacks-network>Network-based Attack</a>, but when the resource is retrieved, the page is rendered and executed by the browser (subresources fetched and JavaScript executed). In this scenario, the <code>onload</code> event only triggers once the page fully loads (including subresources and script execution).</p><div class=highlight><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#8be9fd;font-style:italic>var</span> iframe <span style=color:#ff79c6>=</span> <span style=color:#8be9fd;font-style:italic>document</span>.createElement(<span style=color:#f1fa8c>&#39;iframe&#39;</span>);
+<a href=/defenses/coop/>COOP</a>
+</div>
+<p><p>Hybrid Timing Attacks allow attackers to measure the sum of a group of factors that influence the final timing measurement. These factors include:</p>
+<ul>
+<li><a href=https://xsleaks.dev/docs/attacks/timing-attacks/network-timing/>Network delays</a></li>
+<li>Document parsing</li>
+<li>Retrieval and processing of subresources</li>
+<li><a href=https://xsleaks.dev/docs/attacks/timing-attacks/execution-timing/>Code execution</a></li>
+</ul>
+<p>Some of the factors differ in value depending on the application. This means that <a href=https://xsleaks.dev/docs/attacks/timing-attacks/network-timing/>Network Timing</a> might be more significant for pages with more backend processing, while <a href=https://xsleaks.dev/docs/attacks/timing-attacks/execution-timing/>Execution Timing</a> can be more significant in applications processing and displaying data within the browser. Attackers can also eliminate some of these factors to obtain more precise measurements. For example, an attacker could preload all of the subresources by embedding the page as an <code>iframe</code> (forcing the browser to cache the subresources) and then perform a second measurement, which excludes any delay introduced by the retrieval of those subresources.</p>
+<h2 id=frame-timing-attacks-hybrid>
+Frame Timing Attacks (Hybrid)
+<a class=anchor href=#frame-timing-attacks-hybrid>#</a>
+</h2>
+<p>If a page does not set <a href=https://xsleaks.dev/docs/defenses/opt-in/xfo/>Framing Protections</a>, an attacker can obtain a hybrid measurement that considers all of the factors. This attack is similar to a <a href=https://xsleaks.dev/docs/attacks/timing-attacks/network-timing/#frame-timing-attacks-network>Network-based Attack</a>, but when the resource is retrieved, the page is rendered and executed by the browser (subresources fetched and JavaScript executed). In this scenario, the <code>onload</code> event only triggers once the page fully loads (including subresources and script execution).</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#8be9fd;font-style:italic>var</span> iframe <span style=color:#ff79c6>=</span> <span style=color:#8be9fd;font-style:italic>document</span>.createElement(<span style=color:#f1fa8c>&#39;iframe&#39;</span>);
 <span style=color:#6272a4>// Set the URL of the destination website
 </span><span style=color:#6272a4></span>iframe.src <span style=color:#ff79c6>=</span> <span style=color:#f1fa8c>&#34;https://example.org&#34;</span>;
 <span style=color:#8be9fd;font-style:italic>document</span>.body.appendChild(iframe);
@@ -22,7 +247,59 @@ iframe.onload <span style=color:#ff79c6>=</span> () =&gt; {
 </span><span style=color:#6272a4></span>  <span style=color:#8be9fd;font-style:italic>var</span> time <span style=color:#ff79c6>=</span> performance.now() <span style=color:#ff79c6>-</span> start;
   console.log(<span style=color:#f1fa8c>&#34;The iframe and subresources took %d ms to load.&#34;</span>, time)
 }
-</code></pre></div><h2 id=defense>Defense
-<a class=anchor href=#defense>#</a></h2><table><thead><tr><th style=text-align:center>Attack Alternative</th><th style=text-align:center><a href=https://xsleaks.dev/docs/defenses/opt-in/same-site-cookies/>SameSite Cookies (Lax)</a></th><th style=text-align:center><a href=https://xsleaks.dev/docs/defenses/opt-in/coop/>COOP</a></th><th style=text-align:center><a href=https://xsleaks.dev/docs/defenses/opt-in/xfo/>Framing Protections</a></th><th style=text-align:center><a href=https://xsleaks.dev/docs/defenses/isolation-policies/>Isolation Policies</a></th></tr></thead><tbody><tr><td style=text-align:center>Frame Timing (Hybrid)</td><td style=text-align:center>✔️</td><td style=text-align:center>❌</td><td style=text-align:center>✔️</td><td style=text-align:center><a href=https://xsleaks.dev/docs/defenses/isolation-policies/framing-isolation/>FIP</a></td></tr></tbody></table></p></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/xsleaks/wiki/commit/75b5a61aa432ff59b01fb67a7b4ed1e57f0608ac title="Last modified by goedi02 | December 23, 2020" target=_blank rel=noopener><img src=/svg/calendar.svg class=book-icon alt=Calendar>
-<span>Last Modified: December 23, 2020</span></a></div><div><a class="flex align-center" href=https://github.com/xsleaks/wiki/edit/master/content//docs/attacks/timing-attacks/hybrid-timing.md target=_blank rel=noopener><img src=/svg/edit.svg class=book-icon alt=Edit>
-<span>Edit this article</span></a></div></div></footer><div class=book-comments></div><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><nav id=TableOfContents><ul><li><a href=#frame-timing-attacks-hybrid>Frame Timing Attacks (Hybrid)</a></li><li><a href=#defense>Defense</a></li></ul></nav></aside></main></body></html>
+</code></pre></div><h2 id=defense>
+Defense
+<a class=anchor href=#defense>#</a>
+</h2>
+<table>
+<thead>
+<tr>
+<th style=text-align:center>Attack Alternative</th>
+<th style=text-align:center><a href=https://xsleaks.dev/docs/defenses/opt-in/same-site-cookies/>SameSite Cookies (Lax)</a></th>
+<th style=text-align:center><a href=https://xsleaks.dev/docs/defenses/opt-in/coop/>COOP</a></th>
+<th style=text-align:center><a href=https://xsleaks.dev/docs/defenses/opt-in/xfo/>Framing Protections</a></th>
+<th style=text-align:center><a href=https://xsleaks.dev/docs/defenses/isolation-policies/>Isolation Policies</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style=text-align:center>Frame Timing (Hybrid)</td>
+<td style=text-align:center>✔️</td>
+<td style=text-align:center>❌</td>
+<td style=text-align:center>✔️</td>
+<td style=text-align:center><a href=https://xsleaks.dev/docs/defenses/isolation-policies/framing-isolation/>FIP</a></td>
+</tr>
+</tbody>
+</table>
+</p>
+</article>
+<footer class=book-footer>
+<div class="flex flex-wrap justify-between">
+<div><a class="flex align-center" href=https://github.com/xsleaks/wiki/commit/75b5a61aa432ff59b01fb67a7b4ed1e57f0608ac title="Last modified by goedi02 | December 23, 2020" target=_blank rel=noopener>
+<img src=/svg/calendar.svg class=book-icon alt=Calendar>
+<span>Last Modified: December 23, 2020</span>
+</a>
+</div>
+<div>
+<a class="flex align-center" href=https://github.com/xsleaks/wiki/edit/master/content//docs/attacks/timing-attacks/hybrid-timing.md target=_blank rel=noopener>
+<img src=/svg/edit.svg class=book-icon alt=Edit>
+<span>Edit this article</span>
+</a>
+</div>
+</div>
+</footer>
+<div class=book-comments>
+</div>
+<label for=menu-control class="hidden book-menu-overlay"></label>
+</div>
+<aside class=book-toc>
+<nav id=TableOfContents>
+<ul>
+<li><a href=#frame-timing-attacks-hybrid>Frame Timing Attacks (Hybrid)</a></li>
+<li><a href=#defense>Defense</a></li>
+</ul>
+</nav>
+</aside>
+</main>
+</body>
+</html>

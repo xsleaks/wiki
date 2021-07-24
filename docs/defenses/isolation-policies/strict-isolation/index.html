@@ -1,43 +1,315 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Strict Isolation Policy is intended to protect against all cross-site interactions (including navigations to the application through hyperlinks). This is a very strict policy that has the potential to prevent applications from functioning properly.
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=description content="Strict Isolation Policy is intended to protect against all cross-site interactions (including navigations to the application through hyperlinks). This is a very strict policy that has the potential to prevent applications from functioning properly.
  tip
-Instead of rejecting all cross-site interactions, the user could be prompted to confirm the action, e.g. Confirm that you visited this page from a trusted origin, to mitigate the risk of attacks in the background, and, at the same time, help prevent unintended breakages of an application."><meta name=theme-color content="#FFFFFF"><meta property="og:title" content="Strict Isolation Policy"><meta property="og:description" content="Strict Isolation Policy is intended to protect against all cross-site interactions (including navigations to the application through hyperlinks). This is a very strict policy that has the potential to prevent applications from functioning properly.
+Instead of rejecting all cross-site interactions, the user could be prompted to confirm the action, e.g. Confirm that you visited this page from a trusted origin, to mitigate the risk of attacks in the background, and, at the same time, help prevent unintended breakages of an application.">
+<meta name=theme-color content="#FFFFFF"><meta property="og:title" content="Strict Isolation Policy">
+<meta property="og:description" content="Strict Isolation Policy is intended to protect against all cross-site interactions (including navigations to the application through hyperlinks). This is a very strict policy that has the potential to prevent applications from functioning properly.
  tip
-Instead of rejecting all cross-site interactions, the user could be prompted to confirm the action, e.g. Confirm that you visited this page from a trusted origin, to mitigate the risk of attacks in the background, and, at the same time, help prevent unintended breakages of an application."><meta property="og:type" content="article"><meta property="og:url" content="https://xsleaks.dev/docs/defenses/isolation-policies/strict-isolation/"><meta property="article:section" content="docs"><meta property="article:published_time" content="2020-11-30T00:00:00+00:00"><meta property="article:modified_time" content="2020-12-04T15:02:54+01:00"><title>Strict Isolation Policy | XS-Leaks Wiki</title><link rel=manifest href=/manifest.json><link rel=icon href=/favicon.png type=image/x-icon><link rel=stylesheet href=/book.min.1c9a9009be3c645cbccbe64eb0a90e28621e4118971d9a502db4aaa9bec96cfc.css integrity="sha256-HJqQCb48ZFy8y+ZOsKkOKGIeQRiXHZpQLbSqqb7JbPw="><script defer src=/en.search.min.3fd7f82651ade342949984a366884780b87e6b9d58b638930da884061f7231a8.js integrity="sha256-P9f4JlGt40KUmYSjZohHgLh+a51YtjiTDaiEBh9yMag="></script><script defer src=/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js integrity="sha256-b2+Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC+NdcPIvZhzk="></script></head><body><input type=checkbox class="hidden toggle" id=menu-control>
-<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><nav><h2 class=book-brand><a href=/><span>XS-Leaks Wiki</span></a></h2><div class=book-search><input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><ul><li class=book-section-flat><span>Attacks</span><ul><li><a href=/docs/attacks/xs-search/>XS-Search</a></li><li><a href=/docs/attacks/window-references/>Window References</a></li><li><a href=/docs/attacks/error-events/>Error Events</a></li><li><a href=/docs/attacks/frame-counting/>Frame Counting</a></li><li><a href=/docs/attacks/navigations/>Navigations</a></li><li><a href=/docs/attacks/cache-probing/>Cache Probing</a></li><li><a href=/docs/attacks/element-leaks/>Element leaks</a></li><li><a href=/docs/attacks/id-attribute/>ID Attribute</a></li><li><a href=/docs/attacks/postmessage-broadcasts/>postMessage Broadcasts</a></li><li><span>Browser Features</span><ul><li><a href=/docs/attacks/browser-features/corb/>CORB Leaks</a></li><li><a href=/docs/attacks/browser-features/corp/>CORP Leaks</a></li></ul></li><li><span>Timing Attacks</span><ul><li><a href=/docs/attacks/timing-attacks/clocks/>Clocks</a></li><li><a href=/docs/attacks/timing-attacks/network-timing/>Network Timing</a></li><li><a href=/docs/attacks/timing-attacks/performance-api/>Performance API</a></li><li><a href=/docs/attacks/timing-attacks/execution-timing/>Execution Timing</a></li><li><a href=/docs/attacks/timing-attacks/hybrid-timing/>Hybrid Timing</a></li><li><a href=/docs/attacks/timing-attacks/connection-pool/>Connection Pool</a></li></ul></li><li><a href=/docs/attacks/experiments/ class=collapsed>Experiments</a></li><li><a href=/docs/attacks/historical/ class=collapsed>Historical</a></li></ul></li><li class=book-section-flat><a href=/docs/defenses/>Defense Mechanisms</a><ul><li><a href=/docs/defenses/design-protections/>Application Design</a><ul><li><a href=/docs/defenses/design-protections/cache-protections/>Cache Protections</a></li><li><a href=/docs/defenses/design-protections/subresource-protections/>Subresource Protections</a></li></ul></li><li><a href=/docs/defenses/opt-in/>Opt-In Mechanisms</a><ul><li><a href=/docs/defenses/opt-in/fetch-metadata/>Fetch Metadata</a></li><li><a href=/docs/defenses/opt-in/coop/>Cross-Origin-Opener-Policy</a></li><li><a href=/docs/defenses/opt-in/corp/>Cross-Origin-Resource-Policy</a></li><li><a href=/docs/defenses/opt-in/xfo/>Framing Protections</a></li><li><a href=/docs/defenses/opt-in/same-site-cookies/>SameSite Cookies</a></li></ul></li><li><a href=/docs/defenses/isolation-policies/>Isolation Policies</a><ul><li><a href=/docs/defenses/isolation-policies/resource-isolation/>Resource Isolation Policy</a></li><li><a href=/docs/defenses/isolation-policies/framing-isolation/>Framing Isolation Policy</a></li><li><a href=/docs/defenses/isolation-policies/navigation-isolation/>Navigation Isolation Policy</a></li><li><a href=/docs/defenses/isolation-policies/strict-isolation/ class=active>Strict Isolation Policy</a></li></ul></li><li><a href=/docs/defenses/secure-defaults/>Secure Defaults</a><ul><li><a href=/docs/defenses/secure-defaults/corb/>Cross-Origin Read Blocking</a></li><li><a href=/docs/defenses/secure-defaults/partitioned-cache/>Partitioned HTTP Cache</a></li></ul></li></ul></li><li class=book-section-flat><a href=/docs/contributions/>Contributions</a><ul></ul></li></ul></nav><script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/svg/menu.svg class=book-icon alt=Menu></label>
+Instead of rejecting all cross-site interactions, the user could be prompted to confirm the action, e.g. Confirm that you visited this page from a trusted origin, to mitigate the risk of attacks in the background, and, at the same time, help prevent unintended breakages of an application.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://xsleaks.dev/docs/defenses/isolation-policies/strict-isolation/"><meta property="article:section" content="docs">
+<meta property="article:published_time" content="2020-11-30T00:00:00+00:00">
+<meta property="article:modified_time" content="2020-12-04T15:02:54+01:00">
+<title>Strict Isolation Policy | XS-Leaks Wiki</title>
+<link rel=manifest href=/manifest.json>
+<link rel=icon href=/favicon.png type=image/x-icon>
+<link rel=stylesheet href=/book.min.1c9a9009be3c645cbccbe64eb0a90e28621e4118971d9a502db4aaa9bec96cfc.css integrity="sha256-HJqQCb48ZFy8y+ZOsKkOKGIeQRiXHZpQLbSqqb7JbPw=">
+<script defer src=/en.search.min.adf212d3d9775304bd71f39187748f16409ee829813a20a29aafa3de13e297a6.js integrity="sha256-rfIS09l3UwS9cfORh3SPFkCe6CmBOiCimq+j3hPil6Y="></script>
+<script defer src=/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js integrity="sha256-b2+Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC+NdcPIvZhzk="></script>
+</head>
+<body>
+<input type=checkbox class="hidden toggle" id=menu-control>
+<input type=checkbox class="hidden toggle" id=toc-control>
+<main class="container flex">
+<aside class=book-menu>
+<nav>
+<h2 class=book-brand>
+<a href=/><span>XS-Leaks Wiki</span>
+</a>
+</h2>
+<div class=book-search>
+<input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/>
+<div class="book-search-spinner hidden"></div>
+<ul id=book-search-results></ul>
+</div>
+<ul>
+<li class=book-section-flat>
+<span>Attacks</span>
+<ul>
+<li>
+<a href=/docs/attacks/xs-search/>XS-Search</a>
+</li>
+<li>
+<a href=/docs/attacks/window-references/>Window References</a>
+</li>
+<li>
+<a href=/docs/attacks/css-tricks/>CSS Tricks</a>
+</li>
+<li>
+<a href=/docs/attacks/error-events/>Error Events</a>
+</li>
+<li>
+<a href=/docs/attacks/frame-counting/>Frame Counting</a>
+</li>
+<li>
+<a href=/docs/attacks/navigations/>Navigations</a>
+</li>
+<li>
+<a href=/docs/attacks/cache-probing/>Cache Probing</a>
+</li>
+<li>
+<a href=/docs/attacks/element-leaks/>Element leaks</a>
+</li>
+<li>
+<a href=/docs/attacks/id-attribute/>ID Attribute</a>
+</li>
+<li>
+<a href=/docs/attacks/postmessage-broadcasts/>postMessage Broadcasts</a>
+</li>
+<li>
+<span>Browser Features</span>
+<ul>
+<li>
+<a href=/docs/attacks/browser-features/corb/>CORB Leaks</a>
+</li>
+<li>
+<a href=/docs/attacks/browser-features/corp/>CORP Leaks</a>
+</li>
+</ul>
+</li>
+<li>
+<span>Timing Attacks</span>
+<ul>
+<li>
+<a href=/docs/attacks/timing-attacks/clocks/>Clocks</a>
+</li>
+<li>
+<a href=/docs/attacks/timing-attacks/network-timing/>Network Timing</a>
+</li>
+<li>
+<a href=/docs/attacks/timing-attacks/performance-api/>Performance API</a>
+</li>
+<li>
+<a href=/docs/attacks/timing-attacks/execution-timing/>Execution Timing</a>
+</li>
+<li>
+<a href=/docs/attacks/timing-attacks/hybrid-timing/>Hybrid Timing</a>
+</li>
+<li>
+<a href=/docs/attacks/timing-attacks/connection-pool/>Connection Pool</a>
+</li>
+</ul>
+</li>
+<li>
+<a href=/docs/attacks/experiments/ class=collapsed>Experiments</a>
+</li>
+<li>
+<a href=/docs/attacks/historical/ class=collapsed>Historical</a>
+</li>
+</ul>
+</li>
+<li class=book-section-flat>
+<a href=/docs/defenses/>Defense Mechanisms</a>
+<ul>
+<li>
+<a href=/docs/defenses/design-protections/>Application Design</a>
+<ul>
+<li>
+<a href=/docs/defenses/design-protections/cache-protections/>Cache Protections</a>
+</li>
+<li>
+<a href=/docs/defenses/design-protections/subresource-protections/>Subresource Protections</a>
+</li>
+</ul>
+</li>
+<li>
+<a href=/docs/defenses/opt-in/>Opt-In Mechanisms</a>
+<ul>
+<li>
+<a href=/docs/defenses/opt-in/fetch-metadata/>Fetch Metadata</a>
+</li>
+<li>
+<a href=/docs/defenses/opt-in/coop/>Cross-Origin-Opener-Policy</a>
+</li>
+<li>
+<a href=/docs/defenses/opt-in/corp/>Cross-Origin-Resource-Policy</a>
+</li>
+<li>
+<a href=/docs/defenses/opt-in/xfo/>Framing Protections</a>
+</li>
+<li>
+<a href=/docs/defenses/opt-in/same-site-cookies/>SameSite Cookies</a>
+</li>
+</ul>
+</li>
+<li>
+<a href=/docs/defenses/isolation-policies/>Isolation Policies</a>
+<ul>
+<li>
+<a href=/docs/defenses/isolation-policies/resource-isolation/>Resource Isolation Policy</a>
+</li>
+<li>
+<a href=/docs/defenses/isolation-policies/framing-isolation/>Framing Isolation Policy</a>
+</li>
+<li>
+<a href=/docs/defenses/isolation-policies/navigation-isolation/>Navigation Isolation Policy</a>
+</li>
+<li>
+<a href=/docs/defenses/isolation-policies/strict-isolation/ class=active>Strict Isolation Policy</a>
+</li>
+</ul>
+</li>
+<li>
+<a href=/docs/defenses/secure-defaults/>Secure Defaults</a>
+<ul>
+<li>
+<a href=/docs/defenses/secure-defaults/corb/>Cross-Origin Read Blocking</a>
+</li>
+<li>
+<a href=/docs/defenses/secure-defaults/partitioned-cache/>Partitioned HTTP Cache</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class=book-section-flat>
+<a href=/docs/contributions/>Contributions</a>
+<ul>
+</ul>
+</li>
+</ul>
+</nav>
+<script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+</aside>
+<div class=book-page>
+<header class=book-header>
+<div class="flex align-center justify-between">
+<label for=menu-control>
+<img src=/svg/menu.svg class=book-icon alt=Menu>
+</label>
 <strong>Strict Isolation Policy</strong>
-<label for=toc-control><img src=/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><a href=#implementation-with-fetch-metadata>Implementation with Fetch Metadata</a></li><li><a href=#implementation-with-samesite-cookies>Implementation with SameSite cookies</a></li><li><a href=#implementation-with-referer>Implementation with Referer</a></li></ul></nav></aside></header><article class=markdown><h1>Strict Isolation Policy</h1><h5>November 30, 2020</h5><div>Category
-<a href=/category/defense/>Defense</a></div><p><p>Strict Isolation Policy is intended to protect against all cross-site interactions (including navigations to the application through hyperlinks). This is a very strict policy that has the potential to prevent applications from functioning properly.</p><blockquote class="book-hint2 tip"><p class="hint-title tip"><svg class="book-icon"><use href="/svg/hint-icons.svg#tip-notice"/></svg><span>tip</span></p><p>Instead of rejecting all cross-site interactions, the user could be prompted to confirm the action, e.g. <em>Confirm that you visited this page from a trusted origin</em>, to mitigate the risk of attacks in the background, and, at the same time, help prevent unintended breakages of an application.</p><p>However, this would only work for navigational requests, since other resources are loaded in the background.</p></blockquote><h2 id=implementation-with-fetch-metadata>Implementation with Fetch Metadata
-<a class=anchor href=#implementation-with-fetch-metadata>#</a></h2><p>The below snippet showcases an example implementation of Strict Isolation Policy by an application:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-py data-lang=py><span style=color:#6272a4># Reject cross-origin requests to protect from CSRF, XSSI, and other bugs</span>
+<label for=toc-control>
+<img src=/svg/toc.svg class=book-icon alt="Table of Contents">
+</label>
+</div>
+<aside class="hidden clearfix">
+<nav id=TableOfContents>
+<ul>
+<li><a href=#implementation-with-fetch-metadata>Implementation with Fetch Metadata</a></li>
+<li><a href=#implementation-with-samesite-cookies>Implementation with SameSite cookies</a></li>
+<li><a href=#implementation-with-referer>Implementation with Referer</a></li>
+</ul>
+</nav>
+</aside>
+</header>
+<article class=markdown>
+<h1>
+Strict Isolation Policy
+</h1>
+<h5>November 30, 2020</h5>
+<div>
+Category
+<a href=/category/defense/>Defense</a>
+</div>
+<p><p>Strict Isolation Policy is intended to protect against all cross-site interactions (including navigations to the application through hyperlinks). This is a very strict policy that has the potential to prevent applications from functioning properly.</p>
+<blockquote class="book-hint2 tip">
+<p class="hint-title tip">
+<svg class="book-icon"><use href="/svg/hint-icons.svg#tip-notice"/></svg><span>tip</span></p>
+<p>Instead of rejecting all cross-site interactions, the user could be prompted to confirm the action, e.g. <em>Confirm that you visited this page from a trusted origin</em>, to mitigate the risk of attacks in the background, and, at the same time, help prevent unintended breakages of an application.</p>
+<p>However, this would only work for navigational requests, since other resources are loaded in the background.</p>
+</blockquote>
+<h2 id=implementation-with-fetch-metadata>
+Implementation with Fetch Metadata
+<a class=anchor href=#implementation-with-fetch-metadata>#</a>
+</h2>
+<p>The below snippet showcases an example implementation of Strict Isolation Policy by an application:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-py data-lang=py><span style=color:#6272a4># Reject cross-origin requests to protect from CSRF, XSSI, and other bugs</span>
 <span style=color:#ff79c6>def</span> <span style=color:#50fa7b>allow_request</span>(req):
   <span style=color:#6272a4># Allow requests from browsers which don&#39;t send Fetch Metadata</span>
   <span style=color:#ff79c6>if</span> <span style=color:#ff79c6>not</span> req[<span style=color:#f1fa8c>&#39;headers&#39;</span>][<span style=color:#f1fa8c>&#39;sec-fetch-site&#39;</span>]:
-    <span style=color:#ff79c6>return</span> True
+    <span style=color:#ff79c6>return</span> <span style=color:#ff79c6>True</span>
 
   <span style=color:#6272a4># Block any cross-site request</span>
   <span style=color:#ff79c6>if</span> req[<span style=color:#f1fa8c>&#39;headers&#39;</span>][<span style=color:#f1fa8c>&#39;sec-fetch-site&#39;</span>] <span style=color:#ff79c6>==</span> <span style=color:#f1fa8c>&#39;cross-site&#39;</span>:
-    <span style=color:#ff79c6>return</span> False
+    <span style=color:#ff79c6>return</span> <span style=color:#ff79c6>False</span>
 
   <span style=color:#6272a4># Allow all other requests</span>
-  <span style=color:#ff79c6>return</span> True
-</code></pre></div><h2 id=implementation-with-samesite-cookies>Implementation with SameSite cookies
-<a class=anchor href=#implementation-with-samesite-cookies>#</a></h2><p>If a server sends a cookie with the <a href=https://xsleaks.dev/docs/defenses/opt-in/same-site-cookies/#samesite-cookie-modes><code>SameSite=strict</code></a> flag, any returned request that doesn&rsquo;t contain that cookie can be rejected, as showcased in this snippet:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-py data-lang=py><span style=color:#6272a4># Reject cross-origin requests to protect from CSRF, XSSI, and other bugs</span>
+  <span style=color:#ff79c6>return</span> <span style=color:#ff79c6>True</span>
+</code></pre></div><h2 id=implementation-with-samesite-cookies>
+Implementation with SameSite cookies
+<a class=anchor href=#implementation-with-samesite-cookies>#</a>
+</h2>
+<p>If a server sends a cookie with the <a href=https://xsleaks.dev/docs/defenses/opt-in/same-site-cookies/#samesite-cookie-modes><code>SameSite=strict</code></a> flag, any returned request that doesn&rsquo;t contain that cookie can be rejected, as showcased in this snippet:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-py data-lang=py><span style=color:#6272a4># Reject cross-origin requests to protect from CSRF, XSSI, and other bugs</span>
 <span style=color:#ff79c6>def</span> <span style=color:#50fa7b>allow_request</span>(req):
 
   <span style=color:#ff79c6>if</span> req[<span style=color:#f1fa8c>&#39;cookies&#39;</span>][<span style=color:#f1fa8c>&#39;strict-cookie&#39;</span>] <span style=color:#ff79c6>==</span> <span style=color:#f1fa8c>&#39;true&#39;</span>:
-    <span style=color:#ff79c6>return</span> True
+    <span style=color:#ff79c6>return</span> <span style=color:#ff79c6>True</span>
 
   <span style=color:#6272a4># Block requests without a strict cookie</span>
-  <span style=color:#ff79c6>return</span> False
-</code></pre></div><h2 id=implementation-with-referer>Implementation with Referer
-<a class=anchor href=#implementation-with-referer>#</a></h2><p>It is also possible to reject requests from untrusted origins with the <a href=https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referer><code>Referer</code></a> header:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-py data-lang=py><span style=color:#6272a4># Reject requests that came from untrusted referrers</span>
+  <span style=color:#ff79c6>return</span> <span style=color:#ff79c6>False</span>
+</code></pre></div><h2 id=implementation-with-referer>
+Implementation with Referer
+<a class=anchor href=#implementation-with-referer>#</a>
+</h2>
+<p>It is also possible to reject requests from untrusted origins with the <a href=https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referer><code>Referer</code></a> header:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-py data-lang=py><span style=color:#6272a4># Reject requests that came from untrusted referrers</span>
 <span style=color:#ff79c6>def</span> <span style=color:#50fa7b>allow_request</span>(req):
 
   <span style=color:#6272a4># check if the referer header is trusted, i.e. exists in trusted_referers dict</span>
   <span style=color:#ff79c6>if</span> req[<span style=color:#f1fa8c>&#39;headers&#39;</span>][<span style=color:#f1fa8c>&#39;referer&#39;</span>] <span style=color:#ff79c6>in</span> trusted_referers:
-    <span style=color:#ff79c6>return</span> True
+    <span style=color:#ff79c6>return</span> <span style=color:#ff79c6>True</span>
 
   <span style=color:#6272a4># Block requests without a strict cookie</span>
-  <span style=color:#ff79c6>return</span> False
-</code></pre></div><blockquote class="book-hint2 important"><p class="hint-title important"><svg class="book-icon"><use href="/svg/hint-icons.svg#important-notice"/></svg><span>important</span></p><p>It is not guaranteed that every request will contain the Referer header (e.g. extensions can strip the header) which could potentially break an application. Also be aware that it is possible to set the value of <code>Referer</code> to <code>null</code>.</p><p>Twitter deployed <sup id=fnref:1><a href=#fn:1 class=footnote-ref role=doc-noteref>1</a></sup> a similar protection against XS-Leaks.</p><section class=footnotes role=doc-endnotes><hr><ol><li id=fn:1 role=doc-endnote><p>Protecting user identity against Silhouette, <a href=https://blog.twitter.com/engineering/en_us/topics/insights/2018/twitter_silhouette.html>link</a>&#160;<a href=#fnref:1 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li></ol></section></blockquote></p></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/xsleaks/wiki/commit/9aa02e02ce31eaffcd0f0bfd42e9082b672de366 title="Last modified by terjanq | December 4, 2020" target=_blank rel=noopener><img src=/svg/calendar.svg class=book-icon alt=Calendar>
-<span>Last Modified: December 4, 2020</span></a></div><div><a class="flex align-center" href=https://github.com/xsleaks/wiki/edit/master/content//docs/defenses/isolation-policies/strict-isolation.md target=_blank rel=noopener><img src=/svg/edit.svg class=book-icon alt=Edit>
-<span>Edit this article</span></a></div></div></footer><div class=book-comments></div><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><nav id=TableOfContents><ul><li><a href=#implementation-with-fetch-metadata>Implementation with Fetch Metadata</a></li><li><a href=#implementation-with-samesite-cookies>Implementation with SameSite cookies</a></li><li><a href=#implementation-with-referer>Implementation with Referer</a></li></ul></nav></aside></main></body></html>
+  <span style=color:#ff79c6>return</span> <span style=color:#ff79c6>False</span>
+</code></pre></div>
+<blockquote class="book-hint2 important">
+<p class="hint-title important">
+<svg class="book-icon"><use href="/svg/hint-icons.svg#important-notice"/></svg><span>important</span></p>
+<p>It is not guaranteed that every request will contain the Referer header (e.g. extensions can strip the header) which could potentially break an application. Also be aware that it is possible to set the value of <code>Referer</code> to <code>null</code>.</p>
+<p>Twitter deployed <sup id=fnref:1><a href=#fn:1 class=footnote-ref role=doc-noteref>1</a></sup> a similar protection against XS-Leaks.</p>
+<section class=footnotes role=doc-endnotes>
+<hr>
+<ol>
+<li id=fn:1 role=doc-endnote>
+<p>Protecting user identity against Silhouette, <a href=https://blog.twitter.com/engineering/en_us/topics/insights/2018/twitter_silhouette.html>link</a>&#160;<a href=#fnref:1 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+</blockquote>
+</p>
+</article>
+<footer class=book-footer>
+<div class="flex flex-wrap justify-between">
+<div><a class="flex align-center" href=https://github.com/xsleaks/wiki/commit/9aa02e02ce31eaffcd0f0bfd42e9082b672de366 title="Last modified by terjanq | December 4, 2020" target=_blank rel=noopener>
+<img src=/svg/calendar.svg class=book-icon alt=Calendar>
+<span>Last Modified: December 4, 2020</span>
+</a>
+</div>
+<div>
+<a class="flex align-center" href=https://github.com/xsleaks/wiki/edit/master/content//docs/defenses/isolation-policies/strict-isolation.md target=_blank rel=noopener>
+<img src=/svg/edit.svg class=book-icon alt=Edit>
+<span>Edit this article</span>
+</a>
+</div>
+</div>
+</footer>
+<div class=book-comments>
+</div>
+<label for=menu-control class="hidden book-menu-overlay"></label>
+</div>
+<aside class=book-toc>
+<nav id=TableOfContents>
+<ul>
+<li><a href=#implementation-with-fetch-metadata>Implementation with Fetch Metadata</a></li>
+<li><a href=#implementation-with-samesite-cookies>Implementation with SameSite cookies</a></li>
+<li><a href=#implementation-with-referer>Implementation with Referer</a></li>
+</ul>
+</nav>
+</aside>
+</main>
+</body>
+</html>

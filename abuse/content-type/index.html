@@ -1,117 +1,680 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=theme-color content="#FFFFFF"><meta property="og:title" content="Content-Type"><meta property="og:description" content><meta property="og:type" content="website"><meta property="og:url" content="https://xsleaks.dev/abuse/content-type/"><title>Content-Type | XS-Leaks Wiki</title><link rel=manifest href=/manifest.json><link rel=icon href=/favicon.png type=image/x-icon><link rel=stylesheet href=/book.min.1c9a9009be3c645cbccbe64eb0a90e28621e4118971d9a502db4aaa9bec96cfc.css integrity="sha256-HJqQCb48ZFy8y+ZOsKkOKGIeQRiXHZpQLbSqqb7JbPw="><script defer src=/en.search.min.3fd7f82651ade342949984a366884780b87e6b9d58b638930da884061f7231a8.js integrity="sha256-P9f4JlGt40KUmYSjZohHgLh+a51YtjiTDaiEBh9yMag="></script><script defer src=/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js integrity="sha256-b2+Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC+NdcPIvZhzk="></script><link rel=alternate type=application/rss+xml href=https://xsleaks.dev/abuse/content-type/index.xml title="XS-Leaks Wiki"></head><body><input type=checkbox class="hidden toggle" id=menu-control>
-<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><nav><h2 class=book-brand><a href=/><span>XS-Leaks Wiki</span></a></h2><div class=book-search><input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><ul><li class=book-section-flat><span>Attacks</span><ul><li><a href=/docs/attacks/xs-search/>XS-Search</a></li><li><a href=/docs/attacks/window-references/>Window References</a></li><li><a href=/docs/attacks/error-events/>Error Events</a></li><li><a href=/docs/attacks/frame-counting/>Frame Counting</a></li><li><a href=/docs/attacks/navigations/>Navigations</a></li><li><a href=/docs/attacks/cache-probing/>Cache Probing</a></li><li><a href=/docs/attacks/element-leaks/>Element leaks</a></li><li><a href=/docs/attacks/id-attribute/>ID Attribute</a></li><li><a href=/docs/attacks/postmessage-broadcasts/>postMessage Broadcasts</a></li><li><span>Browser Features</span><ul><li><a href=/docs/attacks/browser-features/corb/>CORB Leaks</a></li><li><a href=/docs/attacks/browser-features/corp/>CORP Leaks</a></li></ul></li><li><span>Timing Attacks</span><ul><li><a href=/docs/attacks/timing-attacks/clocks/>Clocks</a></li><li><a href=/docs/attacks/timing-attacks/network-timing/>Network Timing</a></li><li><a href=/docs/attacks/timing-attacks/performance-api/>Performance API</a></li><li><a href=/docs/attacks/timing-attacks/execution-timing/>Execution Timing</a></li><li><a href=/docs/attacks/timing-attacks/hybrid-timing/>Hybrid Timing</a></li><li><a href=/docs/attacks/timing-attacks/connection-pool/>Connection Pool</a></li></ul></li><li><a href=/docs/attacks/experiments/ class=collapsed>Experiments</a></li><li><a href=/docs/attacks/historical/ class=collapsed>Historical</a></li></ul></li><li class=book-section-flat><a href=/docs/defenses/>Defense Mechanisms</a><ul><li><a href=/docs/defenses/design-protections/>Application Design</a><ul><li><a href=/docs/defenses/design-protections/cache-protections/>Cache Protections</a></li><li><a href=/docs/defenses/design-protections/subresource-protections/>Subresource Protections</a></li></ul></li><li><a href=/docs/defenses/opt-in/>Opt-In Mechanisms</a><ul><li><a href=/docs/defenses/opt-in/fetch-metadata/>Fetch Metadata</a></li><li><a href=/docs/defenses/opt-in/coop/>Cross-Origin-Opener-Policy</a></li><li><a href=/docs/defenses/opt-in/corp/>Cross-Origin-Resource-Policy</a></li><li><a href=/docs/defenses/opt-in/xfo/>Framing Protections</a></li><li><a href=/docs/defenses/opt-in/same-site-cookies/>SameSite Cookies</a></li></ul></li><li><a href=/docs/defenses/isolation-policies/>Isolation Policies</a><ul><li><a href=/docs/defenses/isolation-policies/resource-isolation/>Resource Isolation Policy</a></li><li><a href=/docs/defenses/isolation-policies/framing-isolation/>Framing Isolation Policy</a></li><li><a href=/docs/defenses/isolation-policies/navigation-isolation/>Navigation Isolation Policy</a></li><li><a href=/docs/defenses/isolation-policies/strict-isolation/>Strict Isolation Policy</a></li></ul></li><li><a href=/docs/defenses/secure-defaults/>Secure Defaults</a><ul><li><a href=/docs/defenses/secure-defaults/corb/>Cross-Origin Read Blocking</a></li><li><a href=/docs/defenses/secure-defaults/partitioned-cache/>Partitioned HTTP Cache</a></li></ul></li></ul></li><li class=book-section-flat><a href=/docs/contributions/>Contributions</a><ul></ul></li></ul></nav><script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/svg/menu.svg class=book-icon alt=Menu></label>
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=description content>
+<meta name=theme-color content="#FFFFFF"><meta property="og:title" content="Content-Type">
+<meta property="og:description" content>
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://xsleaks.dev/abuse/content-type/">
+<title>Content-Type | XS-Leaks Wiki</title>
+<link rel=manifest href=/manifest.json>
+<link rel=icon href=/favicon.png type=image/x-icon>
+<link rel=stylesheet href=/book.min.1c9a9009be3c645cbccbe64eb0a90e28621e4118971d9a502db4aaa9bec96cfc.css integrity="sha256-HJqQCb48ZFy8y+ZOsKkOKGIeQRiXHZpQLbSqqb7JbPw=">
+<script defer src=/en.search.min.adf212d3d9775304bd71f39187748f16409ee829813a20a29aafa3de13e297a6.js integrity="sha256-rfIS09l3UwS9cfORh3SPFkCe6CmBOiCimq+j3hPil6Y="></script>
+<script defer src=/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js integrity="sha256-b2+Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC+NdcPIvZhzk="></script>
+<link rel=alternate type=application/rss+xml href=https://xsleaks.dev/abuse/content-type/index.xml title="XS-Leaks Wiki">
+</head>
+<body>
+<input type=checkbox class="hidden toggle" id=menu-control>
+<input type=checkbox class="hidden toggle" id=toc-control>
+<main class="container flex">
+<aside class=book-menu>
+<nav>
+<h2 class=book-brand>
+<a href=/><span>XS-Leaks Wiki</span>
+</a>
+</h2>
+<div class=book-search>
+<input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/>
+<div class="book-search-spinner hidden"></div>
+<ul id=book-search-results></ul>
+</div>
+<ul>
+<li class=book-section-flat>
+<span>Attacks</span>
+<ul>
+<li>
+<a href=/docs/attacks/xs-search/>XS-Search</a>
+</li>
+<li>
+<a href=/docs/attacks/window-references/>Window References</a>
+</li>
+<li>
+<a href=/docs/attacks/css-tricks/>CSS Tricks</a>
+</li>
+<li>
+<a href=/docs/attacks/error-events/>Error Events</a>
+</li>
+<li>
+<a href=/docs/attacks/frame-counting/>Frame Counting</a>
+</li>
+<li>
+<a href=/docs/attacks/navigations/>Navigations</a>
+</li>
+<li>
+<a href=/docs/attacks/cache-probing/>Cache Probing</a>
+</li>
+<li>
+<a href=/docs/attacks/element-leaks/>Element leaks</a>
+</li>
+<li>
+<a href=/docs/attacks/id-attribute/>ID Attribute</a>
+</li>
+<li>
+<a href=/docs/attacks/postmessage-broadcasts/>postMessage Broadcasts</a>
+</li>
+<li>
+<span>Browser Features</span>
+<ul>
+<li>
+<a href=/docs/attacks/browser-features/corb/>CORB Leaks</a>
+</li>
+<li>
+<a href=/docs/attacks/browser-features/corp/>CORP Leaks</a>
+</li>
+</ul>
+</li>
+<li>
+<span>Timing Attacks</span>
+<ul>
+<li>
+<a href=/docs/attacks/timing-attacks/clocks/>Clocks</a>
+</li>
+<li>
+<a href=/docs/attacks/timing-attacks/network-timing/>Network Timing</a>
+</li>
+<li>
+<a href=/docs/attacks/timing-attacks/performance-api/>Performance API</a>
+</li>
+<li>
+<a href=/docs/attacks/timing-attacks/execution-timing/>Execution Timing</a>
+</li>
+<li>
+<a href=/docs/attacks/timing-attacks/hybrid-timing/>Hybrid Timing</a>
+</li>
+<li>
+<a href=/docs/attacks/timing-attacks/connection-pool/>Connection Pool</a>
+</li>
+</ul>
+</li>
+<li>
+<a href=/docs/attacks/experiments/ class=collapsed>Experiments</a>
+</li>
+<li>
+<a href=/docs/attacks/historical/ class=collapsed>Historical</a>
+</li>
+</ul>
+</li>
+<li class=book-section-flat>
+<a href=/docs/defenses/>Defense Mechanisms</a>
+<ul>
+<li>
+<a href=/docs/defenses/design-protections/>Application Design</a>
+<ul>
+<li>
+<a href=/docs/defenses/design-protections/cache-protections/>Cache Protections</a>
+</li>
+<li>
+<a href=/docs/defenses/design-protections/subresource-protections/>Subresource Protections</a>
+</li>
+</ul>
+</li>
+<li>
+<a href=/docs/defenses/opt-in/>Opt-In Mechanisms</a>
+<ul>
+<li>
+<a href=/docs/defenses/opt-in/fetch-metadata/>Fetch Metadata</a>
+</li>
+<li>
+<a href=/docs/defenses/opt-in/coop/>Cross-Origin-Opener-Policy</a>
+</li>
+<li>
+<a href=/docs/defenses/opt-in/corp/>Cross-Origin-Resource-Policy</a>
+</li>
+<li>
+<a href=/docs/defenses/opt-in/xfo/>Framing Protections</a>
+</li>
+<li>
+<a href=/docs/defenses/opt-in/same-site-cookies/>SameSite Cookies</a>
+</li>
+</ul>
+</li>
+<li>
+<a href=/docs/defenses/isolation-policies/>Isolation Policies</a>
+<ul>
+<li>
+<a href=/docs/defenses/isolation-policies/resource-isolation/>Resource Isolation Policy</a>
+</li>
+<li>
+<a href=/docs/defenses/isolation-policies/framing-isolation/>Framing Isolation Policy</a>
+</li>
+<li>
+<a href=/docs/defenses/isolation-policies/navigation-isolation/>Navigation Isolation Policy</a>
+</li>
+<li>
+<a href=/docs/defenses/isolation-policies/strict-isolation/>Strict Isolation Policy</a>
+</li>
+</ul>
+</li>
+<li>
+<a href=/docs/defenses/secure-defaults/>Secure Defaults</a>
+<ul>
+<li>
+<a href=/docs/defenses/secure-defaults/corb/>Cross-Origin Read Blocking</a>
+</li>
+<li>
+<a href=/docs/defenses/secure-defaults/partitioned-cache/>Partitioned HTTP Cache</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class=book-section-flat>
+<a href=/docs/contributions/>Contributions</a>
+<ul>
+</ul>
+</li>
+</ul>
+</nav>
+<script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+</aside>
+<div class=book-page>
+<header class=book-header>
+<div class="flex align-center justify-between">
+<label for=menu-control>
+<img src=/svg/menu.svg class=book-icon alt=Menu>
+</label>
 <strong>Content-Type</strong>
-<label for=toc-control><img src=/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav><ul><li class=book-section-flat><strong>Abuse</strong><ul><li class="flex justify-between"><a href=/abuse/window-references/>Window References</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/browser-feature/>Browser Feature</a>
-<span>2</span></li><li class="flex justify-between"><a href=/abuse/browser-limits/>Browser Limits</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/connection-pool/>Connection Pool</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/content-type/>Content-Type</a>
-<span>3</span></li><li class="flex justify-between"><a href=/abuse/csp-violations/>CSP Violations</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/css-injections/>CSS Injections</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/downloads/>Downloads</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/error-events/>Error Events</a>
-<span>3</span></li><li class="flex justify-between"><a href=/abuse/event-loop/>Event Loop</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/focus/>focus</a>
-<span>2</span></li><li class="flex justify-between"><a href=/abuse/history/>History</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/iframes/>iframes</a>
-<span>9</span></li><li class="flex justify-between"><a href=/abuse/nosniff/>nosniff</a>
-<span>2</span></li><li class="flex justify-between"><a href=/abuse/onblur/>onblur</a>
-<span>2</span></li><li class="flex justify-between"><a href=/abuse/postmessage/>postMessage</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/redirects/>Redirects</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/regex-injections/>Regex Injections</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/service-workers/>Service Workers</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/site-isolation/>Site Isolation</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/status-code/>Status Code</a>
-<span>2</span></li><li class="flex justify-between"><a href=/abuse/typemustmatch/>typeMustMatch</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/window.open/>window.open</a>
-<span>2</span></li><li class="flex justify-between"><a href=/abuse/window.performance/>window.performance</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/window.stop/>window.stop</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/abortcontroller/>AbortController</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/cache/>Cache</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/htmlelement/>HTMLElement</a>
-<span>1</span></li></ul></li><li class=book-section-flat><strong>Category</strong><ul><li class="flex justify-between"><a href=/category/defense/>Defense</a>
-<span>13</span></li><li class="flex justify-between"><a href=/category/attack/>Attack</a>
-<span>16</span></li><li class="flex justify-between"><a href=/category/attack-principle/>Attack Principle</a>
-<span>1</span></li><li class="flex justify-between"><a href=/category/experiments/>Experiments</a>
-<span>2</span></li><li class="flex justify-between"><a href=/category/historical/>Historical</a>
-<span>2</span></li><li class="flex justify-between"><a href=/category/instrument/>Instrument</a>
-<span>1</span></li></ul></li><li class=book-section-flat><strong>Defenses</strong><ul><li class="flex justify-between"><a href=/defenses/coop/>COOP</a>
-<span>6</span></li><li class="flex justify-between"><a href=/defenses/fetch-metadata/>Fetch Metadata</a>
-<span>12</span></li><li class="flex justify-between"><a href=/defenses/samesite-cookies/>SameSite Cookies</a>
-<span>15</span></li><li class="flex justify-between"><a href=/defenses/application-fix/>Application Fix</a>
-<span>1</span></li><li class="flex justify-between"><a href=/defenses/browser-fix/>Browser Fix</a>
-<span>1</span></li><li class="flex justify-between"><a href=/defenses/corb/>CORB</a>
-<span>1</span></li><li class="flex justify-between"><a href=/defenses/deprecation/>Deprecation</a>
-<span>1</span></li><li class="flex justify-between"><a href=/defenses/framing-protections/>Framing Protections</a>
-<span>5</span></li><li class="flex justify-between"><a href=/defenses/subresource-protections/>Subresource Protections</a>
-<span>1</span></li><li class="flex justify-between"><a href=/defenses/vary-sec-fetch-site/>Vary: Sec-Fetch-Site</a>
-<span>1</span></li></ul></li></ul></nav></aside></header><article class="markdown book-post"><h2><a href=/docs/attacks/browser-features/corb/>CORB Leaks</a></h2><h5>October 1, 2020</h5><div>Abuse
+<label for=toc-control>
+<img src=/svg/toc.svg class=book-icon alt="Table of Contents">
+</label>
+</div>
+<aside class="hidden clearfix">
+<nav>
+<ul>
+<li class=book-section-flat>
+<strong>Abuse</strong>
+<ul>
+<li class="flex justify-between">
+<a href=/abuse/window-references/>Window References</a>
+<span>1</span>
+</li>
+<li class="flex justify-between">
+<a href=/abuse/browser-feature/>Browser Feature</a>
+<span>2</span>
+</li>
+<li class="flex justify-between">
+<a href=/abuse/browser-limits/>Browser Limits</a>
+<span>1</span>
+</li>
+<li class="flex justify-between">
+<a href=/abuse/connection-pool/>Connection Pool</a>
+<span>1</span>
+</li>
+<li class="flex justify-between">
+<a href=/abuse/content-type/>Content-Type</a>
+<span>3</span>
+</li>
+<li class="flex justify-between">
+<a href=/abuse/csp-violations/>CSP Violations</a>
+<span>1</span>
+</li>
+<li class="flex justify-between">
+<a href=/abuse/css/>CSS</a>
+<span>1</span>
+</li>
+<li class="flex justify-between">
+<a href=/abuse/css-injections/>CSS Injections</a>
+<span>1</span>
+</li>
+<li class="flex justify-between">
+<a href=/abuse/downloads/>Downloads</a>
+<span>1</span>
+</li>
+<li class="flex justify-between">
+<a href=/abuse/error-events/>Error Events</a>
+<span>3</span>
+</li>
+<li class="flex justify-between">
+<a href=/abuse/event-loop/>Event Loop</a>
+<span>1</span>
+</li>
+<li class="flex justify-between">
+<a href=/abuse/focus/>focus</a>
+<span>2</span>
+</li>
+<li class="flex justify-between">
+<a href=/abuse/history/>History</a>
+<span>1</span>
+</li>
+<li class="flex justify-between">
+<a href=/abuse/iframes/>iframes</a>
+<span>9</span>
+</li>
+<li class="flex justify-between">
+<a href=/abuse/nosniff/>nosniff</a>
+<span>2</span>
+</li>
+<li class="flex justify-between">
+<a href=/abuse/onblur/>onblur</a>
+<span>2</span>
+</li>
+<li class="flex justify-between">
+<a href=/abuse/postmessage/>postMessage</a>
+<span>1</span>
+</li>
+<li class="flex justify-between">
+<a href=/abuse/redirects/>Redirects</a>
+<span>1</span>
+</li>
+<li class="flex justify-between">
+<a href=/abuse/regex-injections/>Regex Injections</a>
+<span>1</span>
+</li>
+<li class="flex justify-between">
+<a href=/abuse/service-workers/>Service Workers</a>
+<span>1</span>
+</li>
+<li class="flex justify-between">
+<a href=/abuse/site-isolation/>Site Isolation</a>
+<span>1</span>
+</li>
+<li class="flex justify-between">
+<a href=/abuse/status-code/>Status Code</a>
+<span>2</span>
+</li>
+<li class="flex justify-between">
+<a href=/abuse/typemustmatch/>typeMustMatch</a>
+<span>1</span>
+</li>
+<li class="flex justify-between">
+<a href=/abuse/window.open/>window.open</a>
+<span>2</span>
+</li>
+<li class="flex justify-between">
+<a href=/abuse/window.performance/>window.performance</a>
+<span>1</span>
+</li>
+<li class="flex justify-between">
+<a href=/abuse/window.stop/>window.stop</a>
+<span>1</span>
+</li>
+<li class="flex justify-between">
+<a href=/abuse/abortcontroller/>AbortController</a>
+<span>1</span>
+</li>
+<li class="flex justify-between">
+<a href=/abuse/cache/>Cache</a>
+<span>1</span>
+</li>
+<li class="flex justify-between">
+<a href=/abuse/htmlelement/>HTMLElement</a>
+<span>1</span>
+</li>
+</ul>
+</li>
+<li class=book-section-flat>
+<strong>Category</strong>
+<ul>
+<li class="flex justify-between">
+<a href=/category/defense/>Defense</a>
+<span>13</span>
+</li>
+<li class="flex justify-between">
+<a href=/category/attack/>Attack</a>
+<span>17</span>
+</li>
+<li class="flex justify-between">
+<a href=/category/attack-principle/>Attack Principle</a>
+<span>1</span>
+</li>
+<li class="flex justify-between">
+<a href=/category/experiments/>Experiments</a>
+<span>2</span>
+</li>
+<li class="flex justify-between">
+<a href=/category/historical/>Historical</a>
+<span>2</span>
+</li>
+<li class="flex justify-between">
+<a href=/category/instrument/>Instrument</a>
+<span>1</span>
+</li>
+</ul>
+</li>
+<li class=book-section-flat>
+<strong>Defenses</strong>
+<ul>
+<li class="flex justify-between">
+<a href=/defenses/coop/>COOP</a>
+<span>6</span>
+</li>
+<li class="flex justify-between">
+<a href=/defenses/fetch-metadata/>Fetch Metadata</a>
+<span>12</span>
+</li>
+<li class="flex justify-between">
+<a href=/defenses/samesite-cookies/>SameSite Cookies</a>
+<span>15</span>
+</li>
+<li class="flex justify-between">
+<a href=/defenses/application-fix/>Application Fix</a>
+<span>1</span>
+</li>
+<li class="flex justify-between">
+<a href=/defenses/browser-fix/>Browser Fix</a>
+<span>1</span>
+</li>
+<li class="flex justify-between">
+<a href=/defenses/corb/>CORB</a>
+<span>1</span>
+</li>
+<li class="flex justify-between">
+<a href=/defenses/deprecation/>Deprecation</a>
+<span>1</span>
+</li>
+<li class="flex justify-between">
+<a href=/defenses/framing-protections/>Framing Protections</a>
+<span>6</span>
+</li>
+<li class="flex justify-between">
+<a href=/defenses/subresource-protections/>Subresource Protections</a>
+<span>1</span>
+</li>
+<li class="flex justify-between">
+<a href=/defenses/vary-sec-fetch-site/>Vary: Sec-Fetch-Site</a>
+<span>1</span>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</aside>
+</header>
+<article class="markdown book-post">
+<h2>
+<a href=/docs/attacks/browser-features/corb/>CORB Leaks</a>
+</h2>
+<h5>October 1, 2020</h5>
+<div>
+Abuse
 <a href=/abuse/browser-feature/>Browser Feature</a>,
 <a href=/abuse/error-events/>Error Events</a>,
 <a href=/abuse/content-type/>Content-Type</a>,
-<a href=/abuse/nosniff/>nosniff</a></div><div>Category
-<a href=/category/attack/>Attack</a></div><div>Defenses
+<a href=/abuse/nosniff/>nosniff</a>
+</div>
+<div>
+Category
+<a href=/category/attack/>Attack</a>
+</div>
+<div>
+Defenses
 <a href=/defenses/fetch-metadata/>Fetch Metadata</a>,
-<a href=/defenses/samesite-cookies/>SameSite Cookies</a></div><p>Cross-Origin Read Blocking (CORB) is a web platform security feature aimed at reducing the impact of speculative side-channel attacks such as Spectre. Unfortunately, blocking certain types of requests introduced a new type of XS-Leaks 1 that allows attackers to detect if CORB was enforced on one request, but wasn&rsquo;t on another. Nevertheless, the introduced XS-Leaks are much less problematic than the issues actively protected by CORB (e.g. Spectre).
+<a href=/defenses/samesite-cookies/>SameSite Cookies</a>
+</div>
+<p>Cross-Origin Read Blocking (CORB) is a web platform security feature aimed at reducing the impact of speculative side-channel attacks such as Spectre. Unfortunately, blocking certain types of requests introduced a new type of XS-Leaks 1 that allows attackers to detect if CORB was enforced on one request, but wasn&rsquo;t on another. Nevertheless, the introduced XS-Leaks are much less problematic than the issues actively protected by CORB (e.g. Spectre).
 info
-<a href=/docs/attacks/browser-features/corb/>...</a></p></article><article class="markdown book-post"><h2><a href=/docs/attacks/error-events/>Error Events</a></h2><h5>October 1, 2020</h5><div>Abuse
+<a href=/docs/attacks/browser-features/corb/>...</a>
+</p>
+</article>
+<article class="markdown book-post">
+<h2>
+<a href=/docs/attacks/error-events/>Error Events</a>
+</h2>
+<h5>October 1, 2020</h5>
+<div>
+Abuse
 <a href=/abuse/error-events/>Error Events</a>,
 <a href=/abuse/status-code/>Status Code</a>,
 <a href=/abuse/nosniff/>nosniff</a>,
-<a href=/abuse/content-type/>Content-Type</a></div><div>Category
-<a href=/category/attack/>Attack</a></div><div>Defenses
+<a href=/abuse/content-type/>Content-Type</a>
+</div>
+<div>
+Category
+<a href=/category/attack/>Attack</a>
+</div>
+<div>
+Defenses
 <a href=/defenses/fetch-metadata/>Fetch Metadata</a>,
-<a href=/defenses/samesite-cookies/>SameSite Cookies</a></div><p>When a webpage issues a request to a server (e.g. fetch, HTML tags), the server receives and processes this request. When received, the server decides whether the request should succeed (e.g. 200) or fail (e.g. 404) based on the provided context. When a response has an error status, an error event is fired by the browser for the page to handle. These errors also cover situations where the parser fails, for example when trying to embed HTML content as an image.
-<a href=/docs/attacks/error-events/>...</a></p></article><article class="markdown book-post"><h2><a href=/docs/attacks/historical/content-type/>Content-Type</a></h2><h5>October 1, 2020</h5><div>Abuse
+<a href=/defenses/samesite-cookies/>SameSite Cookies</a>
+</div>
+<p>When a webpage issues a request to a server (e.g. fetch, HTML tags), the server receives and processes this request. When received, the server decides whether the request should succeed (e.g. 200) or fail (e.g. 404) based on the provided context. When a response has an error status, an error event is fired by the browser for the page to handle. These errors also cover situations where the parser fails, for example when trying to embed HTML content as an image.
+<a href=/docs/attacks/error-events/>...</a>
+</p>
+</article>
+<article class="markdown book-post">
+<h2>
+<a href=/docs/attacks/historical/content-type/>Content-Type</a>
+</h2>
+<h5>October 1, 2020</h5>
+<div>
+Abuse
 <a href=/abuse/typemustmatch/>typeMustMatch</a>,
 <a href=/abuse/iframes/>iframes</a>,
 <a href=/abuse/content-type/>Content-Type</a>,
-<a href=/abuse/status-code/>Status Code</a></div><div>Category
-<a href=/category/historical/>Historical</a></div><div>Defenses
-<a href=/defenses/deprecation/>Deprecation</a></div><p>Leaking the Content-Type of a request would provide attackers with a new way of distinguishing two requests from each other.
+<a href=/abuse/status-code/>Status Code</a>
+</div>
+<div>
+Category
+<a href=/category/historical/>Historical</a>
+</div>
+<div>
+Defenses
+<a href=/defenses/deprecation/>Deprecation</a>
+</div>
+<p>Leaking the Content-Type of a request would provide attackers with a new way of distinguishing two requests from each other.
 typeMustMatch # typeMustMatch is a Boolean that reflects the typeMustMatch attribute of the object element. It ensures that a certain MIME type must be enforced when loading an object, by verifying if the Content-Type of the resource is the same as the one provided in the object. Unfortunately, this enforcement also allowed attackers to leak the Content-Type and Status Codes returned by a website 1.
-<a href=/docs/attacks/historical/content-type/>...</a></p></article><footer class=book-footer><div class="flex flex-wrap justify-between"></div></footer><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><nav><ul><li class=book-section-flat><strong>Abuse</strong><ul><li class="flex justify-between"><a href=/abuse/window-references/>Window References</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/browser-feature/>Browser Feature</a>
-<span>2</span></li><li class="flex justify-between"><a href=/abuse/browser-limits/>Browser Limits</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/connection-pool/>Connection Pool</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/content-type/>Content-Type</a>
-<span>3</span></li><li class="flex justify-between"><a href=/abuse/csp-violations/>CSP Violations</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/css-injections/>CSS Injections</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/downloads/>Downloads</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/error-events/>Error Events</a>
-<span>3</span></li><li class="flex justify-between"><a href=/abuse/event-loop/>Event Loop</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/focus/>focus</a>
-<span>2</span></li><li class="flex justify-between"><a href=/abuse/history/>History</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/iframes/>iframes</a>
-<span>9</span></li><li class="flex justify-between"><a href=/abuse/nosniff/>nosniff</a>
-<span>2</span></li><li class="flex justify-between"><a href=/abuse/onblur/>onblur</a>
-<span>2</span></li><li class="flex justify-between"><a href=/abuse/postmessage/>postMessage</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/redirects/>Redirects</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/regex-injections/>Regex Injections</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/service-workers/>Service Workers</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/site-isolation/>Site Isolation</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/status-code/>Status Code</a>
-<span>2</span></li><li class="flex justify-between"><a href=/abuse/typemustmatch/>typeMustMatch</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/window.open/>window.open</a>
-<span>2</span></li><li class="flex justify-between"><a href=/abuse/window.performance/>window.performance</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/window.stop/>window.stop</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/abortcontroller/>AbortController</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/cache/>Cache</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/htmlelement/>HTMLElement</a>
-<span>1</span></li></ul></li><li class=book-section-flat><strong>Category</strong><ul><li class="flex justify-between"><a href=/category/defense/>Defense</a>
-<span>13</span></li><li class="flex justify-between"><a href=/category/attack/>Attack</a>
-<span>16</span></li><li class="flex justify-between"><a href=/category/attack-principle/>Attack Principle</a>
-<span>1</span></li><li class="flex justify-between"><a href=/category/experiments/>Experiments</a>
-<span>2</span></li><li class="flex justify-between"><a href=/category/historical/>Historical</a>
-<span>2</span></li><li class="flex justify-between"><a href=/category/instrument/>Instrument</a>
-<span>1</span></li></ul></li><li class=book-section-flat><strong>Defenses</strong><ul><li class="flex justify-between"><a href=/defenses/coop/>COOP</a>
-<span>6</span></li><li class="flex justify-between"><a href=/defenses/fetch-metadata/>Fetch Metadata</a>
-<span>12</span></li><li class="flex justify-between"><a href=/defenses/samesite-cookies/>SameSite Cookies</a>
-<span>15</span></li><li class="flex justify-between"><a href=/defenses/application-fix/>Application Fix</a>
-<span>1</span></li><li class="flex justify-between"><a href=/defenses/browser-fix/>Browser Fix</a>
-<span>1</span></li><li class="flex justify-between"><a href=/defenses/corb/>CORB</a>
-<span>1</span></li><li class="flex justify-between"><a href=/defenses/deprecation/>Deprecation</a>
-<span>1</span></li><li class="flex justify-between"><a href=/defenses/framing-protections/>Framing Protections</a>
-<span>5</span></li><li class="flex justify-between"><a href=/defenses/subresource-protections/>Subresource Protections</a>
-<span>1</span></li><li class="flex justify-between"><a href=/defenses/vary-sec-fetch-site/>Vary: Sec-Fetch-Site</a>
-<span>1</span></li></ul></li></ul></nav></aside></main></body></html>
+<a href=/docs/attacks/historical/content-type/>...</a>
+</p>
+</article>
+<footer class=book-footer>
+<div class="flex flex-wrap justify-between">
+</div>
+</footer>
+<label for=menu-control class="hidden book-menu-overlay"></label>
+</div>
+<aside class=book-toc>
+<nav>
+<ul>
+<li class=book-section-flat>
+<strong>Abuse</strong>
+<ul>
+<li class="flex justify-between">
+<a href=/abuse/window-references/>Window References</a>
+<span>1</span>
+</li>
+<li class="flex justify-between">
+<a href=/abuse/browser-feature/>Browser Feature</a>
+<span>2</span>
+</li>
+<li class="flex justify-between">
+<a href=/abuse/browser-limits/>Browser Limits</a>
+<span>1</span>
+</li>
+<li class="flex justify-between">
+<a href=/abuse/connection-pool/>Connection Pool</a>
+<span>1</span>
+</li>
+<li class="flex justify-between">
+<a href=/abuse/content-type/>Content-Type</a>
+<span>3</span>
+</li>
+<li class="flex justify-between">
+<a href=/abuse/csp-violations/>CSP Violations</a>
+<span>1</span>
+</li>
+<li class="flex justify-between">
+<a href=/abuse/css/>CSS</a>
+<span>1</span>
+</li>
+<li class="flex justify-between">
+<a href=/abuse/css-injections/>CSS Injections</a>
+<span>1</span>
+</li>
+<li class="flex justify-between">
+<a href=/abuse/downloads/>Downloads</a>
+<span>1</span>
+</li>
+<li class="flex justify-between">
+<a href=/abuse/error-events/>Error Events</a>
+<span>3</span>
+</li>
+<li class="flex justify-between">
+<a href=/abuse/event-loop/>Event Loop</a>
+<span>1</span>
+</li>
+<li class="flex justify-between">
+<a href=/abuse/focus/>focus</a>
+<span>2</span>
+</li>
+<li class="flex justify-between">
+<a href=/abuse/history/>History</a>
+<span>1</span>
+</li>
+<li class="flex justify-between">
+<a href=/abuse/iframes/>iframes</a>
+<span>9</span>
+</li>
+<li class="flex justify-between">
+<a href=/abuse/nosniff/>nosniff</a>
+<span>2</span>
+</li>
+<li class="flex justify-between">
+<a href=/abuse/onblur/>onblur</a>
+<span>2</span>
+</li>
+<li class="flex justify-between">
+<a href=/abuse/postmessage/>postMessage</a>
+<span>1</span>
+</li>
+<li class="flex justify-between">
+<a href=/abuse/redirects/>Redirects</a>
+<span>1</span>
+</li>
+<li class="flex justify-between">
+<a href=/abuse/regex-injections/>Regex Injections</a>
+<span>1</span>
+</li>
+<li class="flex justify-between">
+<a href=/abuse/service-workers/>Service Workers</a>
+<span>1</span>
+</li>
+<li class="flex justify-between">
+<a href=/abuse/site-isolation/>Site Isolation</a>
+<span>1</span>
+</li>
+<li class="flex justify-between">
+<a href=/abuse/status-code/>Status Code</a>
+<span>2</span>
+</li>
+<li class="flex justify-between">
+<a href=/abuse/typemustmatch/>typeMustMatch</a>
+<span>1</span>
+</li>
+<li class="flex justify-between">
+<a href=/abuse/window.open/>window.open</a>
+<span>2</span>
+</li>
+<li class="flex justify-between">
+<a href=/abuse/window.performance/>window.performance</a>
+<span>1</span>
+</li>
+<li class="flex justify-between">
+<a href=/abuse/window.stop/>window.stop</a>
+<span>1</span>
+</li>
+<li class="flex justify-between">
+<a href=/abuse/abortcontroller/>AbortController</a>
+<span>1</span>
+</li>
+<li class="flex justify-between">
+<a href=/abuse/cache/>Cache</a>
+<span>1</span>
+</li>
+<li class="flex justify-between">
+<a href=/abuse/htmlelement/>HTMLElement</a>
+<span>1</span>
+</li>
+</ul>
+</li>
+<li class=book-section-flat>
+<strong>Category</strong>
+<ul>
+<li class="flex justify-between">
+<a href=/category/defense/>Defense</a>
+<span>13</span>
+</li>
+<li class="flex justify-between">
+<a href=/category/attack/>Attack</a>
+<span>17</span>
+</li>
+<li class="flex justify-between">
+<a href=/category/attack-principle/>Attack Principle</a>
+<span>1</span>
+</li>
+<li class="flex justify-between">
+<a href=/category/experiments/>Experiments</a>
+<span>2</span>
+</li>
+<li class="flex justify-between">
+<a href=/category/historical/>Historical</a>
+<span>2</span>
+</li>
+<li class="flex justify-between">
+<a href=/category/instrument/>Instrument</a>
+<span>1</span>
+</li>
+</ul>
+</li>
+<li class=book-section-flat>
+<strong>Defenses</strong>
+<ul>
+<li class="flex justify-between">
+<a href=/defenses/coop/>COOP</a>
+<span>6</span>
+</li>
+<li class="flex justify-between">
+<a href=/defenses/fetch-metadata/>Fetch Metadata</a>
+<span>12</span>
+</li>
+<li class="flex justify-between">
+<a href=/defenses/samesite-cookies/>SameSite Cookies</a>
+<span>15</span>
+</li>
+<li class="flex justify-between">
+<a href=/defenses/application-fix/>Application Fix</a>
+<span>1</span>
+</li>
+<li class="flex justify-between">
+<a href=/defenses/browser-fix/>Browser Fix</a>
+<span>1</span>
+</li>
+<li class="flex justify-between">
+<a href=/defenses/corb/>CORB</a>
+<span>1</span>
+</li>
+<li class="flex justify-between">
+<a href=/defenses/deprecation/>Deprecation</a>
+<span>1</span>
+</li>
+<li class="flex justify-between">
+<a href=/defenses/framing-protections/>Framing Protections</a>
+<span>6</span>
+</li>
+<li class="flex justify-between">
+<a href=/defenses/subresource-protections/>Subresource Protections</a>
+<span>1</span>
+</li>
+<li class="flex justify-between">
+<a href=/defenses/vary-sec-fetch-site/>Vary: Sec-Fetch-Site</a>
+<span>1</span>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</aside>
+</main>
+</body>
+</html>
