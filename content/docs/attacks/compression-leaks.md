@@ -16,7 +16,7 @@ menu = "main"
 weight = 2
 +++
 When compression is used and there’s reflected input such as from the URL or chat messages it may be possible to leak the contents of a website.
-This is because when content is repeated it is more compressible which results in a smaller download that is detectable using timing attacks such as using the window "unload" event.
+This is because when content is repeated it is more compressible which results in a smaller download that is detectable using a network sniffer for a [Chosen-plaintext attack](https://en.wikipedia.org/wiki/Chosen-plaintext_attack) or with timing attacks such as using the window "unload" event.
 The benefit of this is that the size change is controlled by the attacker so the server can always respond with same response.
 
 ## HIST (2016)
