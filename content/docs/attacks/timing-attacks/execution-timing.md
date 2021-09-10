@@ -68,7 +68,7 @@ ifr.onload = () => {
 ```
 
 ## Monitoring browser activity
-Changes in performance can leak browser actitiy such as when a navagtion happens.
+Changes in performance can leak browser activity such as when a navigation happens.
 ```javascript
 let old;
 for(;;) {
@@ -111,6 +111,7 @@ A timing attack is possible because the expression is compared from right to lef
 ```javascript
 $("*:has(*:has(*:has(*)) *:has(*:has(*:has(*))) *:has(*:has(*:has(*)))) main[id='site-main']")
 ```
+
 
 {{< hint tip >}}
 In browsers with process isolation mechanisms, [Service Workers]({{< ref "execution-timing.md#service-workers" >}}) can be abused to obtain the execution timing measurement or tricks like [Busy Event Loop tricks]({{< ref "#busy-event-loop" >}}) can be used to circumvent Site Isolation.
