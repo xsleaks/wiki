@@ -68,6 +68,7 @@ ifr.onload = () => {
 ```
 
 ## Monitoring browser activity
+
 Changes in performance can leak browser activity such as when a navigation happens.
 ```javascript
 let old;
@@ -78,7 +79,6 @@ if (time - old > 0.4) console.log(time);
 old = time;
 }
 ```
-
 
 ## Service Workers
 
@@ -112,7 +112,6 @@ A timing attack is possible because the expression is compared from right to lef
 $("*:has(*:has(*:has(*)) *:has(*:has(*:has(*))) *:has(*:has(*:has(*)))) main[id='site-main']")
 ```
 
-
 {{< hint tip >}}
 In browsers with process isolation mechanisms, [Service Workers]({{< ref "execution-timing.md#service-workers" >}}) can be abused to obtain the execution timing measurement or tricks like [Busy Event Loop tricks]({{< ref "#busy-event-loop" >}}) can be used to circumvent Site Isolation.
 {{< /hint >}}
@@ -124,6 +123,7 @@ This group of XS-Leaks requires an injection of Regex Expressions on the target 
 {{< /hint >}}
 
 Regular Expression Denial of Service (ReDoS) is a technique which results in a Denial of Service in applications that allow regex as user input [^2] [^5]. Maliciously crafted regular expressions can be made to run in exponential time. This can be used as an XS-Leak vector if a regex can be injected that has a different runtime depending on the data on the page. This could happen on the client-side or the server-side.
+
 
 ## Defense
 
