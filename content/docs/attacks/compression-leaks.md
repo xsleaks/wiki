@@ -17,7 +17,7 @@ weight = 2
 +++
 When compression is used and there’s reflected input such as from the URL or chat messages it may be possible to leak the contents of a website.
 This is because when content is repeated it is more compressible which results in a smaller download that is detectable using a network sniffer for a [Chosen-plaintext attack](https://en.wikipedia.org/wiki/Chosen-plaintext_attack) or with timing attacks such as using the window "unload" event.
-The benefit of this is that the size change is controlled by the attacker so the server can always respond with same response.
+The benefit of this is that the size change is controlled by the attacker so the server can always respond with same response excluding the reflected content from the attacker.
 
 ## HIST (2016)
 An example of this attack is [HIST](https://www.blackhat.com/docs/us-16/materials/us-16-VanGoethem-HEIST-HTTP-Encrypted-Information-Can-Be-Stolen-Through-TCP-Windows.pdf)
@@ -39,6 +39,6 @@ There are multiple tools to exploit this behaviour such as [decrypto-org/rupture
 
 ## Defences
 - Disable compression.
-- Using separate requests for secrets prevents an attacker from injecting data and with CSRF protection it can also prevent timing attacks with the unload event.
-- SameSite cookies prevents cookies being sent in cross origin elements.
+- Using separate requests for secrets prevents an attacker from injecting data and with CSRF protection it can also prevent timing attacks.
+- SameSite cookies prevents cookies being sent in cross origin requests.
 - Cross-Origin-Opener-Policy prevents window reuse for timing attacks.
