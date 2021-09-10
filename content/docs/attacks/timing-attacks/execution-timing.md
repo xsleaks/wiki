@@ -67,7 +67,7 @@ ifr.onload = () => {
 }
 ```
 
-## Monitoring browser activity
+## Monitoring device activity
 
 Changes in performance can leak browser activity such as when a navigation happens.
 ```javascript
