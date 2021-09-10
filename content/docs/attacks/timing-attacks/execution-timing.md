@@ -67,6 +67,19 @@ ifr.onload = () => {
 }
 ```
 
+## Monitoring browser activity
+Changes in performance can leak browser actitiy such as when a navagtion happens.
+```javascript
+let old;
+for(;;) {
+let start = performance.now();
+let time = performance.now() - start;
+if (time - old > 0.4) console.log(time);
+old = time;
+}
+```
+
+
 ## Service Workers
 
 [Service Workers](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API) can be used to offer offline solutions to web applications, but they can be abused by attackers to measure the timing of JavaScript execution[^4]. They serve as a proxy between the browser and the network and allow applications to intercept any network requests made by the main thread (document).
@@ -110,7 +123,6 @@ This group of XS-Leaks requires an injection of Regex Expressions on the target 
 {{< /hint >}}
 
 Regular Expression Denial of Service (ReDoS) is a technique which results in a Denial of Service in applications that allow regex as user input [^2] [^5]. Maliciously crafted regular expressions can be made to run in exponential time. This can be used as an XS-Leak vector if a regex can be injected that has a different runtime depending on the data on the page. This could happen on the client-side or the server-side.
-
 
 ## Defense
 
