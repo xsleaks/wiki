@@ -69,7 +69,10 @@ ifr.onload = () => {
 
 ## Monitoring device activity
 
-Changes in performance can leak browser activity such as when a navigation happens.
+Changes in performance can leak device activity,
+Since certain actions like print(), URL navigations, downloads, new tab and other tasks have a detectable effect on CPU performance.
+This maybe useful for XS-Search attacks where theres more CPU usage after a search (for loading the results)
+
 ```javascript
 let old;
 for(;;) {
