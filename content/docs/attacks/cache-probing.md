@@ -68,11 +68,13 @@ If a resource hosted on `server.com` is requested from `target.com` then the ori
 // If the fetch raises an error, it will be a CORS error due to the 
 // origin mismatch between attacker.com and victim's IP.
 function ifCached(url) {
+    // returns a promise that resolves to true on fetch error 
+    // and to false on success
     return fetch(url, {
         mode: "cors"
     })
-    .then((response) => false)
-    .catch((error) => true);
+    .then(() => false)
+    .catch(() => true);
 }
 
 // This makes sense only if the attacker already knows that
