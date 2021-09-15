@@ -78,7 +78,7 @@ function ifCached(url) {
 // This makes sense only if the attacker alredy knows that
 // server.com suffers from origin reflection CORS misconfiguration
 var resource_url = "server.com/reflected_origin_resource.html"
-verdict = await ifCached(resource_url)
+var verdict = await ifCached(resource_url)
 console.log("Resource was cached: " + verdict)
 ```
 
