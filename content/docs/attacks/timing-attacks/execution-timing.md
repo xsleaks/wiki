@@ -69,8 +69,10 @@ ifr.onload = () => {
 
 ## Monitoring device activity
 
-Changes in performance could be potentially used to infer information about device's activity.
-For example, some actions such as print(), URL navigations, downloads have an observable effect on CPU performance and are good candidates for measurements. 
+Changes in performance could be potentially used to infer information about device's activity.  
+For example, some actions such as print(), URL navigations, downloads have an observable effect on CPU performance and are good candidates for measurements.  
+The following code logs to the console when the CPU performance has decreased significantly the threshold of `0.4` is to filter out any "idle" usage this may need to be changed since it depends on the device hardware and what software is running in the background.  
+This attack is also possible from a `crossOriginIsolated` page which allows for more precise timings and leaking data to non-isloated origins.
 
 ```javascript
 let old;
