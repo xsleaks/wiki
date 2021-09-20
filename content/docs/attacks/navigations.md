@@ -130,9 +130,9 @@ An example of this attack can be seen [here](https://xsleaks.github.io/xsleaks/e
 
 ### CSP Violations
 
-[Content-Security-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) (CSP) is an in-depth defense mechanism against XSS and data injection attacks. When a CSP is violated, a `SecurityPolicyViolationEvent` is thrown. An attacker can set up a CSP which triggers a `Violation` event every time a `fetch` follows an URL not set in the CSP directive. This allows an attacker to detect if a redirect to another origin occurred [^2] [^3].
+[Content-Security-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) (CSP) is an in-depth defense mechanism against XSS and data injection attacks. When a CSP is violated, a `SecurityPolicyViolationEvent` is thrown. An attacker can set up a CSP using the [`connect-src` directive](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/connect-src) which triggers a `Violation` event every time a `fetch` follows an URL not set in the CSP directive. This allows an attacker to detect if a redirect to another origin occurred [^2] [^3].
 
-The example below triggers a `SecurityPolicyViolationEvent` if the website set in the fetch API (line 6) redirects to a website other than `target.page`:
+The example below triggers a `SecurityPolicyViolationEvent` if the website set in the fetch API (line 6) redirects to a website other than `https://example.org`:
 
 {{< highlight html "linenos=table,linenostart=1" >}}
 <!-- Set the Content-Security-Policy to only allow example.org -->
@@ -143,7 +143,7 @@ The example below triggers a `SecurityPolicyViolationEvent` if the website set i
 document.addEventListener('securitypolicyviolation', () => {
   console.log("Detected a redirect to somewhere other than example.org");
 });
-// Try to fetch example.org. If it redirects to anoter cross-site website
+// Try to fetch example.org. If it redirects to another cross-site website
 // it will trigger a CSP violation event
 fetch('https://example.org/might_redirect', {
   mode: 'no-cors',
@@ -151,6 +151,28 @@ fetch('https://example.org/might_redirect', {
 });
 </script>
 {{< / highlight >}}
+
+When the redirect of interest is cross-site and conditioned on the presence of a cookie marked `SameSite=Lax`, the approach outlined above won't work, because `fetch` doesn't count as a top-level navigation. In a case like this, the attacker can use another CSP directive, [`form-action`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/form-action), and leverage the fact that submitting a HTML form using `GET` as its method does count as a top-level navigation.
+
+The example below triggers a `SecurityPolicyViolationEvent` if the form's action (line 3) redirects to a website other than `https://example.org`:
+
+{{< highlight html "linenos=table,linenostart=1" >}}
+<!-- Set the Content-Security-Policy to only allow example.org -->
+<meta http-equiv="Content-Security-Policy"
+      content="form-action https://example.org">
+<form action="https://example.org/might_redirect"></form>
+<script>
+// Listen for a CSP violation event
+document.addEventListener('securitypolicyviolation', () => {
+  console.log("Detected a redirect to somewhere other than example.org");
+});
+// Try to get example.org via a form. If it redirects to another cross-site website
+// it will trigger a CSP violation event
+document.forms[0].submit();
+</script>
+{{< / highlight >}}
+
+Note that this approach is unviable in Firefox (contrary to Chromium-based browsers) because `form-action` doesn't block redirects after a form submission in that browser.
 
 ## Case Scenarios
 
@@ -208,13 +230,13 @@ await ifCached_window("https://example.org");
 |  Download Navigation (iframes)  |                                         ✔️                                          |                          ❌                          |                  ❌{{< katex>}}^{1}{{< /katex >}}                  |                                        [FIP]({{< ref "/docs/defenses/isolation-policies/framing-isolation" >}})                                         |
 |  Download Navigation (windows)  |                                         ❌                                          |           ❌{{< katex>}}^{1}{{< /katex >}}           |                                 ❌                                 |                                       [NIP]({{< ref "/docs/defenses/isolation-policies/navigation-isolation" >}})                                       |
 |            Inflation            |                                         ✔️                                          |                          ❌                          |                                 ❌                                 |                                        [RIP]({{< ref "/docs/defenses/isolation-policies/resource-isolation" >}})                                        |
-|         CSP Violations          |                                         ✔️                                          |                          ❌                          |                                 ❌                                 | [RIP]({{< ref "/docs/defenses/isolation-policies/resource-isolation" >}}) 🔗 [NIP]({{< ref "/docs/defenses/isolation-policies/navigation-isolation" >}}) |
+|         CSP Violations          |            ❌{{< katex>}}^{2}{{< /katex >}}                                        |                          ❌                          |                                 ❌                                 | [RIP]({{< ref "/docs/defenses/isolation-policies/resource-isolation" >}}) 🔗 [NIP]({{< ref "/docs/defenses/isolation-policies/navigation-isolation" >}}) |
 
 🔗 – Defense mechanisms must be combined to be effective against different scenarios.
 
 ____
 1. Neither [COOP]({{< ref "/docs/defenses/opt-in/coop.md" >}}) nor [Framing Protections]({{< ref "/docs/defenses/opt-in/xfo.md" >}}) helps with the mitigation of the redirect leaks because when the header `Content-Disposition` is present, other headers are being ignored.
-2. SameSite cookies in Lax mode could protect against iframing a website, but won't help with the leaks through window references.
+2. SameSite cookies in Lax mode could protect against iframing a website, but won't help with the leaks through window references or involving server-side redirects.
 
 ## Real-World Examples
 
