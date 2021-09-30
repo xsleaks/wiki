@@ -9,12 +9,12 @@ When a user visits a website, some resources such as images, scripts, and HTML c
 When a user visits a website, some resources such as images, scripts, and HTML content are fetched and later cached by the browser (under certain conditions). This optimization makes future navigations faster as the browser serves those resources from disk instead of requesting them again.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://xsleaks.dev/docs/attacks/cache-probing/"><meta property="article:section" content="docs">
-<meta property="article:modified_time" content="2021-09-15T14:38:04-04:00">
+<meta property="article:modified_time" content="2021-09-30T23:42:39+01:00">
 <title>Cache Probing | XS-Leaks Wiki</title>
 <link rel=manifest href=/manifest.json>
 <link rel=icon href=/favicon.png type=image/x-icon>
 <link rel=stylesheet href=/book.min.1c9a9009be3c645cbccbe64eb0a90e28621e4118971d9a502db4aaa9bec96cfc.css integrity="sha256-HJqQCb48ZFy8y+ZOsKkOKGIeQRiXHZpQLbSqqb7JbPw=">
-<script defer src=/en.search.min.3ba9bfb25a35cb1badcb238b6c69673ce923332a9e250d0bd60a62000c1f1321.js integrity="sha256-O6m/slo1yxutyyOLbGlnPOkjMyqeJQ0L1gpiAAwfEyE="></script>
+<script defer src=/en.search.min.0a3a72456110c5d919ab4bdca781ea9a77ac828c1eed6446a9abcff4d75c57d5.js integrity="sha256-CjpyRWEQxdkZq0vcp4Hqmnesgowe7WRGqavP9NdcV9U="></script>
 <script defer src=/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js integrity="sha256-b2+Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC+NdcPIvZhzk="></script>
 </head>
 <body>
@@ -369,12 +369,14 @@ Defense
 <li><a href=https://xsleaks.dev/docs/defenses/design-protections/cache-protections/#cache-protection-via-cache-control-headers>Cache-control headers</a> used to prevent the resource from caching.</li>
 <li><a href=https://xsleaks.dev/docs/defenses/design-protections/cache-protections/#cache-protection-via-random-tokens>Random Tokens</a> used to make the URLs unpredictable for attackers.</li>
 <li><a href=https://xsleaks.dev/docs/defenses/design-protections/cache-protections/#cache-protection-via-fetch-metadata>Vary: Sec-Fetch-Site</a> used to segregate the cache by a group of origins.</li>
+<li>User content that is capable of making networks requests should be on its own eTLD+1 by using a separate domain or the public suffix list (if applicable) to allow for partitioned caches.</li>
 </ul>
 <p>A promising defense against Cache Probing attacks is <a href=https://xsleaks.dev/docs/defenses/secure-defaults/partitioned-cache/>partitioning the HTTP cache</a> by the requesting origin. This browser-provided protection prevents an attacker&rsquo;s origin from interfering with cached resources of other origins.</p>
-<blockquote class="book-hint2 important">
-<p class="hint-title important">
-<svg class="book-icon"><use href="/svg/hint-icons.svg#important-notice"/></svg><span>important</span></p>
-As of November 2020, Partitioned Caches are not available in most browsers, so applications cannot rely on them.
+<blockquote class="book-hint2 info">
+<p class="hint-title info">
+<svg class="book-icon"><use href="/svg/hint-icons.svg#info-notice"/></svg><span>info</span></p>
+As of September 2021, Partitioned Caches is available in most browsers to split the cache by eTLD+1, however applications cannot rely on them.
+The protection is ineffective for requests from subdomains and <a href=https://xsleaks.dev/docs/attacks/navigations/#partitioned-http-cache-bypass>window navigations</a>
 </blockquote>
 <h2 id=real-world-example>
 Real World Example
@@ -406,9 +408,9 @@ References
 </article>
 <footer class=book-footer>
 <div class="flex flex-wrap justify-between">
-<div><a class="flex align-center" href=https://github.com/xsleaks/wiki/commit/e689885799fb4c16a233a8b63827739c0b889225 title="Last modified by Chris Fredrickson | September 15, 2021" target=_blank rel=noopener>
+<div><a class="flex align-center" href=https://github.com/xsleaks/wiki/commit/4afdfabd91e993c844a17f114b7efa616cc209aa title="Last modified by NDevTK | September 30, 2021" target=_blank rel=noopener>
 <img src=/svg/calendar.svg class=book-icon alt=Calendar>
-<span>Last Modified: September 15, 2021</span>
+<span>Last Modified: September 30, 2021</span>
 </a>
 </div>
 <div>
