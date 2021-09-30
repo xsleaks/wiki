@@ -148,11 +148,13 @@ Currently, there are no good defense mechanisms that would allow websites to ful
 - [Cache-control headers]({{< ref "cache-protections.md#cache-protection-via-cache-control-headers" >}})  used to prevent the resource from caching.
 - [Random Tokens]({{< ref "cache-protections.md#cache-protection-via-random-tokens" >}}) used to make the URLs unpredictable for attackers.
 - [Vary: Sec-Fetch-Site]({{< ref "cache-protections.md#cache-protection-via-fetch-metadata" >}}) used to segregate the cache by a group of origins.
+- User content that is capable of making networks requests should be on its own eTLD+1 by using a separate domain or the public suffix list (if applicable) to allow for partitioned caches.
 
 A promising defense against Cache Probing attacks is [partitioning the HTTP cache]({{< ref "../defenses/secure-defaults/partitioned-cache.md" >}}) by the requesting origin. This browser-provided protection prevents an attacker's origin from interfering with cached resources of other origins.
 
-{{< hint important >}}
-As of November 2020, Partitioned Caches are not available in most browsers, so applications cannot rely on them.
+{{< hint info>}}
+As of September 2021, Partitioned Caches is available in most browsers to split the cache by eTLD+1, however applications cannot rely on them.
+The protection is ineffective for requests from subdomains and [window navigations]({{< ref "../attacks/navigations.md#partitioned-http-cache-bypass" >}})
 {{< /hint >}}
 
 ## Real World Example
