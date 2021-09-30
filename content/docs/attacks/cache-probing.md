@@ -152,7 +152,7 @@ Currently, there are no good defense mechanisms that would allow websites to ful
 
 A promising defense against Cache Probing attacks is [partitioning the HTTP cache]({{< ref "../defenses/secure-defaults/partitioned-cache.md" >}}) by the requesting origin. This browser-provided protection prevents an attacker's origin from interfering with cached resources of other origins.
 
-{{< hint important >}}
+{{< hint info>}}
 As of September 2021, Partitioned Caches is available in most browsers to split the cache by eTLD+1, however applications cannot rely on them.
 The protection is ineffective for requests from subdomains and [window navigations]({{< ref "../attacks/navigations.md#partitioned-http-cache-bypass" >}})
 {{< /hint >}}
