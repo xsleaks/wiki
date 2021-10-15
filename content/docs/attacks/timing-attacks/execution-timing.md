@@ -89,6 +89,10 @@ This group of XS-Leaks requires a CSS injection on the target page.
 
 Among the different CSS injection vectors, the most noticeable one is the abuse of CSS Selectors. They can be used as an expression to match and select certain HTML elements. For example, the selector `input[value^="a"]` is matched if the value of an `input` tag starts with the character "a". So, to detect if a CSS Selector matches the expression, attackers can trigger a callback to one of their websites using certain properties like `background`, `@import`, etc. [^6] [^7]. The matching process can easily be brute-forced, and extended to the full string.
 
+Page content such as Javascript can be leaked by abusing Font ligatures as a sequence of characters can have its own representation.
+Larger text dimensions can result in the scroll bar being shown,
+This scroll bar can have a custom style such as `background: url()` so that it makes a request to a attacker controled server when it gets shown. [^8]
+
 ### jQuery, CSS Selectors & Short-circuit Timing
 
 Attackers can abuse another interesting behavior of CSS selectors which is `short-circuit` evaluation of expressions. This expression is received in a `URL` hash and evaluated if the page executes `jQuery(location.hash)` [^3].
@@ -132,3 +136,4 @@ Regular Expression Denial of Service (ReDoS) is a technique which results in a D
 [^5]: A Rough Idea of Blind Regular Expression Injection Attack, [link](https://diary.shift-js.info/blind-regular-expression-injection/)
 [^6]: CSS Injection Primitives, [link](https://x-c3ll.github.io/posts/CSS-Injection-Primitives/)
 [^7]: HTTPLeaks, [link](https://github.com/cure53/HTTPLeaks/)
+[^8]: Font ligatures, [link](https://sekurak.pl/wykradanie-danych-w-swietnym-stylu-czyli-jak-wykorzystac-css-y-do-atakow-na-webaplikacje/)
