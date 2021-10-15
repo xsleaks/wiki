@@ -91,7 +91,7 @@ Among the different CSS injection vectors, the most noticeable one is the abuse 
 
 Page content such as JavaScript can be leaked by abusing Font ligatures as a sequence of characters can have its own representation.
 Larger text dimensions can result in the scroll bar being shown,  
-This scroll bar can have a custom style such as `background: url()` so that it makes a request to an attacker-controlled server when shown.
+This scroll bar can have a custom style such as `background: url()` so that it makes a request to an attacker-controlled server when shown. [^8]
 
 ### jQuery, CSS Selectors & Short-circuit Timing
 
