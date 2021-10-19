@@ -10,7 +10,7 @@ menu = "main"
 weight = 2
 +++
 
-## CSS Injections
+## CSS Injection
 
 {{< hint warning >}}
 This group of XS-Leaks requires a CSS injection on the target page.
