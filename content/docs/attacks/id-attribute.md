@@ -49,6 +49,8 @@ Some examples of `id`-attribute-based attacks are:
 - A bank allows its clients to generate short numeric One-Time PINs (OTP) in the browser application to authenticate sessions on mobile devices. The bank used the OTP as the `id` of a `button` that is used to show the PIN to the client. This approach could be abused to steal these OTP codes by brute-forcing every option and then using them to compromise user accounts.
 - A web application uses a specific set of predefined `ids` and `HTML` elements when an account has a premium status or the user is of a certain gender. The attacker can detect whether a specific `id` is present on the victim's page and leak the account information.
 
+## Opt out
+You can disable hash navgations on chromium by setting a `Document-Policy: force-load-at-top` header. [^2]
 
 ## Defense
 
@@ -60,3 +62,4 @@ Some examples of `id`-attribute-based attacks are:
 ## References
 
 [^1]: Leaking IDs using focus, [link](https://portswigger.net/research/xs-leak-leaking-ids-using-focus)
+[^2]: Document-Policy: force-load-at-top, [link](https://www.chromestatus.com/feature/5744681033924608)
