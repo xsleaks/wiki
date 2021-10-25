@@ -14,4 +14,4 @@ This protection is effective against XS-Leaks that require document navigation s
 
 ## Deployment
 
-To deply for chromium just use the header `Document-Policy: force-load-at-top`
+To deploy for chromium just use the header `Document-Policy: force-load-at-top`
