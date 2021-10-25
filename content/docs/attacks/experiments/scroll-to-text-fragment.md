@@ -8,6 +8,7 @@ abuse = [
     "focus",
     "iframes",
 ]
+defenses = [ "force-load-at-top" ]
 menu = "main"
 +++
 
