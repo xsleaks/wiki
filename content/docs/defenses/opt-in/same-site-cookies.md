@@ -35,8 +35,6 @@ SameSite cookies are neither bulletproof [^2] nor can they fix everything. To co
 Chrome/Chromium will make an exception for cookies set without a SameSite attribute less than 2 minutes ago.
 And some browers may not use the default of Lax, So its better to always explicitly set the SameSite attrbute. 
 
-
-
 ## Deployment
 
 Anyone interested in deploying this mechanism in web applications should take a careful look at this [web.dev](https://web.dev/samesite-cookie-recipes/) article.
