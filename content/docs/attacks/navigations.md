@@ -180,6 +180,10 @@ An online bank decides to redirect wealthy users to attractive stock opportuniti
 
 ## Partitioned HTTP Cache Bypass
 
+{{< hint info >}}
+This attack can be prevented using the header `Vary: Sec-Fetch-Site` as that uses the initiator's origin. [Cache Protections]({{< ref "/docs/defenses/design-protections/cache-protections.md" >}})
+{{< /hint >}}
+
 If a site `example.com` includes a resource from `*.example.com/resource` then that resource will have the same caching key as if the resource was directly requested through top-level navigation. That is because the caching key is consisted of top-level *eTLD+1* and frame *eTLD+1*. [^cache-bypass]
 
 Because a window can prevent a navigation to a different origin with `window.stop()` and the on-device cache is faster than the network,
