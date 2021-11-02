@@ -14,7 +14,7 @@ defenses = [
     "Fetch Metadata",
     "SameSite Cookies",
     "Framing Protections",
-    "force-load-at-top"
+    "Force load at top"
 ]
 menu = "main"
 weight = 3
