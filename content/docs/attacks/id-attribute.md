@@ -63,4 +63,3 @@ You can disable hash navgations on chromium by setting a `Document-Policy: force
 ## References
 
 [^1]: Leaking IDs using focus, [link](https://portswigger.net/research/xs-leak-leaking-ids-using-focus)
-[^2]: Document-Policy: force-load-at-top, [link](https://www.chromestatus.com/feature/5744681033924608)
