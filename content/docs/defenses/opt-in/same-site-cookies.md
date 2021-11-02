@@ -28,8 +28,7 @@ The following SameSite cookie modes are available:
 
 ## Considerations
 
-`Strict` cookies provide the strongest security guarantees like preventing window timing attacks and redirect detection that are initiated cross-site, but it can be very difficult to deploy `Strict` same-site cookies in an existing application.
-It also does not affect document.cookie in windows opened cross-site.
+`Strict` cookies provide the strongest security guarantees like preventing attacks that are initiated cross-site, but it can be very difficult to deploy `Strict` same-site cookies in an existing application.
 
 SameSite cookies are neither bulletproof [^2] nor can they fix everything. To complement this defense strategy against XS-Leaks, applications should consider implementing other, additional protections. For example, [COOP]({{< ref "coop.md" >}}) can prevent an attacker from controlling pages using a `window` reference after the first navigation even if SameSite cookies in `Lax` mode are used.
 
