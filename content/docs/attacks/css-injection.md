@@ -20,8 +20,7 @@ Among the different CSS injection vectors, the most noticeable one is the abuse 
 
 Page content such as JavaScript can be leaked by abusing Font [ligatures](https://wikipedia.org/wiki/Ligature_(writing)) as a sequence of characters can have its own representation.
 
-Some HTML tags that are normally hidden such as style and script can be rendered as text,
-By applying a style like `* { display: block; }`.
+Some HTML tags that are normally hidden such as style and script can be rendered as text by applying a style like `* { display: block; }`. Hence, their content could be potentially leaked as well. 
 
 Larger text dimensions can result in the scroll bar being shown,  
 This scroll bar can have a custom style such as `background: url()` so that it makes a request to an attacker-controlled server when shown. [^3]
