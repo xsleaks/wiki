@@ -1,5 +1,5 @@
 +++
-title = "force-load-at-top"
+title = "Force load at top"
 category = [
     "Defense",
 ]
