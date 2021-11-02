@@ -6,6 +6,8 @@ category = [
 menu = "main"
 +++
 
+The `Document-Policy` header is used for features which are more about configuring a document, or removing features (sandboxing) from a document or a frame.
+
 # Force load at top
 Blocks hash navgations so that it always goes to the top of the document. 
 This protection is effective against XS-Leaks that require document navigation such as [scroll-to-text-fragment]{{< ref "/docs/attacks/experiments/scroll-to-text-fragment.md" >}}) abuse.
