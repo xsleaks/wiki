@@ -8,7 +8,7 @@ abuse = [
     "focus",
     "iframes",
 ]
-defenses = [ "Force load at top" ]
+defenses = [ "Document Policies" ]
 menu = "main"
 +++
 
