@@ -236,7 +236,7 @@ await ifCached_window("https://example.org");
 
 ____
 1. Neither [COOP]({{< ref "/docs/defenses/opt-in/coop.md" >}}) nor [Framing Protections]({{< ref "/docs/defenses/opt-in/xfo.md" >}}) helps with the mitigation of the redirect leaks because when the header `Content-Disposition` is present, other headers are being ignored.
-2. SameSite cookies in Lax mode could protect against iframing a website, but won't help with the leaks through window references or involving server-side redirects in contrast to Strict mode.
+2. SameSite cookies in Lax mode could protect against iframing a website, but won't help with the leaks through window references or involving server-side redirects, in contrast to Strict mode.
 
 ## Real-World Examples
 
