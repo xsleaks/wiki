@@ -14,6 +14,7 @@ defenses = [
     "Fetch Metadata",
     "SameSite Cookies",
     "Framing Protections",
+    "Document Policies"
 ]
 menu = "main"
 weight = 3
@@ -49,12 +50,11 @@ Some examples of `id`-attribute-based attacks are:
 - A bank allows its clients to generate short numeric One-Time PINs (OTP) in the browser application to authenticate sessions on mobile devices. The bank used the OTP as the `id` of a `button` that is used to show the PIN to the client. This approach could be abused to steal these OTP codes by brute-forcing every option and then using them to compromise user accounts.
 - A web application uses a specific set of predefined `ids` and `HTML` elements when an account has a premium status or the user is of a certain gender. The attacker can detect whether a specific `id` is present on the victim's page and leak the account information.
 
-
 ## Defense
 
-| [SameSite Cookies (Lax)]({{< ref "/docs/defenses/opt-in/same-site-cookies.md" >}}) | [COOP]({{< ref "/docs/defenses/opt-in/coop.md" >}}) | [Framing Protections]({{< ref "/docs/defenses/opt-in/xfo.md" >}}) |  [Isolation Policies]({{< ref "/docs/defenses/isolation-policies" >}})   |
-| :--------------------------------------------------------------------------------: | :-------------------------------------------------: | :---------------------------------------------------------------: | :----------------------------------------------------------------------: |
-|                                         ✔️                                          |                          ✔️                          |                                 ❌                                 | [FIP]({{< ref "/docs/defenses/isolation-policies/framing-isolation" >}}) |
+| [Document Policies]({{< ref "/docs/defenses/opt-in/document-policies.md" >}}) | [SameSite Cookies (Lax)]({{< ref "/docs/defenses/opt-in/same-site-cookies.md" >}}) | [COOP]({{< ref "/docs/defenses/opt-in/coop.md" >}}) | [Framing Protections]({{< ref "/docs/defenses/opt-in/xfo.md" >}}) |                                          [Isolation Policies]({{< ref "/docs/defenses/isolation-policies" >}})                                          |
+| :--------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------: | :-------------------------------------------------: | :---------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------: |
+|                                         ✔️                                          |                                         ✔️                                          |                          ✔️                          |                                 ❌                                 | [FIP]({{< ref "/docs/defenses/isolation-policies/framing-isolation" >}}) |
 
 
 ## References
