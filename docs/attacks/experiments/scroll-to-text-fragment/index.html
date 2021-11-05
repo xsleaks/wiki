@@ -8,12 +8,12 @@
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://xsleaks.dev/docs/attacks/experiments/scroll-to-text-fragment/"><meta property="article:section" content="docs">
 <meta property="article:published_time" content="2020-10-01T00:00:00+00:00">
-<meta property="article:modified_time" content="2020-12-23T14:16:43+01:00">
+<meta property="article:modified_time" content="2021-11-05T23:41:07+00:00">
 <title>Scroll to Text Fragment | XS-Leaks Wiki</title>
 <link rel=manifest href=/manifest.json>
 <link rel=icon href=/favicon.png type=image/x-icon>
 <link rel=stylesheet href=/book.min.1c9a9009be3c645cbccbe64eb0a90e28621e4118971d9a502db4aaa9bec96cfc.css integrity="sha256-HJqQCb48ZFy8y+ZOsKkOKGIeQRiXHZpQLbSqqb7JbPw=">
-<script defer src=/en.search.min.dedb335445e626cd349d0cff19317b721dc7f4515512e3904255ac3b83ab0399.js integrity="sha256-3tszVEXmJs00nQz/GTF7ch3H9FFVEuOQQlWsO4OrA5k="></script>
+<script defer src=/en.search.min.6fd7cc1a568739d446b805660355f662f78b838574d6f0033e0bd3479da13fbc.js integrity="sha256-b9fMGlaHOdRGuAVmA1X2YveLg4V01vADPgvTR52hP7w="></script>
 <script defer src=/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js integrity="sha256-b2+Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC+NdcPIvZhzk="></script>
 </head>
 <body>
@@ -150,6 +150,9 @@
 <li>
 <a href=/docs/defenses/opt-in/same-site-cookies/>SameSite Cookies</a>
 </li>
+<li>
+<a href=/docs/defenses/opt-in/document-policies/>Document Policies</a>
+</li>
 </ul>
 </li>
 <li>
@@ -212,6 +215,7 @@
 <li><a href=#case-scenarios>Case Scenarios</a></li>
 </ul>
 </li>
+<li><a href=#defense>Defense</a></li>
 <li><a href=#references>References</a></li>
 </ul>
 </nav>
@@ -231,6 +235,10 @@ Abuse
 <div>
 Category
 <a href=/category/experiments/>Experiments</a>
+</div>
+<div>
+Defenses
+<a href=/defenses/document-policies/>Document Policies</a>
 </div>
 <p><p>Scroll to Text Fragment (STTF) is a new web platform feature that allows users to create a link to any part of a web page text. The fragment <code>#:~:text=</code> carries a text snippet that is highlighted and brought into the viewport by the browser. This feature can introduce a new XS-Leak if attackers are able to detect when this behavior occurs. This issue is very similar to the <a href="https://docs.google.com/document/d/15HVLD6nddA0OaI8Dd0ayBP2jlGw5JpRD-njAyY1oNZo/edit#heading=h.wds2qckm3kh5">Scroll to CSS Selector</a> XS-Leak.</p>
 <h2 id=expected--discussed-issues>
@@ -275,6 +283,30 @@ Case Scenarios
 <a class=anchor href=#case-scenarios>#</a>
 </h3>
 <p>A user is logged in to their National Health System website, where it is possible to access information about the user&rsquo;s past diseases and health problems. An attacker can lure the user to one of their pages and use STTF to possibly infer the user&rsquo;s health details. For example, an attacker would find out that the victim suffers from a disease if they detect a page scroll when searching for that disease&rsquo;s name.</p>
+<h2 id=defense>
+Defense
+<a class=anchor href=#defense>#</a>
+</h2>
+<table>
+<thead>
+<tr>
+<th style=text-align:center><a href=https://xsleaks.dev/docs/defenses/opt-in/document-policies/>Document Policies</a></th>
+<th style=text-align:center><a href=https://xsleaks.dev/docs/defenses/opt-in/same-site-cookies/>SameSite Cookies (Lax)</a></th>
+<th style=text-align:center><a href=https://xsleaks.dev/docs/defenses/opt-in/coop/>COOP</a></th>
+<th style=text-align:center><a href=https://xsleaks.dev/docs/defenses/opt-in/xfo/>Framing Protections</a></th>
+<th style=text-align:center><a href=https://xsleaks.dev/docs/defenses/isolation-policies/>Isolation Policies</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style=text-align:center>✔️</td>
+<td style=text-align:center>✔️</td>
+<td style=text-align:center>❌</td>
+<td style=text-align:center>✔️</td>
+<td style=text-align:center><a href=https://xsleaks.dev/docs/defenses/isolation-policies/resource-isolation/>RIP</a> 🔗 <a href=https://xsleaks.dev/docs/defenses/isolation-policies/navigation-isolation/>NIP</a></td>
+</tr>
+</tbody>
+</table>
 <h2 id=references>
 References
 <a class=anchor href=#references>#</a>
@@ -303,9 +335,9 @@ References
 </article>
 <footer class=book-footer>
 <div class="flex flex-wrap justify-between">
-<div><a class="flex align-center" href=https://github.com/xsleaks/wiki/commit/336a12f56526173b25a7dc85ce62fc8300db8858 title="Last modified by goedi02 | December 23, 2020" target=_blank rel=noopener>
+<div><a class="flex align-center" href=https://github.com/xsleaks/wiki/commit/1ffffa4184d3c21f2da46d91c079a9ccc6f65118 title="Last modified by NDevTK | November 5, 2021" target=_blank rel=noopener>
 <img src=/svg/calendar.svg class=book-icon alt=Calendar>
-<span>Last Modified: December 23, 2020</span>
+<span>Last Modified: November 5, 2021</span>
 </a>
 </div>
 <div>
@@ -330,6 +362,7 @@ References
 <li><a href=#case-scenarios>Case Scenarios</a></li>
 </ul>
 </li>
+<li><a href=#defense>Defense</a></li>
 <li><a href=#references>References</a></li>
 </ul>
 </nav>

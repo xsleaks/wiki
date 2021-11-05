@@ -8,12 +8,12 @@
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://xsleaks.dev/docs/attacks/id-attribute/"><meta property="article:section" content="docs">
 <meta property="article:published_time" content="2020-10-01T00:00:00+00:00">
-<meta property="article:modified_time" content="2020-12-04T22:53:42+01:00">
+<meta property="article:modified_time" content="2021-11-05T23:41:07+00:00">
 <title>ID Attribute | XS-Leaks Wiki</title>
 <link rel=manifest href=/manifest.json>
 <link rel=icon href=/favicon.png type=image/x-icon>
 <link rel=stylesheet href=/book.min.1c9a9009be3c645cbccbe64eb0a90e28621e4118971d9a502db4aaa9bec96cfc.css integrity="sha256-HJqQCb48ZFy8y+ZOsKkOKGIeQRiXHZpQLbSqqb7JbPw=">
-<script defer src=/en.search.min.dedb335445e626cd349d0cff19317b721dc7f4515512e3904255ac3b83ab0399.js integrity="sha256-3tszVEXmJs00nQz/GTF7ch3H9FFVEuOQQlWsO4OrA5k="></script>
+<script defer src=/en.search.min.6fd7cc1a568739d446b805660355f662f78b838574d6f0033e0bd3479da13fbc.js integrity="sha256-b9fMGlaHOdRGuAVmA1X2YveLg4V01vADPgvTR52hP7w="></script>
 <script defer src=/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js integrity="sha256-b2+Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC+NdcPIvZhzk="></script>
 </head>
 <body>
@@ -142,6 +142,9 @@
 <li>
 <a href=/docs/defenses/opt-in/same-site-cookies/>SameSite Cookies</a>
 </li>
+<li>
+<a href=/docs/defenses/opt-in/document-policies/>Document Policies</a>
+</li>
 </ul>
 </li>
 <li>
@@ -224,7 +227,8 @@ Category
 Defenses
 <a href=/defenses/fetch-metadata/>Fetch Metadata</a>,
 <a href=/defenses/samesite-cookies/>SameSite Cookies</a>,
-<a href=/defenses/framing-protections/>Framing Protections</a>
+<a href=/defenses/framing-protections/>Framing Protections</a>,
+<a href=/defenses/document-policies/>Document Policies</a>
 </div>
 <p><p>The <code>id</code> attribute is widely used to identify <code>HTML</code> elements. Unfortunately, cross-origin websites can determine whether a given <code>id</code> is set anywhere on a page by leveraging the <code>focus</code> event and <code>URL</code> fragments. If <code>https://example.com/foo#bar</code> is loaded, the browser attempts to scroll to the element with <code>id="bar"</code>. This can be detected cross-origin by loading <code>https://example.com/foo#bar</code> in an iframe; if there is an element with <code>id="bar"</code>, the <code>focus</code> event fires. The <code>blur</code> event can also be used for the same purpose <sup id=fnref:1><a href=#fn:1 class=footnote-ref role=doc-noteref>1</a></sup>.</p>
 <p>Some web applications set <code>id</code> attributes in <code>focusable</code> elements that can lead to disclosing user information. These <code>id</code>s can either contain information directly related to the user (e.g. a secret), or information associated with a user state (e.g. account status).</p>
@@ -264,6 +268,7 @@ Defense
 <table>
 <thead>
 <tr>
+<th style=text-align:center><a href=https://xsleaks.dev/docs/defenses/opt-in/document-policies/>Document Policies</a></th>
 <th style=text-align:center><a href=https://xsleaks.dev/docs/defenses/opt-in/same-site-cookies/>SameSite Cookies (Lax)</a></th>
 <th style=text-align:center><a href=https://xsleaks.dev/docs/defenses/opt-in/coop/>COOP</a></th>
 <th style=text-align:center><a href=https://xsleaks.dev/docs/defenses/opt-in/xfo/>Framing Protections</a></th>
@@ -272,6 +277,7 @@ Defense
 </thead>
 <tbody>
 <tr>
+<td style=text-align:center>✔️</td>
 <td style=text-align:center>✔️</td>
 <td style=text-align:center>✔️</td>
 <td style=text-align:center>❌</td>
@@ -295,9 +301,9 @@ References
 </article>
 <footer class=book-footer>
 <div class="flex flex-wrap justify-between">
-<div><a class="flex align-center" href=https://github.com/xsleaks/wiki/commit/998e70126aa3fd797b4b20d1683a1e1b3796049f title="Last modified by terjanq | December 4, 2020" target=_blank rel=noopener>
+<div><a class="flex align-center" href=https://github.com/xsleaks/wiki/commit/1ffffa4184d3c21f2da46d91c079a9ccc6f65118 title="Last modified by NDevTK | November 5, 2021" target=_blank rel=noopener>
 <img src=/svg/calendar.svg class=book-icon alt=Calendar>
-<span>Last Modified: December 4, 2020</span>
+<span>Last Modified: November 5, 2021</span>
 </a>
 </div>
 <div>
