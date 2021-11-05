@@ -14,7 +14,7 @@ defenses = [
     "Fetch Metadata",
     "SameSite Cookies",
     "Framing Protections",
-    "Force load at top"
+    "Document Policies"
 ]
 menu = "main"
 weight = 3
