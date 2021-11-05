@@ -24,13 +24,20 @@ The following SameSite cookie modes are available:
 
 * `Strict` – Causes the browser to not include cookies in any cross-site requests. This means `<script src="example.com/resource">`, `<img src="example.com/resource">`, `fetch()`, and `XHR` will all make requests without the SameSite `Strict` cookies attached. Even if the user clicks on a link to `example.com/resource`, their cookies are not included.
 
-* `Lax` – The only difference between `Lax` and `Strict` is that `Lax` mode allows cookies to be added to requests triggered by top-level navigations. This makes `Lax` cookies much easier to deploy since they won't break incoming links to your application. Unfortunately, an attacker can trigger a top-level navigation via `window.open` that allows the attacker to maintain a reference to the `window` object.
+* `Lax` – The only difference between `Lax` and `Strict` is that `Lax` mode allows cookies to be added to requests triggered by cross-site top-level navigations. This makes `Lax` cookies much easier to deploy since they won't break incoming links to your application. Unfortunately, an attacker can trigger a top-level navigation via `window.open` that allows the attacker to maintain a reference to the `window` object.
 
 ## Considerations
 
 `Strict` cookies provide the strongest security guarantees, but it can be very difficult to deploy `Strict` same-site cookies in an existing application.
 
-SameSite cookies are neither bulletproof [^2] nor can they fix everything. To complement this defense strategy against XS-Leaks, applications should consider implementing other, additional protections. For example, [COOP]({{< ref "coop.md" >}}) can prevent an attacker from controlling pages using a `window` reference even if SameSite cookies in `Lax` mode are used.
+SameSite cookies are neither bulletproof [^2] nor can they fix everything. To complement this defense strategy against XS-Leaks, applications should consider implementing other, additional protections. For example, [COOP]({{< ref "coop.md" >}}) can prevent an attacker from controlling pages using a `window` reference after the first navigation even if SameSite cookies in `Lax` mode are used.
+
+{{< hint important >}}
+Some browers may not use the default of Lax, So explicitly set the SameSite attrbute to ensure its enforced. 
+By default, cookies in Chrome without `SameSite` attribute will default to `Lax` mode. However, there is an exception for that behavior for cookies set less than 2 minutes ago that are sent via POST requests. [^3]
+
+[^3]: Cookies default to SameSite=Lax, [link](https://www.chromestatus.com/feature/5088147346030592)
+{{< /hint >}}
 
 ## Deployment
 
