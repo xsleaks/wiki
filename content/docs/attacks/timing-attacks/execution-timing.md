@@ -81,14 +81,6 @@ To make a timing measurement, an attacker can perform the following steps:
 
 Since no navigation actually occurs, steps 3 to 5 can be repeated to obtain more measurements on successive JavaScript execution timings.
 
-## CSS Injections
-
-{{< hint warning >}}
-This group of XS-Leaks requires a CSS injection on the target page.
-{{< /hint >}}
-
-Among the different CSS injection vectors, the most noticeable one is the abuse of CSS Selectors. They can be used as an expression to match and select certain HTML elements. For example, the selector `input[value^="a"]` is matched if the value of an `input` tag starts with the character "a". So, to detect if a CSS Selector matches the expression, attackers can trigger a callback to one of their websites using certain properties like `background`, `@import`, etc. [^6] [^7]. The matching process can easily be brute-forced, and extended to the full string.
-
 ### jQuery, CSS Selectors & Short-circuit Timing
 
 Attackers can abuse another interesting behavior of CSS selectors which is `short-circuit` evaluation of expressions. This expression is received in a `URL` hash and evaluated if the page executes `jQuery(location.hash)` [^3].
@@ -130,5 +122,3 @@ Regular Expression Denial of Service (ReDoS) is a technique which results in a D
 [^3]: A timing attack with CSS selectors and Javascript, [link](https://blog.sheddow.xyz/css-timing-attack/)
 [^4]: Security: XS-Search + XSS Auditor = Not Cool, [link](https://bugs.chromium.org/p/chromium/issues/detail?id=922829)
 [^5]: A Rough Idea of Blind Regular Expression Injection Attack, [link](https://diary.shift-js.info/blind-regular-expression-injection/)
-[^6]: CSS Injection Primitives, [link](https://x-c3ll.github.io/posts/CSS-Injection-Primitives/)
-[^7]: HTTPLeaks, [link](https://github.com/cure53/HTTPLeaks/)
