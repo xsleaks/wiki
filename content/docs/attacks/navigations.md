@@ -218,6 +218,9 @@ Usage
 ```javascript
 await ifCached_window("https://example.org");
 ```
+{{< hint info >}}
+Partitioned HTTP Cache Bypass can be prevented using the header `Vary: Sec-Fetch-Site` as that splits the cache by its initiator, see [Cache Protections]({{< ref "/docs/defenses/design-protections/cache-protections.md" >}}). It works because the attack only applies for the resources from the same site, hence `Sec-Fetch-Site` header will be `cross-site` for the attacker compared to `same-site` or `same-origin` for the website.
+{{< /hint >}}
 
 ## Defense
 
