@@ -7,7 +7,7 @@ abuse = [
     "CSS"
 ]
 menu = "main"
-weight = 2
+weight = 11
 +++
 
 ## CSS Injection
