@@ -119,6 +119,26 @@ setTimeout(() => {
 
 ## Server-Side Redirects
 
+### Fetch API
+Its possible to abuse `redirect: 'manual'` and `mode: 'cors'` to detect redirects.
+```javascript
+function hasRedirect(url) {
+    return fetch(url, {
+        credentials: 'include',
+        mode: 'cors',
+        redirect: 'manual',
+    }).then(res => {
+        if(res.type === 'opaqueredirect'){
+            return true;
+        } else {
+            return;
+        }
+    }).catch(() => {
+        return false;
+    });
+}
+```
+
 ### Inflation
 
 A server-side redirect can be detected from a cross-origin page if the destination URL increases in size and contains an attacker-controlled input (either in the form of a query string parameter or a path). The following technique relies on the fact that it is possible to induce an error in most web-servers by generating large request parameters/paths. Since the redirect increases the size of the URL, it can be detected by sending exactly one character less than the server's maximum capacity. That way, if the size increases, the server will respond with an error that can be detected from a cross-origin page (e.g. via Error Events).
