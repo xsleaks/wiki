@@ -141,8 +141,8 @@ function ifRedirect(url) {
 
 ### Max redirects
 Theres currently a max of 20 redirects a navagtion is allowed to do.
-If a website redirects 19 times then redirects to the target,
-Then it will only load if it can done without any redirects.
+If a website redirects 19 times then redirects to the target it will only load if the target has no redirects.
+This attack has the benfit of working with SameSite lax cookies.
 
 ### Inflation
 
