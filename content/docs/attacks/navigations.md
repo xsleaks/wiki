@@ -120,9 +120,9 @@ setTimeout(() => {
 ## Server-Side Redirects
 
 ### Fetch API
-Its possible to abuse `redirect: 'manual'` and `mode: 'cors'` to detect redirects.
+Its possible to abuse `redirect: 'manual'` with `mode: 'cors'` to detect redirects.
 ```javascript
-function hasRedirect(url) {
+function ifRedirect(url) {
     return fetch(url, {
         credentials: 'include',
         mode: 'cors',
