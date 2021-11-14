@@ -86,16 +86,27 @@ async function isCSS(url) {
 ## PDF
 There are [Open URL Parameters](https://bugs.chromium.org/p/chromium/issues/detail?id=64309#c113) that allow some control over the content such as `zoom`, `view`, `page`, `toolbar`.  
 For chrome, a PDF can be detected with [frame counting]({{< ref "/docs/attacks/frame-counting.md" >}}) because an `embed` is used internally.
+This can be confirmed by waiting for a message from the PDF scripting API. [^pdf-api]
 ```javascript
 async function isPDF(url) {
     let w = open(url);
-    await new Promise(resolve => setTimeout(resolve, 500));
-    let result = (w.length === 1);
-    w.close();
-    return result;
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    if (window.length !== 1) return false;
+    let pdf;
+    window.addEventListener("message", e => {
+        if (e.origin === 'chrome-extension://mhjfbmdgcfjbbpaeojofohoefgiehjai') pdf = true;
+    });
+    w[0].postMessage("initialize", "*");
+    await new Promise(resolve => setTimeout(resolve, 5));
+    return pdf;
 }
 ```
-{{< hint warning  >}} There will be false positives if the page has other embeds. {{< /hint >}}
+Its also possible to abuse this API to send actions like `getSelectedText`, `selectAll`, `print`, `getThumbnail`.
+However responces are limited to `documentLoaded` and `passwordPrompted` when cross-origin.
+```javascript
+let w = open(URL);
+w[0].postMessage({type: 'print'}, "*");
+```
 
 ## Script tag
 When a cross-origin script is included on a page it's not directly possible to read its contents. However, if a script uses any built-in functions, it's possible to overwrite them and read their arguments which might leak valuable information [^script-leaks].
@@ -126,3 +137,4 @@ The below code embeds `//example.org/404` and if it responds with *Error* then a
 [^fallback]: HTML Standard, [3.2.5.2.6 Embedded content], [link](https://html.spec.whatwg.org/multipage/dom.html#fallback-content)  
 [^leaky-images]: Leaky Images: Targeted Privacy Attacks in the Web, [3.4 Linking User Identities], [link](https://www.usenix.org/system/files/sec19fall_staicu_prepub.pdf)  
 [^xsleaks-nojs]: [https://twitter.com/terjanq/status/1180477124861407234](https://twitter.com/terjanq/status/1180477124861407234)  
+[^pdf-api]: pdf_scripting_api.js, [link](https://source.chromium.org/chromium/chromium/src/+/main:chrome/browser/resources/pdf/pdf_scripting_api.js)  
