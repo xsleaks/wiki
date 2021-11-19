@@ -46,9 +46,10 @@ To invalidate a resource from the cache, the attacker must force the server to r
 
 - A fetch request with a `cache:'reload'`option that is aborted with [`AbortController.abort()`](https://developer.mozilla.org/en-US/docs/Web/API/AbortController/abort) before new content has been received, but after the request was initiated by the browser.
 - A request with an [overlong referer header](https://lists.archive.carbon60.com/apache/users/316239) and `'cache':'reload'`. This might not work as browsers [capped](https://github.com/whatwg/fetch/issues/903) the length of the referrer to prevent this.
-- A `POST` request with a `fetch` `no-cors`. Sometimes, even in cases where an error is not returned, the browser invalidates the cache.
+- A `POST` request with a `fetch` `no-cors`. Sometimes, even in cases where an error is not returned, the browser invalidates the cache this can be done using a form element to bypass cache partitioning.
 - Request headers such as Content-Type, Accept, Accept-Language, etc. that may cause the server to fail (more application dependent).
 - Other request properties.
+- Exceed the browser cache limit.
 
 Often, some of these methods might be considered a bug in the browser (e.g. [this bug](https://bugs.chromium.org/p/chromium/issues/detail?id=959789#c9)).
 
