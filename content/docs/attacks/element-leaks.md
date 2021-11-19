@@ -84,7 +84,7 @@ async function isCSS(url) {
 }
 ```
 ## PDF
-There are [Open URL Parameters](https://bugs.chromium.org/p/chromium/issues/detail?id=64309#c113) that allow some control over the content such as `zoom`, `view`, `page`, `toolbar`, `nameddest`.  
+There are [Open URL Parameters](https://bugs.chromium.org/p/chromium/issues/detail?id=64309#c113) that allow some control over the content such as `zoom`, `view`, `page`, `toolbar`, `nameddest` Firefox has also implemented `search`.
 For chrome, a PDF can be detected with [frame counting]({{< ref "/docs/attacks/frame-counting.md" >}}) because an `embed` is used internally.
 This can be confirmed by waiting for a message from the PDF scripting API. [^pdf-api]
 ```javascript
