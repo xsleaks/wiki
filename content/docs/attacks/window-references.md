@@ -59,4 +59,4 @@ To mitigate this type of XS-Leak, be consistent across different pages: set the 
 
 ## References
 
-[^demo-coop]: Detect Cross-Origin-Opener-Policy header with popup., [link](https://xsinator.com/testing.html#COOP%20Leak)
+[^demo-coop]: Detect Cross-Origin-Opener-Policy header with popup, [link](https://xsinator.com/testing.html#COOP%20Leak)
