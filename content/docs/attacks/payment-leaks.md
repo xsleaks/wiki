@@ -9,7 +9,7 @@ weight = 2
 +++
 
 ## Detecting usage of Payment API
-Because only one PaymentRequest UI is allowed to be visable the blocking can be detected.
+Because only one PaymentRequest UI is allowed to be visable the blocking can be detected. [^demo]
 ```javascript
 const applePayMethod = {
     supportedMethods: "https://apple.com/apple-pay",
@@ -65,3 +65,5 @@ async function paymentsUsage(url) {
 | :--------------------------------------------------------------------------------: | :-------------------------------------------------: | :---------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------: |
 |                                         ❌                                         |                         ❌                          |                                ❌                                 | [RIP]({{< ref "/docs/defenses/isolation-policies/resource-isolation" >}}) 🔗 [NIP]({{< ref "/docs/defenses/isolation-policies/navigation-isolation" >}}) |
 ## References
+
+[^demo]: Detect if another tab is using the Payment API, [link](https://xsinator.com/testing.html#Payment%20API%20Leak)
