@@ -120,10 +120,10 @@ setTimeout(() => {
 ## Server-Side Redirects
 
 ### Fetch API
-Its possible to abuse `redirect: 'manual'` with `mode: 'cors'` to detect redirects. [^demo-fetch]
+It’s possible to abuse `redirect: 'manual'` with `mode: 'cors'` to detect redirects. [^demo-fetch]
 ```javascript
-function ifRedirect(url) {
-    return fetch(url, {
+function ifRedirect(URL) {
+    return fetch(URL, {
         credentials: 'include',
         mode: 'cors',
         redirect: 'manual',
@@ -140,9 +140,10 @@ function ifRedirect(url) {
 ```
 
 ### Max redirects
-Theres currently a max of 20 redirects a navagtion is allowed to do. [^spec-redirects]
+There’s currently a max of 20 redirects a navigation is allowed to do. [^spec-redirects]
 If a website redirects 19 times then redirects to the target it will only load if the target has no redirects. [^redirect-leak]
-This attack has the benfit of working with SameSite lax cookies. [^demo-max]
+This attack has the benefit of working with SameSite lax cookies. [^demo-max]
+
 
 ### Inflation
 
