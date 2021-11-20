@@ -27,7 +27,7 @@ Some web applications set `id` attributes in `focusable` elements that can lead 
 
 ## Code snippet
 
-The below snippet presents an example of detecting the ID attribute from another site:
+The below snippet presents an example of detecting the ID attribute from another site: [^demo]
 ```javascript
 // Listen to onblur event
 onblur = () => {
@@ -60,3 +60,4 @@ Some examples of `id`-attribute-based attacks are:
 ## References
 
 [^1]: Leaking IDs using focus, [link](https://portswigger.net/research/xs-leak-leaking-ids-using-focus)
+[^demo]: Leak id attribute of focusable HTML elements with onblur, [link](https://xsinator.com/testing.html#Id%20Attribute%20Leak)
