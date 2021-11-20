@@ -58,6 +58,9 @@ async function paymentsUsage(url) {
     
 }
 ```
+{{< hint info >}}
+Firefox doesn't currently support PaymentRequest.
+{{< /hint >}}
 
 ## Defense
 
