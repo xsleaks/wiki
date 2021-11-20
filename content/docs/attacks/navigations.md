@@ -252,5 +252,5 @@ A vulnerability reported to Twitter used this technique to leak the contents of 
 [^3]: Using Content-Security-Policy for Evil, [link](http://homakov.blogspot.com/2014/01/using-content-security-policy-for-evil.html)
 [^cache-bypass]: [github.com/xsleaks/wiki/pull/106](https://github.com/xsleaks/wiki/pull/106)
 [^demo-downloads]: Detect downloads (Content-Disposition header), [link](https://xsinator.com/testing.html#Download%20Detection)
-[^demo-csp]: Detect cross-origin redirects with CSP violation event, [link](https://xsinator.com/testing.html#CSP%20Redirect%20Detection)
+[^demo-csp]: Leak cross-origin redirect target with CSP violation event, [link](https://xsinator.com/testing.html#CSP%20Violation%20Leak)
 [^demo-history]: Detect javascript redirects with History API, [link](https://xsinator.com/testing.html#History%20Length%20Leak)
