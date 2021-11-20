@@ -107,6 +107,9 @@ However responces are limited to `documentLoaded` and `passwordPrompted` when cr
 let w = open(URL);
 w[0].postMessage({type: 'print'}, "*");
 ```
+{{< hint info >}}
+The above techniques doesn't seem to work in Firefox.
+{{< /hint >}}
 
 ## Script tag
 When a cross-origin script is included on a page it's not directly possible to read its contents. However, if a script uses any built-in functions, it's possible to overwrite them and read their arguments which might leak valuable information [^script-leaks].
