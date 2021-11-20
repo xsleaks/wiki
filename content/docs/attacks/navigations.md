@@ -120,7 +120,7 @@ setTimeout(() => {
 ## Server-Side Redirects
 
 ### Fetch API
-Its possible to abuse `redirect: 'manual'` with `mode: 'cors'` to detect redirects.
+Its possible to abuse `redirect: 'manual'` with `mode: 'cors'` to detect redirects. [^demo-fetch]
 ```javascript
 function ifRedirect(url) {
     return fetch(url, {
@@ -142,7 +142,7 @@ function ifRedirect(url) {
 ### Max redirects
 Theres currently a max of 20 redirects a navagtion is allowed to do. [^spec-redirects]
 If a website redirects 19 times then redirects to the target it will only load if the target has no redirects. [^redirect-leak]
-This attack has the benfit of working with SameSite lax cookies.
+This attack has the benfit of working with SameSite lax cookies. [^demo-max]
 
 ### Inflation
 
@@ -278,3 +278,5 @@ A vulnerability reported to Twitter used this technique to leak the contents of 
 [^cache-bypass]: [github.com/xsleaks/wiki/pull/106](https://github.com/xsleaks/wiki/pull/106)
 [^spec-redirects]: HTTP-redirect fetch, [link](https://fetch.spec.whatwg.org/#http-redirect-fetch)
 [^redirect-leak]: XS-Leaks in redirect flows, [link](https://docs.google.com/presentation/d/1rlnxXUYHY9CHgCMckZsCGH4VopLo4DYMvAcOltma0og)
+[^demo-max]: URL Max Length Leak, [link](https://xsinator.com/testing.html#URL%20Max%20Length%20Leak)
+[^demo-fetch]: URL Max Length Leak, [link](https://xsinator.com/testing.html#Fetch%20Redirect%20Leak)
