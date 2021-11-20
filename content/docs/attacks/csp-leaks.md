@@ -14,22 +14,22 @@ weight = 2
 
 ## CSP Directive Leak
 
-Without using the `Allow-CSP-From` header an embeder is not allowed to set a more restictive policy on to an iframe,
-For most directives so by trying to applying `img-src 'https://example.com';` to the iframe csp attribute it will refuse to load unless its only allowing images from that source this can be detected with the onload event.  [^directive-demo]
+Without using the `Allow-CSP-From` header an embedder is not allowed to set a more restrictive policy on to an iframe,
+For most directives so by trying to applying `img-src 'https://example.com';` to the iframe csp attribute it will refuse to load unless it’s only allowing images from that source this can be detected with the onload event.  [^directive-demo]
 
 ```javascript
-async function ifResticts(url, csp) {
+async function ifResticts(URL, csp) {
     return new Promise((r) => {
         let f = document.createElement('iframe');
         f.setAttribute('csp', csp);
         f.hidden = true;
-        f.src = url;
+        f.src = URL;
         f.onload = () => {
             f.onload = () => {
                 f.remove();
                 return r(0);
             }
-            f.src = url + '#';
+            f.src = URL + '#';
         }
         let t = setTimeout(() => {
             f.remove();
@@ -42,6 +42,7 @@ async function ifResticts(url, csp) {
 {{< hint info >}}
 Firefox doesn't currently support the iframe csp property.
 {{< /hint >}}
+
 
 ## Defense
 
