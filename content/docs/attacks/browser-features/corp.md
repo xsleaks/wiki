@@ -32,4 +32,4 @@ An application can avoid this XS-Leak if it guarantees `CORP` is deployed in all
 
 ## References
 
-[^demo]: Detect X-Content-Type-Options in combination with specific content type using CORB., [link](https://xsinator.com/testing.html#CORB%20Leak)
+[^demo]: Detect Cross-Origin-Resource-Policy header with fetch, [link](https://xsinator.com/testing.html#CORP%20Leak)
