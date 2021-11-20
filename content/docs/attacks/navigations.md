@@ -29,7 +29,7 @@ Detecting if a cross-site page triggered a navigation (or didn't) can be useful 
 To detect if any kind of navigation occurred, an attacker can:
 
 - Use an `iframe` and count the number of times the `onload` event is triggered.
-- Check the value of `history.length`, which is accessible through any window reference. This provides the number of entries in the history of a victim that were either changed by `history.pushState` or by regular navigations. To get the value of `history.length`, an attacker changes the location of the window reference to the target website, then changes back to same-origin, and finally reads the value.
+- Check the value of `history.length`, which is accessible through any window reference. This provides the number of entries in the history of a victim that were either changed by `history.pushState` or by regular navigations. To get the value of `history.length`, an attacker changes the location of the window reference to the target website, then changes back to same-origin, and finally reads the value. [^demo-history]
 
 ## Download Trigger
 
@@ -253,3 +253,4 @@ A vulnerability reported to Twitter used this technique to leak the contents of 
 [^cache-bypass]: [github.com/xsleaks/wiki/pull/106](https://github.com/xsleaks/wiki/pull/106)
 [^demo-downloads]: Detect downloads (Content-Disposition header), [link](https://xsinator.com/testing.html#Download%20Detection)
 [^demo-csp]: Detect cross-origin redirects with CSP violation event, [link](https://xsinator.com/testing.html#CSP%20Redirect%20Detection)
+[^demo-history]: Detect javascript redirects with History API, [link](https://xsinator.com/testing.html#History%20Length%20Leak)
