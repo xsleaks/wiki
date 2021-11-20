@@ -39,6 +39,9 @@ async function ifResticts(url, csp) {
     });
 }
 ```
+{{< hint info >}}
+Firefox doesn't currently support the iframe csp property.
+{{< /hint >}}
 
 ## Defense
 
