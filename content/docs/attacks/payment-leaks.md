@@ -9,7 +9,7 @@ weight = 2
 +++
 
 ## Detecting usage of Payment API
-Because only one PaymentRequest UI is allowed to be visable the blocking can be detected. [^demo]
+Because only one PaymentRequest UI is allowed to be visible the blocking can be detected. [^demo]
 ```javascript
 const applePayMethod = {
     supportedMethods: "https://apple.com/apple-pay",
@@ -37,12 +37,12 @@ const sleep = (ms) => {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-async function paymentsUsage(url) {
+async function paymentsUsage(URL) {
     return new Promise(async (r) =>  {
         if (!window.PaymentRequest){
             return r('PaymentRequest not supported.');
         }
-        let w = open(url);
+        let w = open(URL);
         await sleep(2000);
         let request = new PaymentRequest(methods, details);
         request.show().catch((err) => {
@@ -61,6 +61,7 @@ async function paymentsUsage(url) {
 {{< hint info >}}
 Firefox doesn't currently support PaymentRequest.
 {{< /hint >}}
+
 
 ## Defense
 
