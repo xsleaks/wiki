@@ -15,12 +15,12 @@ weight = 2
 Some HTML Elements might be used to leak a portion of data to a cross-origin page.
 For example, the below media resources can leak information about its size, duration, type. 
 
-- [HTMLMediaElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement) leaks the media `duration` and the `buffered` times.
+- [HTMLMediaElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement) leaks the media `duration` and the `buffered` times. [^demo-duration]
 - [HTMLVideoElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLVideoElement) leaks the `videoHeight` and `videoWidth` 
   some browsers may also have `webkitVideoDecodedByteCount`, `webkitAudioDecodedByteCount` and `webkitDecodedFrameCount`
 - [getVideoPlaybackQuality()](https://developer.mozilla.org/en-US/docs/Web/API/VideoPlaybackQuality) leaks the `totalVideoFrames`.
 - [HTMLImageElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement) leaks the `height` and `width` but if the image is invalid they will be 0 
-  and [`image.decode()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/decode) will get rejected.
+  and [`image.decode()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/decode) will get rejected. [^demo-dimensions]
 
 It's possible to differentiate between media types via unique property for a given media type. For example, it is `videoWidth` for a `<video>`, or `duration` for an `<audio>`. The below snippet shows an example code that returns the type of a resource. 
 ```javascript
@@ -127,3 +127,5 @@ The below code embeds `//example.org/404` and if it responds with *Error* then a
 [^leaky-images]: Leaky Images: Targeted Privacy Attacks in the Web, [3.4 Linking User Identities], [link](https://www.usenix.org/system/files/sec19fall_staicu_prepub.pdf)  
 [^xsleaks-nojs]: [https://twitter.com/terjanq/status/1180477124861407234](https://twitter.com/terjanq/status/1180477124861407234)  
 [^demo-css]: Leak CSS rules with getComputedStyle, [link](https://xsinator.com/testing.html#CSS%20Property%20Leak)
+[^demo-dimensions]: Leak dimensions of images or videos, [link](https://xsinator.com/testing.html#Media%20Dimensions%20Leak)
+[^demo-duration]: Leak duration of audio or videos, [link](https://xsinator.com/testing.html#Media%20Duration%20Leak)
