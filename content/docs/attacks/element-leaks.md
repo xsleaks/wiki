@@ -88,8 +88,8 @@ There are [Open URL Parameters](https://bugs.chromium.org/p/chromium/issues/deta
 For chrome, a PDF can be detected with [frame counting]({{< ref "/docs/attacks/frame-counting.md" >}}) because an `embed` is used internally.
 This can be confirmed by waiting for a message from the PDF scripting API. [^pdf-api]
 ```javascript
-async function isPDF(url) {
-    let w = open(url);
+async function isPDF(URL) {
+    let w = open(URL);
     await new Promise(resolve => setTimeout(resolve, 1500));
     if (window.length !== 1) return false;
     let pdf;
@@ -101,14 +101,14 @@ async function isPDF(url) {
     return pdf;
 }
 ```
-Its also possible to abuse this API to send actions like `getSelectedText`, `selectAll`, `print`, `getThumbnail`.
-However responces are limited to `documentLoaded` and `passwordPrompted` when cross-origin.
+It’s also possible to abuse this API to send actions like `getSelectedText`, `selectAll`, `print`, `getThumbnail`.
+However, responses are limited to `documentLoaded` and `passwordPrompted` when cross-origin.
 ```javascript
 let w = open(URL);
 w[0].postMessage({type: 'print'}, "*");
 ```
 {{< hint info >}}
-The above techniques doesn't seem to work in Firefox.
+The above techniques don’t seem to work in Firefox.
 {{< /hint >}}
 
 ## Script tag
