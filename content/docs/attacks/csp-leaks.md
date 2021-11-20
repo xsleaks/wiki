@@ -15,7 +15,7 @@ weight = 2
 ## CSP Directive Leak
 
 Without using the `Allow-CSP-From` header an embeder is not allowed to set a more restictive policy on to an iframe,
-For most directives so by trying to applying `img-src 'https://example.com';` to the iframe csp attribute it will refuse to load unless its only allowing images from that source this can be detected with the onload event.  [demo](https://xsinator.com/testing.html#CSP%20Directive%20Leak)
+For most directives so by trying to applying `img-src 'https://example.com';` to the iframe csp attribute it will refuse to load unless its only allowing images from that source this can be detected with the onload event.  [^directive-demo]
 
 ```javascript
 async function ifResticts(url, csp) {
@@ -46,3 +46,4 @@ async function ifResticts(url, csp) {
 | :--------------------------------------------------------------------------------: | :-------------------------------------------------: | :---------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------: |
 |                                         ✔️                                         |                         ❌                          |                                ✔️                                 | [RIP]({{< ref "/docs/defenses/isolation-policies/resource-isolation" >}}) 🔗 [NIP]({{< ref "/docs/defenses/isolation-policies/navigation-isolation" >}}) |
 ## References
+[^directive-demo]: [https://xsinator.com/testing.html#CSP%20Directive%20Leak)
