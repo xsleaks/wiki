@@ -46,7 +46,7 @@ There are a couple of ways to invalidate a resource from the cache:
 
 - A fetch request with a `cache:'reload'`option that is aborted with [`AbortController.abort()`](https://developer.mozilla.org/en-US/docs/Web/API/AbortController/abort) before new content has been received, but after the request was initiated by the browser.
 - A request with an [overlong referer header](https://lists.archive.carbon60.com/apache/users/316239) and `'cache':'reload'`. This might not work as browsers [capped](https://github.com/whatwg/fetch/issues/903) the length of the referrer to prevent this.
-- A `POST` request from a HTML form element sometimes invalidates the resource from cache (works with cache partitioning).
+- A `POST` request from a HTML form element sometimes invalidates the resource from cache (works with cache partitioning). [^demo-purge]
 - Request headers such as Content-Type, Accept, Accept-Language, etc. that may cause the server to fail (more application dependent).
 - Other request properties.
 - Exceed the browser cache limit.
@@ -169,3 +169,4 @@ An attacker using [Error Events Cache Probing]({{< ref "#cache-probing-with-erro
 [^3]: Mass XS-Search using Cache Attack, [link](https://terjanq.github.io/Bug-Bounty/Google/cache-attack-06jd2d2mz2r0/index.html#VIII-YouTube-watching-history)
 [^4]: Timing Attacks on Web Privacy, [link](http://www.cs.jhu.edu/~fabian/courses/CS600.424/course_papers/webtiming.pdf)
 [^5]: CORS misconfiguration, [link](https://web-in-security.blogspot.com/2017/07/cors-misconfigurations-on-large-scale.html)
+[^demo-purge]: Detect resources loaded by page. Cache is deleted with a POST request, [link](https://xsinator.com/testing.html#Cache%20Leak%20(POST))
