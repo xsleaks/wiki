@@ -68,7 +68,7 @@ async function isType(url, type = "script") {
 
 ## Abusing getComputedStyle
 [getComputedStyle](https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle) can be used to read an embedded to the current page CSS style sheets. Including those loaded from different origins. 
-This function just checks if there has been a style applied to the body.
+This function just checks if there has been a style applied to the body. [^demo-css]
 ```javascript
 async function isCSS(url) {
     let link = document.createElement('link');
@@ -126,3 +126,4 @@ The below code embeds `//example.org/404` and if it responds with *Error* then a
 [^fallback]: HTML Standard, [3.2.5.2.6 Embedded content], [link](https://html.spec.whatwg.org/multipage/dom.html#fallback-content)  
 [^leaky-images]: Leaky Images: Targeted Privacy Attacks in the Web, [3.4 Linking User Identities], [link](https://www.usenix.org/system/files/sec19fall_staicu_prepub.pdf)  
 [^xsleaks-nojs]: [https://twitter.com/terjanq/status/1180477124861407234](https://twitter.com/terjanq/status/1180477124861407234)  
+[^demo-css]: Leak CSS rules with getComputedStyle, [link](https://xsinator.com/testing.html#CSS%20Property%20Leak)
