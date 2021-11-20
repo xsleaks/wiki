@@ -44,7 +44,7 @@ await getNetworkDuration('https://example.org');
 {{< hint info >}} Unlike other browsers, Firefox provides the measurements in milliseconds. {{< /hint >}}
 
 ## Detecting X-Frame-Options
-If displaying a page inside an embed (e.g. because of the `X-Frame-Options` header) it will not be added to the `performance` object in Chrome.
+If displaying a page inside an embed (e.g. because of the `X-Frame-Options` header) it will not be added to the `performance` object in Chrome. [^demo-xfo]
 ```javascript
 async function isFrameBlocked(url) {
     let href = new URL(url).href;
@@ -110,3 +110,6 @@ async function getSpeed(count = 10) {
 
 await averageSpeed = getSpeed();
 ```
+## References
+
+[^demo-xfo]: Detect X-Frame-Options with Performance API, [link](https://xsinator.com/testing.html#Performance%20API%20X-Frame%20Leak)
