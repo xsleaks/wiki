@@ -46,4 +46,5 @@ async function ifResticts(url, csp) {
 | :--------------------------------------------------------------------------------: | :-------------------------------------------------: | :---------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------: |
 |                                         ✔️                                         |                         ❌                          |                                ✔️                                 | [RIP]({{< ref "/docs/defenses/isolation-policies/resource-isolation" >}}) 🔗 [NIP]({{< ref "/docs/defenses/isolation-policies/navigation-isolation" >}}) |
 ## References
-[^directive-demo]: [https://xsinator.com/testing.html#CSP%20Directive%20Leak)
+
+[^directive-demo]: CSP Directive Leak, [link](https://xsinator.com/testing.html#CSP%20Directive%20Leak)
