@@ -62,7 +62,7 @@ This attack is only possible in Chromium-based browsers with automatic downloads
 
 ### Download Navigation (with iframes)
 
-Another way to test for the [`Content-Disposition: attachment`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition) header is to check if a navigation occurred. If a page load causes a download, it does not trigger a navigation and the window stays within the same origin.
+Another way to test for the [`Content-Disposition: attachment`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition) header is to check if a navigation occurred. If a page load causes a download, it does not trigger a navigation and the window stays within the same origin. [^demo-downloads]
 
 The following snippet can be used to detect whether such a navigation has occurred and therefore detect a download attempt:
 
@@ -251,3 +251,4 @@ A vulnerability reported to Twitter used this technique to leak the contents of 
 [^2]: Disclose domain of redirect destination taking advantage of CSP, [link](https://bugs.chromium.org/p/chromium/issues/detail?id=313737)
 [^3]: Using Content-Security-Policy for Evil, [link](http://homakov.blogspot.com/2014/01/using-content-security-policy-for-evil.html)
 [^cache-bypass]: [github.com/xsleaks/wiki/pull/106](https://github.com/xsleaks/wiki/pull/106)
+[^demo-downloads]: Detect downloads (Content-Disposition header), [link](https://xsinator.com/testing.html#Download%20Detection)
