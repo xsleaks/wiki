@@ -279,4 +279,4 @@ A vulnerability reported to Twitter used this technique to leak the contents of 
 [^spec-redirects]: HTTP-redirect fetch, [link](https://fetch.spec.whatwg.org/#http-redirect-fetch)
 [^redirect-leak]: XS-Leaks in redirect flows, [link](https://docs.google.com/presentation/d/1rlnxXUYHY9CHgCMckZsCGH4VopLo4DYMvAcOltma0og)
 [^demo-max]: URL Max Length Leak, [link](https://xsinator.com/testing.html#URL%20Max%20Length%20Leak)
-[^demo-fetch]: URL Max Length Leak, [link](https://xsinator.com/testing.html#Fetch%20Redirect%20Leak)
+[^demo-fetch]: Fetch Redirect Leak, [link](https://xsinator.com/testing.html#Fetch%20Redirect%20Leak)
