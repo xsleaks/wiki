@@ -85,7 +85,7 @@ async function isCSS(url) {
 ```
 ## PDF
 There are [Open URL Parameters](https://bugs.chromium.org/p/chromium/issues/detail?id=64309#c113) that allow some control over the content such as `zoom`, `view`, `page`, `toolbar`, `nameddest`. Firefox has also implemented `search`.
-For chrome, a PDF can be detected with [frame counting]({{< ref "/docs/attacks/frame-counting.md" >}}) because an `embed` is used internally.
+For Chrome, a PDF can be detected with [Frame Counting]({{< ref "/docs/attacks/frame-counting.md" >}}) because the document is internally embedded into a page.
 This can be confirmed by waiting for a message from the PDF scripting API. [^pdf-api]
 ```javascript
 async function isPDF(URL) {
@@ -101,15 +101,16 @@ async function isPDF(URL) {
     return pdf;
 }
 ```
-It’s also possible to abuse this API to send actions like `getSelectedText`, `selectAll`, `print`, `getThumbnail`.
+It’s also possible to abuse this API to send actions like `getSelectedText`, `selectAll`, `print`, `getThumbnail`, which potentially can leak information about the document's contents. 
 
 ```javascript
 let w = open(URL);
 w[0].postMessage({type: 'print'}, "*");
 ```
 {{< hint info >}}
-The above techniques don’t seem to work in Firefox.
+The above techniques doesn't seem to work in Firefox.
 {{< /hint >}}
+
 However, responses are limited to `documentLoaded` and `passwordPrompted` when cross-origin.
 This could be abused to read PDF content if the attacker has access to the messages of that origin.
 
