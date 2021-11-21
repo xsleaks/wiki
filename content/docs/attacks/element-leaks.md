@@ -102,8 +102,7 @@ async function isPDF(URL) {
 }
 ```
 It’s also possible to abuse this API to send actions like `getSelectedText`, `selectAll`, `print`, `getThumbnail`.
-However, responses are limited to `documentLoaded` and `passwordPrompted` when cross-origin.
-This could be abused to read PDF content if the attacker has access to the messages of that origin.
+
 ```javascript
 let w = open(URL);
 w[0].postMessage({type: 'print'}, "*");
@@ -111,6 +110,8 @@ w[0].postMessage({type: 'print'}, "*");
 {{< hint info >}}
 The above techniques don’t seem to work in Firefox.
 {{< /hint >}}
+However, responses are limited to `documentLoaded` and `passwordPrompted` when cross-origin.
+This could be abused to read PDF content if the attacker has access to the messages of that origin.
 
 ## Script tag
 When a cross-origin script is included on a page it's not directly possible to read its contents. However, if a script uses any built-in functions, it's possible to overwrite them and read their arguments which might leak valuable information [^script-leaks].
