@@ -26,7 +26,7 @@ One of the accessible attributes is `window.length` which provides the number of
 Websites commonly use frames (or `iframes`) and this choice doesn't necessarily imply security issues. There are, however, cases where a website might change the number of frames on a page depending on some user information. For example, this could happen on a page that changes its layout depending on the `GET` parameters and the victim's data. It might be possible for an attacker to infer information about the victim by measuring the value of `window.length` on different pages.
 
 If a website normally contains an iframe but the length is 0 this may mean the user does not have access to that page like when signed out,
-Or some other error like a tab crash it may also allow for detecting when a page has loaded.
+Or some other errors like a tab crash it may also allow for detecting when a page has loaded with the length increase.
 
 ## Code Snippet
 The below snippet demonstrates how to access the information about the number of frames on a cross-site page:
