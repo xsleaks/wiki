@@ -17,6 +17,8 @@ weight = 2
 Without using the `Allow-CSP-From` header an embedder is not allowed to set a more restrictive policy on to an iframe,
 For most directives so by trying to apply `img-src 'https://example.com';` to the iframe csp attribute it will refuse to load unless it’s only allowing images from that source this can be detected with the onload event.  [^directive-demo]
 
+This can be abused if csp attrbutes are set conditionally on user state and embedding is allowed.
+
 ```javascript
 async function ifResticts(URL, csp) {
     return new Promise((r) => {
