@@ -10,6 +10,7 @@ weight = 2
 
 ## Detecting usage of Payment API
 Because only one PaymentRequest UI is allowed to be visible the blocking can be detected. [^demo]
+This could be abused if the target displays the PaymentRequest UI conditionally on user state.
 ```javascript
 const applePayMethod = {
     supportedMethods: "https://apple.com/apple-pay",
