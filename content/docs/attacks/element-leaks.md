@@ -103,6 +103,7 @@ async function isPDF(URL) {
 ```
 It’s also possible to abuse this API to send actions like `getSelectedText`, `selectAll`, `print`, `getThumbnail`.
 However, responses are limited to `documentLoaded` and `passwordPrompted` when cross-origin.
+This could be abused to read PDF content if the attacker has access to the messages of that origin.
 ```javascript
 let w = open(URL);
 w[0].postMessage({type: 'print'}, "*");
