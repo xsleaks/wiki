@@ -54,7 +54,7 @@ Often, some of these methods might be considered a bug in the browser (e.g. [thi
 It's also possible to remove resources from cache without server errors. For example, the above techniques could be used as well:
 
 - A fetch request with a `cache:'reload'` option that is aborted with [`AbortController.abort()`](https://developer.mozilla.org/en-US/docs/Web/API/AbortController/abort) before new content has been received, but after the request was initiated by the browser.
-- A `POST` request from a `fetch` with `no-cors`.
+- A `POST` request from a `fetch` with `no-cors`. [Run demo](https://xsinator.com/testing.html#Cache%20Leak%20(POST))
 - A `POST` request from a [HTMLFormElement](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form) may purge using the key of the top-level site to bypass the [Partitioned HTTP Cache]({{< ref "../defenses/secure-defaults/partitioned-cache.md" >}})
 - Exceed the browser cache limit.
 
