@@ -86,17 +86,23 @@ async function isCSS(url) {
 ## PDF
 There are [Open URL Parameters](https://bugs.chromium.org/p/chromium/issues/detail?id=64309#c113) that allow some control over the content such as `zoom`, `view`, `page`, `toolbar`, `nameddest`. Firefox has also implemented `search`.
 For Chrome, a PDF can be detected with [Frame Counting]({{< ref "/docs/attacks/frame-counting.md" >}}) because the document is internally embedded into a page.
-This can be confirmed by waiting for a message from the PDF scripting API. [^pdf-api]
+Chrome also implements the PDF scripting API that can be used to confirm if the frame is a pdf. [^pdf-api]
 ```javascript
 async function isPDF(URL) {
+    // Open to target
     let w = open(URL);
+    // Wait about 1.5 secounds to let the page load.
     await new Promise(resolve => setTimeout(resolve, 1500));
+    // For Chrome a window opened to a pdf will always be 1.
     if (window.length !== 1) return false;
     let pdf;
     window.addEventListener("message", e => {
+        // Detect if received a message from the Chrome PDF viewer.
         if (e.origin === 'chrome-extension://mhjfbmdgcfjbbpaeojofohoefgiehjai') pdf = true;
     });
+    // Needed to start getting messages from the Chrome PDF viewer.
     w[0].postMessage("initialize", "*");
+    // Wait for response from the Chrome PDF viewer.
     await new Promise(resolve => setTimeout(resolve, 5));
     return pdf;
 }
