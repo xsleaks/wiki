@@ -140,9 +140,15 @@ function ifRedirect(URL) {
 ```
 
 ### Max redirects
-There’s currently a max of 20 redirects a navigation is allowed to do. [^spec-redirects]
-If a website redirects 19 times then redirects to the target it will only load if the target has no redirects. [^redirect-leak]
-This attack has the benefit of working with SameSite lax cookies. [^demo-max]
+When a page initiates a chain of 3XX redirects, browsers limit the maximum number of redirects to 20 [^spec-redirects]. This can be used to detect the exact number of redirects occured for a cross-origin page by following the below approach [^redirect-leak]:
+1. As a malicious website, initiate 19 redirects and make the final 20th redirect to the attacked page.
+2. If the browser threw a network error, at least one redirect occured. Repeat the process with 18 redirects.
+3. If the browser didn't threw a network error, the number of redirects is known as `20 - issued_redirects`.
+
+*To detect an error one can use <add reference here>*
+
+If performed in a top window, this also works with SameSite lax cookies and other cross-site protections, such as [Framing Isolation Policy](<add reference here>) or [Resource Isolation Policy](<add reference here>).
+This attack has the benefit of working with SameSite lax cookies.
 
 
 ### Inflation
