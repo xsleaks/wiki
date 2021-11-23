@@ -1,5 +1,5 @@
 +++
-title = "Payment API leaks"
+title = "Miscellaneous XS-Leaks"
 description = ""
 category = "Attack"
 abuse = []
@@ -9,8 +9,8 @@ weight = 2
 +++
 
 ## Detecting usage of Payment API
-Because only one PaymentRequest UI is allowed to be visible the blocking can be detected. [^demo]
-This could be abused if the target displays the PaymentRequest UI conditionally on user state.
+Because only one PaymentRequest UI is allowed to be visible the blocking can be detected.
+This could be abused if the target displays the PaymentRequest UI conditionally on user state. [Run demo](https://xsinator.com/testing.html#Payment%20API%20Leak)
 ```javascript
 const applePayMethod = {
     supportedMethods: "https://apple.com/apple-pay",
@@ -69,6 +69,3 @@ Firefox doesn't currently support PaymentRequest.
 | [SameSite Cookies (Lax)]({{< ref "/docs/defenses/opt-in/same-site-cookies.md" >}}) | [COOP]({{< ref "/docs/defenses/opt-in/coop.md" >}}) | [Framing Protections]({{< ref "/docs/defenses/opt-in/xfo.md" >}}) |                                          [Isolation Policies]({{< ref "/docs/defenses/isolation-policies" >}})                                           |
 | :--------------------------------------------------------------------------------: | :-------------------------------------------------: | :---------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------: |
 |                                         ❌                                         |                         ❌                          |                                ❌                                 | [RIP]({{< ref "/docs/defenses/isolation-policies/resource-isolation" >}}) 🔗 [NIP]({{< ref "/docs/defenses/isolation-policies/navigation-isolation" >}}) |
-## References
-
-[^demo]: Detect if another tab is using the Payment API, [link](https://xsinator.com/testing.html#Payment%20API%20Leak)
