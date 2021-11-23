@@ -62,7 +62,7 @@ For example, Flask framework [promotes](https://flask-cors.readthedocs.io/en/lat
 
 If a resource hosted on `server.com` is requested from `target.com` then the origin could be reflected in the response headers as: `Access-Control-Allow-Origin: target.com`. If the resource is cached, this information is stored together with the resource in the browser cache. With that, if `attacker.com` tries to fetch the same resource there are two possible scenarios:
 - The resource is not in cache: the resource could be fetched and stored together with the `Access-Control-Allow-Origin: attacker.com` header.
-- The resource was already in cache: fetch attempt will try to fetch the resource from the cache but it will also generate a CORS error due to the ACAO header value mismatch with the requesting origin (`target.com` origin was expected but `attacker.com` was provided). Here below is provided an example code snippet epxloting this vulnerability to infer the cache status of the victim's browser. [^demo-cors]
+- The resource was already in cache: fetch attempt will try to fetch the resource from the cache but it will also generate a CORS error due to the ACAO header value mismatch with the requesting origin (`target.com` origin was expected but `attacker.com` was provided). Here below is provided an example code snippet epxloting this vulnerability to infer the cache status of the victim's browser. [Run demo](https://xsinator.com/testing.html#Cache%20Leak%20(CORS))
 ```javascript
 // The function simply takes a url and fetches it in CORS mode.
 // If the fetch raises an error, it will be a CORS error due to the 
@@ -168,4 +168,3 @@ An attacker using [Error Events Cache Probing]({{< ref "#cache-probing-with-erro
 [^3]: Mass XS-Search using Cache Attack, [link](https://terjanq.github.io/Bug-Bounty/Google/cache-attack-06jd2d2mz2r0/index.html#VIII-YouTube-watching-history)
 [^4]: Timing Attacks on Web Privacy, [link](http://www.cs.jhu.edu/~fabian/courses/CS600.424/course_papers/webtiming.pdf)
 [^5]: CORS misconfiguration, [link](https://web-in-security.blogspot.com/2017/07/cors-misconfigurations-on-large-scale.html)
-[^demo-cors]: Detect resources loaded by page. Cache is deleted with CORS error, [link](https://xsinator.com/testing.html#Cache%20Leak%20(CORS))
