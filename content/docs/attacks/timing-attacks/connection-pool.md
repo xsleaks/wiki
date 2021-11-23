@@ -14,7 +14,7 @@ defenses = [
 menu = "main"
 +++
 
-Another way to measure the network timing of a request consists of abusing the socket pool of a browser [^1]. Browsers use sockets to communicate with servers. As the operating system and the hardware it runs on have limited resources, browsers have to impose a limit. [^demo-gc] [^demo-ff]
+Another way to measure the network timing of a request consists of abusing the socket pool of a browser [^1]. Browsers use sockets to communicate with servers. As the operating system and the hardware it runs on have limited resources, browsers have to impose a limit. [Run demo (Chrome)](https://xsinator.com/testing.html#WebSocket%20Leak%20(GC)) [Run demo (Firefox)](https://xsinator.com/testing.html#WebSocket%20Leak%20(FF))
 
 To exploit the existence of this limit, attackers can:
 1. Check what the limit of the browser is, for example 256 global sockets.
@@ -36,5 +36,3 @@ Similar to [partitioned caches]({{< ref "../../defenses/secure-defaults/partitio
 ## References
 
 [^1]: Leak cross-window request timing by exhausting connection pool, [link](https://bugs.chromium.org/p/chromium/issues/detail?id=843157)
-[^demo-gc]: Detect the number of websockets on a page by exausting the socket limit (chrome), [link](https://xsinator.com/testing.html#WebSocket%20Leak%20(GC))
-[^demo-ff]: Detect the number of websockets on a page by exausting the socket limit (firefox), [link](https://xsinator.com/testing.html#WebSocket%20Leak%20(FF))
