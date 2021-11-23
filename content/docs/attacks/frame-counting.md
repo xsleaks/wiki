@@ -65,7 +65,7 @@ Some examples of frame counting attacks are:
 
 - A website lets a user search for user information in a search engine. If the page structure has a different number of `iframes` depending on whether there are results to the user query, an attacker could use the [XS-Search]({{< ref "xs-search.md" >}}) technique to leak those secrets.
 - A website structures the user profile page differently based on gender or other PII. An attacker can easily leak this information by opening the page and counting frames.
-- A website normally contains an iframe but the length is 0 this may mean the user does not have access to that page like when signed out or a page error.
+- A website normally contains an iframe but the length is 0 this may mean the user does not have access to that page like when signed out or a page error such as a renderer crash or network connection issue.
 - Detecting the history.length increase to known when a page has loaded.
 
 ## Defense
