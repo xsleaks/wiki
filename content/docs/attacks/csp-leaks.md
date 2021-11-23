@@ -14,6 +14,8 @@ weight = 2
 
 ## CSP Directive Leak
 
+iframe elements have a csp attribute which specifies the [Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) that an embedded document must agree to enforce upon itself. 
+
 Without using the `Allow-CSP-From` header an embedder is not allowed to set a more restrictive policy on to an iframe,
 For most directives so by trying to apply `img-src 'https://example.com';` to the iframe csp attribute it will refuse to load unless it’s only allowing images from that source this can be detected with the onload event. [Run demo](https://xsinator.com/testing.html#CSP%20Directive%20Leak)
 
