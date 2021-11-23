@@ -120,7 +120,7 @@ setTimeout(() => {
 ## Server-Side Redirects
 
 ### Fetch API
-It’s possible to abuse `redirect: 'manual'` with `mode: 'cors'` to detect redirects. [Run demo](https://xsinator.com/testing.html#Fetch%20Redirect%20Leak)
+It’s possible to abuse the fetch option `redirect: 'manual'` with `mode: 'cors'` to detect redirects. [Run demo](https://xsinator.com/testing.html#Fetch%20Redirect%20Leak)
 ```javascript
 function ifRedirect(URL) {
     return fetch(URL, {
@@ -148,10 +148,9 @@ When a page initiates a chain of 3XX redirects, browsers limit the maximum numbe
 2. If the browser threw a network error, at least one redirect occured. Repeat the process with 18 redirects.
 3. If the browser didn't threw a network error, the number of redirects is known as `20 - issued_redirects`.
 
-*To detect an error one can use <add reference here>*
+*To detect an error one can use [Error Events]({{< ref "t/docs/attacks/error-events.md" >}})*
 
-If performed in a top window, this also works with SameSite lax cookies and other cross-site protections, such as [Framing Isolation Policy]({{< ref "/docs/defenses/isolation-policies/framing-isolation" >}}) or [Resource Isolation Policy]({{< ref "/docs/defenses/isolation-policies/resource-isolation" >}}). 
-This attack has the benefit of working with SameSite lax cookies. [Run demo](https://xsinator.com/testing.html#Max%20Redirect%20Leak)
+If performed in a top window, this also works with SameSite lax cookies and other cross-site protections, such as [Framing Isolation Policy]({{< ref "/docs/defenses/isolation-policies/framing-isolation" >}}) or [Resource Isolation Policy]({{< ref "/docs/defenses/isolation-policies/resource-isolation" >}}). [Run demo](https://xsinator.com/testing.html#Max%20Redirect%20Leak)
 
 
 ### Inflation
