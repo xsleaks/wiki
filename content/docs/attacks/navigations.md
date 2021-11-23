@@ -120,12 +120,15 @@ setTimeout(() => {
 ## Server-Side Redirects
 
 ### Fetch API
-It’s possible to abuse `redirect: 'manual'` with `mode: 'cors'` to detect redirects. [^demo-fetch]
+It’s possible to abuse `redirect: 'manual'` with `mode: 'cors'` to detect redirects. [Run demo](https://xsinator.com/testing.html#Fetch%20Redirect%20Leak)
 ```javascript
 function ifRedirect(URL) {
     return fetch(URL, {
+        // Include cookies
         credentials: 'include',
+        // Not allowed to use "no-cors" with a redirect mode other then "follow".
         mode: 'cors',
+        // Returns opaqueredirect instead of redirecting
         redirect: 'manual',
     }).then(res => {
         if(res.type === 'opaqueredirect'){
@@ -147,8 +150,8 @@ When a page initiates a chain of 3XX redirects, browsers limit the maximum numbe
 
 *To detect an error one can use <add reference here>*
 
-If performed in a top window, this also works with SameSite lax cookies and other cross-site protections, such as [Framing Isolation Policy](<add reference here>) or [Resource Isolation Policy](<add reference here>).
-This attack has the benefit of working with SameSite lax cookies.
+If performed in a top window, this also works with SameSite lax cookies and other cross-site protections, such as [Framing Isolation Policy]({{< ref "/docs/defenses/isolation-policies/framing-isolation" >}}) or [Resource Isolation Policy]({{< ref "/docs/defenses/isolation-policies/resource-isolation" >}}). 
+This attack has the benefit of working with SameSite lax cookies. [Run demo](https://xsinator.com/testing.html#Max%20Redirect%20Leak)
 
 
 ### Inflation
@@ -285,5 +288,3 @@ A vulnerability reported to Twitter used this technique to leak the contents of 
 [^cache-bypass]: [github.com/xsleaks/wiki/pull/106](https://github.com/xsleaks/wiki/pull/106)
 [^spec-redirects]: HTTP-redirect fetch, [link](https://fetch.spec.whatwg.org/#http-redirect-fetch)
 [^redirect-leak]: XS-Leaks in redirect flows, [link](https://docs.google.com/presentation/d/1rlnxXUYHY9CHgCMckZsCGH4VopLo4DYMvAcOltma0og)
-[^demo-max]: Detect server redirect by abusing max redirect limit, [link](https://xsinator.com/testing.html#Max%20Redirect%20Leak)
-[^demo-fetch]: Fetch Redirect Leak, [link](https://xsinator.com/testing.html#Fetch%20Redirect%20Leak)
