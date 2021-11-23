@@ -45,7 +45,7 @@ The interesting behavior is that CORB creates a valid resource out of the reques
 CORB can also allow attackers to detect when the `nosniff` header is present in the request. This problem originated due to the fact that CORB is only enforced depending on the presence of this header and some sniffing algorithms. The example below shows two distinguishable states:
 
 1. CORB will prevent an attacker page which embeds a resource as a `script` if the resource is served with `text/html` as `Content-Type` along with the `nosniff` header.
-2. If the resource does not set `nosniff` and CORB [fails](https://chromium.googlesource.com/chromium/src/+/master/services/network/cross_origin_read_blocking_explainer.md#what-types-of-content-are-protected-by-corb) to infer the `Content-Type` of the page (which remains `text/html`), a `SyntaxError` will be fired since the contents can't be parsed as valid JavaScript. This error can be caught by listening to `window.onerror` as `script` tags only trigger error events under [certain conditions](https://developer.mozilla.org/en-US/docs/Web/API/HTMLScriptElement). [^demo]
+2. If the resource does not set `nosniff` and CORB [fails](https://chromium.googlesource.com/chromium/src/+/master/services/network/cross_origin_read_blocking_explainer.md#what-types-of-content-are-protected-by-corb) to infer the `Content-Type` of the page (which remains `text/html`), a `SyntaxError` will be fired since the contents can't be parsed as valid JavaScript. This error can be caught by listening to `window.onerror` as `script` tags only trigger error events under [certain conditions](https://developer.mozilla.org/en-US/docs/Web/API/HTMLScriptElement). [Run demo](https://xsinator.com/testing.html#CORB%20Leak)
 
 ## Defense
 
@@ -63,4 +63,3 @@ Developers can deploy [CORP]({{< ref "/docs/defenses/opt-in/corp.md" >}}) in an 
 ## References
 
 [^1]: CORB vs side channels, [link](https://docs.google.com/document/d/1kdqstoT1uH5JafGmRXrtKE4yVfjUVmXitjcvJ4tbBvM/edit?ts=5f2c8004)
-[^demo]: Detect X-Content-Type-Options in combination with specific content type using CORB, [link](https://xsinator.com/testing.html#CORB%20Leak)
