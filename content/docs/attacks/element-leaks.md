@@ -111,8 +111,7 @@ w[0].postMessage({type: 'print'}, "*");
 The above techniques doesn't seem to work in Firefox.
 {{< /hint >}}
 
-However, responses are limited to `documentLoaded` and `passwordPrompted` when cross-origin.
-This could be abused to read PDF content if the attacker has access to the messages of that origin.
+As a protection against leaking document's content cross-origin, the responses are limited to `documentLoaded` and `passwordPrompted` for cross-origin requests. 
 
 ## Script tag
 When a cross-origin script is included on a page it's not directly possible to read its contents. However, if a script uses any built-in functions, it's possible to overwrite them and read their arguments which might leak valuable information [^script-leaks].
