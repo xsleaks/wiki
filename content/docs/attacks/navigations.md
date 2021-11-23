@@ -119,32 +119,6 @@ setTimeout(() => {
 
 ## Server-Side Redirects
 
-### Fetch API
-It’s possible to abuse the fetch option `redirect: 'manual'` with `mode: 'cors'` to detect redirects. [Run demo](https://xsinator.com/testing.html#Fetch%20Redirect%20Leak)
-```javascript
-function ifRedirect(URL) {
-    return fetch(URL, {
-        // Include cookies
-        credentials: 'include',
-        // Not allowed to use "no-cors" with a redirect mode other then "follow".
-        mode: 'cors',
-        // Returns opaqueredirect instead of redirecting.
-        redirect: 'manual',
-    }).then(res => {
-        if(res.type === 'opaqueredirect'){
-            return true;
-        } else {
-            return;
-        }
-    }).catch(() => {
-        return false;
-    });
-}
-```
-{{< hint info >}}
-The above technique doesn't seem to work in Chrome.
-{{< /hint >}}
-
 ### Max redirects
 When a page initiates a chain of 3XX redirects, browsers limit the maximum number of redirects to 20 [^spec-redirects]. This can be used to detect the exact number of redirects occured for a cross-origin page by following the below approach [^redirect-leak]:
 1. As a malicious website, initiate 19 redirects and make the final 20th redirect to the attacked page.
