@@ -22,6 +22,7 @@ The benefit of this is that the size change is controlled by the attacker so the
 ## HEIST (2016)
 An example of this attack is [HEIST](https://www.blackhat.com/docs/us-16/materials/us-16-VanGoethem-HEIST-HTTP-Encrypted-Information-Can-Be-Stolen-Through-TCP-Windows.pdf)
 this used timing attacks so that no MITM is needed,   
+Unlike TIME the attack relies on knowing the time that the first byte arrived (i.e. when fetch() resolves), as well as when the full response has been downloaded (e.g. via responseEnd);
 The primary defence for this attack is to disable third-party cookies.
 
 ## BREACH (2013)
