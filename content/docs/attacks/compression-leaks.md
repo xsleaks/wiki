@@ -19,8 +19,8 @@ When compression is used and there’s reflected input such as from the URL or c
 This is because when content is repeated it is more compressible which results in a smaller download that is detectable using a network sniffer for a [Chosen-plaintext attack](https://en.wikipedia.org/wiki/Chosen-plaintext_attack) or with timing attacks such as using the window "unload" event.
 The benefit of this is that the size change is controlled by the attacker so the server can always respond with same response excluding the reflected content from the attacker.
 
-## HIST (2016)
-An example of this attack is [HIST](https://www.blackhat.com/docs/us-16/materials/us-16-VanGoethem-HEIST-HTTP-Encrypted-Information-Can-Be-Stolen-Through-TCP-Windows.pdf)
+## HEIST (2016)
+An example of this attack is [HEIST](https://www.blackhat.com/docs/us-16/materials/us-16-VanGoethem-HEIST-HTTP-Encrypted-Information-Can-Be-Stolen-Through-TCP-Windows.pdf)
 this used timing attacks so that no MITM is needed,  
 The primary defence for this attack is to disable third-party cookies however window navigation timings are not affected by this.
 
@@ -28,7 +28,7 @@ The primary defence for this attack is to disable third-party cookies however wi
 An example of this attack for leaking HTTPS traffic is [BREACH](http://breachattack.com/resources/BREACH%20-%20SSL,%20gone%20in%2030%20seconds.pdf) this uses a network sniffer to get the response size.
 
 ## TIME (2013)
-Similar to HIST, [TIME](https://owasp.org/www-pdf-archive/A_Perfect_CRIME_TIME_Will_Tell_-_Tal_Beery.pdf) used timings attacks to detect the size differences.
+Similar to HEIST, [TIME](https://owasp.org/www-pdf-archive/A_Perfect_CRIME_TIME_Will_Tell_-_Tal_Beery.pdf) used timings attacks to detect the size differences.
 
 ## CRIME (2012)
 Migrated for SPDY and TLS-level compression.
