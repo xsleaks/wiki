@@ -40,5 +40,5 @@ There are multiple tools to exploit this behaviour such as [decrypto-org/rupture
 ## Defences
 - Disable compression.
 - Using separate requests for secrets prevents an attacker from injecting data and with CSRF protection it can also prevent timing attacks.
-- SameSite cookies prevents cookies being sent in cross origin requests.
+- SameSite cookies prevents cookies being sent in cross site requests.
 - Cross-Origin-Opener-Policy prevents window reuse for timing attacks.
