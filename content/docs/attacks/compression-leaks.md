@@ -21,14 +21,15 @@ The benefit of this is that the size change is controlled by the attacker so the
 
 ## HEIST (2016)
 An example of this attack is [HEIST](https://www.blackhat.com/docs/us-16/materials/us-16-VanGoethem-HEIST-HTTP-Encrypted-Information-Can-Be-Stolen-Through-TCP-Windows.pdf)
-this used timing attacks so that no MITM is needed,  
-The primary defence for this attack is to disable third-party cookies however window navigation timings are not affected by this.
+this used timing attacks so that no MITM is needed,   
+The primary defence for this attack is to disable third-party cookies.
 
 ## BREACH (2013)
 An example of this attack for leaking HTTPS traffic is [BREACH](http://breachattack.com/resources/BREACH%20-%20SSL,%20gone%20in%2030%20seconds.pdf) this uses a network sniffer to get the response size.
 
 ## TIME (2013)
-Similar to HEIST, [TIME](https://owasp.org/www-pdf-archive/A_Perfect_CRIME_TIME_Will_Tell_-_Tal_Beery.pdf) used timings attacks to detect the size differences.
+Similar to HEIST, [TIME](https://owasp.org/www-pdf-archive/A_Perfect_CRIME_TIME_Will_Tell_-_Tal_Beery.pdf) used timings attacks to detect the size differences.  
+The primary defence for this attack is to disable third-party cookies however window navigation timings are not affected by this.
 
 ## CRIME (2012)
 Migrated for SPDY and TLS-level compression.
