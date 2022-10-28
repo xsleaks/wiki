@@ -34,8 +34,8 @@ console.log('Time spent: ' + data.duration + ' on ' + type + ' connection.');
 ```
 
 ## Connection reuse
-With HTTP/2 and HTTP/3 requests may reuse an existing connection for a host to improve performance.
-This could allow for detecting if a site has connected to a host and leaking infomation about the cross-site request by abusing Stream prioritization and HPACK compression. 
+With HTTP/2 and HTTP/3 requests may reuse an existing connection for a host to improve performance. [^3]
+This could allow for detecting if a site has connected to a host and leaking infomation about the cross-site request by abusing Stream prioritization and HPACK  compression.  [^4]
 Connections may get closed if sockets are exhausted or its been left idle.
 
 ## Defense
@@ -53,3 +53,5 @@ Similar to [partitioned caches]({{< ref "../../defenses/secure-defaults/partitio
 
 [^1]: Leak cross-window request timing by exhausting connection pool, [link](https://bugs.chromium.org/p/chromium/issues/detail?id=843157)
 [^2]: client_socket_pool_manager.cc, [link](https://source.chromium.org/chromium/chromium/src/+/main:net/socket/client_socket_pool_manager.cc)
+[^3]: rfc9113 Connection Reuse, [link](https://httpwg.org/specs/rfc9113.html#rfc.section.9.1.1)
+[^4]: rfc9113 Remote Timing Attacks, [link](https://httpwg.org/specs/rfc9113.html#rfc.section.10.9)
