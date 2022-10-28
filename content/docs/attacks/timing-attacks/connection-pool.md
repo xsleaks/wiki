@@ -17,10 +17,26 @@ menu = "main"
 Another way to measure the network timing of a request consists of abusing the socket pool of a browser [^1]. Browsers use sockets to communicate with servers. As the operating system and the hardware it runs on have limited resources, browsers have to impose a limit.
 
 To exploit the existence of this limit, attackers can:
-1. Check what the limit of the browser is, for example 256 global sockets.
+1. Check what the limit of the browser is, for example 256 global sockets. [^2]
 2. Block {{< katex>}}255{{< /katex >}} sockets for a long period of time by performing {{< katex>}}255{{< /katex >}} requests to different hosts that simply hang the connection
-3. Use the {{< katex>}}256^{th}{{< /katex >}} socket by performing a request to the target page.
-4. Perform a {{< katex>}}257^{th}{{< /katex >}} request to another host. Since all the sockets are being used (in steps 2 and 3), this request must wait until the pool receives an available socket. This waiting period provides the attacker with the network timing of the {{< katex>}}256^{th}{{< /katex >}} socket, which belongs to the target page. This works because the {{< katex>}}255{{< /katex >}} sockets in step 2 are still blocked, so if the pool received an available socket, it was caused by the release of the socket in step 3. The time to release the {{< katex>}}256^{th}{{< /katex >}} socket is directly connected with the time taken to complete the request.
+```javascript
+for(let i=0; i<255; i++) fetch('https://'+i+'.example.com/', {mode: "no-cors", cache: "no-store"});
+```
+4. Use the {{< katex>}}256^{th}{{< /katex >}} socket by performing a request to the target page.
+5. Perform a {{< katex>}}257^{th}{{< /katex >}} request to another host. Since all the sockets are being used (in steps 2 and 3), this request must wait until the pool receives an available socket. This waiting period provides the attacker with the network timing of the {{< katex>}}256^{th}{{< /katex >}} socket, which belongs to the target page. This works because the {{< katex>}}255{{< /katex >}} sockets in step 2 are still blocked, so if the pool received an available socket, it was caused by the release of the socket in step 3. The time to release the {{< katex>}}256^{th}{{< /katex >}} socket is directly connected with the time taken to complete the request.
+```javascript
+performance.clearResourceTimings();
+await fetch(location.href, {cache: "no-store"});
+await new Promise(r => setTimeout(r, 1000));
+let data = performance.getEntries().pop();
+let type = (data.connectStart === data.startTime) ? 'reused' : 'new';
+console.log('Time spent: ' + data.duration + ' on ' + type + ' connection.');
+```
+
+## Connection reuse
+With HTTP/2 and HTTP/3 requests may reuse an existing connection for a host to improve performance.
+This could allow for detecting if a site has connected to a host and leaking infomation about the cross-site request by abusing Stream prioritization and HPACK compression. 
+Connections may get closed if sockets are exhausted or its been left idle.
 
 ## Defense
 
@@ -36,3 +52,4 @@ Similar to [partitioned caches]({{< ref "../../defenses/secure-defaults/partitio
 ## References
 
 [^1]: Leak cross-window request timing by exhausting connection pool, [link](https://bugs.chromium.org/p/chromium/issues/detail?id=843157)
+[^2]: client_socket_pool_manager.cc, [link](https://source.chromium.org/chromium/chromium/src/+/main:net/socket/client_socket_pool_manager.cc)
