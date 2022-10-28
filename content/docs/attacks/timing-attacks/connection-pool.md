@@ -35,7 +35,7 @@ console.log('Time spent: ' + data.duration + ' on ' + type + ' connection.');
 
 ## Connection reuse
 With HTTP/2 and HTTP/3 requests may reuse an existing connection for a host to improve performance. [^3]
-This could allow for detecting if a site has connected to a host and leaking infomation about the cross-site request by abusing Stream prioritization and HPACK  compression.  [^4]
+This could allow for detecting if a site has connected to a host and leaking infomation about the cross-site request by abusing Stream prioritization and HPACK  compression. [^4]
 Connections may get closed if sockets are exhausted or its been left idle.
 
 ## Defense
