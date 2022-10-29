@@ -39,7 +39,9 @@ Since a resused connection is normaly faster this could allow for detecting if a
 Connections may get closed if there left idle, for example 60 secounds or 30 for HTTP/3. [^2]
 This may leak when a connection happend.
 ```javascript
-await new Promise(r => setTimeout(r, 30000));
+// Detect if HTTP/3 was not made in the last 20 secounds.
+await new Promise(r => setTimeout(r, 10000));
+// Check for connection reuse
 ```
 
 ## Defense
