@@ -38,7 +38,7 @@ With HTTP/1.1 and HTTP/2 and HTTP/3 requests may reuse an existing connection fo
 Since a resused connection is normaly faster this could allow for detecting if a site has connected to a host excluding anything thats been cached and leaking infomation about the cross-site request by abusing Stream prioritization and HPACK compression. [^5]
 Connections may get closed if resources are exhausted or its been left idle, for example 60 secounds. [^2]
 ```javascript
-for (let i = 0; i < 4000; i++) {
+for (let i = 0; i < 20000; i++) {
     try {
         fetch('https://' + i + '.example.com/', {
             mode: "no-cors",
