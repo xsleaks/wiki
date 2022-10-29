@@ -36,7 +36,7 @@ console.log('Time spent: ' + data.duration + ' on ' + type + ' connection.');
 ## Connection reuse
 With HTTP/1.1 and HTTP/2 and HTTP/3 requests may reuse an existing connection for a host to improve performance. [^3][^4]
 Since a resused connection is normaly faster this could allow for detecting if a site has connected to a host excluding anything thats been cached and leaking infomation about the cross-site request by abusing Stream prioritization and HPACK compression. [^5]
-Connections may get closed if there left idle, for example 60 secounds or 30 for HTTP/3. [^2]
+Connections may get closed if there left idle, for example 60 secounds or 30 for HTTP/3. [^2][^6]
 This may leak when a connection happend.
 ```javascript
 // Detect if HTTP/3 was not made in the last 20 secounds.
@@ -62,3 +62,4 @@ Similar to [partitioned caches]({{< ref "../../defenses/secure-defaults/partitio
 [^3]: rfc9113 Connection Reuse, [link](https://httpwg.org/specs/rfc9113.html#rfc.section.9.1.1)
 [^4]: rfc9114 Connection Reuse, [link](https://httpwg.org/specs/rfc9114.html#rfc.section.3.3)
 [^5]: rfc9113 Remote Timing Attacks, [link](https://httpwg.org/specs/rfc9113.html#rfc.section.10.9)
+[^6]: quic_context.h, [link](https://source.chromium.org/chromium/chromium/src/+/main:net/quic/quic_context.h)
