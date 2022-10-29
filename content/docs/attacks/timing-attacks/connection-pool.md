@@ -17,7 +17,7 @@ menu = "main"
 Another way to measure the network timing of a request consists of abusing the socket pool of a browser [^1]. Browsers use sockets to communicate with servers. As the operating system and the hardware it runs on have limited resources, browsers have to impose a limit.
 
 To exploit the existence of this limit, attackers can:
-1. Check what the limit of the browser is, for example 256 global sockets. [^2]
+1. Check what the limit of the browser is, for example 256 global sockets for TCP and 6000 global sockets for UDP. [^2][^7]
 2. Block {{< katex>}}255{{< /katex >}} sockets for a long period of time by performing {{< katex>}}255{{< /katex >}} requests to different hosts that simply hang the connection
 ```javascript
 for(let i=0; i<255; i++) fetch('https://'+i+'.example.com/', {mode: "no-cors", cache: "no-store"});
@@ -63,3 +63,4 @@ Similar to [partitioned caches]({{< ref "../../defenses/secure-defaults/partitio
 [^4]: rfc9114 Connection Reuse, [link](https://httpwg.org/specs/rfc9114.html#rfc.section.3.3)
 [^5]: rfc9113 Remote Timing Attacks, [link](https://httpwg.org/specs/rfc9113.html#rfc.section.10.9)
 [^6]: quic_context.h, [link](https://source.chromium.org/chromium/chromium/src/+/main:net/quic/quic_context.h)
+[^7]: features.cc, [link](https://source.chromium.org/chromium/chromium/src/+/main:net/base/features.cc)
