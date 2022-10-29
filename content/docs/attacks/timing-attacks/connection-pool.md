@@ -39,15 +39,7 @@ Since a resused connection is normaly faster this could allow for detecting if a
 Connections may get closed if there left idle, for example 60 secounds or 30 for HTTP/3. [^2]
 This may leak when a connection happend.
 ```javascript
-for (let i = 0; i < 20000; i++) {
-    try {
-        fetch('https://' + i + '.example.com/', {
-            mode: "no-cors",
-            cache: "no-store",
-        });
-    } catch {}
-}
-
+await new Promise(r => setTimeout(r, 30000));
 ```
 
 ## Defense
