@@ -36,7 +36,8 @@ console.log('Time spent: ' + data.duration + ' on ' + type + ' connection.');
 ## Connection reuse
 With HTTP/1.1 and HTTP/2 and HTTP/3 requests may reuse an existing connection for a host to improve performance. [^3][^4]
 Since a resused connection is normaly faster this could allow for detecting if a site has connected to a host excluding anything thats been cached and leaking infomation about the cross-site request by abusing Stream prioritization and HPACK compression. [^5]
-Connections may get closed if resources are exhausted or its been left idle, for example 60 secounds. [^2]
+Connections may get closed if there left idle, for example 60 secounds or 30 for HTTP/3. [^2]
+This may leak when a connection happend.
 ```javascript
 for (let i = 0; i < 20000; i++) {
     try {
