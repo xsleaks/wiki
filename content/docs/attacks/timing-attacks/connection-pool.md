@@ -45,21 +45,20 @@ await new Promise(r => setTimeout(r, 10000));
 // Check for connection reuse (ideally fetch a small resource or one with Timing-Allow-Origin: * header)
 async function isConnected(url) {
     performance.clearResourceTimings();
-    await fetch(url, {
-        cache: "no-store",
-        mode: 'no-cors'
-    });
+    try {
+    await fetch(url, { cache: "no-store" });
+    } catch {}
     await new Promise(r => setTimeout(r, 1000));
     let data = performance.getEntries().pop();
     if (data.transferSize > 0) {
         // Allowed to read timing infomation.
         // Same-origin or the Timing-Allow-Origin header.
+        console.log("Protocol: " + data.nextHopProtocol;
         return (data.connectStart === data.startTime);
     } else {
-        await fetch(url, {
-            cache: "no-store",
-            mode: 'no-cors'
-        });
+        try {
+        await fetch(url, { cache: "no-store" });
+        } catch {}
         await new Promise(r => setTimeout(r, 1000));
         let data2 = performance.getEntries().pop();
         // Check if the first request toke significantly longer.
