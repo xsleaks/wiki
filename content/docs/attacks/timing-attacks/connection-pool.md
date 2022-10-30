@@ -35,13 +35,14 @@ console.log('Time spent: ' + data.duration + ' on ' + type + ' connection.');
 
 ## Connection reuse
 With HTTP/1.1 (TCP) and HTTP/2 (TCP) and HTTP/3 (UDP) requests may reuse an existing connection for a host to improve performance. [^3][^4]
-Since a reused connection is normaly faster this could allow for detecting if a site has connected to a host excluding anything thats been cached and leaking infomation about the cross-site request by abusing Stream prioritization and HPACK compression. [^5]
+Since a reused connection is normally faster this could allow for detecting if a site has connected to a host excluding anything that’s been cached and leaking information about the cross-site request by abusing Stream prioritization and HPACK compression. [^5]
 Connections may get closed if there left idle or the sockets are exhausted, for example 256 connections for HTTP/2 or 30 seconds idle for HTTP/3. [^2][^6]
-This may also leak when the connection happend and the browser can have per connection limits and on how many connections are allowed per host, for example 6 connections per host. [^2]
+This may also leak when the connection happened and the browser can have per connection limits and on how many connections are allowed per host, for example 6 connections per host. [^2]
 ```javascript
-// Detect if a HTTP/3 request was made to a certain host in the last 20 secounds.
+// Detect if a HTTP/3 request was made to a certain host in the last 20 seconds.
 await new Promise(r => setTimeout(r, 10000));
 // Check for connection reuse (ideally fetch a small resource or one with Timing-Allow-Origin: * header)
+
 ```
 
 ## Defense
