@@ -53,7 +53,7 @@ async function isConnected(url) {
     if (data.transferSize > 0) {
         // Allowed to read timing infomation.
         // Same-origin or the Timing-Allow-Origin header.
-        console.log("Protocol: " + data.nextHopProtocol;
+        console.log("Protocol: " + data.nextHopProtocol);
         return (data.connectStart === data.startTime);
     } else {
         try {
