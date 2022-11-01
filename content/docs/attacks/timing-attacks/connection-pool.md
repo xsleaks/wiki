@@ -67,7 +67,6 @@ async function isConnected2(url) {
             method: "POST"
         });
     } catch {}
-    // Check if the first request toke significantly longer.
     let duration = performance.now() - start;
     return (duration < 100);
 }
