@@ -62,7 +62,7 @@ async function isConnected(url) {
         await new Promise(r => setTimeout(r, 1000));
         let data2 = performance.getEntries().pop();
         // Check if the first request toke significantly longer.
-        return (data.duration - data2.duration < 10);
+        return (data.duration - data2.duration < 50);
     }
 }
 
