@@ -43,7 +43,7 @@ This may also leak when the connection happened and the browser can have per con
 await new Promise(r => setTimeout(r, 10000));
 
 // Check for connection reuse when theres Timing-Allow-Origin header.
-async function isConnected1(url) {
+async function isConnected(url) {
     performance.clearResourceTimings();
     try {
         await fetch(url, {
