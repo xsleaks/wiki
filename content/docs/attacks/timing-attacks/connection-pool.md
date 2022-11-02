@@ -95,7 +95,7 @@ async function isConnected2(url) {
         });
     } catch {}
     let duration2 = performance.now() - start2;
-    return (duration - duration2 < 100);
+    return (duration - duration2 < 10);
 }
 
 await isConnected2('https://example.com/404');
