@@ -80,11 +80,22 @@ async function isConnected2(url) {
     try {
         await fetch(url, {
             cache: "no-store",
-            method: "POST"
+            method: "POST",
+            mode: "no-cors"
         });
     } catch {}
     let duration = performance.now() - start;
-    return (duration < 90);
+    
+    let start2 = performance.now();
+    try {
+        await fetch(url, {
+            cache: "no-store",
+            method: "POST",
+            mode: "no-cors"
+        });
+    } catch {}
+    let duration2 = performance.now() - start2;
+    return (duration - duration2 < 100);
 }
 
 await isConnected2('https://example.com/404');
