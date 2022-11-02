@@ -76,7 +76,7 @@ async function isConnected(url) {
 }
 
 // Check for connection reuse for when there’s no Timing-Allow-Origin header.
-async function isConnected2(url, max = 100) {
+async function isConnected2(url, max = 50) {
     let start = performance.now();
     try {
         await fetch(url, {
