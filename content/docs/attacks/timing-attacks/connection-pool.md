@@ -58,7 +58,7 @@ This may also leak when the connection happened and the browser can have per con
 // Detect if a HTTP/3 request was made to a certain host in the last 20 seconds.
 await new Promise(r => setTimeout(r, 10000));
 
-// Check for connection reuse for when theres a Timing-Allow-Origin header.
+// Check for connection reuse for when there’s a Timing-Allow-Origin header.
 async function isConnected(url) {
     performance.clearResourceTimings();
     try {
@@ -69,13 +69,13 @@ async function isConnected(url) {
     } catch {}
     await new Promise(r => setTimeout(r, 1000));
     let data = performance.getEntries().pop();
-    // Allowed to read timing infomation.
+    // Allowed to read timing information.
     // Same-origin or the Timing-Allow-Origin header.
     console.log("Protocol: " + data.nextHopProtocol);
     return (data.connectStart === data.startTime);
 }
 
-// Check for connection reuse for when theres no Timing-Allow-Origin header.
+// Check for connection reuse for when there’s no Timing-Allow-Origin header.
 async function isConnected2(url, http3 = false) {
     let max = (http3) ? 20 : 100;
     let start = performance.now();
