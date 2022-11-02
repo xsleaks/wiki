@@ -83,7 +83,7 @@ async function isConnected2(url, max = 50) {
             cache: "no-store",
             method: "POST",
             mode: "no-cors",
-            credentials: "omit"
+            credentials: "include"
         });
     } catch {}
     let duration = performance.now() - start;
