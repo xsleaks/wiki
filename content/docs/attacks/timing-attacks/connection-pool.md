@@ -81,11 +81,8 @@ async function isConnected2(url, max = 50) {
     try {
         await fetch(url, {
             cache: "no-store",
-            method: "POST",
-            mode: "cors",
-            headers: {
-             'a': 'a'
-            },
+            method: "GET",
+            mode: "no-cors",
             credentials: "include"
         });
     } catch {}
@@ -95,17 +92,15 @@ async function isConnected2(url, max = 50) {
     try {
         await fetch(url, {
             cache: "no-store",
-            method: "POST",
-            mode: "cors",
-            headers: {
-             'a': 'a'
-            },
+            method: "GET",
+            mode: "no-cors",
             credentials: "include"
         });
     } catch {}
     let duration2 = performance.now() - start2;
     return (duration - duration2 < max);
 }
+
 await isConnected2('https://example.com/404');
 ```
 
