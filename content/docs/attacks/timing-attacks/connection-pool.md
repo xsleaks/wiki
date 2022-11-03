@@ -83,6 +83,9 @@ async function isConnected2(url, max = 50) {
             cache: "no-store",
             method: "POST",
             mode: "cors",
+            headers: {
+             'a': 'a'
+            },
             credentials: "include"
         });
     } catch {}
@@ -94,13 +97,15 @@ async function isConnected2(url, max = 50) {
             cache: "no-store",
             method: "POST",
             mode: "cors",
+            headers: {
+             'a': 'a'
+            },
             credentials: "include"
         });
     } catch {}
     let duration2 = performance.now() - start2;
     return (duration - duration2 < max);
 }
-
 await isConnected2('https://example.com/404');
 ```
 
