@@ -82,7 +82,7 @@ async function isConnected2(url, max = 50) {
         await fetch(url, {
             cache: "no-store",
             method: "POST",
-            mode: "no-cors",
+            mode: "cors",
             credentials: "include"
         });
     } catch {}
@@ -93,7 +93,7 @@ async function isConnected2(url, max = 50) {
         await fetch(url, {
             cache: "no-store",
             method: "POST",
-            mode: "no-cors",
+            mode: "cors",
             credentials: "include"
         });
     } catch {}
