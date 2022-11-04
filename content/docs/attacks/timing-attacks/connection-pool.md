@@ -106,7 +106,7 @@ await isConnected2('https://example.com/404');
 ```
 
 ## Skipping dependences
-If a connection is exhausted requests requesting code from that host may fail resulting in different behaviour.
+If a connection is exhausted requests for code from that host may fail resulting in different behaviour.
 
 ## Defense
 
