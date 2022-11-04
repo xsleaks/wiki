@@ -75,7 +75,7 @@ async function isConnected(url) {
     return (data.connectStart === data.startTime);
 }
 
-// Check for connection reuse for when there’s no Timing-Allow-Origin header.
+// Check for connection reuse for when there’s no Timing-Allow-Origin header. (less reliable)
 async function isConnected2(url, max = 50) {
     let start = performance.now();
     try {
@@ -103,6 +103,9 @@ async function isConnected2(url, max = 50) {
 
 await isConnected2('https://example.com/404');
 ```
+
+## Skipping dependences
+If all connections for a host are exhausted that code may not get loaded resulting in diffrent behaviour.
 
 ## Defense
 
