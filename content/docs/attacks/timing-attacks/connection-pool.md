@@ -107,7 +107,7 @@ await isConnected2('https://example.com/404');
 ```
 
 ## Skipping dependences
-If a connection is exhausted requests for code from that host may fail resulting in different behaviour.
+If a connection is exhausted or theres to many sockets open then requests for code from a host may fail resulting in different behaviour.
 ```javascript
 for (let i = 0; i < 500; i++) request();
 
@@ -126,7 +126,14 @@ async function request() {
 
 open('https://example.com', '' , 'popup=1');
 ```
-
+Overload a connection so it never completes any request.
+```javascript
+for(let i=0; i<100000; i++) request();
+    let x = [...Array(100000)].join(',');
+    function request() {
+    fetch('https://example.com', {mode: "no-cors", cache: "no-store", method: 'POST', body: x}).then(request);
+}
+```
 ## Defense
 
 | [SameSite Cookies (Lax)]({{< ref "/docs/defenses/opt-in/same-site-cookies.md" >}}) | [COOP]({{< ref "/docs/defenses/opt-in/coop.md" >}}) | [Framing Protections]({{< ref "/docs/defenses/opt-in/xfo.md" >}}) | [Isolation Policies]({{< ref "/docs/defenses/isolation-policies" >}}) |
