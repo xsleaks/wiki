@@ -107,6 +107,24 @@ await isConnected2('https://example.com/404');
 
 ## Skipping dependences
 If a connection is exhausted requests for code from that host may fail resulting in different behaviour.
+```javascript
+for (let i = 0; i < 500; i++) request();
+
+async function request() {
+    let x = new AbortController();
+    fetch('https://example.org', {
+        mode: "no-cors",
+        //credentials: 'include',
+        cache: "no-store",
+        signal: x.signal
+    });
+    await new Promise(r => setTimeout(r, 10));
+    x.abort();
+    request();
+}
+
+open('https://example.com', '' , 'popup=1');
+```
 
 ## Defense
 
