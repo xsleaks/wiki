@@ -131,7 +131,8 @@ Overload a connection so it never requests to that host.
 for(let i=0; i<100000; i++) request();
     let x = [...Array(100000)].join(',');
     function request() {
-    fetch('https://example.com', {mode: "no-cors", cache: "no-store", method: 'POST', body: x}).then(request);
+        fetch('https://example.com', {mode: "no-cors", cache: "no-store", method: 'POST', body: x}).then(request);
+    }
 }
 ```
 ## Defense
