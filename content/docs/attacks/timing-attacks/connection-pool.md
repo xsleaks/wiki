@@ -51,6 +51,7 @@ console.log('Time spent: ' + data.duration + ' on ' + type + ' connection.');
 
 ## Connection reuse
 With HTTP/1.1 (TCP) and HTTP/2 (TCP) and HTTP/3 (UDP) requests may reuse an existing connection for a host to improve performance. [^3][^4]
+HTTP/2 also has Connection Coalescing which allows different hostnames that are accessible from the same web server to reuse a connection.
 This is currently keyed by if credentials are included in the request.
 Since a reused connection is normally faster this could allow for detecting if a site has connected to a host excluding anything that’s been cached and leaking information about the cross-site request by abusing Stream prioritization and HPACK compression. [^5]
 Connections may get closed if they are left idle or the sockets are exhausted, for example 256 connections for HTTP/2 or 30 seconds idle for HTTP/3. [^2][^6]
