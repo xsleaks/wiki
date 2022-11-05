@@ -107,7 +107,7 @@ await isConnected2('https://example.com/404');
 ```
 
 ## Skipping dependences
-If a connection is exhausted or theres to many sockets open then requests for code from a host may fail resulting in different behaviour.
+If a connection is exhausted or there’s to many sockets open then requests for code from a host may fail resulting in different behaviour.
 ```javascript
 for (let i = 0; i < 500; i++) request();
 
