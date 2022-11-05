@@ -126,7 +126,7 @@ async function request() {
 
 open('https://example.com', '' , 'popup=1');
 ```
-Overload a connection so it never completes any request.
+Overload a connection so it never requests to that host.
 ```javascript
 for(let i=0; i<100000; i++) request();
     let x = [...Array(100000)].join(',');
