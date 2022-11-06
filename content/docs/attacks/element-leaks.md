@@ -84,18 +84,40 @@ async function isCSS(url) {
 }
 ```
 ## PDF
-There are [Open URL Parameters](https://bugs.chromium.org/p/chromium/issues/detail?id=64309#c113) that allow some control over the content such as `zoom`, `view`, `page`, `toolbar`.  
-For chrome, a PDF can be detected with [frame counting]({{< ref "/docs/attacks/frame-counting.md" >}}) because an `embed` is used internally.
+There are [Open URL Parameters](https://bugs.chromium.org/p/chromium/issues/detail?id=64309#c113) that allow some control over the content such as `zoom`, `view`, `page`, `toolbar`, `nameddest`. Firefox has also implemented `search`.
+For Chrome, a PDF can be detected with [Frame Counting]({{< ref "/docs/attacks/frame-counting.md" >}}) because the document is internally embedded into a page.
+Chrome also implements the PDF scripting API that can be used to confirm if the frame is a pdf. [^pdf-api]
 ```javascript
-async function isPDF(url) {
-    let w = open(url);
-    await new Promise(resolve => setTimeout(resolve, 500));
-    let result = (w.length === 1);
-    w.close();
-    return result;
+async function isPDF(URL) {
+    // Open to target
+    let w = open(URL);
+    // Wait about 1.5 secounds to let the page load.
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    // For Chrome a window opened to a pdf will always be 1.
+    if (window.length !== 1) return false;
+    let pdf;
+    window.addEventListener("message", e => {
+        // Detect if received a message from the Chrome PDF viewer.
+        if (e.origin === 'chrome-extension://mhjfbmdgcfjbbpaeojofohoefgiehjai') pdf = true;
+    });
+    // Needed to start getting messages from the Chrome PDF viewer.
+    w[0].postMessage("initialize", "*");
+    // Wait for response from the Chrome PDF viewer.
+    await new Promise(resolve => setTimeout(resolve, 5));
+    return pdf;
 }
 ```
-{{< hint warning  >}} There will be false positives if the page has other embeds. {{< /hint >}}
+It’s also possible to abuse this API to send actions like `getSelectedText`, `selectAll`, `print`, `getThumbnail`, which potentially can leak information about the document's contents. 
+
+```javascript
+let w = open(URL);
+w[0].postMessage({type: 'print'}, "*");
+```
+{{< hint info >}}
+The above techniques doesn't seem to work in Firefox.
+{{< /hint >}}
+
+As a protection against leaking document's content cross-origin, the responses are limited to `documentLoaded` and `passwordPrompted` for cross-origin requests. 
 
 ## Script tag
 When a cross-origin script is included on a page it's not directly possible to read its contents. However, if a script uses any built-in functions, it's possible to overwrite them and read their arguments which might leak valuable information [^script-leaks].
@@ -126,3 +148,4 @@ The below code embeds `//example.org/404` and if it responds with *Error* then a
 [^fallback]: HTML Standard, [3.2.5.2.6 Embedded content], [link](https://html.spec.whatwg.org/multipage/dom.html#fallback-content)  
 [^leaky-images]: Leaky Images: Targeted Privacy Attacks in the Web, [3.4 Linking User Identities], [link](https://www.usenix.org/system/files/sec19fall_staicu_prepub.pdf)  
 [^xsleaks-nojs]: [https://twitter.com/terjanq/status/1180477124861407234](https://twitter.com/terjanq/status/1180477124861407234)  
+[^pdf-api]: pdf_scripting_api.js, [link](https://source.chromium.org/chromium/chromium/src/+/main:chrome/browser/resources/pdf/pdf_scripting_api.js)  
