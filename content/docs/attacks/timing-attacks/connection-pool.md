@@ -108,6 +108,7 @@ await isConnected2('https://example.com/404');
 
 ## Skipping dependences
 If a connection is exhausted or there’s to many sockets open then requests for code from a host may fail resulting in different behaviour.
+Open a lot of sockets: (ERR_CONNECTION_CLOSED, ERR_INSUFFICIENT_RESOURCES)
 ```javascript
 for (let i = 0; i < 500; i++) request();
 
@@ -126,7 +127,7 @@ async function request() {
 
 open('https://example.com', '' , 'popup=1');
 ```
-Overload a connection so it never requests to that host.
+Overload a connection so it never requests to that host. (ERR_CONNECTION_RESET)
 ```javascript
 let x = [...Array(1000000)].join(',');
 request();
