@@ -108,6 +108,7 @@ await isConnected2('https://example.com/404');
 
 ## Skipping dependences
 If a connection is exhausted or there’s to many sockets open then requests for code from a host may fail resulting in different behaviour.
+The following examples are by design a DoS attack for both the client and server.
 Open a lot of sockets: (ERR_CONNECTION_CLOSED, ERR_INSUFFICIENT_RESOURCES)
 ```javascript
 for (let i = 0; i < 500; i++) request();
