@@ -29,11 +29,11 @@ const v_url = 'https://example.org/profile';
 
 const exploit = (url, new_window) => {
   let win;
-  if(new_window){
+  if(new_window) {
     // open the url in a new tab to see if win.opener was affected by COOP
     // or set to null
     win = open(url);
-  }else{
+  } else {
     // create an iframe to detect whether the opener is defined
     // won't work for COOP detection, or if a page has implemented framing protections
     document.body.insertAdjacentHTML('beforeend', '<iframe name="xsleaks">'); 
@@ -43,9 +43,13 @@ const exploit = (url, new_window) => {
   
   // wait 2 seconds to let the page load
   setTimeout(() => {
-    // check the opener property of the newly opened window
-    if(!win.opener) console.log("win.opener is null");
-    else console.log("win.opener is defined");
+    if (win.closed) {
+      console.log("opener is closed");
+    } else {
+      // check the opener property of the newly opened window
+      if(!win.opener) console.log("win.opener is null");
+      else console.log("win.opener is defined");
+    }
   }, 2000);
 }
 exploit(v_url);
