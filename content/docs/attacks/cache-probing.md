@@ -50,7 +50,7 @@ To invalidate a resource from the cache, the attacker must force the server to r
 
 Often, some of these methods might be considered a bug in the browser (e.g. [this bug](https://bugs.chromium.org/p/chromium/issues/detail?id=959789#c9)).
 
-## Invalidating the cache without errors
+### Invalidating the cache without errors
 It's also possible to remove resources from cache without server errors. For example, the above techniques could be used as well:
 
 - A fetch request with a `cache:'reload'` option that is aborted with [`AbortController.abort()`](https://developer.mozilla.org/en-US/docs/Web/API/AbortController/abort) before new content has been received, but after the request was initiated by the browser.
