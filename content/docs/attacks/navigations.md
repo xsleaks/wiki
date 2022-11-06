@@ -29,7 +29,7 @@ Detecting if a cross-site page triggered a navigation (or didn't) can be useful 
 To detect if any kind of navigation occurred, an attacker can:
 
 - Use an `iframe` and count the number of times the `onload` event is triggered.
-- Check the value of `history.length`, which is accessible through any window reference. This provides the number of entries in the history of a victim that were either changed by `history.pushState` or by regular navigations. To get the value of `history.length`, an attacker changes the location of the window reference to the target website, then changes back to same-origin, and finally reads the value.
+- Check the value of `history.length`, which is accessible through any window reference. This provides the number of entries in the history of a victim that were either changed by `history.pushState` or by regular navigations. To get the value of `history.length`, an attacker changes the location of the window reference to the target website, then changes back to same-origin, and finally reads the value. [Run demo](https://xsinator.com/testing.html#History%20Length%20Leak)
 
 ## Download Trigger
 
@@ -62,7 +62,7 @@ This attack is only possible in Chromium-based browsers with automatic downloads
 
 ### Download Navigation (with iframes)
 
-Another way to test for the [`Content-Disposition: attachment`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition) header is to check if a navigation occurred. If a page load causes a download, it does not trigger a navigation and the window stays within the same origin.
+Another way to test for the [`Content-Disposition: attachment`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition) header is to check if a navigation occurred. If a page load causes a download, it does not trigger a navigation and the window stays within the same origin. [Run demo](https://xsinator.com/testing.html#Download%20Detection)
 
 The following snippet can be used to detect whether such a navigation has occurred and therefore detect a download attempt:
 
@@ -130,7 +130,7 @@ An example of this attack can be seen [here](https://xsleaks.github.io/xsleaks/e
 
 ### CSP Violations
 
-[Content-Security-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) (CSP) is an in-depth defense mechanism against XSS and data injection attacks. When a CSP is violated, a `SecurityPolicyViolationEvent` is thrown. An attacker can set up a CSP using the [`connect-src` directive](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/connect-src) which triggers a `Violation` event every time a `fetch` follows an URL not set in the CSP directive. This allows an attacker to detect if a redirect to another origin occurred [^2] [^3].
+[Content-Security-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) (CSP) is an in-depth defense mechanism against XSS and data injection attacks. When a CSP is violated, a `SecurityPolicyViolationEvent` is thrown. An attacker can set up a CSP using the [`connect-src` directive](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/connect-src) which triggers a `Violation` event every time a `fetch` follows an URL not set in the CSP directive. This allows an attacker to detect if a redirect to another origin occurred [^2] [^3]. [Run demo](https://xsinator.com/testing.html#CSP%20Violation%20Leak)
 
 The example below triggers a `SecurityPolicyViolationEvent` if the website set in the fetch API (line 6) redirects to a website other than `https://example.org`:
 

@@ -14,7 +14,7 @@ defenses = [
 menu = "main"
 +++
 
-Another way to measure the network timing of a request consists of abusing the socket pool of a browser [^1]. Browsers use sockets to communicate with servers. As the operating system and the hardware it runs on have limited resources, browsers have to impose a limit.
+Another way to measure the network timing of a request consists of abusing the socket pool of a browser [^1]. Browsers use sockets to communicate with servers. As the operating system and the hardware it runs on have limited resources, browsers have to impose a limit. [Run demo (Chrome)](https://xsinator.com/testing.html#WebSocket%20Leak%20(GC)) [Run demo (Firefox)](https://xsinator.com/testing.html#WebSocket%20Leak%20(FF))
 
 To exploit the existence of this limit, attackers can:
 1. Check what the limit of the browser is, for example 256 global sockets for TCP and 6000 global sockets for UDP. [^2][^7]

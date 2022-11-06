@@ -23,7 +23,7 @@ Window references allow cross-origin pages to get access to some of the attribut
 
 One of the accessible attributes is `window.length` which provides the number of frames in the window. This attribute can provide valuable information about a page to an attacker.
 
-Websites commonly use frames (or `iframes`) and this choice doesn't necessarily imply security issues. There are, however, cases where a website might change the number of frames on a page depending on some user information. For example, this could happen on a page that changes its layout depending on the `GET` parameters and the victim's data. It might be possible for an attacker to infer information about the victim by measuring the value of `window.length` on different pages.
+Websites commonly use frames (or `iframes`) and this choice doesn't necessarily imply security issues. There are, however, cases where a website might change the number of frames on a page depending on some user information. For example, this could happen on a page that changes its layout depending on the `GET` parameters and the victim's data. It might be possible for an attacker to infer information about the victim by measuring the value of `window.length` on different pages. [Run demo](https://xsinator.com/testing.html#Frame%20Count%20Leak)
 
 ## Code Snippet
 The below snippet demonstrates how to access the information about the number of frames on a cross-site page:

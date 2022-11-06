@@ -44,7 +44,7 @@ await getNetworkDuration('https://example.org');
 {{< hint info >}} Unlike other browsers, Firefox provides the measurements in milliseconds. {{< /hint >}}
 
 ## Detecting X-Frame-Options
-If displaying a page inside an embed (e.g. because of the `X-Frame-Options` header) it will not be added to the `performance` object in Chrome.
+If displaying a page inside an embed (e.g. because of the `X-Frame-Options` header) it will not be added to the `performance` object in Chrome. [Run demo](https://xsinator.com/testing.html#Performance%20API%20X-Frame%20Leak)
 ```javascript
 async function isFrameBlocked(url) {
     let href = new URL(url).href;
@@ -68,7 +68,7 @@ await isFrameBlocked('https://example.org');
 # Detecting cached resources
 
 With the `performance` API it is possible to detect whether a resource was cached or not.
-Unless [Cross-Origin Read Blocking]({{< ref "../../defenses/secure-defaults/corb.md" >}}) is triggered (resource is html) the resource will get cached in the processs of the check.  
+Unless [Cross-Origin Read Blocking]({{< ref "../../defenses/secure-defaults/corb.md" >}}) is triggered (resource is html) the resource will get cached in the processs of the check.  [Run demo](https://xsinator.com/testing.html#Duration%20Redirect%20Leak)
 ```javascript
 async function ifCached2(url) {
     let href = new URL(url).href;

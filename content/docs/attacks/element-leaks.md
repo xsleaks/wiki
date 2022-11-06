@@ -15,12 +15,12 @@ weight = 2
 Some HTML Elements might be used to leak a portion of data to a cross-origin page.
 For example, the below media resources can leak information about its size, duration, type. 
 
-- [HTMLMediaElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement) leaks the media `duration` and the `buffered` times.
+- [HTMLMediaElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement) leaks the media `duration` and the `buffered` times. [Run demo](https://xsinator.com/testing.html#Media%20Duration%20Leak)
 - [HTMLVideoElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLVideoElement) leaks the `videoHeight` and `videoWidth` 
   some browsers may also have `webkitVideoDecodedByteCount`, `webkitAudioDecodedByteCount` and `webkitDecodedFrameCount`
 - [getVideoPlaybackQuality()](https://developer.mozilla.org/en-US/docs/Web/API/VideoPlaybackQuality) leaks the `totalVideoFrames`.
 - [HTMLImageElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement) leaks the `height` and `width` but if the image is invalid they will be 0 
-  and [`image.decode()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/decode) will get rejected.
+  and [`image.decode()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/decode) will get rejected. [Run demo](https://xsinator.com/testing.html#Media%20Dimensions%20Leak)
 
 It's possible to differentiate between media types via unique property for a given media type. For example, it is `videoWidth` for a `<video>`, or `duration` for an `<audio>`. The below snippet shows an example code that returns the type of a resource. 
 ```javascript
@@ -68,7 +68,7 @@ async function isType(url, type = "script") {
 
 ## Abusing getComputedStyle
 [getComputedStyle](https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle) can be used to read an embedded to the current page CSS style sheets. Including those loaded from different origins. 
-This function just checks if there has been a style applied to the body.
+This function just checks if there has been a style applied to the body. [Run demo](https://xsinator.com/testing.html#CSS%20Property%20Leak)
 ```javascript
 async function isCSS(url) {
     let link = document.createElement('link');

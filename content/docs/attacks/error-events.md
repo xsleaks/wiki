@@ -26,7 +26,7 @@ For example, attackers can detect whether a user is logged in to a service by ch
 
 Error events can be thrown from a large variety of HTML tags, and some behaviors vary from browser to browser [^4]. For instance, the behavior can depend on the loaded resources, HTML tags, presence of certain headers (e.g. `nosniff`, `Content-Type`), or the enforcement of default browser protections, etc.
 
-The principle of leaking information with error events can be abstracted and applied to a variety of XS-Leaks. For example, one technique for [Cache Probing]({{< ref "cache-probing.md" >}}) uses Error Events to detect if a certain image was cached by the browser.
+The principle of leaking information with error events can be abstracted and applied to a variety of XS-Leaks. For example, one technique for [Cache Probing]({{< ref "cache-probing.md" >}}) uses Error Events to detect if a certain image was cached by the browser. [Run demo](https://xsinator.com/testing.html#Event%20Handler%20Leak%20(Script))
 
 ## Code Snippet
 The below snippet demonstrates how an Error Event can be detected with the `<script>` tag:
