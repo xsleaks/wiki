@@ -40,17 +40,23 @@ Cache Probing with [Error Events]({{< ref "../attacks/error-events.md" >}}) [^2]
 2. Performing a request that causes different items to be cached depending on the user's state. For example, loading a page that includes a specific image only if the user is logged in. This request can be triggered by navigating to the target website with `<link rel=prerender..`, embedding the website in an `iframe`, or opening a new window with `window.open`.
 3. Triggering a request that causes the server to reject the request. For example, including an [overlong referer header](https://lists.archive.carbon60.com/apache/users/316239) that  makes the server reject the request. If the resource was cached in step 2, this request succeeds instead of triggering an error event.
 
-### Invalidating the cache
+### Invalidating the cache with errors
 
 To invalidate a resource from the cache, the attacker must force the server to return an error when fetching that subresource. There are a couple of ways to achieve this:
 
-- A fetch request with a `cache:'reload'`option that is aborted with [`AbortController.abort()`](https://developer.mozilla.org/en-US/docs/Web/API/AbortController/abort) before new content has been received, but after the request was initiated by the browser.
 - A request with an [overlong referer header](https://lists.archive.carbon60.com/apache/users/316239) and `'cache':'reload'`. This might not work as browsers [capped](https://github.com/whatwg/fetch/issues/903) the length of the referrer to prevent this.
-- A `POST` request with a `fetch` `no-cors`. Sometimes, even in cases where an error is not returned, the browser invalidates the cache.
 - Request headers such as Content-Type, Accept, Accept-Language, etc. that may cause the server to fail (more application dependent).
 - Other request properties.
 
 Often, some of these methods might be considered a bug in the browser (e.g. [this bug](https://bugs.chromium.org/p/chromium/issues/detail?id=959789#c9)).
+
+### Invalidating the cache without errors
+It's also possible to remove resources from cache without server errors. For example, the above techniques could be used as well:
+
+- A fetch request with a `cache:'reload'` option that is aborted with [`AbortController.abort()`](https://developer.mozilla.org/en-US/docs/Web/API/AbortController/abort) before new content has been received, but after the request was initiated by the browser.
+- A `POST` request from a `fetch` with `no-cors`. [Run demo](https://xsinator.com/testing.html#Cache%20Leak%20(POST))
+- A `POST` request from a [HTMLFormElement](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form) may purge using the key of the top-level site to bypass the [Partitioned HTTP Cache]({{< ref "../defenses/secure-defaults/partitioned-cache.md" >}})
+- Exceed the browser cache limit.
 
 ## CORS error on Origin Reflection misconfiguration
 
