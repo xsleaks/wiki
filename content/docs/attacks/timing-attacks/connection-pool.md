@@ -128,11 +128,11 @@ open('https://example.com', '' , 'popup=1');
 ```
 Overload a connection so it never requests to that host.
 ```javascript
-let x = [...Array(100000)].join(',');
+let x = [...Array(1000000)].join(',');
+request();
 function request() {
-    fetch('https://example.com', {mode: "no-cors", cache: "no-store", method: 'POST', body: x}).then(request);
+fetch('https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.3.3/purify.min.js', {mode: "no-cors", cache: "no-store", method: 'POST', body: x}).then(request);
 }
-for(let i=0; i<10; i++) request();
 ```
 ## Defense
 
