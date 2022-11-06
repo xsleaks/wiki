@@ -119,6 +119,17 @@ setTimeout(() => {
 
 ## Server-Side Redirects
 
+### Max redirects
+When a page initiates a chain of 3XX redirects, browsers limit the maximum number of redirects to 20 [^spec-redirects]. This can be used to detect the exact number of redirects occured for a cross-origin page by following the below approach [^redirect-leak]:
+1. As a malicious website, initiate 19 redirects and make the final 20th redirect to the attacked page.
+2. If the browser threw a network error, at least one redirect occured. Repeat the process with 18 redirects.
+3. If the browser didn't threw a network error, the number of redirects is known as `20 - issued_redirects`.
+
+*To detect an error one can use [Error Events]({{< ref "/docs/attacks/error-events.md" >}})*
+
+If performed in a top window, this also works with SameSite lax cookies and other cross-site protections, such as [Framing Isolation Policy]({{< ref "/docs/defenses/isolation-policies/framing-isolation" >}}) or [Resource Isolation Policy]({{< ref "/docs/defenses/isolation-policies/resource-isolation" >}}). [Run demo](https://xsinator.com/testing.html#Max%20Redirect%20Leak)
+
+
 ### Inflation
 
 A server-side redirect can be detected from a cross-origin page if the destination URL increases in size and contains an attacker-controlled input (either in the form of a query string parameter or a path). The following technique relies on the fact that it is possible to induce an error in most web-servers by generating large request parameters/paths. Since the redirect increases the size of the URL, it can be detected by sending exactly one character less than the server's maximum capacity. That way, if the size increases, the server will respond with an error that can be detected from a cross-origin page (e.g. via Error Events).
@@ -251,3 +262,5 @@ A vulnerability reported to Twitter used this technique to leak the contents of 
 [^2]: Disclose domain of redirect destination taking advantage of CSP, [link](https://bugs.chromium.org/p/chromium/issues/detail?id=313737)
 [^3]: Using Content-Security-Policy for Evil, [link](http://homakov.blogspot.com/2014/01/using-content-security-policy-for-evil.html)
 [^cache-bypass]: [github.com/xsleaks/wiki/pull/106](https://github.com/xsleaks/wiki/pull/106)
+[^spec-redirects]: HTTP-redirect fetch, [link](https://fetch.spec.whatwg.org/#http-redirect-fetch)
+[^redirect-leak]: XS-Leaks in redirect flows, [link](https://docs.google.com/presentation/d/1rlnxXUYHY9CHgCMckZsCGH4VopLo4DYMvAcOltma0og)
