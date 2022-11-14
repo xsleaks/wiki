@@ -1,453 +1,94 @@
-<!doctype html><html lang=en>
-<head>
-<meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=description content="The principle of Cache Probing consists of detecting whether a resource was cached by the browser. The concept has been known since the beginning of the web 1 and initially relied on detecting timing differences.
-When a user visits a website, some resources such as images, scripts, and HTML content are fetched and later cached by the browser (under certain conditions). This optimization makes future navigations faster as the browser serves those resources from disk instead of requesting them again.">
-<meta name=theme-color content="#FFFFFF"><meta property="og:title" content="Cache Probing">
-<meta property="og:description" content="The principle of Cache Probing consists of detecting whether a resource was cached by the browser. The concept has been known since the beginning of the web 1 and initially relied on detecting timing differences.
-When a user visits a website, some resources such as images, scripts, and HTML content are fetched and later cached by the browser (under certain conditions). This optimization makes future navigations faster as the browser serves those resources from disk instead of requesting them again.">
-<meta property="og:type" content="article">
-<meta property="og:url" content="https://xsleaks.dev/docs/attacks/cache-probing/"><meta property="article:section" content="docs">
-<meta property="article:modified_time" content="2021-09-30T23:42:39+01:00">
-<title>Cache Probing | XS-Leaks Wiki</title>
-<link rel=manifest href=/manifest.json>
-<link rel=icon href=/favicon.png type=image/x-icon>
-<link rel=stylesheet href=/book.min.1c9a9009be3c645cbccbe64eb0a90e28621e4118971d9a502db4aaa9bec96cfc.css integrity="sha256-HJqQCb48ZFy8y+ZOsKkOKGIeQRiXHZpQLbSqqb7JbPw=">
-<script defer src=/en.search.min.057cc5710ab6d726408794395eee8acbf21f5612015119aba8260d213d66edc0.js integrity="sha256-BXzFcQq21yZAh5Q5Xu6Ky/IfVhIBURmrqCYNIT1m7cA="></script>
-<script defer src=/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js integrity="sha256-b2+Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC+NdcPIvZhzk="></script>
-</head>
-<body>
-<input type=checkbox class="hidden toggle" id=menu-control>
-<input type=checkbox class="hidden toggle" id=toc-control>
-<main class="container flex">
-<aside class=book-menu>
-<nav>
-<h2 class=book-brand>
-<a href=/><span>XS-Leaks Wiki</span>
-</a>
-</h2>
-<div class=book-search>
-<input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/>
-<div class="book-search-spinner hidden"></div>
-<ul id=book-search-results></ul>
-</div>
-<ul>
-<li class=book-section-flat>
-<span>Attacks</span>
-<ul>
-<li>
-<a href=/docs/attacks/xs-search/>XS-Search</a>
-</li>
-<li>
-<a href=/docs/attacks/window-references/>Window References</a>
-</li>
-<li>
-<a href=/docs/attacks/css-tricks/>CSS Tricks</a>
-</li>
-<li>
-<a href=/docs/attacks/error-events/>Error Events</a>
-</li>
-<li>
-<a href=/docs/attacks/frame-counting/>Frame Counting</a>
-</li>
-<li>
-<a href=/docs/attacks/navigations/>Navigations</a>
-</li>
-<li>
-<a href=/docs/attacks/cache-probing/ class=active>Cache Probing</a>
-</li>
-<li>
-<a href=/docs/attacks/element-leaks/>Element leaks</a>
-</li>
-<li>
-<a href=/docs/attacks/id-attribute/>ID Attribute</a>
-</li>
-<li>
-<a href=/docs/attacks/postmessage-broadcasts/>postMessage Broadcasts</a>
-</li>
-<li>
-<span>Browser Features</span>
-<ul>
-<li>
-<a href=/docs/attacks/browser-features/corb/>CORB Leaks</a>
-</li>
-<li>
-<a href=/docs/attacks/browser-features/corp/>CORP Leaks</a>
-</li>
-</ul>
-</li>
-<li>
-<span>Timing Attacks</span>
-<ul>
-<li>
-<a href=/docs/attacks/timing-attacks/clocks/>Clocks</a>
-</li>
-<li>
-<a href=/docs/attacks/timing-attacks/network-timing/>Network Timing</a>
-</li>
-<li>
-<a href=/docs/attacks/timing-attacks/performance-api/>Performance API</a>
-</li>
-<li>
-<a href=/docs/attacks/timing-attacks/execution-timing/>Execution Timing</a>
-</li>
-<li>
-<a href=/docs/attacks/timing-attacks/hybrid-timing/>Hybrid Timing</a>
-</li>
-<li>
-<a href=/docs/attacks/timing-attacks/connection-pool/>Connection Pool</a>
-</li>
-</ul>
-</li>
-<li>
-<a href=/docs/attacks/experiments/ class=collapsed>Experiments</a>
-</li>
-<li>
-<a href=/docs/attacks/css-injection/>CSS Injection</a>
-</li>
-<li>
-<a href=/docs/attacks/historical/ class=collapsed>Historical</a>
-</li>
-</ul>
-</li>
-<li class=book-section-flat>
-<a href=/docs/defenses/>Defense Mechanisms</a>
-<ul>
-<li>
-<a href=/docs/defenses/design-protections/>Application Design</a>
-<ul>
-<li>
-<a href=/docs/defenses/design-protections/cache-protections/>Cache Protections</a>
-</li>
-<li>
-<a href=/docs/defenses/design-protections/subresource-protections/>Subresource Protections</a>
-</li>
-</ul>
-</li>
-<li>
-<a href=/docs/defenses/opt-in/>Opt-In Mechanisms</a>
-<ul>
-<li>
-<a href=/docs/defenses/opt-in/fetch-metadata/>Fetch Metadata</a>
-</li>
-<li>
-<a href=/docs/defenses/opt-in/coop/>Cross-Origin-Opener-Policy</a>
-</li>
-<li>
-<a href=/docs/defenses/opt-in/corp/>Cross-Origin-Resource-Policy</a>
-</li>
-<li>
-<a href=/docs/defenses/opt-in/xfo/>Framing Protections</a>
-</li>
-<li>
-<a href=/docs/defenses/opt-in/same-site-cookies/>SameSite Cookies</a>
-</li>
-<li>
-<a href=/docs/defenses/opt-in/document-policies/>Document Policies</a>
-</li>
-</ul>
-</li>
-<li>
-<a href=/docs/defenses/isolation-policies/>Isolation Policies</a>
-<ul>
-<li>
-<a href=/docs/defenses/isolation-policies/resource-isolation/>Resource Isolation Policy</a>
-</li>
-<li>
-<a href=/docs/defenses/isolation-policies/framing-isolation/>Framing Isolation Policy</a>
-</li>
-<li>
-<a href=/docs/defenses/isolation-policies/navigation-isolation/>Navigation Isolation Policy</a>
-</li>
-<li>
-<a href=/docs/defenses/isolation-policies/strict-isolation/>Strict Isolation Policy</a>
-</li>
-</ul>
-</li>
-<li>
-<a href=/docs/defenses/secure-defaults/>Secure Defaults</a>
-<ul>
-<li>
-<a href=/docs/defenses/secure-defaults/corb/>Cross-Origin Read Blocking</a>
-</li>
-<li>
-<a href=/docs/defenses/secure-defaults/partitioned-cache/>Partitioned HTTP Cache</a>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li class=book-section-flat>
-<a href=/docs/contributions/>Contributions</a>
-<ul>
-</ul>
-</li>
-</ul>
-</nav>
-<script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
-</aside>
-<div class=book-page>
-<header class=book-header>
-<div class="flex align-center justify-between">
-<label for=menu-control>
-<img src=/svg/menu.svg class=book-icon alt=Menu>
-</label>
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="The principle of Cache Probing consists of detecting whether a resource was cached by the browser. The concept has been known since the beginning of the web 1 and initially relied on detecting timing differences.
+When a user visits a website, some resources such as images, scripts, and HTML content are fetched and later cached by the browser (under certain conditions). This optimization makes future navigations faster as the browser serves those resources from disk instead of requesting them again."><meta name=theme-color content="#FFFFFF"><meta property="og:title" content="Cache Probing"><meta property="og:description" content="The principle of Cache Probing consists of detecting whether a resource was cached by the browser. The concept has been known since the beginning of the web 1 and initially relied on detecting timing differences.
+When a user visits a website, some resources such as images, scripts, and HTML content are fetched and later cached by the browser (under certain conditions). This optimization makes future navigations faster as the browser serves those resources from disk instead of requesting them again."><meta property="og:type" content="article"><meta property="og:url" content="https://xsleaks.dev/docs/attacks/cache-probing/"><meta property="article:section" content="docs"><meta property="article:modified_time" content="2022-11-06T18:23:35+00:00"><title>Cache Probing | XS-Leaks Wiki</title><link rel=manifest href=/manifest.json><link rel=icon href=/favicon.png type=image/x-icon><link rel=stylesheet href=/book.min.1c9a9009be3c645cbccbe64eb0a90e28621e4118971d9a502db4aaa9bec96cfc.css integrity="sha256-HJqQCb48ZFy8y+ZOsKkOKGIeQRiXHZpQLbSqqb7JbPw="><script defer src=/en.search.min.e27e25a227b69aebe2c822d3ee6e80c577ed4ed4b23af887f000c397a8931153.js integrity="sha256-4n4loie2muviyCLT7m6AxXftTtSyOviH8ADDl6iTEVM="></script>
+<script defer src=/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js integrity="sha256-b2+Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC+NdcPIvZhzk="></script></head><body><input type=checkbox class="hidden toggle" id=menu-control>
+<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><nav><h2 class=book-brand><a href=/><span>XS-Leaks Wiki</span></a></h2><div class=book-search><input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><ul><li class=book-section-flat><span>Attacks</span><ul><li><a href=/docs/attacks/xs-search/>XS-Search</a></li><li><a href=/docs/attacks/window-references/>Window References</a></li><li><a href=/docs/attacks/css-tricks/>CSS Tricks</a></li><li><a href=/docs/attacks/error-events/>Error Events</a></li><li><a href=/docs/attacks/frame-counting/>Frame Counting</a></li><li><a href=/docs/attacks/navigations/>Navigations</a></li><li><a href=/docs/attacks/cache-probing/ class=active>Cache Probing</a></li><li><a href=/docs/attacks/element-leaks/>Element leaks</a></li><li><a href=/docs/attacks/id-attribute/>ID Attribute</a></li><li><a href=/docs/attacks/postmessage-broadcasts/>postMessage Broadcasts</a></li><li><span>Browser Features</span><ul><li><a href=/docs/attacks/browser-features/corb/>CORB Leaks</a></li><li><a href=/docs/attacks/browser-features/corp/>CORP Leaks</a></li></ul></li><li><span>Timing Attacks</span><ul><li><a href=/docs/attacks/timing-attacks/clocks/>Clocks</a></li><li><a href=/docs/attacks/timing-attacks/network-timing/>Network Timing</a></li><li><a href=/docs/attacks/timing-attacks/performance-api/>Performance API</a></li><li><a href=/docs/attacks/timing-attacks/execution-timing/>Execution Timing</a></li><li><a href=/docs/attacks/timing-attacks/hybrid-timing/>Hybrid Timing</a></li><li><a href=/docs/attacks/timing-attacks/connection-pool/>Connection Pool</a></li></ul></li><li><a href=/docs/attacks/experiments/ class=collapsed>Experiments</a></li><li><a href=/docs/attacks/css-injection/>CSS Injection</a></li><li><a href=/docs/attacks/historical/ class=collapsed>Historical</a></li></ul></li><li class=book-section-flat><a href=/docs/defenses/>Defense Mechanisms</a><ul><li><a href=/docs/defenses/design-protections/>Application Design</a><ul><li><a href=/docs/defenses/design-protections/cache-protections/>Cache Protections</a></li><li><a href=/docs/defenses/design-protections/subresource-protections/>Subresource Protections</a></li></ul></li><li><a href=/docs/defenses/opt-in/>Opt-In Mechanisms</a><ul><li><a href=/docs/defenses/opt-in/fetch-metadata/>Fetch Metadata</a></li><li><a href=/docs/defenses/opt-in/coop/>Cross-Origin-Opener-Policy</a></li><li><a href=/docs/defenses/opt-in/corp/>Cross-Origin-Resource-Policy</a></li><li><a href=/docs/defenses/opt-in/xfo/>Framing Protections</a></li><li><a href=/docs/defenses/opt-in/same-site-cookies/>SameSite Cookies</a></li><li><a href=/docs/defenses/opt-in/document-policies/>Document Policies</a></li></ul></li><li><a href=/docs/defenses/isolation-policies/>Isolation Policies</a><ul><li><a href=/docs/defenses/isolation-policies/resource-isolation/>Resource Isolation Policy</a></li><li><a href=/docs/defenses/isolation-policies/framing-isolation/>Framing Isolation Policy</a></li><li><a href=/docs/defenses/isolation-policies/navigation-isolation/>Navigation Isolation Policy</a></li><li><a href=/docs/defenses/isolation-policies/strict-isolation/>Strict Isolation Policy</a></li></ul></li><li><a href=/docs/defenses/secure-defaults/>Secure Defaults</a><ul><li><a href=/docs/defenses/secure-defaults/corb/>Cross-Origin Read Blocking</a></li><li><a href=/docs/defenses/secure-defaults/partitioned-cache/>Partitioned HTTP Cache</a></li></ul></li></ul></li><li class=book-section-flat><a href=/docs/contributions/>Contributions</a><ul></ul></li></ul></nav><script>(function(){var e=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/svg/menu.svg class=book-icon alt=Menu></label>
 <strong>Cache Probing</strong>
-<label for=toc-control>
-<img src=/svg/toc.svg class=book-icon alt="Table of Contents">
-</label>
-</div>
-<aside class="hidden clearfix">
-<nav id=TableOfContents>
-<ul>
-<li><a href=#attack-principle>Attack Principle</a></li>
-<li><a href=#cache-probing-with-error-events>Cache Probing with Error Events</a>
-<ul>
-<li><a href=#invalidating-the-cache>Invalidating the cache</a></li>
-</ul>
-</li>
-<li><a href=#cors-error-on-origin-reflection-misconfiguration>CORS error on Origin Reflection misconfiguration</a></li>
-<li><a href=#fetch-with-abortcontroller>Fetch with AbortController</a></li>
-<li><a href=#defense>Defense</a></li>
-<li><a href=#real-world-example>Real World Example</a></li>
-<li><a href=#references>References</a></li>
-</ul>
-</nav>
-</aside>
-</header>
-<article class=markdown>
-<h1>
-Cache Probing
-</h1>
-<div>
-Abuse
+<label for=toc-control><img src=/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><a href=#attack-principle>Attack Principle</a></li><li><a href=#cache-probing-with-error-events>Cache Probing with Error Events</a><ul><li><a href=#invalidating-the-cache-with-errors>Invalidating the cache with errors</a></li><li><a href=#invalidating-the-cache-without-errors>Invalidating the cache without errors</a></li></ul></li><li><a href=#cors-error-on-origin-reflection-misconfiguration>CORS error on Origin Reflection misconfiguration</a></li><li><a href=#fetch-with-abortcontroller>Fetch with AbortController</a></li><li><a href=#defense>Defense</a></li><li><a href=#real-world-example>Real World Example</a></li><li><a href=#references>References</a></li></ul></nav></aside></header><article class=markdown><h1>Cache Probing</h1><div>Abuse
 <a href=/abuse/window.open/>window.open</a>,
 <a href=/abuse/error-events/>Error Events</a>,
 <a href=/abuse/cache/>Cache</a>,
 <a href=/abuse/iframes/>iframes</a>,
-<a href=/abuse/abortcontroller/>AbortController</a>
-</div>
-<div>
-Category
-<a href=/category/attack/>Attack</a>
-</div>
-<div>
-Defenses
+<a href=/abuse/abortcontroller/>AbortController</a></div><div>Category
+<a href=/category/attack/>Attack</a></div><div>Defenses
 <a href=/defenses/samesite-cookies/>SameSite Cookies</a>,
 <a href=/defenses/vary-sec-fetch-site/>Vary: Sec-Fetch-Site</a>,
-<a href=/defenses/subresource-protections/>Subresource Protections</a>
-</div>
-<p><p>The principle of Cache Probing consists of detecting whether a resource was cached by the browser. The concept has been known since the beginning of the web <sup id=fnref:1><a href=#fn:1 class=footnote-ref role=doc-noteref>1</a></sup> and initially relied on detecting timing differences.</p>
-<p>When a user visits a website, some resources such as images, scripts, and HTML content are fetched and later cached by the browser (under certain conditions). This optimization makes future navigations faster as the browser serves those resources from disk instead of requesting them again. If an attacker can detect which resources are cached, this information can be enough to leak whether a user accessed a specific page in the past.</p>
-<p>A variation of Cache Probing abuses <a href=https://xsleaks.dev/docs/attacks/error-events/>Error Events</a> to perform more accurate and impactful attacks.</p>
-<h2 id=attack-principle>
-Attack Principle
-<a class=anchor href=#attack-principle>#</a>
-</h2>
-<p>An attacker wants to know whether a user visited a certain social network:</p>
-<ol>
-<li>When the user visits the social network some of the subresources are cached.</li>
-<li>The user visits an attacker-controlled page which fetches a resource that is usually fetched by the social network.</li>
-<li>Using a <a href=https://xsleaks.dev/docs/attacks/timing-attacks/network-timing/>Network Timing XS-Leak</a>, the attacker page can detect the difference between a response coming from the cache (i.e. step 1 occurred) or coming from the network (i.e. step 1 did not occur): the delay is significantly lower if a request is served from the cache.</li>
-</ol>
-<h2 id=cache-probing-with-error-events>
-Cache Probing with Error Events
-<a class=anchor href=#cache-probing-with-error-events>#</a>
-</h2>
-<p>Cache Probing with <a href=https://xsleaks.dev/docs/attacks/error-events/>Error Events</a> <sup id=fnref:2><a href=#fn:2 class=footnote-ref role=doc-noteref>2</a></sup> allows more accurate attacks. Instead of relying on timing measurements, this approach leverages <a href=https://xsleaks.dev/docs/attacks/error-events/>Error Events</a> and some server-side behavior to detect whether a resource was cached. The attack requires the following steps:</p>
-<ol>
-<li><a href=#invalidating-the-cache>Invalidating the resource</a> from the browser cache. This step is required to make sure the attack does not consider a resource previously cached in another visit.</li>
-<li>Performing a request that causes different items to be cached depending on the user&rsquo;s state. For example, loading a page that includes a specific image only if the user is logged in. This request can be triggered by navigating to the target website with <code>&lt;link rel=prerender..</code>, embedding the website in an <code>iframe</code>, or opening a new window with <code>window.open</code>.</li>
-<li>Triggering a request that causes the server to reject the request. For example, including an <a href=https://lists.archive.carbon60.com/apache/users/316239>overlong referer header</a> that makes the server reject the request. If the resource was cached in step 2, this request succeeds instead of triggering an error event.</li>
-</ol>
-<h3 id=invalidating-the-cache>
-Invalidating the cache
-<a class=anchor href=#invalidating-the-cache>#</a>
-</h3>
-<p>To invalidate a resource from the cache, the attacker must force the server to return an error when fetching that subresource. There are a couple of ways to achieve this:</p>
-<ul>
-<li>A fetch request with a <code>cache:'reload'</code>option that is aborted with <a href=https://developer.mozilla.org/en-US/docs/Web/API/AbortController/abort><code>AbortController.abort()</code></a> before new content has been received, but after the request was initiated by the browser.</li>
-<li>A request with an <a href=https://lists.archive.carbon60.com/apache/users/316239>overlong referer header</a> and <code>'cache':'reload'</code>. This might not work as browsers <a href=https://github.com/whatwg/fetch/issues/903>capped</a> the length of the referrer to prevent this.</li>
-<li>A <code>POST</code> request with a <code>fetch</code> <code>no-cors</code>. Sometimes, even in cases where an error is not returned, the browser invalidates the cache.</li>
-<li>Request headers such as Content-Type, Accept, Accept-Language, etc. that may cause the server to fail (more application dependent).</li>
-<li>Other request properties.</li>
-</ul>
-<p>Often, some of these methods might be considered a bug in the browser (e.g. <a href="https://bugs.chromium.org/p/chromium/issues/detail?id=959789#c9">this bug</a>).</p>
-<h2 id=cors-error-on-origin-reflection-misconfiguration>
-CORS error on Origin Reflection misconfiguration
-<a class=anchor href=#cors-error-on-origin-reflection-misconfiguration>#</a>
-</h2>
-<p>Origin reflection is a behavior in which a globally accessible resource is provided with a <a href=https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin>Access-Control-Allow-Orign (ACAO)</a> header whose value reflects the origin that initialized the request. This can be considered as CORS misconfiguration <sup id=fnref:3><a href=#fn:3 class=footnote-ref role=doc-noteref>3</a></sup> and can be used to detect whether the resource exists in the browser cache.</p>
-<blockquote class="book-hint2 info">
-<p class="hint-title info">
-<svg class="book-icon"><use href="/svg/hint-icons.svg#info-notice"/></svg><span>info</span></p>
-For example, Flask framework <a href=https://flask-cors.readthedocs.io/en/latest/api.htm>promotes</a> origin reflection as the default behavior.
-</blockquote>
-<p>If a resource hosted on <code>server.com</code> is requested from <code>target.com</code> then the origin could be reflected in the response headers as: <code>Access-Control-Allow-Origin: target.com</code>. If the resource is cached, this information is stored together with the resource in the browser cache. With that, if <code>attacker.com</code> tries to fetch the same resource there are two possible scenarios:</p>
-<ul>
-<li>The resource is not in cache: the resource could be fetched and stored together with the <code>Access-Control-Allow-Origin: attacker.com</code> header.</li>
-<li>The resource was already in cache: fetch attempt will try to fetch the resource from the cache but it will also generate a CORS error due to the ACAO header value mismatch with the requesting origin (<code>target.com</code> origin was expected but <code>attacker.com</code> was provided). Here below is provided an example code snippet epxloting this vulnerability to infer the cache status of the victim&rsquo;s browser.</li>
-</ul>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#6272a4>// The function simply takes a url and fetches it in CORS mode.
-</span><span style=color:#6272a4>// If the fetch raises an error, it will be a CORS error due to the 
-</span><span style=color:#6272a4>// origin mismatch between attacker.com and victim&#39;s IP.
-</span><span style=color:#6272a4></span><span style=color:#8be9fd;font-style:italic>function</span> ifCached(url) {
-    <span style=color:#6272a4>// returns a promise that resolves to true on fetch error 
-</span><span style=color:#6272a4></span>    <span style=color:#6272a4>// and to false on success
-</span><span style=color:#6272a4></span>    <span style=color:#ff79c6>return</span> fetch(url, {
-        mode<span style=color:#ff79c6>:</span> <span style=color:#f1fa8c>&#34;cors&#34;</span>
-    })
-    .then(() =&gt; <span style=color:#ff79c6>false</span>)
-    .<span style=color:#ff79c6>catch</span>(() =&gt; <span style=color:#ff79c6>true</span>);
-}
-
-<span style=color:#6272a4>// This makes sense only if the attacker already knows that
-</span><span style=color:#6272a4>// server.com suffers from origin reflection CORS misconfiguration.
-</span><span style=color:#6272a4></span><span style=color:#8be9fd;font-style:italic>var</span> resource_url <span style=color:#ff79c6>=</span> <span style=color:#f1fa8c>&#34;server.com/reflected_origin_resource.html&#34;</span>
-<span style=color:#8be9fd;font-style:italic>var</span> verdict <span style=color:#ff79c6>=</span> <span style=color:#ff79c6>await</span> ifCached(resource_url)
-console.log(<span style=color:#f1fa8c>&#34;Resource was cached: &#34;</span> <span style=color:#ff79c6>+</span> verdict)
-</code></pre></div>
-<blockquote class="book-hint2 tip">
-<p class="hint-title tip">
-<svg class="book-icon"><use href="/svg/hint-icons.svg#tip-notice"/></svg><span>tip</span></p>
-The best way to mitigate this is to avoid origin reflection and use the header <code>Access-Control-Allow-Origin: *</code> for globally accessible and unauthenticated resources.
-</blockquote>
-<h2 id=fetch-with-abortcontroller>
-Fetch with AbortController
-<a class=anchor href=#fetch-with-abortcontroller>#</a>
-</h2>
-<p>The below snippet shows how the <a href=https://developer.mozilla.org/en-US/docs/Web/API/AbortController><code>AbortController</code></a> interface could be combined with <em>fetch</em> and <em>setTimeout</em> to both detect whether the resource is cached and to evict a specific resource from the browser cache. A nice feature of this technique is that the probing occurs without caching new content in the process.</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#ff79c6>async</span> <span style=color:#8be9fd;font-style:italic>function</span> ifCached(url, purge <span style=color:#ff79c6>=</span> <span style=color:#ff79c6>false</span>) {
-    <span style=color:#8be9fd;font-style:italic>var</span> controller <span style=color:#ff79c6>=</span> <span style=color:#ff79c6>new</span> AbortController();
-    <span style=color:#8be9fd;font-style:italic>var</span> signal <span style=color:#ff79c6>=</span> controller.signal;
-    <span style=color:#6272a4>// After 9ms, abort the request (before the request was finished).
-</span><span style=color:#6272a4></span>    <span style=color:#6272a4>// The timeout might need to be adjusted for the attack to work properly.
-</span><span style=color:#6272a4></span>    <span style=color:#6272a4>// Purging content seems to take slightly less time than probing
-</span><span style=color:#6272a4></span>    <span style=color:#8be9fd;font-style:italic>var</span> wait_time <span style=color:#ff79c6>=</span> (purge) <span style=color:#ff79c6>?</span> <span style=color:#bd93f9>3</span> <span style=color:#ff79c6>:</span> <span style=color:#bd93f9>9</span>;
-    <span style=color:#8be9fd;font-style:italic>var</span> timeout <span style=color:#ff79c6>=</span> <span style=color:#ff79c6>await</span> setTimeout(() =&gt; {
-        controller.abort();
-    }, wait_time);
-    <span style=color:#ff79c6>try</span> {
-        <span style=color:#6272a4>// credentials option is needed for Firefox
-</span><span style=color:#6272a4></span>        <span style=color:#8be9fd;font-style:italic>let</span> options <span style=color:#ff79c6>=</span> {
-            mode<span style=color:#ff79c6>:</span> <span style=color:#f1fa8c>&#34;no-cors&#34;</span>,
-            credentials<span style=color:#ff79c6>:</span> <span style=color:#f1fa8c>&#34;include&#34;</span>,
-            signal<span style=color:#ff79c6>:</span> signal
-        };
-        <span style=color:#6272a4>// If the option &#34;cache: reload&#34; is set, the browser will purge
-</span><span style=color:#6272a4></span>        <span style=color:#6272a4>// the resource from the browser cache
-</span><span style=color:#6272a4></span>        <span style=color:#ff79c6>if</span>(purge) options.cache <span style=color:#ff79c6>=</span> <span style=color:#f1fa8c>&#34;reload&#34;</span>;
-
-        <span style=color:#ff79c6>await</span> fetch(url, options);
-    } <span style=color:#ff79c6>catch</span> (err) {
-        <span style=color:#6272a4>// When controller.abort() is called, the fetch will throw an Exception
-</span><span style=color:#6272a4></span>        <span style=color:#ff79c6>if</span>(purge) console.log(<span style=color:#f1fa8c>&#34;The resource was purged from the cache&#34;</span>);
-        <span style=color:#ff79c6>else</span> console.log(<span style=color:#f1fa8c>&#34;The resource is not cached&#34;</span>);
-        <span style=color:#ff79c6>return</span> <span style=color:#ff79c6>false</span>
-    }
-    <span style=color:#6272a4>// clearTimeout will only be called if this line was reached in less than
-</span><span style=color:#6272a4></span>    <span style=color:#6272a4>// wait_time which means that the resource must have arrived from the cache
-</span><span style=color:#6272a4></span>    clearTimeout(timeout);
-    console.log(<span style=color:#f1fa8c>&#34;The resource is cached&#34;</span>);
-
-    <span style=color:#ff79c6>return</span> <span style=color:#ff79c6>true</span>;
-}
-
-<span style=color:#6272a4>// purge https://example.org from the cache
-</span><span style=color:#6272a4></span><span style=color:#ff79c6>await</span> ifCached(<span style=color:#f1fa8c>&#39;https://example.org&#39;</span>, <span style=color:#ff79c6>true</span>);
-
-<span style=color:#6272a4>// Put https://example.org into the cache
-</span><span style=color:#6272a4>// Skip this step to simulate a case where example.org is not cached
-</span><span style=color:#6272a4></span>open(<span style=color:#f1fa8c>&#39;https://example.org&#39;</span>);
-
-<span style=color:#6272a4>// wait 1 second (until example.org loads)
-</span><span style=color:#6272a4></span><span style=color:#ff79c6>await</span> <span style=color:#ff79c6>new</span> <span style=color:#8be9fd;font-style:italic>Promise</span>(resolve =&gt; setTimeout(resolve, <span style=color:#bd93f9>1000</span>));
-
-<span style=color:#6272a4>// Check if https://example.org is in the cache
-</span><span style=color:#6272a4></span><span style=color:#ff79c6>await</span> ifCached(<span style=color:#f1fa8c>&#39;https://example.org&#39;</span>);
-</code></pre></div><h2 id=defense>
-Defense
-<a class=anchor href=#defense>#</a>
-</h2>
-<p>Currently, there are no good defense mechanisms that would allow websites to fully protect against Cache Probing attacks. Nonetheless, a website can mitigate the attack surface by deploying <a href=https://xsleaks.dev/docs/defenses/design-protections/cache-protections/>Cache Protections</a> such as:</p>
-<ul>
-<li><a href=https://xsleaks.dev/docs/defenses/design-protections/cache-protections/#cache-protection-via-cache-control-headers>Cache-control headers</a> used to prevent the resource from caching.</li>
-<li><a href=https://xsleaks.dev/docs/defenses/design-protections/cache-protections/#cache-protection-via-random-tokens>Random Tokens</a> used to make the URLs unpredictable for attackers.</li>
-<li><a href=https://xsleaks.dev/docs/defenses/design-protections/cache-protections/#cache-protection-via-fetch-metadata>Vary: Sec-Fetch-Site</a> used to segregate the cache by a group of origins.</li>
-<li>User content that is capable of making networks requests should be on its own eTLD+1 by using a separate domain or the public suffix list (if applicable) to allow for partitioned caches.</li>
-</ul>
-<p>A promising defense against Cache Probing attacks is <a href=https://xsleaks.dev/docs/defenses/secure-defaults/partitioned-cache/>partitioning the HTTP cache</a> by the requesting origin. This browser-provided protection prevents an attacker&rsquo;s origin from interfering with cached resources of other origins.</p>
-<blockquote class="book-hint2 info">
-<p class="hint-title info">
-<svg class="book-icon"><use href="/svg/hint-icons.svg#info-notice"/></svg><span>info</span></p>
-As of September 2021, Partitioned Caches is available in most browsers to split the cache by eTLD+1, however applications cannot rely on them.
-The protection is ineffective for requests from subdomains and <a href=https://xsleaks.dev/docs/attacks/navigations/#partitioned-http-cache-bypass>window navigations</a>
-</blockquote>
-<h2 id=real-world-example>
-Real World Example
-<a class=anchor href=#real-world-example>#</a>
-</h2>
-<p>An attacker using <a href=#cache-probing-with-error-events>Error Events Cache Probing</a> was able to detect whether a user watched a specific YouTube Video by checking if the video thumbnail ended up in browser cache <sup id=fnref:4><a href=#fn:4 class=footnote-ref role=doc-noteref>4</a></sup>.</p>
-<h2 id=references>
-References
-<a class=anchor href=#references>#</a>
-</h2>
-<section class=footnotes role=doc-endnotes>
-<hr>
-<ol>
-<li id=fn:1 role=doc-endnote>
-<p>Timing Attacks on Web Privacy, <a href=http://www.cs.jhu.edu/~fabian/courses/CS600.424/course_papers/webtiming.pdf>link</a>&#160;<a href=#fnref:1 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p>
-</li>
-<li id=fn:2 role=doc-endnote>
-<p>HTTP Cache Cross-Site Leaks, <a href=http://sirdarckcat.blogspot.com/2019/03/http-cache-cross-site-leaks.html>link</a>&#160;<a href=#fnref:2 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p>
-</li>
-<li id=fn:3 role=doc-endnote>
-<p>CORS misconfiguration, <a href=https://web-in-security.blogspot.com/2017/07/cors-misconfigurations-on-large-scale.html>link</a>&#160;<a href=#fnref:3 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p>
-</li>
-<li id=fn:4 role=doc-endnote>
-<p>Mass XS-Search using Cache Attack, <a href=https://terjanq.github.io/Bug-Bounty/Google/cache-attack-06jd2d2mz2r0/index.html#VIII-YouTube-watching-history>link</a>&#160;<a href=#fnref:4 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p>
-</li>
-</ol>
-</section>
-</p>
-</article>
-<footer class=book-footer>
-<div class="flex flex-wrap justify-between">
-<div><a class="flex align-center" href=https://github.com/xsleaks/wiki/commit/4afdfabd91e993c844a17f114b7efa616cc209aa title="Last modified by NDevTK | September 30, 2021" target=_blank rel=noopener>
-<img src=/svg/calendar.svg class=book-icon alt=Calendar>
-<span>Last Modified: September 30, 2021</span>
-</a>
-</div>
-<div>
-<a class="flex align-center" href=https://github.com/xsleaks/wiki/edit/master/content//docs/attacks/cache-probing.md target=_blank rel=noopener>
-<img src=/svg/edit.svg class=book-icon alt=Edit>
-<span>Edit this article</span>
-</a>
-</div>
-</div>
-</footer>
-<div class=book-comments>
-</div>
-<label for=menu-control class="hidden book-menu-overlay"></label>
-</div>
-<aside class=book-toc>
-<nav id=TableOfContents>
-<ul>
-<li><a href=#attack-principle>Attack Principle</a></li>
-<li><a href=#cache-probing-with-error-events>Cache Probing with Error Events</a>
-<ul>
-<li><a href=#invalidating-the-cache>Invalidating the cache</a></li>
-</ul>
-</li>
-<li><a href=#cors-error-on-origin-reflection-misconfiguration>CORS error on Origin Reflection misconfiguration</a></li>
-<li><a href=#fetch-with-abortcontroller>Fetch with AbortController</a></li>
-<li><a href=#defense>Defense</a></li>
-<li><a href=#real-world-example>Real World Example</a></li>
-<li><a href=#references>References</a></li>
-</ul>
-</nav>
-</aside>
-</main>
-</body>
-</html>
+<a href=/defenses/subresource-protections/>Subresource Protections</a></div><p><p>The principle of Cache Probing consists of detecting whether a resource was cached by the browser. The concept has been known since the beginning of the web <sup id=fnref:1><a href=#fn:1 class=footnote-ref role=doc-noteref>1</a></sup> and initially relied on detecting timing differences.</p><p>When a user visits a website, some resources such as images, scripts, and HTML content are fetched and later cached by the browser (under certain conditions). This optimization makes future navigations faster as the browser serves those resources from disk instead of requesting them again. If an attacker can detect which resources are cached, this information can be enough to leak whether a user accessed a specific page in the past.</p><p>A variation of Cache Probing abuses <a href=https://xsleaks.dev/docs/attacks/error-events/>Error Events</a> to perform more accurate and impactful attacks.</p><h2 id=attack-principle>Attack Principle
+<a class=anchor href=#attack-principle>#</a></h2><p>An attacker wants to know whether a user visited a certain social network:</p><ol><li>When the user visits the social network some of the subresources are cached.</li><li>The user visits an attacker-controlled page which fetches a resource that is usually fetched by the social network.</li><li>Using a <a href=https://xsleaks.dev/docs/attacks/timing-attacks/network-timing/>Network Timing XS-Leak</a>, the attacker page can detect the difference between a response coming from the cache (i.e. step 1 occurred) or coming from the network (i.e. step 1 did not occur): the delay is significantly lower if a request is served from the cache.</li></ol><h2 id=cache-probing-with-error-events>Cache Probing with Error Events
+<a class=anchor href=#cache-probing-with-error-events>#</a></h2><p>Cache Probing with <a href=https://xsleaks.dev/docs/attacks/error-events/>Error Events</a> <sup id=fnref:2><a href=#fn:2 class=footnote-ref role=doc-noteref>2</a></sup> allows more accurate attacks. Instead of relying on timing measurements, this approach leverages <a href=https://xsleaks.dev/docs/attacks/error-events/>Error Events</a> and some server-side behavior to detect whether a resource was cached. The attack requires the following steps:</p><ol><li><a href=#invalidating-the-cache>Invalidating the resource</a> from the browser cache. This step is required to make sure the attack does not consider a resource previously cached in another visit.</li><li>Performing a request that causes different items to be cached depending on the user&rsquo;s state. For example, loading a page that includes a specific image only if the user is logged in. This request can be triggered by navigating to the target website with <code>&lt;link rel=prerender..</code>, embedding the website in an <code>iframe</code>, or opening a new window with <code>window.open</code>.</li><li>Triggering a request that causes the server to reject the request. For example, including an <a href=https://lists.archive.carbon60.com/apache/users/316239>overlong referer header</a> that makes the server reject the request. If the resource was cached in step 2, this request succeeds instead of triggering an error event.</li></ol><h3 id=invalidating-the-cache-with-errors>Invalidating the cache with errors
+<a class=anchor href=#invalidating-the-cache-with-errors>#</a></h3><p>To invalidate a resource from the cache, the attacker must force the server to return an error when fetching that subresource. There are a couple of ways to achieve this:</p><ul><li>A request with an <a href=https://lists.archive.carbon60.com/apache/users/316239>overlong referer header</a> and <code>'cache':'reload'</code>. This might not work as browsers <a href=https://github.com/whatwg/fetch/issues/903>capped</a> the length of the referrer to prevent this.</li><li>Request headers such as Content-Type, Accept, Accept-Language, etc. that may cause the server to fail (more application dependent).</li><li>Other request properties.</li></ul><p>Often, some of these methods might be considered a bug in the browser (e.g. <a href="https://bugs.chromium.org/p/chromium/issues/detail?id=959789#c9">this bug</a>).</p><h3 id=invalidating-the-cache-without-errors>Invalidating the cache without errors
+<a class=anchor href=#invalidating-the-cache-without-errors>#</a></h3><p>It&rsquo;s also possible to remove resources from cache without server errors. For example, the above techniques could be used as well:</p><ul><li>A fetch request with a <code>cache:'reload'</code> option that is aborted with <a href=https://developer.mozilla.org/en-US/docs/Web/API/AbortController/abort><code>AbortController.abort()</code></a> before new content has been received, but after the request was initiated by the browser.</li><li>A <code>POST</code> request from a <code>fetch</code> with <code>no-cors</code>. <a href=https://xsinator.com/testing.html#Cache%20Leak%20%28POST%29>Run demo</a></li><li>A <code>POST</code> request from a <a href=https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form>HTMLFormElement</a> may purge using the key of the top-level site to bypass the <a href=https://xsleaks.dev/docs/defenses/secure-defaults/partitioned-cache/>Partitioned HTTP Cache</a></li><li>Exceed the browser cache limit.</li></ul><h2 id=cors-error-on-origin-reflection-misconfiguration>CORS error on Origin Reflection misconfiguration
+<a class=anchor href=#cors-error-on-origin-reflection-misconfiguration>#</a></h2><p>Origin reflection is a behavior in which a globally accessible resource is provided with a <a href=https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin>Access-Control-Allow-Orign (ACAO)</a> header whose value reflects the origin that initialized the request. This can be considered as CORS misconfiguration <sup id=fnref:3><a href=#fn:3 class=footnote-ref role=doc-noteref>3</a></sup> and can be used to detect whether the resource exists in the browser cache.</p><blockquote class="book-hint2 info"><p class="hint-title info"><svg class="book-icon"><use href="/svg/hint-icons.svg#info-notice"/></svg><span>info</span></p>For example, Flask framework <a href=https://flask-cors.readthedocs.io/en/latest/api.htm>promotes</a> origin reflection as the default behavior.</blockquote><p>If a resource hosted on <code>server.com</code> is requested from <code>target.com</code> then the origin could be reflected in the response headers as: <code>Access-Control-Allow-Origin: target.com</code>. If the resource is cached, this information is stored together with the resource in the browser cache. With that, if <code>attacker.com</code> tries to fetch the same resource there are two possible scenarios:</p><ul><li>The resource is not in cache: the resource could be fetched and stored together with the <code>Access-Control-Allow-Origin: attacker.com</code> header.</li><li>The resource was already in cache: fetch attempt will try to fetch the resource from the cache but it will also generate a CORS error due to the ACAO header value mismatch with the requesting origin (<code>target.com</code> origin was expected but <code>attacker.com</code> was provided). Here below is provided an example code snippet epxloting this vulnerability to infer the cache status of the victim&rsquo;s browser. <a href=https://xsinator.com/testing.html#Cache%20Leak%20%28CORS%29>Run demo</a></li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#6272a4>// The function simply takes a url and fetches it in CORS mode.
+</span></span></span><span style=display:flex><span><span style=color:#6272a4>// If the fetch raises an error, it will be a CORS error due to the 
+</span></span></span><span style=display:flex><span><span style=color:#6272a4>// origin mismatch between attacker.com and victim&#39;s IP.
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span><span style=color:#8be9fd;font-style:italic>function</span> ifCached(url) {
+</span></span><span style=display:flex><span>    <span style=color:#6272a4>// returns a promise that resolves to true on fetch error 
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span>    <span style=color:#6272a4>// and to false on success
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span>    <span style=color:#ff79c6>return</span> fetch(url, {
+</span></span><span style=display:flex><span>        mode<span style=color:#ff79c6>:</span> <span style=color:#f1fa8c>&#34;cors&#34;</span>
+</span></span><span style=display:flex><span>    })
+</span></span><span style=display:flex><span>    .then(() =&gt; <span style=color:#ff79c6>false</span>)
+</span></span><span style=display:flex><span>    .<span style=color:#ff79c6>catch</span>(() =&gt; <span style=color:#ff79c6>true</span>);
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#6272a4>// This makes sense only if the attacker already knows that
+</span></span></span><span style=display:flex><span><span style=color:#6272a4>// server.com suffers from origin reflection CORS misconfiguration.
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span><span style=color:#8be9fd;font-style:italic>var</span> resource_url <span style=color:#ff79c6>=</span> <span style=color:#f1fa8c>&#34;server.com/reflected_origin_resource.html&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#8be9fd;font-style:italic>var</span> verdict <span style=color:#ff79c6>=</span> <span style=color:#ff79c6>await</span> ifCached(resource_url)
+</span></span><span style=display:flex><span>console.log(<span style=color:#f1fa8c>&#34;Resource was cached: &#34;</span> <span style=color:#ff79c6>+</span> verdict)
+</span></span></code></pre></div><blockquote class="book-hint2 tip"><p class="hint-title tip"><svg class="book-icon"><use href="/svg/hint-icons.svg#tip-notice"/></svg><span>tip</span></p>The best way to mitigate this is to avoid origin reflection and use the header <code>Access-Control-Allow-Origin: *</code> for globally accessible and unauthenticated resources.</blockquote><h2 id=fetch-with-abortcontroller>Fetch with AbortController
+<a class=anchor href=#fetch-with-abortcontroller>#</a></h2><p>The below snippet shows how the <a href=https://developer.mozilla.org/en-US/docs/Web/API/AbortController><code>AbortController</code></a> interface could be combined with <em>fetch</em> and <em>setTimeout</em> to both detect whether the resource is cached and to evict a specific resource from the browser cache. A nice feature of this technique is that the probing occurs without caching new content in the process.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#ff79c6>async</span> <span style=color:#8be9fd;font-style:italic>function</span> ifCached(url, purge <span style=color:#ff79c6>=</span> <span style=color:#ff79c6>false</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#8be9fd;font-style:italic>var</span> controller <span style=color:#ff79c6>=</span> <span style=color:#ff79c6>new</span> AbortController();
+</span></span><span style=display:flex><span>    <span style=color:#8be9fd;font-style:italic>var</span> signal <span style=color:#ff79c6>=</span> controller.signal;
+</span></span><span style=display:flex><span>    <span style=color:#6272a4>// After 9ms, abort the request (before the request was finished).
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span>    <span style=color:#6272a4>// The timeout might need to be adjusted for the attack to work properly.
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span>    <span style=color:#6272a4>// Purging content seems to take slightly less time than probing
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span>    <span style=color:#8be9fd;font-style:italic>var</span> wait_time <span style=color:#ff79c6>=</span> (purge) <span style=color:#ff79c6>?</span> <span style=color:#bd93f9>3</span> <span style=color:#ff79c6>:</span> <span style=color:#bd93f9>9</span>;
+</span></span><span style=display:flex><span>    <span style=color:#8be9fd;font-style:italic>var</span> timeout <span style=color:#ff79c6>=</span> <span style=color:#ff79c6>await</span> setTimeout(() =&gt; {
+</span></span><span style=display:flex><span>        controller.abort();
+</span></span><span style=display:flex><span>    }, wait_time);
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>try</span> {
+</span></span><span style=display:flex><span>        <span style=color:#6272a4>// credentials option is needed for Firefox
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span>        <span style=color:#8be9fd;font-style:italic>let</span> options <span style=color:#ff79c6>=</span> {
+</span></span><span style=display:flex><span>            mode<span style=color:#ff79c6>:</span> <span style=color:#f1fa8c>&#34;no-cors&#34;</span>,
+</span></span><span style=display:flex><span>            credentials<span style=color:#ff79c6>:</span> <span style=color:#f1fa8c>&#34;include&#34;</span>,
+</span></span><span style=display:flex><span>            signal<span style=color:#ff79c6>:</span> signal
+</span></span><span style=display:flex><span>        };
+</span></span><span style=display:flex><span>        <span style=color:#6272a4>// If the option &#34;cache: reload&#34; is set, the browser will purge
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span>        <span style=color:#6272a4>// the resource from the browser cache
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span>        <span style=color:#ff79c6>if</span>(purge) options.cache <span style=color:#ff79c6>=</span> <span style=color:#f1fa8c>&#34;reload&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#ff79c6>await</span> fetch(url, options);
+</span></span><span style=display:flex><span>    } <span style=color:#ff79c6>catch</span> (err) {
+</span></span><span style=display:flex><span>        <span style=color:#6272a4>// When controller.abort() is called, the fetch will throw an Exception
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span>        <span style=color:#ff79c6>if</span>(purge) console.log(<span style=color:#f1fa8c>&#34;The resource was purged from the cache&#34;</span>);
+</span></span><span style=display:flex><span>        <span style=color:#ff79c6>else</span> console.log(<span style=color:#f1fa8c>&#34;The resource is not cached&#34;</span>);
+</span></span><span style=display:flex><span>        <span style=color:#ff79c6>return</span> <span style=color:#ff79c6>false</span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#6272a4>// clearTimeout will only be called if this line was reached in less than
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span>    <span style=color:#6272a4>// wait_time which means that the resource must have arrived from the cache
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span>    clearTimeout(timeout);
+</span></span><span style=display:flex><span>    console.log(<span style=color:#f1fa8c>&#34;The resource is cached&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>return</span> <span style=color:#ff79c6>true</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#6272a4>// purge https://example.org from the cache
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span><span style=color:#ff79c6>await</span> ifCached(<span style=color:#f1fa8c>&#39;https://example.org&#39;</span>, <span style=color:#ff79c6>true</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#6272a4>// Put https://example.org into the cache
+</span></span></span><span style=display:flex><span><span style=color:#6272a4>// Skip this step to simulate a case where example.org is not cached
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span>open(<span style=color:#f1fa8c>&#39;https://example.org&#39;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#6272a4>// wait 1 second (until example.org loads)
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span><span style=color:#ff79c6>await</span> <span style=color:#ff79c6>new</span> <span style=color:#8be9fd;font-style:italic>Promise</span>(resolve =&gt; setTimeout(resolve, <span style=color:#bd93f9>1000</span>));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#6272a4>// Check if https://example.org is in the cache
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span><span style=color:#ff79c6>await</span> ifCached(<span style=color:#f1fa8c>&#39;https://example.org&#39;</span>);
+</span></span></code></pre></div><h2 id=defense>Defense
+<a class=anchor href=#defense>#</a></h2><p>Currently, there are no good defense mechanisms that would allow websites to fully protect against Cache Probing attacks. Nonetheless, a website can mitigate the attack surface by deploying <a href=https://xsleaks.dev/docs/defenses/design-protections/cache-protections/>Cache Protections</a> such as:</p><ul><li><a href=https://xsleaks.dev/docs/defenses/design-protections/cache-protections/#cache-protection-via-cache-control-headers>Cache-control headers</a> used to prevent the resource from caching.</li><li><a href=https://xsleaks.dev/docs/defenses/design-protections/cache-protections/#cache-protection-via-random-tokens>Random Tokens</a> used to make the URLs unpredictable for attackers.</li><li><a href=https://xsleaks.dev/docs/defenses/design-protections/cache-protections/#cache-protection-via-fetch-metadata>Vary: Sec-Fetch-Site</a> used to segregate the cache by a group of origins.</li><li>User content that is capable of making networks requests should be on its own eTLD+1 by using a separate domain or the public suffix list (if applicable) to allow for partitioned caches.</li></ul><p>A promising defense against Cache Probing attacks is <a href=https://xsleaks.dev/docs/defenses/secure-defaults/partitioned-cache/>partitioning the HTTP cache</a> by the requesting origin. This browser-provided protection prevents an attacker&rsquo;s origin from interfering with cached resources of other origins.</p><blockquote class="book-hint2 info"><p class="hint-title info"><svg class="book-icon"><use href="/svg/hint-icons.svg#info-notice"/></svg><span>info</span></p>As of September 2021, Partitioned Caches is available in most browsers to split the cache by eTLD+1, however applications cannot rely on them.
+The protection is ineffective for requests from subdomains and <a href=https://xsleaks.dev/docs/attacks/navigations/#partitioned-http-cache-bypass>window navigations</a></blockquote><h2 id=real-world-example>Real World Example
+<a class=anchor href=#real-world-example>#</a></h2><p>An attacker using <a href=#cache-probing-with-error-events>Error Events Cache Probing</a> was able to detect whether a user watched a specific YouTube Video by checking if the video thumbnail ended up in browser cache <sup id=fnref:4><a href=#fn:4 class=footnote-ref role=doc-noteref>4</a></sup>.</p><h2 id=references>References
+<a class=anchor href=#references>#</a></h2><div class=footnotes role=doc-endnotes><hr><ol><li id=fn:1><p>Timing Attacks on Web Privacy, <a href=http://www.cs.jhu.edu/~fabian/courses/CS600.424/course_papers/webtiming.pdf>link</a>&#160;<a href=#fnref:1 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:2><p>HTTP Cache Cross-Site Leaks, <a href=http://sirdarckcat.blogspot.com/2019/03/http-cache-cross-site-leaks.html>link</a>&#160;<a href=#fnref:2 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:3><p>CORS misconfiguration, <a href=https://web-in-security.blogspot.com/2017/07/cors-misconfigurations-on-large-scale.html>link</a>&#160;<a href=#fnref:3 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:4><p>Mass XS-Search using Cache Attack, <a href=https://terjanq.github.io/Bug-Bounty/Google/cache-attack-06jd2d2mz2r0/index.html#VIII-YouTube-watching-history>link</a>&#160;<a href=#fnref:4 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li></ol></div></p></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/xsleaks/wiki/commit/9d8bbbf4937d129ea39149dbdea45de9f9920c3e title='Last modified by NDevTK | November 6, 2022' target=_blank rel=noopener><img src=/svg/calendar.svg class=book-icon alt=Calendar>
+<span>Last Modified: November 6, 2022</span></a></div><div><a class="flex align-center" href=https://github.com/xsleaks/wiki/edit/master/content//docs/attacks/cache-probing.md target=_blank rel=noopener><img src=/svg/edit.svg class=book-icon alt=Edit>
+<span>Edit this article</span></a></div></div></footer><div class=book-comments></div><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><nav id=TableOfContents><ul><li><a href=#attack-principle>Attack Principle</a></li><li><a href=#cache-probing-with-error-events>Cache Probing with Error Events</a><ul><li><a href=#invalidating-the-cache-with-errors>Invalidating the cache with errors</a></li><li><a href=#invalidating-the-cache-without-errors>Invalidating the cache without errors</a></li></ul></li><li><a href=#cors-error-on-origin-reflection-misconfiguration>CORS error on Origin Reflection misconfiguration</a></li><li><a href=#fetch-with-abortcontroller>Fetch with AbortController</a></li><li><a href=#defense>Defense</a></li><li><a href=#real-world-example>Real World Example</a></li><li><a href=#references>References</a></li></ul></nav></aside></main></body></html>

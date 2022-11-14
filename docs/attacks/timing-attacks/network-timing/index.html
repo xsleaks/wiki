@@ -1,518 +1,101 @@
-<!doctype html><html lang=en>
-<head>
-<meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=description content="Network Timing side-channels have been present on the web since its inception 1 2. These attacks have had different levels of impact over time, gaining new attention when browsers started shipping high-precision timers like performance.now().
-To obtain timing measurements, attackers must use a clock, either an implicit or an explicit one. These clocks are usually interchangeable for the purposes of XS-Leaks and only vary in accuracy and availability. For simplicity, this article assumes the use of the performance.">
-<meta name=theme-color content="#FFFFFF"><meta property="og:title" content="Network Timing">
-<meta property="og:description" content="Network Timing side-channels have been present on the web since its inception 1 2. These attacks have had different levels of impact over time, gaining new attention when browsers started shipping high-precision timers like performance.now().
-To obtain timing measurements, attackers must use a clock, either an implicit or an explicit one. These clocks are usually interchangeable for the purposes of XS-Leaks and only vary in accuracy and availability. For simplicity, this article assumes the use of the performance.">
-<meta property="og:type" content="article">
-<meta property="og:url" content="https://xsleaks.dev/docs/attacks/timing-attacks/network-timing/"><meta property="article:section" content="docs">
-<meta property="article:published_time" content="2020-10-01T00:00:00+00:00">
-<meta property="article:modified_time" content="2021-04-26T20:11:57+02:00">
-<title>Network Timing | XS-Leaks Wiki</title>
-<link rel=manifest href=/manifest.json>
-<link rel=icon href=/favicon.png type=image/x-icon>
-<link rel=stylesheet href=/book.min.1c9a9009be3c645cbccbe64eb0a90e28621e4118971d9a502db4aaa9bec96cfc.css integrity="sha256-HJqQCb48ZFy8y+ZOsKkOKGIeQRiXHZpQLbSqqb7JbPw=">
-<script defer src=/en.search.min.057cc5710ab6d726408794395eee8acbf21f5612015119aba8260d213d66edc0.js integrity="sha256-BXzFcQq21yZAh5Q5Xu6Ky/IfVhIBURmrqCYNIT1m7cA="></script>
-<script defer src=/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js integrity="sha256-b2+Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC+NdcPIvZhzk="></script>
-</head>
-<body>
-<input type=checkbox class="hidden toggle" id=menu-control>
-<input type=checkbox class="hidden toggle" id=toc-control>
-<main class="container flex">
-<aside class=book-menu>
-<nav>
-<h2 class=book-brand>
-<a href=/><span>XS-Leaks Wiki</span>
-</a>
-</h2>
-<div class=book-search>
-<input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/>
-<div class="book-search-spinner hidden"></div>
-<ul id=book-search-results></ul>
-</div>
-<ul>
-<li class=book-section-flat>
-<span>Attacks</span>
-<ul>
-<li>
-<a href=/docs/attacks/xs-search/>XS-Search</a>
-</li>
-<li>
-<a href=/docs/attacks/window-references/>Window References</a>
-</li>
-<li>
-<a href=/docs/attacks/css-tricks/>CSS Tricks</a>
-</li>
-<li>
-<a href=/docs/attacks/error-events/>Error Events</a>
-</li>
-<li>
-<a href=/docs/attacks/frame-counting/>Frame Counting</a>
-</li>
-<li>
-<a href=/docs/attacks/navigations/>Navigations</a>
-</li>
-<li>
-<a href=/docs/attacks/cache-probing/>Cache Probing</a>
-</li>
-<li>
-<a href=/docs/attacks/element-leaks/>Element leaks</a>
-</li>
-<li>
-<a href=/docs/attacks/id-attribute/>ID Attribute</a>
-</li>
-<li>
-<a href=/docs/attacks/postmessage-broadcasts/>postMessage Broadcasts</a>
-</li>
-<li>
-<span>Browser Features</span>
-<ul>
-<li>
-<a href=/docs/attacks/browser-features/corb/>CORB Leaks</a>
-</li>
-<li>
-<a href=/docs/attacks/browser-features/corp/>CORP Leaks</a>
-</li>
-</ul>
-</li>
-<li>
-<span>Timing Attacks</span>
-<ul>
-<li>
-<a href=/docs/attacks/timing-attacks/clocks/>Clocks</a>
-</li>
-<li>
-<a href=/docs/attacks/timing-attacks/network-timing/ class=active>Network Timing</a>
-</li>
-<li>
-<a href=/docs/attacks/timing-attacks/performance-api/>Performance API</a>
-</li>
-<li>
-<a href=/docs/attacks/timing-attacks/execution-timing/>Execution Timing</a>
-</li>
-<li>
-<a href=/docs/attacks/timing-attacks/hybrid-timing/>Hybrid Timing</a>
-</li>
-<li>
-<a href=/docs/attacks/timing-attacks/connection-pool/>Connection Pool</a>
-</li>
-</ul>
-</li>
-<li>
-<a href=/docs/attacks/experiments/ class=collapsed>Experiments</a>
-</li>
-<li>
-<a href=/docs/attacks/css-injection/>CSS Injection</a>
-</li>
-<li>
-<a href=/docs/attacks/historical/ class=collapsed>Historical</a>
-</li>
-</ul>
-</li>
-<li class=book-section-flat>
-<a href=/docs/defenses/>Defense Mechanisms</a>
-<ul>
-<li>
-<a href=/docs/defenses/design-protections/>Application Design</a>
-<ul>
-<li>
-<a href=/docs/defenses/design-protections/cache-protections/>Cache Protections</a>
-</li>
-<li>
-<a href=/docs/defenses/design-protections/subresource-protections/>Subresource Protections</a>
-</li>
-</ul>
-</li>
-<li>
-<a href=/docs/defenses/opt-in/>Opt-In Mechanisms</a>
-<ul>
-<li>
-<a href=/docs/defenses/opt-in/fetch-metadata/>Fetch Metadata</a>
-</li>
-<li>
-<a href=/docs/defenses/opt-in/coop/>Cross-Origin-Opener-Policy</a>
-</li>
-<li>
-<a href=/docs/defenses/opt-in/corp/>Cross-Origin-Resource-Policy</a>
-</li>
-<li>
-<a href=/docs/defenses/opt-in/xfo/>Framing Protections</a>
-</li>
-<li>
-<a href=/docs/defenses/opt-in/same-site-cookies/>SameSite Cookies</a>
-</li>
-<li>
-<a href=/docs/defenses/opt-in/document-policies/>Document Policies</a>
-</li>
-</ul>
-</li>
-<li>
-<a href=/docs/defenses/isolation-policies/>Isolation Policies</a>
-<ul>
-<li>
-<a href=/docs/defenses/isolation-policies/resource-isolation/>Resource Isolation Policy</a>
-</li>
-<li>
-<a href=/docs/defenses/isolation-policies/framing-isolation/>Framing Isolation Policy</a>
-</li>
-<li>
-<a href=/docs/defenses/isolation-policies/navigation-isolation/>Navigation Isolation Policy</a>
-</li>
-<li>
-<a href=/docs/defenses/isolation-policies/strict-isolation/>Strict Isolation Policy</a>
-</li>
-</ul>
-</li>
-<li>
-<a href=/docs/defenses/secure-defaults/>Secure Defaults</a>
-<ul>
-<li>
-<a href=/docs/defenses/secure-defaults/corb/>Cross-Origin Read Blocking</a>
-</li>
-<li>
-<a href=/docs/defenses/secure-defaults/partitioned-cache/>Partitioned HTTP Cache</a>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li class=book-section-flat>
-<a href=/docs/contributions/>Contributions</a>
-<ul>
-</ul>
-</li>
-</ul>
-</nav>
-<script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
-</aside>
-<div class=book-page>
-<header class=book-header>
-<div class="flex align-center justify-between">
-<label for=menu-control>
-<img src=/svg/menu.svg class=book-icon alt=Menu>
-</label>
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Network Timing side-channels have been present on the web since its inception 1 2. These attacks have had different levels of impact over time, gaining new attention when browsers started shipping high-precision timers like performance.now().
+To obtain timing measurements, attackers must use a clock, either an implicit or an explicit one. These clocks are usually interchangeable for the purposes of XS-Leaks and only vary in accuracy and availability. For simplicity, this article assumes the use of the performance."><meta name=theme-color content="#FFFFFF"><meta property="og:title" content="Network Timing"><meta property="og:description" content="Network Timing side-channels have been present on the web since its inception 1 2. These attacks have had different levels of impact over time, gaining new attention when browsers started shipping high-precision timers like performance.now().
+To obtain timing measurements, attackers must use a clock, either an implicit or an explicit one. These clocks are usually interchangeable for the purposes of XS-Leaks and only vary in accuracy and availability. For simplicity, this article assumes the use of the performance."><meta property="og:type" content="article"><meta property="og:url" content="https://xsleaks.dev/docs/attacks/timing-attacks/network-timing/"><meta property="article:section" content="docs"><meta property="article:published_time" content="2020-10-01T00:00:00+00:00"><meta property="article:modified_time" content="2021-04-26T20:11:57+02:00"><title>Network Timing | XS-Leaks Wiki</title><link rel=manifest href=/manifest.json><link rel=icon href=/favicon.png type=image/x-icon><link rel=stylesheet href=/book.min.1c9a9009be3c645cbccbe64eb0a90e28621e4118971d9a502db4aaa9bec96cfc.css integrity="sha256-HJqQCb48ZFy8y+ZOsKkOKGIeQRiXHZpQLbSqqb7JbPw="><script defer src=/en.search.min.e27e25a227b69aebe2c822d3ee6e80c577ed4ed4b23af887f000c397a8931153.js integrity="sha256-4n4loie2muviyCLT7m6AxXftTtSyOviH8ADDl6iTEVM="></script>
+<script defer src=/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js integrity="sha256-b2+Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC+NdcPIvZhzk="></script></head><body><input type=checkbox class="hidden toggle" id=menu-control>
+<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><nav><h2 class=book-brand><a href=/><span>XS-Leaks Wiki</span></a></h2><div class=book-search><input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><ul><li class=book-section-flat><span>Attacks</span><ul><li><a href=/docs/attacks/xs-search/>XS-Search</a></li><li><a href=/docs/attacks/window-references/>Window References</a></li><li><a href=/docs/attacks/css-tricks/>CSS Tricks</a></li><li><a href=/docs/attacks/error-events/>Error Events</a></li><li><a href=/docs/attacks/frame-counting/>Frame Counting</a></li><li><a href=/docs/attacks/navigations/>Navigations</a></li><li><a href=/docs/attacks/cache-probing/>Cache Probing</a></li><li><a href=/docs/attacks/element-leaks/>Element leaks</a></li><li><a href=/docs/attacks/id-attribute/>ID Attribute</a></li><li><a href=/docs/attacks/postmessage-broadcasts/>postMessage Broadcasts</a></li><li><span>Browser Features</span><ul><li><a href=/docs/attacks/browser-features/corb/>CORB Leaks</a></li><li><a href=/docs/attacks/browser-features/corp/>CORP Leaks</a></li></ul></li><li><span>Timing Attacks</span><ul><li><a href=/docs/attacks/timing-attacks/clocks/>Clocks</a></li><li><a href=/docs/attacks/timing-attacks/network-timing/ class=active>Network Timing</a></li><li><a href=/docs/attacks/timing-attacks/performance-api/>Performance API</a></li><li><a href=/docs/attacks/timing-attacks/execution-timing/>Execution Timing</a></li><li><a href=/docs/attacks/timing-attacks/hybrid-timing/>Hybrid Timing</a></li><li><a href=/docs/attacks/timing-attacks/connection-pool/>Connection Pool</a></li></ul></li><li><a href=/docs/attacks/experiments/ class=collapsed>Experiments</a></li><li><a href=/docs/attacks/css-injection/>CSS Injection</a></li><li><a href=/docs/attacks/historical/ class=collapsed>Historical</a></li></ul></li><li class=book-section-flat><a href=/docs/defenses/>Defense Mechanisms</a><ul><li><a href=/docs/defenses/design-protections/>Application Design</a><ul><li><a href=/docs/defenses/design-protections/cache-protections/>Cache Protections</a></li><li><a href=/docs/defenses/design-protections/subresource-protections/>Subresource Protections</a></li></ul></li><li><a href=/docs/defenses/opt-in/>Opt-In Mechanisms</a><ul><li><a href=/docs/defenses/opt-in/fetch-metadata/>Fetch Metadata</a></li><li><a href=/docs/defenses/opt-in/coop/>Cross-Origin-Opener-Policy</a></li><li><a href=/docs/defenses/opt-in/corp/>Cross-Origin-Resource-Policy</a></li><li><a href=/docs/defenses/opt-in/xfo/>Framing Protections</a></li><li><a href=/docs/defenses/opt-in/same-site-cookies/>SameSite Cookies</a></li><li><a href=/docs/defenses/opt-in/document-policies/>Document Policies</a></li></ul></li><li><a href=/docs/defenses/isolation-policies/>Isolation Policies</a><ul><li><a href=/docs/defenses/isolation-policies/resource-isolation/>Resource Isolation Policy</a></li><li><a href=/docs/defenses/isolation-policies/framing-isolation/>Framing Isolation Policy</a></li><li><a href=/docs/defenses/isolation-policies/navigation-isolation/>Navigation Isolation Policy</a></li><li><a href=/docs/defenses/isolation-policies/strict-isolation/>Strict Isolation Policy</a></li></ul></li><li><a href=/docs/defenses/secure-defaults/>Secure Defaults</a><ul><li><a href=/docs/defenses/secure-defaults/corb/>Cross-Origin Read Blocking</a></li><li><a href=/docs/defenses/secure-defaults/partitioned-cache/>Partitioned HTTP Cache</a></li></ul></li></ul></li><li class=book-section-flat><a href=/docs/contributions/>Contributions</a><ul></ul></li></ul></nav><script>(function(){var e=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/svg/menu.svg class=book-icon alt=Menu></label>
 <strong>Network Timing</strong>
-<label for=toc-control>
-<img src=/svg/toc.svg class=book-icon alt="Table of Contents">
-</label>
-</div>
-<aside class="hidden clearfix">
-<nav id=TableOfContents>
-<ul>
-<li><a href=#modern-web-timing-attacks>Modern Web Timing Attacks</a></li>
-<li><a href=#onload-events>Onload events</a></li>
-<li><a href=#cross-window-timing-attacks>Cross-window Timing Attacks</a></li>
-<li><a href=#unload-events>Unload events</a></li>
-<li><a href=#sandboxed-frame-timing-attacks>Sandboxed Frame Timing Attacks</a></li>
-<li><a href=#timeless-timing-attacks>Timeless Timing Attacks</a></li>
-<li><a href=#defense>Defense</a></li>
-<li><a href=#references>References</a></li>
-</ul>
-</nav>
-</aside>
-</header>
-<article class=markdown>
-<h1>
-Network Timing
-</h1>
-<h5>October 1, 2020</h5>
-<div>
-Abuse
-<a href=/abuse/iframes/>iframes</a>
-</div>
-<div>
-Category
-<a href=/category/attack/>Attack</a>
-</div>
-<div>
-Defenses
+<label for=toc-control><img src=/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><a href=#modern-web-timing-attacks>Modern Web Timing Attacks</a></li><li><a href=#onload-events>Onload events</a></li><li><a href=#cross-window-timing-attacks>Cross-window Timing Attacks</a></li><li><a href=#unload-events>Unload events</a></li><li><a href=#sandboxed-frame-timing-attacks>Sandboxed Frame Timing Attacks</a></li><li><a href=#timeless-timing-attacks>Timeless Timing Attacks</a></li><li><a href=#defense>Defense</a></li><li><a href=#references>References</a></li></ul></nav></aside></header><article class=markdown><h1>Network Timing</h1><h5>October 1, 2020</h5><div>Abuse
+<a href=/abuse/iframes/>iframes</a></div><div>Category
+<a href=/category/attack/>Attack</a></div><div>Defenses
 <a href=/defenses/fetch-metadata/>Fetch Metadata</a>,
 <a href=/defenses/samesite-cookies/>SameSite Cookies</a>,
 <a href=/defenses/coop/>COOP</a>,
-<a href=/defenses/framing-protections/>Framing Protections</a>
-</div>
-<p><p>Network Timing side-channels have been present on the web since its inception <sup id=fnref:1><a href=#fn:1 class=footnote-ref role=doc-noteref>1</a></sup> <sup id=fnref:2><a href=#fn:2 class=footnote-ref role=doc-noteref>2</a></sup>. These attacks have had different levels of impact over time, gaining new attention when browsers started shipping high-precision timers like <a href=https://xsleaks.dev/docs/attacks/timing-attacks/clocks/#performancenow>performance.now()</a>.</p>
-<p>To obtain timing measurements, attackers must use a <a href=https://xsleaks.dev/docs/attacks/timing-attacks/clocks/>clock</a>, either an implicit or an explicit one. These clocks are usually interchangeable for the purposes of XS-Leaks and only vary in accuracy and availability. For simplicity, this article assumes the use of the <code>performance.now()</code> API, an explicit clock present in all modern browsers.</p>
-<p>This side-channel allows attackers to infer information from a cross-site request based on how much time it takes to complete that request <sup id=fnref:3><a href=#fn:3 class=footnote-ref role=doc-noteref>3</a></sup>. The network timing measurement may vary based on the user state and it&rsquo;s usually connected to the:</p>
-<ul>
-<li>Resource size.</li>
-<li>Computation time in the backend.</li>
-<li>Number and size of sub-resources.</li>
-<li><a href=https://xsleaks.dev/docs/attacks/cache-probing/>Cache status</a>.</li>
-</ul>
-<blockquote class="book-hint2 tip">
-<p class="hint-title tip">
-<svg class="book-icon"><use href="/svg/hint-icons.svg#tip-notice"/></svg><span>tip</span></p>
-Learn more about the different types of clocks in the <a href=https://xsleaks.dev/docs/attacks/timing-attacks/clocks/>Clocks article</a>.
-</blockquote>
-<h2 id=modern-web-timing-attacks>
-Modern Web Timing Attacks
-<a class=anchor href=#modern-web-timing-attacks>#</a>
-</h2>
-<p>The <a href=https://xsleaks.dev/docs/attacks/timing-attacks/clocks/#performancenow>performance.now()</a> API can be used to measure how much time it takes to perform a request:</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#6272a4>// Start the clock
-</span><span style=color:#6272a4></span><span style=color:#8be9fd;font-style:italic>var</span> start <span style=color:#ff79c6>=</span> performance.now()
-
-<span style=color:#6272a4>// Measure how long it takes to complete the fetch requests
-</span><span style=color:#6272a4></span>fetch(<span style=color:#f1fa8c>&#39;https://example.org&#39;</span>, {
-  mode<span style=color:#ff79c6>:</span> <span style=color:#f1fa8c>&#39;no-cors&#39;</span>,
-  credentials<span style=color:#ff79c6>:</span> <span style=color:#f1fa8c>&#39;include&#39;</span>
-}).then(() =&gt; {
-  <span style=color:#6272a4>// When fetch finishes, calculate the difference
-</span><span style=color:#6272a4></span>  <span style=color:#8be9fd;font-style:italic>var</span> time <span style=color:#ff79c6>=</span> performance.now() <span style=color:#ff79c6>-</span> start;
-  console.log(<span style=color:#f1fa8c>&#34;The request took %d ms.&#34;</span>, time);
-});
-</code></pre></div><h2 id=onload-events>
-Onload events
-<a class=anchor href=#onload-events>#</a>
-</h2>
-<p>A similar process can be used to measure how long it takes to fetch a resource by simply watching for an <code>onload</code> event:</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#6272a4>// Create a script element pointing to the page we want to time
-</span><span style=color:#6272a4></span><span style=color:#8be9fd;font-style:italic>var</span> script <span style=color:#ff79c6>=</span> <span style=color:#8be9fd;font-style:italic>document</span>.createElement(<span style=color:#f1fa8c>&#39;script&#39;</span>);
-script.src <span style=color:#ff79c6>=</span> <span style=color:#f1fa8c>&#34;https://example.org&#34;</span>;
-<span style=color:#8be9fd;font-style:italic>document</span>.body.appendChild(script);
-
-<span style=color:#6272a4>// Start the clock
-</span><span style=color:#6272a4></span><span style=color:#8be9fd;font-style:italic>var</span> start <span style=color:#ff79c6>=</span> performance.now();
-
-<span style=color:#6272a4>// When script loads, caculate the time it took to finish the request
-</span><span style=color:#6272a4></span>script.onload <span style=color:#ff79c6>=</span> () =&gt; {
-  <span style=color:#8be9fd;font-style:italic>var</span> time <span style=color:#ff79c6>=</span> performance.now() <span style=color:#ff79c6>-</span> start;
-  console.log(<span style=color:#f1fa8c>&#34;The request took %d ms.&#34;</span>, time)
-}
-</code></pre></div><p>
-<blockquote class="book-hint2 tip">
-<p class="hint-title tip">
-<svg class="book-icon"><use href="/svg/hint-icons.svg#tip-notice"/></svg><span>tip</span></p>
-A similar technique can be used for other HTML elements, e.g. <code>&lt;img></code>, <code>&lt;link></code>, or <code>&lt;iframe></code>, which could be used in scenarios where other techniques fail. For example, if <a href=https://xsleaks.dev/docs/defenses/opt-in/fetch-metadata/>Fetch Metadata</a> blocks loading a resource into a script tag, it may allow loading it into an image tag.
-</blockquote>
-<blockquote class="book-hint2 tip">
-<p class="hint-title tip">
-<svg class="book-icon"><use href="/svg/hint-icons.svg#tip-notice"/></svg><span>tip</span></p>
-An alternative way could be to use <code>image.complete</code> property. More information <a href=https://riccardomerlano.github.io/xs-leaks/cache-probing-through-image.complete-property/>here</a>.
-</blockquote>
-</p>
-<h2 id=cross-window-timing-attacks>
-Cross-window Timing Attacks
-<a class=anchor href=#cross-window-timing-attacks>#</a>
-</h2>
-<p>An attacker can also measure the network timing of a page by opening a new window with <code>window.open</code> and waiting for the <code>window</code> to start loading. The snippet below shows how to make this measurement:</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#6272a4>// Open a new window to measure when the iframe starts loading
-</span><span style=color:#6272a4></span><span style=color:#8be9fd;font-style:italic>var</span> win <span style=color:#ff79c6>=</span> <span style=color:#8be9fd;font-style:italic>window</span>.open(<span style=color:#f1fa8c>&#39;https://example.org&#39;</span>);
-<span style=color:#6272a4>// Measure the initial time
-</span><span style=color:#6272a4></span><span style=color:#8be9fd;font-style:italic>var</span> start <span style=color:#ff79c6>=</span> performance.now();
-<span style=color:#6272a4>// Define the loop
-</span><span style=color:#6272a4></span><span style=color:#8be9fd;font-style:italic>function</span> measure(){
-  <span style=color:#ff79c6>try</span>{
-    <span style=color:#6272a4>// If the page has loaded, then it will be on a different origin
-</span><span style=color:#6272a4></span>    <span style=color:#6272a4>// so `win.origin` will throw an exception
-</span><span style=color:#6272a4></span>    win.origin;
-    <span style=color:#6272a4>// If the window is still same-origin, immediately repeat the loop but
-</span><span style=color:#6272a4></span>    <span style=color:#6272a4>// without blocking the event loop
-</span><span style=color:#6272a4></span>    setTimeout(measure, <span style=color:#bd93f9>0</span>);
-  }<span style=color:#ff79c6>catch</span>(e){
-    <span style=color:#6272a4>// Once the window has loaded, calculate the time difference
-</span><span style=color:#6272a4></span>    <span style=color:#8be9fd;font-style:italic>var</span> time <span style=color:#ff79c6>=</span> performance.now() <span style=color:#ff79c6>-</span> start;
-    console.log(<span style=color:#f1fa8c>&#39;It took %d ms to load the window&#39;</span>, time);
-  }
-}
-<span style=color:#6272a4>// Initiate the loop that breaks when the window switches origins
-</span><span style=color:#6272a4></span>measure();
-</code></pre></div><p>
-<blockquote class="book-hint2 note">
-<p class="hint-title note">
-<svg class="book-icon"><use href="/svg/hint-icons.svg#note-notice"/></svg><span>note</span></p>
-Note that this POC uses <code>setTimeout</code> in order to create the rough equivalent of a <code>while(true)</code> loop. It is necessary to implement it in this way in order to avoid blocking the JS event loop.
-</blockquote>
-<blockquote class="book-hint2 tip">
-<p class="hint-title tip">
-<svg class="book-icon"><use href="/svg/hint-icons.svg#tip-notice"/></svg><span>tip</span></p>
-This technique can also be adapted to measure the Execution Timing of a page by <a href=https://xsleaks.dev/docs/attacks/timing-attacks/execution-timing/#busy-event-loop>making the event loop busy</a>.
-</blockquote>
-</p>
-<h2 id=unload-events>
-Unload events
-<a class=anchor href=#unload-events>#</a>
-</h2>
-<p>The <a href=https://developer.mozilla.org/en-US/docs/Web/API/Window/unload_event><code>unload</code></a> and <a href=https://developer.mozilla.org/en-US/docs/Web/API/Window/beforeunload_event><code>beforeunload</code></a> events can be used to measure the time it takes to fetch a resource. This works because <code>beforeunload</code> is triggered when the browser requests a new navigation request, while <code>unload</code> is triggered when that navigation actually occurs. Because of this behaviour, it is possible to calculate the time difference between these two events and measure the time it took the browser to complete fetching the resource.</p>
-<blockquote class="book-hint2 info">
-<p class="hint-title info">
-<svg class="book-icon"><use href="/svg/hint-icons.svg#info-notice"/></svg><span>info</span></p>
-The time difference between <code>unload</code> and <code>beforeunload</code> is not affected by the <code>x-frame-options</code> (XFO) header, because the event is triggered before the browser learns about the response headers.
-</blockquote>
-<p>The below snippet makes use of the <a href=https://xsleaks.dev/docs/attacks/timing-attacks/clocks/#sharedarraybuffer-and-web-workers>SharedArrayBuffer clock</a> which needs to be initiated before the snippet is ran:</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#6272a4>// Create a Shared buffer to be used by a WebWorker
-</span><span style=color:#6272a4></span><span style=color:#8be9fd;font-style:italic>var</span> sharedBuffer <span style=color:#ff79c6>=</span> <span style=color:#ff79c6>new</span> SharedArrayBuffer(Uint32Array.BYTES_PER_ELEMENT);
-<span style=color:#8be9fd;font-style:italic>var</span> sharedArray <span style=color:#ff79c6>=</span> <span style=color:#ff79c6>new</span> Uint32Array(sharedBuffer);
-
-<span style=color:#6272a4>// Follow the steps of initiating the WebWorker and then call
-</span><span style=color:#6272a4></span>worker.postMessage(sharedBuffer);
-
-<span style=color:#8be9fd;font-style:italic>var</span> start;
-iframe.contentWindow.onbeforeunload <span style=color:#ff79c6>=</span> () =&gt; {
-  <span style=color:#6272a4>// Get the &#34;time&#34; during the navigation
-</span><span style=color:#6272a4></span>  start <span style=color:#ff79c6>=</span> Atomics.load(sharedArray, <span style=color:#bd93f9>0</span>);
-}
-iframe.contentWindow.onpagehide <span style=color:#ff79c6>=</span> () =&gt; {
-  <span style=color:#6272a4>// Get the &#34;time&#34; after the navigation
-</span><span style=color:#6272a4></span>  <span style=color:#8be9fd;font-style:italic>var</span> end <span style=color:#ff79c6>=</span> Atomics.load(sharedArray, <span style=color:#bd93f9>0</span>);
-  console.log(<span style=color:#f1fa8c>&#39;The difference between events was %d iterations&#39;</span>, end <span style=color:#ff79c6>-</span> start);
-};
-</code></pre></div><p>
-<blockquote class="book-hint2 tip">
-<p class="hint-title tip">
-<svg class="book-icon"><use href="/svg/hint-icons.svg#tip-notice"/></svg><span>tip</span></p>
-The <a href=https://xsleaks.dev/docs/attacks/timing-attacks/clocks/#sharedarraybuffer-and-web-workers>SharedArrayBuffer clock</a> was used to create a high-resolution timer. However, the time difference between the <code>beforeunload</code> and <code>unload</code> events of iframes can be measured with other clocks as well, e.g. <em>performance.now()</em>.
-</blockquote>
-<blockquote class="book-hint2 tip">
-<p class="hint-title tip">
-<svg class="book-icon"><use href="/svg/hint-icons.svg#tip-notice"/></svg><span>tip</span></p>
-The presented snippet makes use of iframes to make the measurement. A variation of this attack can also use window references, which is harder to protect against.
-</blockquote>
-</p>
-<h2 id=sandboxed-frame-timing-attacks>
-Sandboxed Frame Timing Attacks
-<a class=anchor href=#sandboxed-frame-timing-attacks>#</a>
-</h2>
-<p>If a page doesn&rsquo;t have any <a href=https://xsleaks.dev/docs/defenses/opt-in/xfo/>Framing Protections</a> implemented, an attacker can time how long it takes for the page and all subresources to load over the network. By default, the <code>onload</code> handler for an iframe is invoked after all the resources have been loaded and all JavaScript has finished executing. But, an attacker can eliminate the noise of script execution by including the <a href=https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe><code>sandbox</code></a> attribute in the <code>&lt;iframe></code>. This attribute blocks a lot of features including JavaScript execution, which results in almost pure network measurement.</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#8be9fd;font-style:italic>var</span> iframe <span style=color:#ff79c6>=</span> <span style=color:#8be9fd;font-style:italic>document</span>.createElement(<span style=color:#f1fa8c>&#39;iframe&#39;</span>);
-<span style=color:#6272a4>// Set the URL of the destination website
-</span><span style=color:#6272a4></span>iframe.src <span style=color:#ff79c6>=</span> <span style=color:#f1fa8c>&#34;https://example.org&#34;</span>;
-<span style=color:#6272a4>// Set sandbox attribute to block script execution
-</span><span style=color:#6272a4></span>iframe.sandbox <span style=color:#ff79c6>=</span> <span style=color:#f1fa8c>&#34;&#34;</span>;
-<span style=color:#8be9fd;font-style:italic>document</span>.body.appendChild(iframe);
-
-<span style=color:#6272a4>// Measure the time before the request was initiated
-</span><span style=color:#6272a4></span><span style=color:#8be9fd;font-style:italic>var</span> start <span style=color:#ff79c6>=</span> performance.now();
-
-iframe.onload <span style=color:#ff79c6>=</span> () =&gt; {
-  <span style=color:#6272a4>// When iframe loads, calculate the time difference
-</span><span style=color:#6272a4></span>  <span style=color:#8be9fd;font-style:italic>var</span> time <span style=color:#ff79c6>=</span> performance.now() <span style=color:#ff79c6>-</span> start;
-  console.log(<span style=color:#f1fa8c>&#34;The iframe and subresources took %d ms to load.&#34;</span>, time)
-}
-</code></pre></div><h2 id=timeless-timing-attacks>
-Timeless Timing Attacks
-<a class=anchor href=#timeless-timing-attacks>#</a>
-</h2>
-<p>Other types of attacks do not consider the notion of time to perform a timing attack <sup id=fnref:4><a href=#fn:4 class=footnote-ref role=doc-noteref>4</a></sup>. Timeless attacks consist of fitting two <code>HTTP</code> requests (the baseline and the attacked request) in a single packet, to guarantee they arrive to the server at the same time. The server <em>will</em> process the requests concurrently, and return a response based on their execution time as soon as possible. One of the two requests will arrive first, allowing the attacker to infer the time difference by comparing the order in which the requests arrived.</p>
-<p>The advantage of this technique is the independence from network jitter and uncertain delays, something that is always present in the remaining techniques.</p>
-<blockquote class="book-hint2 important">
-<p class="hint-title important">
-<svg class="book-icon"><use href="/svg/hint-icons.svg#important-notice"/></svg><span>important</span></p>
-This attack is limited to specific versions of HTTP and joint scenarios. It makes certain assumptions and has requirements regarding server behavior.
-</blockquote>
-<h2 id=defense>
-Defense
-<a class=anchor href=#defense>#</a>
-</h2>
-<table>
-<thead>
-<tr>
-<th style=text-align:center>Attack Alternative</th>
-<th style=text-align:center><a href=https://xsleaks.dev/docs/defenses/opt-in/same-site-cookies/>SameSite Cookies (Lax)</a></th>
-<th style=text-align:center><a href=https://xsleaks.dev/docs/defenses/opt-in/coop/>COOP</a></th>
-<th style=text-align:center><a href=https://xsleaks.dev/docs/defenses/opt-in/xfo/>Framing Protections</a></th>
-<th style=text-align:center><a href=https://xsleaks.dev/docs/defenses/isolation-policies/>Isolation Policies</a></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style=text-align:center>Modern Timing Attacks</td>
-<td style=text-align:center>✔️</td>
-<td style=text-align:center>❌</td>
-<td style=text-align:center>❌</td>
-<td style=text-align:center><a href=https://xsleaks.dev/docs/defenses/isolation-policies/resource-isolation/>RIP</a> 🔗 <a href=https://xsleaks.dev/docs/defenses/isolation-policies/navigation-isolation/>NIP</a></td>
-</tr>
-<tr>
-<td style=text-align:center>Frame Timing (Network)</td>
-<td style=text-align:center>✔️</td>
-<td style=text-align:center>❌</td>
-<td style=text-align:center>❌</td>
-<td style=text-align:center><a href=https://xsleaks.dev/docs/defenses/isolation-policies/framing-isolation/>FIP</a></td>
-</tr>
-<tr>
-<td style=text-align:center>Frame Timing (Sandbox)</td>
-<td style=text-align:center>✔️</td>
-<td style=text-align:center>❌</td>
-<td style=text-align:center>❌</td>
-<td style=text-align:center><a href=https://xsleaks.dev/docs/defenses/isolation-policies/framing-isolation/>FIP</a></td>
-</tr>
-<tr>
-<td style=text-align:center>Cross-window Timing</td>
-<td style=text-align:center>❌</td>
-<td style=text-align:center>✔️</td>
-<td style=text-align:center>❌</td>
-<td style=text-align:center><a href=https://xsleaks.dev/docs/defenses/isolation-policies/navigation-isolation/>NIP</a></td>
-</tr>
-<tr>
-<td style=text-align:center>Timeless Timing</td>
-<td style=text-align:center>✔️</td>
-<td style=text-align:center>✔️</td>
-<td style=text-align:center>❌</td>
-<td style=text-align:center>❓</td>
-</tr>
-</tbody>
-</table>
-<p>🔗 – Defense mechanisms must be combined to be effective against different scenarios.</p>
-<h2 id=references>
-References
-<a class=anchor href=#references>#</a>
-</h2>
-<section class=footnotes role=doc-endnotes>
-<hr>
-<ol>
-<li id=fn:1 role=doc-endnote>
-<p>Exposing Private Information by Timing Web Applications, <a href=https://crypto.stanford.edu/~dabo/papers/webtiming.pdf>link</a>&#160;<a href=#fnref:1 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p>
-</li>
-<li id=fn:2 role=doc-endnote>
-<p>Cross-domain search timing, <a href=https://scarybeastsecurity.blogspot.com/2009/12/cross-domain-search-timing.html>link</a>&#160;<a href=#fnref:2 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p>
-</li>
-<li id=fn:3 role=doc-endnote>
-<p>The Clock is Still Ticking: Timing Attacks in the Modern Web - Section 4.3.3, <a href=https://tom.vg/papers/timing-attacks_ccs2015.pdf>link</a>&#160;<a href=#fnref:3 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p>
-</li>
-<li id=fn:4 role=doc-endnote>
-<p>Timeless Timing Attacks: Exploiting Concurrency to Leak Secrets over Remote Connections, <a href=https://www.usenix.org/system/files/sec20-van_goethem.pdf>link</a>&#160;<a href=#fnref:4 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p>
-</li>
-</ol>
-</section>
-</p>
-</article>
-<footer class=book-footer>
-<div class="flex flex-wrap justify-between">
-<div><a class="flex align-center" href=https://github.com/xsleaks/wiki/commit/5f52aa735b44097b80b4624aca9e2fc0212b0ccb title="Last modified by rick.titor | April 26, 2021" target=_blank rel=noopener>
-<img src=/svg/calendar.svg class=book-icon alt=Calendar>
-<span>Last Modified: April 26, 2021</span>
-</a>
-</div>
-<div>
-<a class="flex align-center" href=https://github.com/xsleaks/wiki/edit/master/content//docs/attacks/timing-attacks/network-timing.md target=_blank rel=noopener>
-<img src=/svg/edit.svg class=book-icon alt=Edit>
-<span>Edit this article</span>
-</a>
-</div>
-</div>
-</footer>
-<div class=book-comments>
-</div>
-<label for=menu-control class="hidden book-menu-overlay"></label>
-</div>
-<aside class=book-toc>
-<nav id=TableOfContents>
-<ul>
-<li><a href=#modern-web-timing-attacks>Modern Web Timing Attacks</a></li>
-<li><a href=#onload-events>Onload events</a></li>
-<li><a href=#cross-window-timing-attacks>Cross-window Timing Attacks</a></li>
-<li><a href=#unload-events>Unload events</a></li>
-<li><a href=#sandboxed-frame-timing-attacks>Sandboxed Frame Timing Attacks</a></li>
-<li><a href=#timeless-timing-attacks>Timeless Timing Attacks</a></li>
-<li><a href=#defense>Defense</a></li>
-<li><a href=#references>References</a></li>
-</ul>
-</nav>
-</aside>
-</main>
-</body>
-</html>
+<a href=/defenses/framing-protections/>Framing Protections</a></div><p><p>Network Timing side-channels have been present on the web since its inception <sup id=fnref:1><a href=#fn:1 class=footnote-ref role=doc-noteref>1</a></sup> <sup id=fnref:2><a href=#fn:2 class=footnote-ref role=doc-noteref>2</a></sup>. These attacks have had different levels of impact over time, gaining new attention when browsers started shipping high-precision timers like <a href=https://xsleaks.dev/docs/attacks/timing-attacks/clocks/#performancenow>performance.now()</a>.</p><p>To obtain timing measurements, attackers must use a <a href=https://xsleaks.dev/docs/attacks/timing-attacks/clocks/>clock</a>, either an implicit or an explicit one. These clocks are usually interchangeable for the purposes of XS-Leaks and only vary in accuracy and availability. For simplicity, this article assumes the use of the <code>performance.now()</code> API, an explicit clock present in all modern browsers.</p><p>This side-channel allows attackers to infer information from a cross-site request based on how much time it takes to complete that request <sup id=fnref:3><a href=#fn:3 class=footnote-ref role=doc-noteref>3</a></sup>. The network timing measurement may vary based on the user state and it&rsquo;s usually connected to the:</p><ul><li>Resource size.</li><li>Computation time in the backend.</li><li>Number and size of sub-resources.</li><li><a href=https://xsleaks.dev/docs/attacks/cache-probing/>Cache status</a>.</li></ul><blockquote class="book-hint2 tip"><p class="hint-title tip"><svg class="book-icon"><use href="/svg/hint-icons.svg#tip-notice"/></svg><span>tip</span></p>Learn more about the different types of clocks in the <a href=https://xsleaks.dev/docs/attacks/timing-attacks/clocks/>Clocks article</a>.</blockquote><h2 id=modern-web-timing-attacks>Modern Web Timing Attacks
+<a class=anchor href=#modern-web-timing-attacks>#</a></h2><p>The <a href=https://xsleaks.dev/docs/attacks/timing-attacks/clocks/#performancenow>performance.now()</a> API can be used to measure how much time it takes to perform a request:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#6272a4>// Start the clock
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span><span style=color:#8be9fd;font-style:italic>var</span> start <span style=color:#ff79c6>=</span> performance.now()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#6272a4>// Measure how long it takes to complete the fetch requests
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span>fetch(<span style=color:#f1fa8c>&#39;https://example.org&#39;</span>, {
+</span></span><span style=display:flex><span>  mode<span style=color:#ff79c6>:</span> <span style=color:#f1fa8c>&#39;no-cors&#39;</span>,
+</span></span><span style=display:flex><span>  credentials<span style=color:#ff79c6>:</span> <span style=color:#f1fa8c>&#39;include&#39;</span>
+</span></span><span style=display:flex><span>}).then(() =&gt; {
+</span></span><span style=display:flex><span>  <span style=color:#6272a4>// When fetch finishes, calculate the difference
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span>  <span style=color:#8be9fd;font-style:italic>var</span> time <span style=color:#ff79c6>=</span> performance.now() <span style=color:#ff79c6>-</span> start;
+</span></span><span style=display:flex><span>  console.log(<span style=color:#f1fa8c>&#34;The request took %d ms.&#34;</span>, time);
+</span></span><span style=display:flex><span>});
+</span></span></code></pre></div><h2 id=onload-events>Onload events
+<a class=anchor href=#onload-events>#</a></h2><p>A similar process can be used to measure how long it takes to fetch a resource by simply watching for an <code>onload</code> event:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#6272a4>// Create a script element pointing to the page we want to time
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span><span style=color:#8be9fd;font-style:italic>var</span> script <span style=color:#ff79c6>=</span> <span style=color:#8be9fd;font-style:italic>document</span>.createElement(<span style=color:#f1fa8c>&#39;script&#39;</span>);
+</span></span><span style=display:flex><span>script.src <span style=color:#ff79c6>=</span> <span style=color:#f1fa8c>&#34;https://example.org&#34;</span>;
+</span></span><span style=display:flex><span><span style=color:#8be9fd;font-style:italic>document</span>.body.appendChild(script);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#6272a4>// Start the clock
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span><span style=color:#8be9fd;font-style:italic>var</span> start <span style=color:#ff79c6>=</span> performance.now();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#6272a4>// When script loads, caculate the time it took to finish the request
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span>script.onload <span style=color:#ff79c6>=</span> () =&gt; {
+</span></span><span style=display:flex><span>  <span style=color:#8be9fd;font-style:italic>var</span> time <span style=color:#ff79c6>=</span> performance.now() <span style=color:#ff79c6>-</span> start;
+</span></span><span style=display:flex><span>  console.log(<span style=color:#f1fa8c>&#34;The request took %d ms.&#34;</span>, time)
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p><blockquote class="book-hint2 tip"><p class="hint-title tip"><svg class="book-icon"><use href="/svg/hint-icons.svg#tip-notice"/></svg><span>tip</span></p>A similar technique can be used for other HTML elements, e.g. <code>&lt;img></code>, <code>&lt;link></code>, or <code>&lt;iframe></code>, which could be used in scenarios where other techniques fail. For example, if <a href=https://xsleaks.dev/docs/defenses/opt-in/fetch-metadata/>Fetch Metadata</a> blocks loading a resource into a script tag, it may allow loading it into an image tag.</blockquote><blockquote class="book-hint2 tip"><p class="hint-title tip"><svg class="book-icon"><use href="/svg/hint-icons.svg#tip-notice"/></svg><span>tip</span></p>An alternative way could be to use <code>image.complete</code> property. More information <a href=https://riccardomerlano.github.io/xs-leaks/cache-probing-through-image.complete-property/>here</a>.</blockquote></p><h2 id=cross-window-timing-attacks>Cross-window Timing Attacks
+<a class=anchor href=#cross-window-timing-attacks>#</a></h2><p>An attacker can also measure the network timing of a page by opening a new window with <code>window.open</code> and waiting for the <code>window</code> to start loading. The snippet below shows how to make this measurement:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#6272a4>// Open a new window to measure when the iframe starts loading
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span><span style=color:#8be9fd;font-style:italic>var</span> win <span style=color:#ff79c6>=</span> <span style=color:#8be9fd;font-style:italic>window</span>.open(<span style=color:#f1fa8c>&#39;https://example.org&#39;</span>);
+</span></span><span style=display:flex><span><span style=color:#6272a4>// Measure the initial time
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span><span style=color:#8be9fd;font-style:italic>var</span> start <span style=color:#ff79c6>=</span> performance.now();
+</span></span><span style=display:flex><span><span style=color:#6272a4>// Define the loop
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span><span style=color:#8be9fd;font-style:italic>function</span> measure(){
+</span></span><span style=display:flex><span>  <span style=color:#ff79c6>try</span>{
+</span></span><span style=display:flex><span>    <span style=color:#6272a4>// If the page has loaded, then it will be on a different origin
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span>    <span style=color:#6272a4>// so `win.origin` will throw an exception
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span>    win.origin;
+</span></span><span style=display:flex><span>    <span style=color:#6272a4>// If the window is still same-origin, immediately repeat the loop but
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span>    <span style=color:#6272a4>// without blocking the event loop
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span>    setTimeout(measure, <span style=color:#bd93f9>0</span>);
+</span></span><span style=display:flex><span>  }<span style=color:#ff79c6>catch</span>(e){
+</span></span><span style=display:flex><span>    <span style=color:#6272a4>// Once the window has loaded, calculate the time difference
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span>    <span style=color:#8be9fd;font-style:italic>var</span> time <span style=color:#ff79c6>=</span> performance.now() <span style=color:#ff79c6>-</span> start;
+</span></span><span style=display:flex><span>    console.log(<span style=color:#f1fa8c>&#39;It took %d ms to load the window&#39;</span>, time);
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span><span style=color:#6272a4>// Initiate the loop that breaks when the window switches origins
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span>measure();
+</span></span></code></pre></div><p><blockquote class="book-hint2 note"><p class="hint-title note"><svg class="book-icon"><use href="/svg/hint-icons.svg#note-notice"/></svg><span>note</span></p>Note that this POC uses <code>setTimeout</code> in order to create the rough equivalent of a <code>while(true)</code> loop. It is necessary to implement it in this way in order to avoid blocking the JS event loop.</blockquote><blockquote class="book-hint2 tip"><p class="hint-title tip"><svg class="book-icon"><use href="/svg/hint-icons.svg#tip-notice"/></svg><span>tip</span></p>This technique can also be adapted to measure the Execution Timing of a page by <a href=https://xsleaks.dev/docs/attacks/timing-attacks/execution-timing/#busy-event-loop>making the event loop busy</a>.</blockquote></p><h2 id=unload-events>Unload events
+<a class=anchor href=#unload-events>#</a></h2><p>The <a href=https://developer.mozilla.org/en-US/docs/Web/API/Window/unload_event><code>unload</code></a> and <a href=https://developer.mozilla.org/en-US/docs/Web/API/Window/beforeunload_event><code>beforeunload</code></a> events can be used to measure the time it takes to fetch a resource. This works because <code>beforeunload</code> is triggered when the browser requests a new navigation request, while <code>unload</code> is triggered when that navigation actually occurs. Because of this behaviour, it is possible to calculate the time difference between these two events and measure the time it took the browser to complete fetching the resource.</p><blockquote class="book-hint2 info"><p class="hint-title info"><svg class="book-icon"><use href="/svg/hint-icons.svg#info-notice"/></svg><span>info</span></p>The time difference between <code>unload</code> and <code>beforeunload</code> is not affected by the <code>x-frame-options</code> (XFO) header, because the event is triggered before the browser learns about the response headers.</blockquote><p>The below snippet makes use of the <a href=https://xsleaks.dev/docs/attacks/timing-attacks/clocks/#sharedarraybuffer-and-web-workers>SharedArrayBuffer clock</a> which needs to be initiated before the snippet is ran:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#6272a4>// Create a Shared buffer to be used by a WebWorker
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span><span style=color:#8be9fd;font-style:italic>var</span> sharedBuffer <span style=color:#ff79c6>=</span> <span style=color:#ff79c6>new</span> SharedArrayBuffer(Uint32Array.BYTES_PER_ELEMENT);
+</span></span><span style=display:flex><span><span style=color:#8be9fd;font-style:italic>var</span> sharedArray <span style=color:#ff79c6>=</span> <span style=color:#ff79c6>new</span> Uint32Array(sharedBuffer);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#6272a4>// Follow the steps of initiating the WebWorker and then call
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span>worker.postMessage(sharedBuffer);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#8be9fd;font-style:italic>var</span> start;
+</span></span><span style=display:flex><span>iframe.contentWindow.onbeforeunload <span style=color:#ff79c6>=</span> () =&gt; {
+</span></span><span style=display:flex><span>  <span style=color:#6272a4>// Get the &#34;time&#34; during the navigation
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span>  start <span style=color:#ff79c6>=</span> Atomics.load(sharedArray, <span style=color:#bd93f9>0</span>);
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>iframe.contentWindow.onpagehide <span style=color:#ff79c6>=</span> () =&gt; {
+</span></span><span style=display:flex><span>  <span style=color:#6272a4>// Get the &#34;time&#34; after the navigation
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span>  <span style=color:#8be9fd;font-style:italic>var</span> end <span style=color:#ff79c6>=</span> Atomics.load(sharedArray, <span style=color:#bd93f9>0</span>);
+</span></span><span style=display:flex><span>  console.log(<span style=color:#f1fa8c>&#39;The difference between events was %d iterations&#39;</span>, end <span style=color:#ff79c6>-</span> start);
+</span></span><span style=display:flex><span>};
+</span></span></code></pre></div><p><blockquote class="book-hint2 tip"><p class="hint-title tip"><svg class="book-icon"><use href="/svg/hint-icons.svg#tip-notice"/></svg><span>tip</span></p>The <a href=https://xsleaks.dev/docs/attacks/timing-attacks/clocks/#sharedarraybuffer-and-web-workers>SharedArrayBuffer clock</a> was used to create a high-resolution timer. However, the time difference between the <code>beforeunload</code> and <code>unload</code> events of iframes can be measured with other clocks as well, e.g. <em>performance.now()</em>.</blockquote><blockquote class="book-hint2 tip"><p class="hint-title tip"><svg class="book-icon"><use href="/svg/hint-icons.svg#tip-notice"/></svg><span>tip</span></p>The presented snippet makes use of iframes to make the measurement. A variation of this attack can also use window references, which is harder to protect against.</blockquote></p><h2 id=sandboxed-frame-timing-attacks>Sandboxed Frame Timing Attacks
+<a class=anchor href=#sandboxed-frame-timing-attacks>#</a></h2><p>If a page doesn&rsquo;t have any <a href=https://xsleaks.dev/docs/defenses/opt-in/xfo/>Framing Protections</a> implemented, an attacker can time how long it takes for the page and all subresources to load over the network. By default, the <code>onload</code> handler for an iframe is invoked after all the resources have been loaded and all JavaScript has finished executing. But, an attacker can eliminate the noise of script execution by including the <a href=https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe><code>sandbox</code></a> attribute in the <code>&lt;iframe></code>. This attribute blocks a lot of features including JavaScript execution, which results in almost pure network measurement.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#8be9fd;font-style:italic>var</span> iframe <span style=color:#ff79c6>=</span> <span style=color:#8be9fd;font-style:italic>document</span>.createElement(<span style=color:#f1fa8c>&#39;iframe&#39;</span>);
+</span></span><span style=display:flex><span><span style=color:#6272a4>// Set the URL of the destination website
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span>iframe.src <span style=color:#ff79c6>=</span> <span style=color:#f1fa8c>&#34;https://example.org&#34;</span>;
+</span></span><span style=display:flex><span><span style=color:#6272a4>// Set sandbox attribute to block script execution
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span>iframe.sandbox <span style=color:#ff79c6>=</span> <span style=color:#f1fa8c>&#34;&#34;</span>;
+</span></span><span style=display:flex><span><span style=color:#8be9fd;font-style:italic>document</span>.body.appendChild(iframe);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#6272a4>// Measure the time before the request was initiated
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span><span style=color:#8be9fd;font-style:italic>var</span> start <span style=color:#ff79c6>=</span> performance.now();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>iframe.onload <span style=color:#ff79c6>=</span> () =&gt; {
+</span></span><span style=display:flex><span>  <span style=color:#6272a4>// When iframe loads, calculate the time difference
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span>  <span style=color:#8be9fd;font-style:italic>var</span> time <span style=color:#ff79c6>=</span> performance.now() <span style=color:#ff79c6>-</span> start;
+</span></span><span style=display:flex><span>  console.log(<span style=color:#f1fa8c>&#34;The iframe and subresources took %d ms to load.&#34;</span>, time)
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=timeless-timing-attacks>Timeless Timing Attacks
+<a class=anchor href=#timeless-timing-attacks>#</a></h2><p>Other types of attacks do not consider the notion of time to perform a timing attack <sup id=fnref:4><a href=#fn:4 class=footnote-ref role=doc-noteref>4</a></sup>. Timeless attacks consist of fitting two <code>HTTP</code> requests (the baseline and the attacked request) in a single packet, to guarantee they arrive to the server at the same time. The server <em>will</em> process the requests concurrently, and return a response based on their execution time as soon as possible. One of the two requests will arrive first, allowing the attacker to infer the time difference by comparing the order in which the requests arrived.</p><p>The advantage of this technique is the independence from network jitter and uncertain delays, something that is always present in the remaining techniques.</p><blockquote class="book-hint2 important"><p class="hint-title important"><svg class="book-icon"><use href="/svg/hint-icons.svg#important-notice"/></svg><span>important</span></p>This attack is limited to specific versions of HTTP and joint scenarios. It makes certain assumptions and has requirements regarding server behavior.</blockquote><h2 id=defense>Defense
+<a class=anchor href=#defense>#</a></h2><table><thead><tr><th style=text-align:center>Attack Alternative</th><th style=text-align:center><a href=https://xsleaks.dev/docs/defenses/opt-in/same-site-cookies/>SameSite Cookies (Lax)</a></th><th style=text-align:center><a href=https://xsleaks.dev/docs/defenses/opt-in/coop/>COOP</a></th><th style=text-align:center><a href=https://xsleaks.dev/docs/defenses/opt-in/xfo/>Framing Protections</a></th><th style=text-align:center><a href=https://xsleaks.dev/docs/defenses/isolation-policies/>Isolation Policies</a></th></tr></thead><tbody><tr><td style=text-align:center>Modern Timing Attacks</td><td style=text-align:center>✔️</td><td style=text-align:center>❌</td><td style=text-align:center>❌</td><td style=text-align:center><a href=https://xsleaks.dev/docs/defenses/isolation-policies/resource-isolation/>RIP</a> 🔗 <a href=https://xsleaks.dev/docs/defenses/isolation-policies/navigation-isolation/>NIP</a></td></tr><tr><td style=text-align:center>Frame Timing (Network)</td><td style=text-align:center>✔️</td><td style=text-align:center>❌</td><td style=text-align:center>❌</td><td style=text-align:center><a href=https://xsleaks.dev/docs/defenses/isolation-policies/framing-isolation/>FIP</a></td></tr><tr><td style=text-align:center>Frame Timing (Sandbox)</td><td style=text-align:center>✔️</td><td style=text-align:center>❌</td><td style=text-align:center>❌</td><td style=text-align:center><a href=https://xsleaks.dev/docs/defenses/isolation-policies/framing-isolation/>FIP</a></td></tr><tr><td style=text-align:center>Cross-window Timing</td><td style=text-align:center>❌</td><td style=text-align:center>✔️</td><td style=text-align:center>❌</td><td style=text-align:center><a href=https://xsleaks.dev/docs/defenses/isolation-policies/navigation-isolation/>NIP</a></td></tr><tr><td style=text-align:center>Timeless Timing</td><td style=text-align:center>✔️</td><td style=text-align:center>✔️</td><td style=text-align:center>❌</td><td style=text-align:center>❓</td></tr></tbody></table><p>🔗 – Defense mechanisms must be combined to be effective against different scenarios.</p><h2 id=references>References
+<a class=anchor href=#references>#</a></h2><div class=footnotes role=doc-endnotes><hr><ol><li id=fn:1><p>Exposing Private Information by Timing Web Applications, <a href=https://crypto.stanford.edu/~dabo/papers/webtiming.pdf>link</a>&#160;<a href=#fnref:1 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:2><p>Cross-domain search timing, <a href=https://scarybeastsecurity.blogspot.com/2009/12/cross-domain-search-timing.html>link</a>&#160;<a href=#fnref:2 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:3><p>The Clock is Still Ticking: Timing Attacks in the Modern Web - Section 4.3.3, <a href=https://tom.vg/papers/timing-attacks_ccs2015.pdf>link</a>&#160;<a href=#fnref:3 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:4><p>Timeless Timing Attacks: Exploiting Concurrency to Leak Secrets over Remote Connections, <a href=https://www.usenix.org/system/files/sec20-van_goethem.pdf>link</a>&#160;<a href=#fnref:4 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li></ol></div></p></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/xsleaks/wiki/commit/5f52aa735b44097b80b4624aca9e2fc0212b0ccb title='Last modified by rick.titor | April 26, 2021' target=_blank rel=noopener><img src=/svg/calendar.svg class=book-icon alt=Calendar>
+<span>Last Modified: April 26, 2021</span></a></div><div><a class="flex align-center" href=https://github.com/xsleaks/wiki/edit/master/content//docs/attacks/timing-attacks/network-timing.md target=_blank rel=noopener><img src=/svg/edit.svg class=book-icon alt=Edit>
+<span>Edit this article</span></a></div></div></footer><div class=book-comments></div><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><nav id=TableOfContents><ul><li><a href=#modern-web-timing-attacks>Modern Web Timing Attacks</a></li><li><a href=#onload-events>Onload events</a></li><li><a href=#cross-window-timing-attacks>Cross-window Timing Attacks</a></li><li><a href=#unload-events>Unload events</a></li><li><a href=#sandboxed-frame-timing-attacks>Sandboxed Frame Timing Attacks</a></li><li><a href=#timeless-timing-attacks>Timeless Timing Attacks</a></li><li><a href=#defense>Defense</a></li><li><a href=#references>References</a></li></ul></nav></aside></main></body></html>

