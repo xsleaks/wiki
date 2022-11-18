@@ -56,7 +56,7 @@ async function ifResticts(url, csp='default-src \'self\';') => {
 }
 ```
 {{< hint info >}}
-As of November 2021, Firefox doesn't support the csp attribute for an [iframe](https://developer.mozilla.org/en-US/docs/Web/API/HTMLIFrameElement/csp).
+As of November 2022, Firefox doesn't support the csp attribute for an [iframe](https://developer.mozilla.org/en-US/docs/Web/API/HTMLIFrameElement/csp).
 {{< /hint >}}
 
 
