@@ -80,6 +80,6 @@ The *Retrieving user's history* attack can be only prevented by the user. It can
 [^leak-1]: Whack a mole game, [link](https://lcamtuf.coredump.cx/whack/)  
 [^changes-1]: Privacy and the :visited selector, [link](https://developer.mozilla.org/en-US/docs/Web/CSS/Privacy_and_the_:visited_selector)  
 [^blend-mode]: CSS mix-blend-mode is bad for your browsing history, [link](https://lcamtuf.blogspot.com/2016/08/css-mix-blend-mode-is-bad-for-keeping.html)  
-[^render-timings]: Pixel Perfect Timing Attacks with HTML5, [link](https://go.contextis.com/rs/140-OCV-459/images/Pixel_Perfect_Timing_Attacks_with_HTML5_Whitepaper%20%281%29.pdf)  
+[^render-timings]: Pixel Perfect Timing Attacks with HTML5, [link](https://owasp.org/www-pdf-archive/HackPra_Allstars-Browser_Timing_Attacks_-_Paul_Stone.pdf)  
 [^render-timings-bug]: Visited links can be detected via redraw timing, [link](https://bugs.chromium.org/p/chromium/issues/detail?id=252165)
 [^leak-2]: The Human Side Channel, [link](https://ronmasas.com/posts/the-human-side-channel)  
