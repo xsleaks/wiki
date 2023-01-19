@@ -73,10 +73,10 @@ A custom cursor might not leak data directly but it may help trick the user, as 
 ```
 
 ## Defense
-XFO prevents embeds from being attacked because there's no visual difference as the content does not get shown.
+[XFO]({{< ref "/docs/defenses/opt-in/xfo.md" >}}) prevents embeds from being attacked because there's no visual difference as the content does not get shown.
 The *Retrieving user's history* attack can only be prevented by the user.
 This can be done by disabling the browser history, or if on Firefox, by setting the option `layout.css.visited_links_enabled` to `false` in `about:config` panel.  
-| [SameSite Cookies (Lax)]({{< ref "/docs/defenses/opt-in/same-site-cookies.md" >}}) | [COOP]({{< ref "/docs/defenses/opt-in/coop.md" >}}) | [XFO]({{< ref "/docs/defenses/opt-in/xfo.md" >}}) |                  [Isolation Policies]({{< ref "/docs/defenses/isolation-policies" >}})                   |
+| [SameSite Cookies (Lax)]({{< ref "/docs/defenses/opt-in/same-site-cookies.md" >}}) | [COOP]({{< ref "/docs/defenses/opt-in/coop.md" >}}) | [Framing Protections]({{< ref "/docs/defenses/opt-in/xfo.md" >}}) |                  [Isolation Policies]({{< ref "/docs/defenses/isolation-policies" >}})                   |
 | :--------------------------------------------------------------------------------: | :-------------------------------------------------: | :---------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------: |
 |                                         ❌                                          |                          ❌                          |                                 ✔️                                 | ❌  |
 ## References
