@@ -29,7 +29,7 @@ There is no clear solution to mitigate this XS-Leak as it depends deeply on the 
 
 To reduce the attack surface, reject untrusted message events by comparing `.origin` to a list of trusted origins.
 By applying sandbox restrictions `window.origin` maybe 'null' which can't be trusted so use `window.location.origin` instead.
-When checking the .source of a message to an iframes `.contentWindow` make sure it's not 'null'.
+When checking the `.source` of a message to an iframes `.contentWindow` make sure it's not 'null'.
 This can happen when chrome reaches the maximum per tab limit of 1000 iframes.
 
 ## References
