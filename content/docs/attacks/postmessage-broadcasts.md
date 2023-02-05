@@ -28,7 +28,7 @@ Applications often use [postMessage broadcasts](https://developer.mozilla.org/en
 There is no clear solution to mitigate this XS-Leak as it depends deeply on the purpose of sending a postMessage broadcast. Applications should limit postMessage communications to a group of known origins. When this is not possible, the communications should behave consistently regardless of the state to prevent attackers from inferring information based on differences between the communications.
 
 To reduce the attack surface, reject untrusted message events by comparing `.origin` to a list of trusted origins.
-By applying sandbox restrictions `window.origin` maybe 'null' which can't be trusted so use window.location.origin instead.
+By applying sandbox restrictions `window.origin` maybe 'null' which can't be trusted so use `window.location.origin` instead.
 When checking the .source of a message to an iframes `.contentWindow` make sure it's not 'null'.
 This can happen when chrome reaches the maximum per tab limit of 1000 iframes.
 
