@@ -129,14 +129,22 @@ When a page initiates a chain of 3XX redirects, browsers limit the maximum numbe
 
 If performed in a top window, this also works with SameSite lax cookies and other cross-site protections, such as [Framing Isolation Policy]({{< ref "/docs/defenses/isolation-policies/framing-isolation" >}}) or [Resource Isolation Policy]({{< ref "/docs/defenses/isolation-policies/resource-isolation" >}}). [Run demo](https://xsinator.com/testing.html#Max%20Redirect%20Leak)
 
-
-### Inflation
+### Inflation (Server-Side Errors)
 
 A server-side redirect can be detected from a cross-origin page if the destination URL increases in size and contains an attacker-controlled input (either in the form of a query string parameter or a path). The following technique relies on the fact that it is possible to induce an error in most web-servers by generating large request parameters/paths. Since the redirect increases the size of the URL, it can be detected by sending exactly one character less than the server's maximum capacity. That way, if the size increases, the server will respond with an error that can be detected from a cross-origin page (e.g. via Error Events).
 
 {{< hint example >}}
 An example of this attack can be seen [here](https://xsleaks.github.io/xsleaks/examples/redirect/).
 {{< /hint >}}
+
+### Inflation (Client-Side Errors)
+
+Most browsers have a maximum permitted URL length, above which the navigation will be aborted. For example, Chrome limits URLs to a maximum length of 2MB [^chrome-maxlength]. When this limit is exceeded, the browser may exhibit behavior that can be detected from a cross-origin page.
+
+{{< hint example >}}
+Chrome will navigate to an `about:blank` page if the URL length is exceeded. An attacker can use this behavior to detect if a redirect occurred by checking if the page is still on the same origin.
+{{< /hint >}}
+
 ## Cross-Origin Redirects
 
 ### CSP Violations
@@ -243,7 +251,8 @@ Partitioned HTTP Cache Bypass can be prevented using the header `Vary: Sec-Fetch
 |          Download bar           |                                         ✔️                                          |                          ❌                          |                  ❌{{< katex>}}^{1}{{< /katex >}}                  |                                       [NIP]({{< ref "/docs/defenses/isolation-policies/navigation-isolation" >}})                                       |
 |  Download Navigation (iframes)  |                                         ✔️                                          |                          ❌                          |                  ❌{{< katex>}}^{1}{{< /katex >}}                  |                                        [FIP]({{< ref "/docs/defenses/isolation-policies/framing-isolation" >}})                                         |
 |  Download Navigation (windows)  |                                         ❌                                          |           ❌{{< katex>}}^{1}{{< /katex >}}           |                                 ❌                                 |                                       [NIP]({{< ref "/docs/defenses/isolation-policies/navigation-isolation" >}})                                       |
-|            Inflation            |                                         ✔️                                          |                          ❌                          |                                 ❌                                 |                                        [RIP]({{< ref "/docs/defenses/isolation-policies/resource-isolation" >}})                                        |
+|  Inflation (Server-Side Errors) |                                         ✔️                                          |                          ❌                          |                                 ❌                                 |                                        [RIP]({{< ref "/docs/defenses/isolation-policies/resource-isolation" >}})                                        |
+|  Inflation (Client-Side Errors) |                                         ❌                                          |                          ❌                          |                                 ❌                                 |                                       [NIP]({{< ref "/docs/defenses/isolation-policies/navigation-isolation" >}})                                       |
 |         CSP Violations          |            ❌{{< katex>}}^{2}{{< /katex >}}                                        |                          ❌                          |                                 ❌                                 | [RIP]({{< ref "/docs/defenses/isolation-policies/resource-isolation" >}}) 🔗 [NIP]({{< ref "/docs/defenses/isolation-policies/navigation-isolation" >}}) |
 
 🔗 – Defense mechanisms must be combined to be effective against different scenarios.
@@ -264,3 +273,4 @@ A vulnerability reported to Twitter used this technique to leak the contents of 
 [^cache-bypass]: [github.com/xsleaks/wiki/pull/106](https://github.com/xsleaks/wiki/pull/106)
 [^spec-redirects]: HTTP-redirect fetch, [link](https://fetch.spec.whatwg.org/#http-redirect-fetch)
 [^redirect-leak]: XS-Leaks in redirect flows, [link](https://docs.google.com/presentation/d/1rlnxXUYHY9CHgCMckZsCGH4VopLo4DYMvAcOltma0og)
+[^chrome-maxlength]: Chromium Docs - Guidelines for URL Display, [link](https://chromium.googlesource.com/chromium/src/+/main/docs/security/url_display_guidelines/url_display_guidelines.md)
