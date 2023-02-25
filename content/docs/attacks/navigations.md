@@ -139,10 +139,12 @@ An example of this attack can be seen [here](https://xsleaks.github.io/xsleaks/e
 
 ### Inflation (Client-Side Errors)
 
-Most browsers have a maximum permitted URL length, above which the navigation will be aborted. For example, Chrome limits URLs to a maximum length of 2MB [^chrome-maxlength]. When this limit is exceeded, the browser may exhibit behavior that can be detected from a cross-origin page.
+Most browsers have a maximum permitted URL length, above which the navigation will be aborted. For example, Chrome limits URLs to a maximum length of 2MB [^chrome-maxlength]. When this limit is exceeded, the browser may exhibit behavior that can be detected from a cross-origin page. The exact URL length limit and oracle behavior depends on the browser.
+
+When requesting a URL with a fragment, the fragment is preserved on server redirects. For example, if `//example.org` redirects to `//example.org/redirected`, the browser will navigate to `//example.org/redirected#fragment` when `//example.org#fragment` is requested. This allows an attacker to artificially inflate the URL length by adding a large fragment to the URL so that it is exactly one character less than the maximum permitted length.
 
 {{< hint example >}}
-Chrome will navigate to an `about:blank` page if the URL length is exceeded. An attacker can use this behavior to detect if a redirect occurred by checking if the page is still on the same origin.
+Chrome will navigate to an `about:blank` page if the URL length is exceeded. An attacker can detect whether a redirect occurred by checking if the page is still on the same origin.
 {{< /hint >}}
 
 ## Cross-Origin Redirects
