@@ -77,7 +77,7 @@ Some examples of frame counting attacks are:
 
 A vulnerability reported to Facebook used this technique to leak user-related information such as specific content published in posts, religious information about friends, or photo locations[^1].
 
-A vulnerability reported to GitHub showcase how your private repositories could have been exposed[^2].
+A vulnerability on GitHub demonstrates how private repositories could have been exposed using this technique as well.[^2].
 
 ## References
 
