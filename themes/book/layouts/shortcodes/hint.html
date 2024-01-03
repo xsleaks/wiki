@@ -8,10 +8,10 @@
       <svg class="book-icon">
         <use href="/svg/hint-icons.svg#{{- $replaced -}}-notice"></use>
       </svg><span>{{ $replaced }}</span></p>
-    {{ .Inner | markdownify }}
+    {{ replace (replace (trim .Inner "\r\n" | .Page.RenderString) "*/&gt;" "&gt;") "&lt;/*" "&lt;" | safeHTML }}
   </blockquote>
 {{ else }}
   <blockquote class="book-hint {{ .Get 0 }}">
-    {{ .Inner | markdownify }}
+    {{ replace (replace (trim .Inner "\r\n" | .Page.RenderString) "*/&gt;" "&gt;") "&lt;/*" "&lt;" | safeHTML }}
   </blockquote>
 {{ end }}
