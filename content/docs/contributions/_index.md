@@ -47,27 +47,27 @@ We use the [Hugo Book Theme](https://themes.gohugo.io/hugo-book/) with custom mo
 We modified the default [Hints](https://themes.gohugo.io/theme/hugo-book/docs/shortcodes/hints/) used by the theme; the modified boxes are listed below:
 
 {{< hint info >}}
-This is an *Info* box for the `{{</* hint info */>}}` shortcode.
+This is an *Info* box for the `{{</*/* hint info */*/>}}` shortcode.
 {{< /hint >}}
 
 {{< hint note >}}
-This is a *Note* box for the `{{</* hint note */>}}` shortcode.
+This is a *Note* box for the `{{</*/* hint note */*/>}}` shortcode.
 {{< /hint >}}
 
 {{< hint example >}}
-This is an *Example* box for the `{{</* hint example */>}}` shortcode.
+This is an *Example* box for the `{{</*/* hint example */*/>}}` shortcode.
 {{< /hint >}}
 
 {{< hint tip >}}
-This is a *Tip* box for the `{{</* hint tip */>}}` shortcode.
+This is a *Tip* box for the `{{</*/* hint tip */*/>}}` shortcode.
 {{< /hint >}}
 
 {{< hint important >}}
-This is an *Important* box for the `{{</* hint important */>}}` shortcode.
+This is an *Important* box for the `{{</*/* hint important */*/>}}` shortcode.
 {{< /hint >}}
 
 {{< hint warning >}}
-This is a *Warning* box for the `{{</* hint warning */>}}` shortcode.
+This is a *Warning* box for the `{{</*/* hint warning */*/>}}` shortcode.
 {{< /hint >}}
 
 ### Original style
@@ -75,7 +75,7 @@ The original hint style can be used by adding a third parameter, `noTitle`, to t
 
 {{< hint example noTitle>}}
 
-`{{</* hint example noTitle */>}}`
+`{{</*/* hint example noTitle */*/>}}`
 
 {{< /hint >}}
 
@@ -88,7 +88,7 @@ We would like to thank the following users who [contributed](https://github.com/
 [NDevTK](https://github.com/NDevTK), [1lastBr3ath](https://twitter.com/1lastBr3ath),
 [Brasco](https://github.com/Brasco/), [rick.titor](https://github.com/riccardomerlano),
 [Chris Fredrickson](https://github.com/cfredric/), [jub0bs](https://github.com/jub0bs),
-[Zeyu (Zayne) Zhang](https://github.com/zeyu2001)
+[Zeyu (Zayne) Zhang](https://github.com/zeyu2001), [Aaron Shim](https://github.com/aaronshim),
 
 In addition, we would also like to acknowledge the users who [contributed](https://github.com/xsleaks/xsleaks/wiki/Browser-Side-Channels/_history) to the predecessor of the current XS-Leaks wiki:
 
