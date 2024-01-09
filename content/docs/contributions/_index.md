@@ -88,7 +88,8 @@ We would like to thank the following users who [contributed](https://github.com/
 [NDevTK](https://github.com/NDevTK), [1lastBr3ath](https://twitter.com/1lastBr3ath),
 [Brasco](https://github.com/Brasco/), [rick.titor](https://github.com/riccardomerlano),
 [Chris Fredrickson](https://github.com/cfredric/), [jub0bs](https://github.com/jub0bs),
-[Zeyu (Zayne) Zhang](https://github.com/zeyu2001), [Aaron Shim](https://github.com/aaronshim),
+[Zeyu (Zayne) Zhang](https://github.com/zeyu2001), [Medi](https://twitter.com/medi_0ne), 
+[Aaron Shim](https://github.com/aaronshim)
 
 In addition, we would also like to acknowledge the users who [contributed](https://github.com/xsleaks/xsleaks/wiki/Browser-Side-Channels/_history) to the predecessor of the current XS-Leaks wiki:
 
