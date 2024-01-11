@@ -24,10 +24,17 @@ Previously it was possible to use [`getComputedStyle()`](https://developer.mozil
 So, it may be needed to trick the user into clicking an area that the CSS has affected.
 This can be done using [`mix-blend-mode`](https://developer.mozilla.org/en-US/docs/Web/CSS/mix-blend-mode). [^blend-mode]   
 There are also ways to do it without user interaction such as by abusing render timings.
-This works because it takes time to paint links a different color. [^render-timings]  
-A PoC was provided on a chromium report that works by using multiple links to increase the time difference. [^render-timings-bug]
-{{< hint info >}} [^leak-1] shows an example of this attack using a whack a mole game to trick the user into clicking areas of the page.
-Multiple bugs were reported about this issue: [^bug-1](https://bugs.chromium.org/p/chromium/issues/detail?id=712246), [^bug-2](https://bugs.chromium.org/p/chromium/issues/detail?id=713521), [^bug-3](https://bugzilla.mozilla.org/show_bug.cgi?id=147777){{< /hint >}}
+This works because it takes time to paint links in a different color. [^render-timings]  
+A Proof of Concept to this attack can be found in a Chromium report [^render-timings-bug] and it works by having multiple links to increase the time difference.
+
+{{< hint info >}} 
+This issue has been known for years and there are multiple open bugs to be fixed in multiple browsers [^bug-1] [^bug-2] [^bug-3]. There are also publicily available proof of concepts, e.g. Whack a mole game [^whack-a-mole] that requires user interaction for a successful leak.
+
+[^whack-a-mole]: Whack a mole game, [link](https://lcamtuf.coredump.cx/whack/)
+[^bug-1]: Issue 712246: Security: CSS :visited with mix-blend-mode can leak browser history, [link](https://crbug.com/712246)
+[^bug-2]: Issue 713521: Eliminate :visited privacy issues once and for all, [link](https://crbug.com/713521)
+[^bug-3]: :visited support allows queries into global history, [link](https://bugzilla.mozilla.org/show_bug.cgi?id=147777)
+{{< /hint >}}
 
 ## Evil Captcha
 Using CSS, it’s possible to take an embed out of context.  
@@ -79,8 +86,7 @@ This can be done by disabling the browser history, or if on Firefox, by setting 
 | [SameSite Cookies (Lax)]({{< ref "/docs/defenses/opt-in/same-site-cookies.md" >}}) | [COOP]({{< ref "/docs/defenses/opt-in/coop.md" >}}) | [Framing Protections]({{< ref "/docs/defenses/opt-in/xfo.md" >}}) |                  [Isolation Policies]({{< ref "/docs/defenses/isolation-policies" >}})                   |
 | :--------------------------------------------------------------------------------: | :-------------------------------------------------: | :---------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------: |
 |                                         ❌                                          |                          ❌                          |                                 ✔️                                 | ❌  |
-## References
-[^leak-1]: Whack a mole game, [link](https://lcamtuf.coredump.cx/whack/)  
+## References 
 [^changes-1]: Privacy and the :visited selector, [link](https://developer.mozilla.org/en-US/docs/Web/CSS/Privacy_and_the_:visited_selector)  
 [^blend-mode]: CSS mix-blend-mode is bad for your browsing history, [link](https://lcamtuf.blogspot.com/2016/08/css-mix-blend-mode-is-bad-for-keeping.html)  
 [^render-timings]: Pixel Perfect Timing Attacks with HTML5, [link](https://owasp.org/www-pdf-archive/HackPra_Allstars-Browser_Timing_Attacks_-_Paul_Stone.pdf)  
