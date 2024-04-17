@@ -79,10 +79,6 @@ The original hint style can be used by adding a third parameter, `noTitle`, to t
 
 {{< /hint >}}
 
-## Unofficial Discord server for XS-Leaks enthusiasts
-If you’re interested in discussing new, old, or existing XS-Leaks, or simply staying up to date with the community, consider joining the unofficial Discord server maintained by our contributors.
-{{< discord title="904747277938225173" >}}
-
 ## Acknowledgements
 
 We would like to thank the following users who [contributed](https://github.com/xsleaks/wiki/graphs/contributors) to this XS-Leaks wiki:
@@ -103,3 +99,7 @@ In addition, we would also like to acknowledge the users who [contributed](https
 [Masato Kinugawa](https://github.com/masatokinugawa), [sroettger](https://github.com/sroettger)
 
 And finally, our thanks go to all other amazing researchers that participate in sharing and exploring the depths of XS-Leaks!
+
+## Unofficial Discord server for XS-Leaks enthusiasts
+If you’re interested in discussing new, old, or existing XS-Leaks, or simply staying up to date with the community, consider joining the unofficial Discord server maintained by our contributors.
+{{< discord title="904747277938225173" >}}
