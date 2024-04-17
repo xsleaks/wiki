@@ -80,8 +80,8 @@ The original hint style can be used by adding a third parameter, `noTitle`, to t
 {{< /hint >}}
 
 ## Unofficial Discord server for XS-Leaks enthusiasts
-
-<iframe src="https://discord.com/widget?id=904747277938225173&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+If you’re interested in discussing new, old, or existing XS-Leaks, or simply staying up to date with the community, consider joining the unofficial Discord server maintained by our contributors.
+{{< discord title="904747277938225173" >}}
 
 ## Acknowledgements
 
