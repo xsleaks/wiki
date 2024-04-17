@@ -79,6 +79,10 @@ The original hint style can be used by adding a third parameter, `noTitle`, to t
 
 {{< /hint >}}
 
+## Unofficial Discord server for XS-Leaks enthusiasts
+
+<iframe src="https://discord.com/widget?id=904747277938225173&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+
 ## Acknowledgements
 
 We would like to thank the following users who [contributed](https://github.com/xsleaks/wiki/graphs/contributors) to this XS-Leaks wiki:
