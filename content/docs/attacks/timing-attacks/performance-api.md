@@ -68,7 +68,7 @@ await isFrameBlocked('https://example.org');
 # Detecting cached resources
 
 With the `performance` API it is possible to detect whether a resource was cached or not.
-Unless [Cross-Origin Read Blocking]({{< ref "../../defenses/secure-defaults/corb.md" >}}) is triggered (resource is html) the resource will get cached in the processs of the check.  [Run demo](https://xsinator.com/testing.html#Duration%20Redirect%20Leak)
+Unless [Cross-Origin Read Blocking]({{< ref "../../defenses/secure-defaults/corb.md" >}}) is triggered (resource is html) the resource will get cached in the process of the check.  [Run demo](https://xsinator.com/testing.html#Duration%20Redirect%20Leak)
 ```javascript
 async function ifCached2(url) {
     let href = new URL(url).href;
