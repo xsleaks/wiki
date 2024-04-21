@@ -20,7 +20,7 @@ CSS can be used to trick a user into exposing information such as embedded pixel
 
 ## Retrieving user's history
 Using the CSS [`:visited`](https://developer.mozilla.org/en-US/docs/Web/CSS/:visited) selector, it’s possible to apply a different style for URLs that have been visited.  
-Previously it was possible to use [`getComputedStyle()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle) to detect this difference, but now browsers prevent this by always returing values as if the link was visted and limiting what styles can be applyed using the selector. [^changes-1]   
+Previously it was possible to use [`getComputedStyle()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle) to detect this difference, but now browsers prevent this by always returning values as if the link was visited and limiting what styles can be applied using the selector. [^changes-1]   
 So, it may be needed to trick the user into clicking an area that the CSS has affected.
 This can be done using [`mix-blend-mode`](https://developer.mozilla.org/en-US/docs/Web/CSS/mix-blend-mode). [^blend-mode]   
 There are also ways to do it without user interaction such as by abusing render timings.
@@ -32,8 +32,8 @@ Multiple bugs were reported about this issue: [^bug-1](https://bugs.chromium.org
 ## Evil Captcha
 Using CSS, it’s possible to take an embed out of context.  
 An example of this is pretending it’s a captcha as seen in [^leak-2]  
-This works by setting the width and hight of an embed so that only the target characters are shown,
-this may use multiple embeds to change the order of the characters being displayed so that its harder for a user to know what infomation they're providing.
+This works by setting the width and height of an embed so that only the target characters are shown,
+this may use multiple embeds to change the order of the characters being displayed so that its harder for a user to know what information they're providing.
 
 ## Abusing autocomplete
 If a website uses text inputs and does not opt-out of [autocomplete](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete) using ```autocomplete="off"``` it may be possible to leak data such as email addresses by tricking the user into pressing the keys to navigate the autocomplete UI for a javascript focused text input.

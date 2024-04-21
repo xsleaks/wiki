@@ -60,7 +60,7 @@ It's also possible to remove resources from cache without server errors. For exa
 
 ## CORS error on Origin Reflection misconfiguration
 
-Origin reflection is a behavior in which a globally accessible resource is provided with a [Access-Control-Allow-Orign (ACAO)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin) header whose value reflects the origin that initialized the request. This can be considered as CORS misconfiguration [^5] and can be used to detect whether the resource exists in the browser cache.
+Origin reflection is a behavior in which a globally accessible resource is provided with a [Access-Control-Allow-Origin (ACAO)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin) header whose value reflects the origin that initialized the request. This can be considered as CORS misconfiguration [^5] and can be used to detect whether the resource exists in the browser cache.
 
 {{< hint info >}} 
 For example, Flask framework [promotes](https://flask-cors.readthedocs.io/en/latest/api.htm) origin reflection as the default behavior.
@@ -68,7 +68,7 @@ For example, Flask framework [promotes](https://flask-cors.readthedocs.io/en/lat
 
 If a resource hosted on `server.com` is requested from `target.com` then the origin could be reflected in the response headers as: `Access-Control-Allow-Origin: target.com`. If the resource is cached, this information is stored together with the resource in the browser cache. With that, if `attacker.com` tries to fetch the same resource there are two possible scenarios:
 - The resource is not in cache: the resource could be fetched and stored together with the `Access-Control-Allow-Origin: attacker.com` header.
-- The resource was already in cache: fetch attempt will try to fetch the resource from the cache but it will also generate a CORS error due to the ACAO header value mismatch with the requesting origin (`target.com` origin was expected but `attacker.com` was provided). Here below is provided an example code snippet epxloting this vulnerability to infer the cache status of the victim's browser. [Run demo](https://xsinator.com/testing.html#Cache%20Leak%20(CORS))
+- The resource was already in cache: fetch attempt will try to fetch the resource from the cache but it will also generate a CORS error due to the ACAO header value mismatch with the requesting origin (`target.com` origin was expected but `attacker.com` was provided). Here below is provided an example code snippet exploiting this vulnerability to infer the cache status of the victim's browser. [Run demo](https://xsinator.com/testing.html#Cache%20Leak%20(CORS))
 ```javascript
 // The function simply takes a url and fetches it in CORS mode.
 // If the fetch raises an error, it will be a CORS error due to the 

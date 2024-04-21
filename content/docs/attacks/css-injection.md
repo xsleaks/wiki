@@ -26,8 +26,8 @@ Larger text dimensions can result in the scroll bar being shown,
 This scroll bar can have a custom style such as `background: url()` so that it makes a request to an attacker-controlled server when shown. [^3]
 
 ## Defense
-- Put attacker controled content in its own document this can be done using a iframe with the srcdoc attribute.
-Optionaly include the sandbox attbute to isolate the content into its own origin.
+- Put attacker controlled content in its own document this can be done using a iframe with the srcdoc attribute.
+Optionally include the sandbox attribute to isolate the content into its own origin.
 - Use a CSS inliner so global styles get converted.
 
 | [SameSite Cookies (Lax)]({{< ref "/docs/defenses/opt-in/same-site-cookies.md" >}}) | [COOP]({{< ref "/docs/defenses/opt-in/coop.md" >}}) | [Framing Protections]({{< ref "/docs/defenses/opt-in/xfo.md" >}}) |                  [Isolation Policies]({{< ref "/docs/defenses/isolation-policies" >}})                   |
