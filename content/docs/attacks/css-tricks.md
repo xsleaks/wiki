@@ -20,7 +20,7 @@ CSS can be used to trick a user into exposing information such as embedded pixel
 
 ## Retrieving user's history
 Using the CSS [`:visited`](https://developer.mozilla.org/en-US/docs/Web/CSS/:visited) selector, it’s possible to apply a different style for URLs that have been visited.  
-Previously it was possible to use [`getComputedStyle()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle) to detect this difference, but now browsers prevent this by always returing values as if the link was visted and limiting what styles can be applyed using the selector. [^changes-1]   
+Previously it was possible to use [`getComputedStyle()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle) to detect this difference, but now browsers prevent this by always returning values as if the link was visited and limiting what styles can be applied using the selector. [^changes-1]   
 So, it may be needed to trick the user into clicking an area that the CSS has affected.
 This can be done using [`mix-blend-mode`](https://developer.mozilla.org/en-US/docs/Web/CSS/mix-blend-mode). [^blend-mode]   
 There are also ways to do it without user interaction such as by abusing render timings.
