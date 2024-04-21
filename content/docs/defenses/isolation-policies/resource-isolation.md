@@ -12,7 +12,7 @@ Resource Isolation Policy prevents external websites from requesting your resour
 
 ## Implementation with Fetch Metadata
 
-The below snippet showcases an example implemention of the Resource Isolation Policy with the use of [Fetch Metadata]({{< ref "../opt-in/fetch-metadata.md">}}) headers:
+The below snippet showcases an example implementation of the Resource Isolation Policy with the use of [Fetch Metadata]({{< ref "../opt-in/fetch-metadata.md">}}) headers:
 
 ```py
 # Reject cross-origin requests to protect from , XSSI, XS-Leaks, and other bugs
