@@ -60,7 +60,7 @@ It's also possible to remove resources from cache without server errors. For exa
 
 ## CORS error on Origin Reflection misconfiguration
 
-Origin reflection is a behavior in which a globally accessible resource is provided with a [Access-Control-Allow-Orign (ACAO)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin) header whose value reflects the origin that initialized the request. This can be considered as CORS misconfiguration [^5] and can be used to detect whether the resource exists in the browser cache.
+Origin reflection is a behavior in which a globally accessible resource is provided with a [Access-Control-Allow-Origin (ACAO)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin) header whose value reflects the origin that initialized the request. This can be considered as CORS misconfiguration [^5] and can be used to detect whether the resource exists in the browser cache.
 
 {{< hint info >}} 
 For example, Flask framework [promotes](https://flask-cors.readthedocs.io/en/latest/api.htm) origin reflection as the default behavior.
