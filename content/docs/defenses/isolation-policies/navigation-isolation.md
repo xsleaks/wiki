@@ -16,7 +16,7 @@ Instead of rejecting all cross-site interactions, the user could be prompted to 
 
 ## Implementation with Fetch Metadata
 
-The below snippet showcases an example implemention of the Navigation Isolation Policy with the use of [Fetch Metadata]({{< ref "../opt-in/fetch-metadata.md">}}) headers [^secmetadata]:
+The below snippet showcases an example implementation of the Navigation Isolation Policy with the use of [Fetch Metadata]({{< ref "../opt-in/fetch-metadata.md">}}) headers [^secmetadata]:
 
 ```py
 # Reject cross-site requests to protect from clickjacking, XS-Leaks, and other bugs
