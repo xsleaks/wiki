@@ -37,7 +37,7 @@ When an endpoint sets the [`Content-Disposition: attachment`](https://developer.
 
 ### Download bar
 
-In Chromium-based browsers, when a file is downloaded, a preview of the download process appears in a bar at the bottom, integrated into the browser window. By monitoring the window height, attackers can detect whether the "download bar" opened:
+When a file is downloaded, a preview of the download process may appear in a bar at the bottom, integrated into the browser window. By monitoring the window height, attackers can detect whether the "download bar" opened:
 
 
 ```javascript
@@ -57,7 +57,7 @@ setTimeout(() => {
 ```
 
 {{< hint important >}}
-This attack is only possible in Chromium-based browsers with automatic downloads enabled. In addition, the attack can't be repeated since the user needs to close the download bar for it to be measurable again.
+This attack is only possible in browsers with automatic downloads enabled. In addition, the attack can't be repeated since the user needs to close the download bar for it to be measurable again.
 {{< /hint >}}
 
 ### Download Navigation (with iframes)
