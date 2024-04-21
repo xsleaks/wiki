@@ -32,7 +32,7 @@ Multiple bugs were reported about this issue: [^bug-1](https://bugs.chromium.org
 ## Evil Captcha
 Using CSS, it’s possible to take an embed out of context.  
 An example of this is pretending it’s a captcha as seen in [^leak-2]  
-This works by setting the width and hight of an embed so that only the target characters are shown,
+This works by setting the width and height of an embed so that only the target characters are shown,
 this may use multiple embeds to change the order of the characters being displayed so that its harder for a user to know what information they're providing.
 
 ## Abusing autocomplete
