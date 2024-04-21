@@ -174,3 +174,5 @@ naïve
 unviable
 iframe
 onload
+referer
+framable
