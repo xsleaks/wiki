@@ -60,7 +60,7 @@ setTimeout(() => {
 This attack is only possible in Chromium-based browsers with automatic downloads enabled. In addition, the attack can't be repeated since the user needs to close the download bar for it to be measurable again.
 {{< /hint >}}
 
-### Download Navigation (with iframes)
+### Download Navigation (without Lax cookies)
 
 Another way to test for the [`Content-Disposition: attachment`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition) header is to check if a navigation occurred. If a page load causes a download, it does not trigger a navigation and the window stays within the same origin. [Run demo](https://xsinator.com/testing.html#Download%20Detection)
 
@@ -96,15 +96,22 @@ When there is no navigation inside an `iframe` caused by a download attempt, the
 This attack works regardless of any [Framing Protections]({{< ref "xfo" >}}), because the `X-Frame-Options` and `Content-Security-Policy` headers are ignored if `Content-Disposition: attachment` is specified.
 {{< /hint >}}
 
-### Download Navigation (without iframes)
+### Download Navigation (with Lax cookies)
 
 A variation of the technique presented in the previous section can also be effectively tested using `window` objects:
 
 ```javascript
 // Set the destination URL
 var url = 'https://example.org';
+
+// Don't actually download the file to be stealthy
+var iframe = document.createElement('iframe');
+iframe.sandbox = 'allow-scripts allow-same-origin allow-popups';
+document.body.appendChild(iframe);
+openSandboxed = iframe.contentWindow.open;
+
 // Get a window reference
-var win = window.open(url);
+var win = window.openSandboxed(url);
 
 // Wait for the window to load.
 setTimeout(() => {
