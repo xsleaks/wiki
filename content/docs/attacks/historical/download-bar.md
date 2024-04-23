@@ -36,4 +36,4 @@ This attack was only possible in Chromium-based browsers with automatic download
 {{< /hint >}}
 
 ### Fix
-Chromium moved away from a downloads bar, They explain why in the blog post [Redesigning Chrome downloads](https://blog.chromium.org/2023/08/redesigning-chrome-downloads-to-keep.html) it helps create a clearer separation of trusted browser UI from web content among other reasons.
+Chromium moved away from a download bar, They explain why in the blog post [Redesigning Chrome downloads](https://blog.chromium.org/2023/08/redesigning-chrome-downloads-to-keep.html) it helps create a clearer separation of trusted browser UI from web content among other reasons.
