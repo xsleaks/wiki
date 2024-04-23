@@ -12,7 +12,7 @@ defenses = [
 menu = "main"
 +++
 
-In Chromium-based browsers, when a file is downloaded, a preview of the download process appeared in a bar at the bottom, integrated into the browser window. By monitoring the window height, attackers could detect whether the "download bar" opened:
+In Chromium-based browsers, when a file was downloaded, a preview of the download process appeared in a bar at the bottom, integrated into the browser window. By monitoring the window height, attackers could detect whether the "download bar" opened:
 
 
 ```javascript
