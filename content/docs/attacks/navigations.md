@@ -83,7 +83,7 @@ var url = 'https://example.org';
 var iframe = document.createElement('iframe');
 iframe.sandbox = 'allow-scripts allow-same-origin allow-popups';
 document.body.appendChild(iframe);
-openSandboxed = iframe.contentWindow.open;
+var openSandboxed = iframe.contentWindow.open;
 
 // Get a window reference
 var win = window.openSandboxed(url);
