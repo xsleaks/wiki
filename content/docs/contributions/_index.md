@@ -99,3 +99,6 @@ In addition, we would also like to acknowledge the users who [contributed](https
 [Masato Kinugawa](https://github.com/masatokinugawa), [sroettger](https://github.com/sroettger)
 
 And finally, our thanks go to all other amazing researchers that participate in sharing and exploring the depths of XS-Leaks!
+
+## Unofficial Discord server for XS-Leaks enthusiasts
+If you’re interested in discussing new, old, or existing XS-Leaks, or simply staying up to date with the community, consider joining the unofficial [Discord server](https://discord.com/invite/w3SV2zP6mz) maintained by our contributors.

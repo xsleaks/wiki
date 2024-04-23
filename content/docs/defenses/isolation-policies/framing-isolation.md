@@ -22,7 +22,7 @@ When deployed together with [Resource Isolation Policy]({{< ref "resource-isolat
 
 ## Implementation with Fetch Metadata
 
-The below snippet showcases an example implemention of the Framing Isolation Policy by an application:
+The below snippet showcases an example implementation of the Framing Isolation Policy by an application:
 
 ```py
 # Reject cross-site requests to protect from CSRF, XSSI, XS-Leaks, and other bugs

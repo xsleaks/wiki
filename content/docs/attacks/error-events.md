@@ -48,7 +48,7 @@ probeError('https://google.com/');
 
 ## Defense
 
-The mitigation of this XS-Leak often varies depending on how applications handle certain resources. The general approach is to adopt consistent behaviors whereever possible. In specific scenarios, applications might use [Subresource Protections]({{< ref "/docs/defenses/design-protections/subresource-protections.md" >}}) to prevent attackers from predicting a URL and going forward with an attack.
+The mitigation of this XS-Leak often varies depending on how applications handle certain resources. The general approach is to adopt consistent behaviors wherever possible. In specific scenarios, applications might use [Subresource Protections]({{< ref "/docs/defenses/design-protections/subresource-protections.md" >}}) to prevent attackers from predicting a URL and going forward with an attack.
 
 Finally, without applying bigger changes in the logic of applications, generic web platform security features can be deployed to mitigate this XS-Leak at a larger scale.
 
