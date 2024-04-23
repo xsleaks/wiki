@@ -35,31 +35,6 @@ To detect if any kind of navigation occurred, an attacker can:
 
 When an endpoint sets the [`Content-Disposition: attachment`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition) header, it instructs the browser to download the response as an attachment instead of navigating to it. Detecting if this behavior occurred might allow attackers to leak private information if the outcome depends on the state of the victim's account.
 
-### Download bar
-
-In Chromium-based browsers, when a file is downloaded, a preview of the download process appears in a bar at the bottom, integrated into the browser window. By monitoring the window height, attackers can detect whether the "download bar" opened:
-
-
-```javascript
-// Read the current height of the window
-var screenHeight = window.innerHeight;
-// Load the page that may or may not trigger the download
-window.open('https://example.org');
-// Wait for the tab to load
-setTimeout(() => {
-    // If the download bar appears, the height of all tabs will be smaller
-    if (window.innerHeight < screenHeight) {
-      console.log('Download bar detected');
-    } else {
-      console.log('Download bar not detected');
-    }
-}, 2000);
-```
-
-{{< hint important >}}
-This attack is only possible in Chromium-based browsers with automatic downloads enabled. In addition, the attack can't be repeated since the user needs to close the download bar for it to be measurable again.
-{{< /hint >}}
-
 ### Download Navigation (without Lax cookies)
 
 Another way to test for the [`Content-Disposition: attachment`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition) header is to check if a navigation occurred. If a page load causes a download, it does not trigger a navigation and the window stays within the same origin. [Run demo](https://xsinator.com/testing.html#Download%20Detection)
