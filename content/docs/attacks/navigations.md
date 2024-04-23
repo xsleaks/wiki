@@ -71,6 +71,8 @@ The following snippet can be used to detect whether such a navigation has occurr
 var url = 'https://example.org/';
 // Create an outer iframe to measure onload event
 var iframe = document.createElement('iframe');
+// Don't actually download the file to be stealthy
+iframe.sandbox = 'allow-scripts allow-same-origin';
 document.body.appendChild(iframe);
 // Create an inner iframe to test for the download attempt
 iframe.srcdoc = `<iframe src="${url}" ></iframe>`;
