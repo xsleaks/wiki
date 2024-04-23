@@ -79,7 +79,6 @@ A variation of the technique presented in the previous section can also be effec
 ```javascript
 // Set the destination URL
 var url = 'https://example.org';
-
 // Get a window reference
 var win = window.open(url);
 
