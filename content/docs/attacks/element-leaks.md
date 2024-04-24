@@ -90,20 +90,22 @@ Chrome also implements the PDF scripting API that can be used to confirm if the 
 ```javascript
 async function isPDF(URL) {
     // Open to target
-    let w = open(URL);
+    let iframe = document.createElement('iframe');
+    iframe.src = URL;
+    document.body.appendChild(iframe);
     // Wait about 1.5 secounds to let the page load.
     await new Promise(resolve => setTimeout(resolve, 1500));
     // For Chrome a window opened to a pdf will always be 1.
-    if (window.length !== 1) return false;
+    if (iframe.contentWindow.length !== 1) return false;
     let pdf;
     window.addEventListener("message", e => {
         // Detect if received a message from the Chrome PDF viewer.
         if (e.origin === 'chrome-extension://mhjfbmdgcfjbbpaeojofohoefgiehjai') pdf = true;
     });
     // Needed to start getting messages from the Chrome PDF viewer.
-    w[0].postMessage("initialize", "*");
+    iframe.contentWindow[0].postMessage("initialize", "*");
     // Wait for response from the Chrome PDF viewer.
-    await new Promise(resolve => setTimeout(resolve, 5));
+    await new Promise(resolve => setTimeout(resolve, 1500));
     return pdf;
 }
 ```
@@ -148,4 +150,4 @@ The below code embeds `//example.org/404` and if it responds with *Error* then a
 [^fallback]: HTML Standard, [3.2.5.2.6 Embedded content], [link](https://html.spec.whatwg.org/multipage/dom.html#fallback-content)  
 [^leaky-images]: Leaky Images: Targeted Privacy Attacks in the Web, [3.4 Linking User Identities], [link](https://www.usenix.org/system/files/sec19fall_staicu_prepub.pdf)  
 [^xsleaks-nojs]: [https://twitter.com/terjanq/status/1180477124861407234](https://twitter.com/terjanq/status/1180477124861407234)  
-[^pdf-api]: pdf_scripting_api.js, [link](https://source.chromium.org/chromium/chromium/src/+/main:chrome/browser/resources/pdf/pdf_scripting_api.js)  
+[^pdf-api]: pdf_viewer.ts, [link](https://source.chromium.org/chromium/chromium/src/+/main:chrome/browser/resources/pdf/pdf_viewer.ts)  
