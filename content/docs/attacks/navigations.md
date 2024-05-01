@@ -35,7 +35,7 @@ To detect if any kind of navigation occurred, an attacker can:
 
 When an endpoint sets the [`Content-Disposition: attachment`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition) header, it instructs the browser to download the response as an attachment instead of navigating to it. Detecting if this behavior occurred might allow attackers to leak private information if the outcome depends on the state of the victim's account.
 
-### Download Navigation (with iframes)
+### Download Navigation (without Lax cookies)
 
 Another way to test for the [`Content-Disposition: attachment`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition) header is to check if a navigation occurred. If a page load causes a download, it does not trigger a navigation and the window stays within the same origin. [Run demo](https://xsinator.com/testing.html#Download%20Detection)
 
@@ -47,7 +47,6 @@ var url = 'https://example.org/';
 // Create an outer iframe to measure onload event
 var iframe = document.createElement('iframe');
 // Don't actually download the file to be stealthy
-// Using window.open from this sandbox will also not download the file.
 iframe.sandbox = 'allow-scripts allow-same-origin allow-popups';
 document.body.appendChild(iframe);
 // Create an inner iframe to test for the download attempt
@@ -72,15 +71,21 @@ When there is no navigation inside an `iframe` caused by a download attempt, the
 This attack works regardless of any [Framing Protections]({{< ref "xfo" >}}), because the `X-Frame-Options` and `Content-Security-Policy` headers are ignored if `Content-Disposition: attachment` is specified.
 {{< /hint >}}
 
-### Download Navigation (without iframes)
+### Download Navigation (with Lax cookies)
 
 A variation of the technique presented in the previous section can also be effectively tested using `window` objects:
 
 ```javascript
 // Set the destination URL
 var url = 'https://example.org';
+
+// Don't actually download the file to be stealthy
+var iframe = document.createElement('iframe');
+iframe.sandbox = 'allow-scripts allow-same-origin allow-popups';
+document.body.appendChild(iframe);
+
 // Get a window reference
-var win = window.open(url);
+var win = iframe.contentWindow.open(url);
 
 // Wait for the window to load.
 setTimeout(() => {
