@@ -73,7 +73,7 @@ This attack works regardless of any [Framing Protections]({{< ref "xfo" >}}), be
 
 ### Download Navigation (without iframes)
 
-A variation of the technique presented in the previous section can also be effectively tested using `window` objects, this also uses a sandboxed iframe to prevent a visable file download:
+A variation of the technique presented in the previous section can also be effectively tested using `window` objects, this also uses a sandboxed iframe to prevent a visible file download or prompt:
 
 ```javascript
 // Set the destination URL
