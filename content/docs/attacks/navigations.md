@@ -35,7 +35,7 @@ To detect if any kind of navigation occurred, an attacker can:
 
 When an endpoint sets the [`Content-Disposition: attachment`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition) header, it instructs the browser to download the response as an attachment instead of navigating to it. Detecting if this behavior occurred might allow attackers to leak private information if the outcome depends on the state of the victim's account.
 
-### Download Navigation (without Lax cookies)
+### Download Navigation (with iframes)
 
 Another way to test for the [`Content-Disposition: attachment`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition) header is to check if a navigation occurred. If a page load causes a download, it does not trigger a navigation and the window stays within the same origin. [Run demo](https://xsinator.com/testing.html#Download%20Detection)
 
@@ -71,7 +71,7 @@ When there is no navigation inside an `iframe` caused by a download attempt, the
 This attack works regardless of any [Framing Protections]({{< ref "xfo" >}}), because the `X-Frame-Options` and `Content-Security-Policy` headers are ignored if `Content-Disposition: attachment` is specified.
 {{< /hint >}}
 
-### Download Navigation (with Lax cookies)
+### Download Navigation (without iframes)
 
 A variation of the technique presented in the previous section can also be effectively tested using `window` objects:
 
