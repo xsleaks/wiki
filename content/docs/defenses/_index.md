@@ -40,4 +40,4 @@ Secure defaults are amazing! They can help protect applications and users withou
 
 ## References
 
-[^1]: Google Bughunter University - XSLeaks and XS-Search, [link](https://sites.google.com/site/bughunteruniversity/nonvuln/xsleaks)
+[^1]: Google Bughunter University - XSLeaks and XS-Search, [link](https://bughunters.google.com/learn/invalid-reports/web-platform/xsleaks/5022006283862016/xsleaks-and-xs-search)
