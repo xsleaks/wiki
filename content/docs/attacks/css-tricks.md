@@ -29,6 +29,10 @@ A PoC was provided on a chromium report that works by using multiple links to in
 {{< hint info >}} [^leak-1] shows an example of this attack using a whack a mole game to trick the user into clicking areas of the page.
 Multiple bugs were reported about this issue: [^bug-1](https://bugs.chromium.org/p/chromium/issues/detail?id=712246), [^bug-2](https://bugs.chromium.org/p/chromium/issues/detail?id=713521), [^bug-3](https://bugzilla.mozilla.org/show_bug.cgi?id=147777){{< /hint >}}
 
+These bypasses provide a way to detect the status code of a response. Chromium-based browsers will only save OK response (eg. 200) to the user's history, but won't add error response codes (eg. 404). By visiting the target URL in a popup window, it will then either be saved to the history or not depending on the status code. After then inserting it on your page with `<a href="...">`, it is possible to use one of the manual or automatic techniques described above to leak whether this URL was saved to the history or not.
+
+In some XS-Search scenario's, a search with no results will return a 404 error. Cookies marked `SameSite=Lax` will be sent in popup windows, and this technique allows such scenarios to be exploited. [^exploit-1]
+
 ## Evil Captcha
 Using CSS, it’s possible to take an embed out of context.  
 An example of this is pretending it’s a captcha as seen in [^leak-2]  
@@ -76,13 +80,14 @@ A custom cursor might not leak data directly but it may help trick the user, as 
 [XFO]({{< ref "/docs/defenses/opt-in/xfo.md" >}}) prevents embeds from being attacked because there's no visual difference as the content does not get shown.
 The *Retrieving user's history* attack can only be prevented by the user.
 This can be done by disabling the browser history, or if on Firefox, by setting the option `layout.css.visited_links_enabled` to `false` in `about:config` panel.  
-| [SameSite Cookies (Lax)]({{< ref "/docs/defenses/opt-in/same-site-cookies.md" >}}) | [COOP]({{< ref "/docs/defenses/opt-in/coop.md" >}}) | [Framing Protections]({{< ref "/docs/defenses/opt-in/xfo.md" >}}) |                  [Isolation Policies]({{< ref "/docs/defenses/isolation-policies" >}})                   |
-| :--------------------------------------------------------------------------------: | :-------------------------------------------------: | :---------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------: |
-|                                         ❌                                          |                          ❌                          |                                 ✔️                                 | ❌  |
+| [SameSite Cookies (Lax)]({{< ref "/docs/defenses/opt-in/same-site-cookies.md" >}}) | [COOP]({{< ref "/docs/defenses/opt-in/coop.md" >}}) | [Framing Protections]({{< ref "/docs/defenses/opt-in/xfo.md" >}}) | [Isolation Policies]({{< ref "/docs/defenses/isolation-policies" >}}) |
+| :--------------------------------------------------------------------------------: | :-------------------------------------------------: | :---------------------------------------------------------------: | :-------------------------------------------------------------------: |
+|                                         ❌                                          |                          ❌                          |                                 ✔️                                 |                                   ❌                                   |
 ## References
 [^leak-1]: Whack a mole game, [link](https://lcamtuf.coredump.cx/whack/)  
 [^changes-1]: Privacy and the :visited selector, [link](https://developer.mozilla.org/en-US/docs/Web/CSS/Privacy_and_the_:visited_selector)  
 [^blend-mode]: CSS mix-blend-mode is bad for your browsing history, [link](https://lcamtuf.blogspot.com/2016/08/css-mix-blend-mode-is-bad-for-keeping.html)  
 [^render-timings]: Pixel Perfect Timing Attacks with HTML5, [link](https://owasp.org/www-pdf-archive/HackPra_Allstars-Browser_Timing_Attacks_-_Paul_Stone.pdf)  
+[^exploit-1]: XS-Leaking flags with CSS: A CTFd 0day, [link](https://jorianwoltjer.com/blog/p/hacking/xs-leaking-flags-with-css-a-ctfd-0day)  
 [^render-timings-bug]: Visited links can be detected via redraw timing, [link](https://bugs.chromium.org/p/chromium/issues/detail?id=252165)
 [^leak-2]: The Human Side Channel, [link](https://ronmasas.com/posts/the-human-side-channel)  
