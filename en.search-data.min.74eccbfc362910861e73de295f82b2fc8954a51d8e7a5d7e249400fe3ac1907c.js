@@ -59,9 +59,15 @@ SameSite Cookies (Lax) COOP Framing Protections Isolation Policies ✔️ ❌ �
 Retrieving user&rsquo;s history # Using the CSS :visited selector, it’s possible to apply a different style for URLs that have been visited.
 Previously it was possible to use getComputedStyle() to detect this difference, but now browsers prevent this by always returning values as if the link was visited and limiting what styles can be applied using the selector. 1
 So, it may be needed to trick the user into clicking an area that the CSS has affected. This can be done using mix-blend-mode. 2
-There are also ways to do it without user interaction such as by abusing render timings. This works because it takes time to paint links a different color. 3
-A PoC was provided on a chromium report that works by using multiple links to increase the time difference. 4 info
-[^leak-1] shows an example of this attack using a whack a mole game to trick the user into clicking areas of the page. Multiple bugs were reported about this issue: ^bug-1, ^bug-2, ^bug-3 Evil Captcha # Using CSS, it’s possible to take an embed out of context.
+There are also ways to do it without user interaction such as by abusing render timings. This works because it takes time to paint links in a different color. 3
+A Proof of Concept to this attack can be found in a Chromium report 4 and it works by having multiple links to increase the time difference.
+info
+This issue has been known for years and there are multiple open bugs to be fixed in multiple browsers 1 2 3. There are also publicily available proof of concepts, e.g. Whack a mole game 4 that requires user interaction for a successful leak.
+Issue 712246: Security: CSS :visited with mix-blend-mode can leak browser history, link&#160;&#x21a9;&#xfe0e;
+Issue 713521: Eliminate :visited privacy issues once and for all, link&#160;&#x21a9;&#xfe0e;
+:visited support allows queries into global history, link&#160;&#x21a9;&#xfe0e;
+Whack a mole game, link&#160;&#x21a9;&#xfe0e;
+Evil Captcha # Using CSS, it’s possible to take an embed out of context.
 An example of this is pretending it’s a captcha as seen in 5
 This works by setting the width and height of an embed so that only the target characters are shown, this may use multiple embeds to change the order of the characters being displayed so that its harder for a user to know what information they&rsquo;re providing.
 Abusing autocomplete # If a website uses text inputs and does not opt-out of autocomplete using autocomplete=&quot;off&quot; it may be possible to leak data such as email addresses by tricking the user into pressing the keys to navigate the autocomplete UI for a javascript focused text input. For Chrome, this requires the user to be tricked into pressing the Up or Down arrow key which opens the dialog and selects a value, then by pressing Enter or Tab the value gets inserted into the page.
