@@ -24,10 +24,17 @@ Previously it was possible to use [`getComputedStyle()`](https://developer.mozil
 So, it may be needed to trick the user into clicking an area that the CSS has affected.
 This can be done using [`mix-blend-mode`](https://developer.mozilla.org/en-US/docs/Web/CSS/mix-blend-mode). [^blend-mode]   
 There are also ways to do it without user interaction such as by abusing render timings.
-This works because it takes time to paint links a different color. [^render-timings]  
-A PoC was provided on a chromium report that works by using multiple links to increase the time difference. [^render-timings-bug]
-{{< hint info >}} [^leak-1] shows an example of this attack using a whack a mole game to trick the user into clicking areas of the page.
-Multiple bugs were reported about this issue: [^bug-1](https://bugs.chromium.org/p/chromium/issues/detail?id=712246), [^bug-2](https://bugs.chromium.org/p/chromium/issues/detail?id=713521), [^bug-3](https://bugzilla.mozilla.org/show_bug.cgi?id=147777){{< /hint >}}
+This works because it takes time to paint links in a different color. [^render-timings]  
+A Proof of Concept to this attack can be found in a Chromium report [^render-timings-bug] and it works by having multiple links to increase the time difference.
+
+{{< hint info >}} 
+This issue has been known for years and there are multiple open bugs to be fixed in multiple browsers [^bug-1] [^bug-2] [^bug-3]. There are also publicily available proof of concepts, e.g. Whack a mole game [^whack-a-mole] that requires user interaction for a successful leak.
+
+[^whack-a-mole]: Whack a mole game, [link](https://lcamtuf.coredump.cx/whack/)
+[^bug-1]: Issue 712246: Security: CSS :visited with mix-blend-mode can leak browser history, [link](https://crbug.com/712246)
+[^bug-2]: Issue 713521: Eliminate :visited privacy issues once and for all, [link](https://crbug.com/713521)
+[^bug-3]: :visited support allows queries into global history, [link](https://bugzilla.mozilla.org/show_bug.cgi?id=147777)
+{{< /hint >}}
 
 These bypasses provide a way to detect the status code of a response. Chromium-based browsers will only save OK response (eg. 200) to the user's history, but won't add error response codes (eg. 404). By visiting the target URL in a popup window, it will then either be saved to the history or not depending on the status code. After then inserting it on your page with `<a href="...">`, it is possible to use one of the manual or automatic techniques described above to leak whether this URL was saved to the history or not.
 
