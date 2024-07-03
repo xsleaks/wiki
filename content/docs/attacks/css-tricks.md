@@ -36,9 +36,11 @@ This issue has been known for years and there are multiple open bugs to be fixed
 [^bug-3]: :visited support allows queries into global history, [link](https://bugzilla.mozilla.org/show_bug.cgi?id=147777)
 {{< /hint >}}
 
-These bypasses provide a way to detect the status code of a response. Chromium-based browsers will only save OK response (eg. 200) to the user's history, but won't add error response codes (eg. 404). By visiting the target URL in a popup window, it will then either be saved to the history or not depending on the status code. After then inserting it on your page with `<a href="...">`, it is possible to use one of the manual or automatic techniques described above to leak whether this URL was saved to the history or not.
+## Leaking status code
 
-In some XS-Search scenario's, a search with no results will return a 404 error. Cookies marked `SameSite=Lax` will be sent in popup windows, and this technique allows such scenarios to be exploited. [^exploit-1]
+Tricks to reveal a user's history provide a way to detect the status code of a response cross-site. Chromium-based browsers will only save responses with OK status codes (e.g. 200) to the user's history, but won't add error status codes (e.g. 404). By visiting the target URL in a popup window, it will then either be saved to the history or not depending on the status code. After then placing the same URL on your page with `<a href="...">`, it is possible to use one of the manual or automatic techniques described above to leak whether this URL was saved to the history or not.
+
+In some XS-Search scenarios, a search with no results will return a 404 error. Cookies marked `SameSite=Lax` will be sent in popup windows, and this technique allows such scenarios to be exploited. [^exploit-1]
 
 ## Evil Captcha
 Using CSS, it’s possible to take an embed out of context.  
