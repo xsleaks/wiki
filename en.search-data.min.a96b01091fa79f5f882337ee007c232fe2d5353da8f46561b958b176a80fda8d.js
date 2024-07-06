@@ -67,8 +67,10 @@ Issue 712246: Security: CSS :visited with mix-blend-mode can leak browser histor
 Issue 713521: Eliminate :visited privacy issues once and for all, link&#160;&#x21a9;&#xfe0e;
 :visited support allows queries into global history, link&#160;&#x21a9;&#xfe0e;
 Whack a mole game, link&#160;&#x21a9;&#xfe0e;
+Leaking status code # Tricks to reveal a user&rsquo;s history provide a way to detect the status code of a response cross-site. Chromium-based browsers will only save responses with OK status codes (e.g. 200) to the user&rsquo;s history, but won&rsquo;t add error status codes (e.g. 404). By visiting the target URL in a popup window, it will then either be saved to the history or not depending on the status code. After then placing the same URL on your page with &lt;a href=&quot;...&quot;&gt;, it is possible to use one of the manual or automatic techniques described above to leak whether this URL was saved to the history or not.
+In some XS-Search scenarios, a search with no results will return a 404 error. Cookies marked SameSite=Lax will be sent in popup windows, and this technique allows such scenarios to be exploited. 5
 Evil Captcha # Using CSS, it’s possible to take an embed out of context.
-An example of this is pretending it’s a captcha as seen in 5
+An example of this is pretending it’s a captcha as seen in 6
 This works by setting the width and height of an embed so that only the target characters are shown, this may use multiple embeds to change the order of the characters being displayed so that its harder for a user to know what information they&rsquo;re providing.
 Abusing autocomplete # If a website uses text inputs and does not opt-out of autocomplete using autocomplete=&quot;off&quot; it may be possible to leak data such as email addresses by tricking the user into pressing the keys to navigate the autocomplete UI for a javascript focused text input. For Chrome, this requires the user to be tricked into pressing the Up or Down arrow key which opens the dialog and selects a value, then by pressing Enter or Tab the value gets inserted into the page.
 let input = document.createElement(&#34;input&#34;); input.type = &#34;email&#34;; input.autocomplete = &#34;email&#34;; input.name = &#34;email&#34;; input.size = &#34;1&#34;; input.style = &#34;position:absolute;right:-500px;bottom:-21.9px&#34;; input.onkeypress = e =&gt; { e.preventDefault(); } window.onmousedown = e =&gt; { // ignore mouse clicks e.preventDefault(); } input.onchange = e =&gt; { alert(e.srcElement.value); e.srcElement.value = &#34;&#34;; } document.body.appendChild(input); setInterval(() =&gt; { input.focus({preventScroll: true}); }, 1000); Custom cursor # A custom cursor might not leak data directly but it may help trick the user, as a large cursor may overlay the autocomplete dialog and other native UI.
@@ -77,6 +79,7 @@ SameSite Cookies (Lax) COOP Framing Protections Isolation Policies ❌ ❌ ✔�
 CSS mix-blend-mode is bad for your browsing history, link&#160;&#x21a9;&#xfe0e;
 Pixel Perfect Timing Attacks with HTML5, link&#160;&#x21a9;&#xfe0e;
 Visited links can be detected via redraw timing, link&#160;&#x21a9;&#xfe0e;
+XS-Leaking flags with CSS: A CTFd 0day, link&#160;&#x21a9;&#xfe0e;
 The Human Side Channel, link&#160;&#x21a9;&#xfe0e;
 `}),e.add({id:11,href:"/docs/attacks/error-events/",title:"Error Events",section:"Attacks",content:`When a webpage issues a request to a server (e.g. fetch, HTML tags), the server receives and processes this request. When received, the server decides whether the request should succeed (e.g. 200) or fail (e.g. 404) based on the provided context. When a response has an error status, an error event is fired by the browser for the page to handle. These errors also cover situations where the parser fails, for example when trying to embed HTML content as an image.
 For example, attackers can detect whether a user is logged in to a service by checking if the user has access to resources only available to authenticated users 1. The impact of this XS-Leak varies depending on the application, but it can lead to sophisticated attacks with the ability to deanonymize users 2.
@@ -296,7 +299,7 @@ This is a Tip box for the {{&lt; hint tip &gt;}} shortcode. important
 This is an Important box for the {{&lt; hint important &gt;}} shortcode. warning
 This is a Warning box for the {{&lt; hint warning &gt;}} shortcode. Original style # The original hint style can be used by adding a third parameter, noTitle, to the shortcode, e.g.:
 {{&lt; hint example noTitle &gt;}} Acknowledgements # We would like to thank the following users who contributed to this XS-Leaks wiki:
-Manuel Sousa, terjanq, Roberto Clapis, David Dworken, NDevTK, 1lastBr3ath, Brasco, rick.titor, Chris Fredrickson, jub0bs, Zeyu (Zayne) Zhang, Medi, Aaron Shim
+Manuel Sousa, terjanq, Roberto Clapis, David Dworken, NDevTK, 1lastBr3ath, Brasco, rick.titor, Chris Fredrickson, jub0bs, Zeyu (Zayne) Zhang, Medi, Aaron Shim, Jorian Woltjer
 In addition, we would also like to acknowledge the users who contributed to the predecessor of the current XS-Leaks wiki:
 Eduardo&rsquo; Vela&quot; &lt;Nava&gt; (sirdarckcat), Ron Masas, Luan Herrera, Sigurd, larson reever, Frederik Braun Masato Kinugawa, sroettger
 And finally, our thanks go to all other amazing researchers that participate in sharing and exploring the depths of XS-Leaks!
