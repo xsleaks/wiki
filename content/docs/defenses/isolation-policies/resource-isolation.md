@@ -39,6 +39,8 @@ def allow_request(req):
   return False
 ```
 
+IMPORTANT: To ensure the policies works well under caching, you must additionally include `Sec-Fetch-Dest, Sec-Fetch-Mode, Sec-Fetch-Site` in the `Vary` response header.
+
 ## Considerations
 It should be safe to set a `Cross-Origin-Resource-Policy: same-site` response header on all requests that have not explicitly been exempted from Resource Isolation Policy. See [CORP]({{< ref "../opt-in/corp.md" >}}).
 
