@@ -1,5 +1,5 @@
 +++
-title = "baseURI"
+title = "Sandboxed iframes"
 description = ""
 date = "2024-08-20"
 category = [
@@ -8,29 +8,20 @@ category = [
 abuse = [
     "iframes",
 ]
-defenses = [
-    "Browser Fix",
-    "Application Fix",
-]
 menu = "main"
 weight = 3
 +++
 
-`document.baseURI` can be used in an opaque-origin sandboxed iframe to leak the full URL of an ancestor page.
 
-If a URL has sensitive information, the origin, query, or fragment (hash) are most likely to contain this sensitive information.
-
-## Sandboxed opaque-origin about:srcdoc iframe
+## Base URL
 
 An iframe loaded with `about:srcdoc` and sandboxed without `allow-same-origin` (i.e. has opaque origin) can read `document.baseURI` to leak the closest http(s):// origin document's URL.
 
 This also works in nested frames, with the baseURI value set to the closest document's URL that has an http(s):// origin. For example, nesting multiple `about:srcdoc` within `https://example.com/path?query#hash` will still leak the full `example.com` URL.
 
-## Code Snippet
+### Code Snippet
 
-Adapted from crbug 40867031[^crbug-40867031]:
-1. Navigate to a URL, where the URL contains secrets. e.g. https://example.com/path?query#hash
-2. Run the following JavaScript in DevTools:
+The below snippet demonstrates how a sandboxed iframe can leak its parent's `document.URI`.
 ```javascript
 f = document.createElement("iframe");
 f.sandbox = "allow-scripts";
@@ -42,7 +33,6 @@ document.body.appendChild(f);
 Technically this also works with `about:blank` (verified via DevTools), but only an extension might be able to script this, so it's not that useful.
 {{< /hint >}}
 
-## Verified Browser Versions
 As of August 20th, 2024:
 * Chrome 127.0.6533.120 Stable + 129.0.6668.9 Canary
 * Edge 127.0.2651.105 Stable
