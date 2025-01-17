@@ -56,9 +56,9 @@ Note that this means cross-site requests are separated from same-site and same-o
 {{< /hint >}}
 
 Advantages:
+* Supported by every major browser
 * Does not break caching
 
 Disadvantages:
-* Fetch metadata is a new standard that is currently only supported in Chromium-based browsers (e.g. Chrome and Edge)
 * Cross-site subresources loaded on the page are not protected (e.g. subresources from CDNs)
 * If third parties load the resource, they are not protected
