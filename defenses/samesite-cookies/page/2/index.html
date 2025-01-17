@@ -3,105 +3,134 @@
 <input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><nav><h2 class=book-brand><a href=/><span>XS-Leaks Wiki</span></a></h2><div class=book-search><input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><ul><li class=book-section-flat><span>Attacks</span><ul><li><a href=/docs/attacks/xs-search/>XS-Search</a></li><li><a href=/docs/attacks/window-references/>Window References</a></li><li><a href=/docs/attacks/css-tricks/>CSS Tricks</a></li><li><a href=/docs/attacks/error-events/>Error Events</a></li><li><a href=/docs/attacks/frame-counting/>Frame Counting</a></li><li><a href=/docs/attacks/navigations/>Navigations</a></li><li><a href=/docs/attacks/cache-probing/>Cache Probing</a></li><li><a href=/docs/attacks/element-leaks/>Element leaks</a></li><li><a href=/docs/attacks/id-attribute/>ID Attribute</a></li><li><a href=/docs/attacks/postmessage-broadcasts/>postMessage Broadcasts</a></li><li><span>Browser Features</span><ul><li><a href=/docs/attacks/browser-features/corb/>CORB Leaks</a></li><li><a href=/docs/attacks/browser-features/corp/>CORP Leaks</a></li></ul></li><li><span>Timing Attacks</span><ul><li><a href=/docs/attacks/timing-attacks/clocks/>Clocks</a></li><li><a href=/docs/attacks/timing-attacks/network-timing/>Network Timing</a></li><li><a href=/docs/attacks/timing-attacks/performance-api/>Performance API</a></li><li><a href=/docs/attacks/timing-attacks/execution-timing/>Execution Timing</a></li><li><a href=/docs/attacks/timing-attacks/hybrid-timing/>Hybrid Timing</a></li><li><a href=/docs/attacks/timing-attacks/connection-pool/>Connection Pool</a></li></ul></li><li><a href=/docs/attacks/experiments/ class=collapsed>Experiments</a></li><li><a href=/docs/attacks/css-injection/>CSS Injection</a></li><li><a href=/docs/attacks/historical/ class=collapsed>Historical</a></li></ul></li><li class=book-section-flat><a href=/docs/defenses/>Defense Mechanisms</a><ul><li><a href=/docs/defenses/design-protections/>Application Design</a><ul><li><a href=/docs/defenses/design-protections/cache-protections/>Cache Protections</a></li><li><a href=/docs/defenses/design-protections/subresource-protections/>Subresource Protections</a></li></ul></li><li><a href=/docs/defenses/opt-in/>Opt-In Mechanisms</a><ul><li><a href=/docs/defenses/opt-in/fetch-metadata/>Fetch Metadata</a></li><li><a href=/docs/defenses/opt-in/coop/>Cross-Origin-Opener-Policy</a></li><li><a href=/docs/defenses/opt-in/corp/>Cross-Origin-Resource-Policy</a></li><li><a href=/docs/defenses/opt-in/xfo/>Framing Protections</a></li><li><a href=/docs/defenses/opt-in/same-site-cookies/>SameSite Cookies</a></li><li><a href=/docs/defenses/opt-in/document-policies/>Document Policies</a></li></ul></li><li><a href=/docs/defenses/isolation-policies/>Isolation Policies</a><ul><li><a href=/docs/defenses/isolation-policies/resource-isolation/>Resource Isolation Policy</a></li><li><a href=/docs/defenses/isolation-policies/framing-isolation/>Framing Isolation Policy</a></li><li><a href=/docs/defenses/isolation-policies/navigation-isolation/>Navigation Isolation Policy</a></li><li><a href=/docs/defenses/isolation-policies/strict-isolation/>Strict Isolation Policy</a></li></ul></li><li><a href=/docs/defenses/secure-defaults/>Secure Defaults</a><ul><li><a href=/docs/defenses/secure-defaults/corb/>Cross-Origin Read Blocking</a></li><li><a href=/docs/defenses/secure-defaults/partitioned-cache/>Partitioned HTTP Cache</a></li></ul></li></ul></li><li class=book-section-flat><a href=/docs/contributions/>Contributions</a><ul></ul></li></ul></nav><script>(function(){var e=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/svg/menu.svg class=book-icon alt=Menu>
 </label><strong>SameSite Cookies</strong>
 <label for=toc-control><img src=/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav><ul><li class=book-section-flat><strong>Abuse</strong><ul><li class="flex justify-between"><a href=/abuse/downloads/>Downloads</a>
-<span>2</span></li><li class="flex justify-between"><a href=/abuse/window-references/>Window References</a>
+<span>2</span></li><li class="flex justify-between"><a href=/abuse/window-references/>Abuse/Window References</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/browser-limits/>Abuse/Browser Limits</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/connection-pool/>Abuse/Connection Pool</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/csp-violations/>Abuse/CSP Violations</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/css-injections/>Abuse/CSS Injections</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/event-loop/>Abuse/Event Loop</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/history/>Abuse/History</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/postmessage/>Abuse/PostMessage</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/redirects/>Abuse/Redirects</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/regex-injections/>Abuse/Regex Injections</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/service-workers/>Abuse/Service Workers</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/site-isolation/>Abuse/Site Isolation</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/typemustmatch/>Abuse/TypeMustMatch</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/window.performance/>Abuse/Window.performance</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/window.stop/>Abuse/Window.stop</a>
 <span>1</span></li><li class="flex justify-between"><a href=/abuse/browser-feature/>Browser Feature</a>
-<span>2</span></li><li class="flex justify-between"><a href=/abuse/browser-limits/>Browser Limits</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/connection-pool/>Connection Pool</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/content-type/>Content-Type</a>
-<span>3</span></li><li class="flex justify-between"><a href=/abuse/csp-violations/>CSP Violations</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/css/>CSS</a>
-<span>2</span></li><li class="flex justify-between"><a href=/abuse/css-injections/>CSS Injections</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/error-events/>Error Events</a>
-<span>3</span></li><li class="flex justify-between"><a href=/abuse/event-loop/>Event Loop</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/focus/>Focus</a>
-<span>2</span></li><li class="flex justify-between"><a href=/abuse/history/>History</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/iframes/>Iframes</a>
+<span>2</span></li><li class="flex justify-between"><a href=/abuse/content-type/>Content-Type</a>
+<span>3</span></li><li class="flex justify-between"><a href=/abuse/css/>CSS</a>
+<span>2</span></li><li class="flex justify-between"><a href=/abuse/error-events/>Error Events</a>
+<span>3</span></li><li class="flex justify-between"><a href=/abuse/focus/>Focus</a>
+<span>2</span></li><li class="flex justify-between"><a href=/abuse/iframes/>Iframes</a>
 <span>9</span></li><li class="flex justify-between"><a href=/abuse/nosniff/>Nosniff</a>
 <span>2</span></li><li class="flex justify-between"><a href=/abuse/onblur/>Onblur</a>
-<span>2</span></li><li class="flex justify-between"><a href=/abuse/postmessage/>PostMessage</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/redirects/>Redirects</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/regex-injections/>Regex Injections</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/service-workers/>Service Workers</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/site-isolation/>Site Isolation</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/status-code/>Status Code</a>
-<span>2</span></li><li class="flex justify-between"><a href=/abuse/typemustmatch/>TypeMustMatch</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/window.open/>Window.open</a>
-<span>2</span></li><li class="flex justify-between"><a href=/abuse/window.performance/>Window.performance</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/window.stop/>Window.stop</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/abortcontroller/>AbortController</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/cache/>Cache</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/htmlelement/>HTMLElement</a>
+<span>2</span></li><li class="flex justify-between"><a href=/abuse/status-code/>Status Code</a>
+<span>2</span></li><li class="flex justify-between"><a href=/abuse/window.open/>Window.open</a>
+<span>2</span></li><li class="flex justify-between"><a href=/abuse/abortcontroller/>Abuse/AbortController</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/cache/>Abuse/Cache</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/htmlelement/>Abuse/HTMLElement</a>
 <span>1</span></li></ul></li><li class=book-section-flat><strong>Category</strong><ul><li class="flex justify-between"><a href=/category/historical/>Historical</a>
 <span>3</span></li><li class="flex justify-between"><a href=/category/defense/>Defense</a>
 <span>14</span></li><li class="flex justify-between"><a href=/category/attack/>Attack</a>
-<span>18</span></li><li class="flex justify-between"><a href=/category/attack-principle/>Attack Principle</a>
+<span>18</span></li><li class="flex justify-between"><a href=/category/attack-principle/>Category/Attack Principle</a>
+<span>1</span></li><li class="flex justify-between"><a href=/category/instrument/>Category/Instrument</a>
 <span>1</span></li><li class="flex justify-between"><a href=/category/experiments/>Experiments</a>
-<span>2</span></li><li class="flex justify-between"><a href=/category/instrument/>Instrument</a>
-<span>1</span></li></ul></li><li class=book-section-flat><strong>Defenses</strong><ul><li class="flex justify-between"><a href=/defenses/deprecation/>Deprecation</a>
+<span>2</span></li></ul></li><li class=book-section-flat><strong>Defenses</strong><ul><li class="flex justify-between"><a href=/defenses/deprecation/>Deprecation</a>
 <span>2</span></li><li class="flex justify-between"><a href=/defenses/coop/>COOP</a>
 <span>6</span></li><li class="flex justify-between"><a href=/defenses/fetch-metadata/>Fetch Metadata</a>
 <span>12</span></li><li class="flex justify-between"><a href=/defenses/samesite-cookies/>SameSite Cookies</a>
-<span>15</span></li><li class="flex justify-between"><a href=/defenses/application-fix/>Application Fix</a>
-<span>1</span></li><li class="flex justify-between"><a href=/defenses/browser-fix/>Browser Fix</a>
-<span>1</span></li><li class="flex justify-between"><a href=/defenses/corb/>CORB</a>
+<span>15</span></li><li class="flex justify-between"><a href=/defenses/application-fix/>Defenses/Application Fix</a>
+<span>1</span></li><li class="flex justify-between"><a href=/defenses/browser-fix/>Defenses/Browser Fix</a>
+<span>1</span></li><li class="flex justify-between"><a href=/defenses/corb/>Defenses/CORB</a>
 <span>1</span></li><li class="flex justify-between"><a href=/defenses/document-policies/>Document Policies</a>
 <span>2</span></li><li class="flex justify-between"><a href=/defenses/framing-protections/>Framing Protections</a>
-<span>6</span></li><li class="flex justify-between"><a href=/defenses/subresource-protections/>Subresource Protections</a>
-<span>1</span></li><li class="flex justify-between"><a href=/defenses/vary-sec-fetch-site/>Vary: Sec-Fetch-Site</a>
-<span>1</span></li></ul></li></ul></nav></aside></header><article class="markdown book-post"><h2><a href=/docs/attacks/element-leaks/>Element leaks</a></h2><p>Some HTML Elements might be used to leak a portion of data to a cross-origin page. For example, the below media resources can leak information about its size, duration, type.
-HTMLMediaElement leaks the media duration and the buffered times. Run demo HTMLVideoElement leaks the videoHeight and videoWidth some browsers may also have webkitVideoDecodedByteCount, webkitAudioDecodedByteCount and webkitDecodedFrameCount getVideoPlaybackQuality() leaks the totalVideoFrames. HTMLImageElement leaks the height and width but if the image is invalid they will be 0 and image.
-<a href=/docs/attacks/element-leaks/>...</a></p></article><article class="markdown book-post"><h2><a href=/docs/attacks/timing-attacks/execution-timing/>Execution Timing</a></h2><h5>October 1, 2020</h5><p>Measuring the time of JavaScript execution in a browser can give attackers information on when certain events are triggered, and how long some operations take.
-Timing the Event Loop # JavaScript&rsquo;s concurrency model is based on a single-threaded event loop which means it can only run one task at a time. If, for example, some time-consuming task blocks the event loop, the user can perceive a freeze on a page as a result of the UI thread being starved.
-<a href=/docs/attacks/timing-attacks/execution-timing/>...</a></p></article><article class="markdown book-post"><h2><a href=/docs/attacks/timing-attacks/hybrid-timing/>Hybrid Timing</a></h2><h5>October 1, 2020</h5><p>Hybrid Timing Attacks allow attackers to measure the sum of a group of factors that influence the final timing measurement. These factors include:
-Network delays Document parsing Retrieval and processing of subresources Code execution Some of the factors differ in value depending on the application. This means that Network Timing might be more significant for pages with more backend processing, while Execution Timing can be more significant in applications processing and displaying data within the browser.
-<a href=/docs/attacks/timing-attacks/hybrid-timing/>...</a></p></article><article class="markdown book-post"><h2><a href=/docs/attacks/id-attribute/>ID Attribute</a></h2><h5>October 1, 2020</h5><p>The id attribute is widely used to identify HTML elements. Unfortunately, cross-origin websites can determine whether a given id is set anywhere on a page by leveraging the focus event and URL fragments. If https://example.com/foo#bar is loaded, the browser attempts to scroll to the element with id="bar". This can be detected cross-origin by loading https://example.com/foo#bar in an iframe; if there is an element with id="bar", the focus event fires. The blur event can also be used for the same purpose 1.
-<a href=/docs/attacks/id-attribute/>...</a></p></article><article class="markdown book-post"><h2><a href=/docs/attacks/timing-attacks/connection-pool/>Connection Pool</a></h2><h5>October 1, 2020</h5><p>Another way to measure the network timing of a request consists of abusing the socket pool of a browser 1. Browsers use sockets to communicate with servers. As the operating system and the hardware it runs on have limited resources, browsers have to impose a limit. Run demo (Chrome) Run demo (Firefox)
-To exploit the existence of this limit, attackers can:
-Check what the limit of the browser is, for example 256 global sockets for TCP and 6000 global sockets for UDP.
-<a href=/docs/attacks/timing-attacks/connection-pool/>...</a></p></article><ul class="pagination pagination-default"><li class=page-item><a href=/defenses/samesite-cookies/ aria-label=First class=page-link role=button><span aria-hidden=true>&#171;&#171;</span></a></li><li class=page-item><a href=/defenses/samesite-cookies/ aria-label=Previous class=page-link role=button><span aria-hidden=true>&#171;</span></a></li><li class=page-item><a href=/defenses/samesite-cookies/ aria-label="Page 1" class=page-link role=button>1</a></li><li class="page-item active"><a aria-current=page aria-label="Page 2" class=page-link role=button>2</a></li><li class="page-item disabled"><a aria-disabled=true aria-label=Next class=page-link role=button tabindex=-1><span aria-hidden=true>&#187;</span></a></li><li class="page-item disabled"><a aria-disabled=true aria-label=Last class=page-link role=button tabindex=-1><span aria-hidden=true>&#187;&#187;</span></a></li></ul><footer class=book-footer><div class="flex flex-wrap justify-between"></div></footer><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><nav><ul><li class=book-section-flat><strong>Abuse</strong><ul><li class="flex justify-between"><a href=/abuse/downloads/>Downloads</a>
-<span>2</span></li><li class="flex justify-between"><a href=/abuse/window-references/>Window References</a>
+<span>6</span></li><li class="flex justify-between"><a href=/defenses/subresource-protections/>Defenses/Subresource Protections</a>
+<span>1</span></li><li class="flex justify-between"><a href=/defenses/vary-sec-fetch-site/>Defenses/Vary: Sec-Fetch-Site</a>
+<span>1</span></li></ul></li></ul></nav></aside></header><article class="markdown book-post"><h2><a href=/docs/attacks/element-leaks/>Element leaks</a></h2><p><p>Some HTML Elements might be used to leak a portion of data to a cross-origin page.
+For example, the below media resources can leak information about its size, duration, type.</p><ul><li><a href=https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement>HTMLMediaElement</a> leaks the media <code>duration</code> and the <code>buffered</code> times. <a href=https://xsinator.com/testing.html#Media%20Duration%20Leak>Run demo</a></li><li><a href=https://developer.mozilla.org/en-US/docs/Web/API/HTMLVideoElement>HTMLVideoElement</a> leaks the <code>videoHeight</code> and <code>videoWidth</code>
+some browsers may also have <code>webkitVideoDecodedByteCount</code>, <code>webkitAudioDecodedByteCount</code> and <code>webkitDecodedFrameCount</code></li><li><a href=https://developer.mozilla.org/en-US/docs/Web/API/VideoPlaybackQuality>getVideoPlaybackQuality()</a> leaks the <code>totalVideoFrames</code>.</li><li><a href=https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement>HTMLImageElement</a> leaks the <code>height</code> and <code>width</code> but if the image is invalid they will be 0
+and <a href=https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/decode><code>image.decode()</code></a> will get rejected. <a href=https://xsinator.com/testing.html#Media%20Dimensions%20Leak>Run demo</a></li></ul><p>It&rsquo;s possible to differentiate between media types via unique property for a given media type. For example, it is <code>videoWidth</code> for a <code>&lt;video></code>, or <code>duration</code> for an <code>&lt;audio></code>. The below snippet shows an example code that returns the type of a resource.</p><a href=/docs/attacks/element-leaks/>...</a></p></article><article class="markdown book-post"><h2><a href=/docs/attacks/timing-attacks/execution-timing/>Execution Timing</a></h2><h5>October 1, 2020</h5><p><p>Measuring the time of JavaScript execution in a browser can give attackers information on when certain events are triggered, and how long some operations take.</p><h2 id=timing-the-event-loop>Timing the Event Loop
+<a class=anchor href=#timing-the-event-loop>#</a></h2><p>JavaScript&rsquo;s concurrency model is based on a <a href=https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop>single-threaded event loop</a> which means it can only run one task at a time. If, for example, some time-consuming task blocks the event loop, the user can perceive a freeze on a page as a result of the UI thread being starved. Other tasks must wait until the blocking task finishes. Each browser implements different <a href=https://www.chromium.org/developers/design-documents/process-models>process models</a>, which means some web sites might run in different threads (and event loops) depending on their relations.</p><a href=/docs/attacks/timing-attacks/execution-timing/>...</a></p></article><article class="markdown book-post"><h2><a href=/docs/attacks/timing-attacks/hybrid-timing/>Hybrid Timing</a></h2><h5>October 1, 2020</h5><p><p>Hybrid Timing Attacks allow attackers to measure the sum of a group of factors that influence the final timing measurement. These factors include:</p><ul><li><a href=https://xsleaks.dev/docs/attacks/timing-attacks/network-timing/>Network delays</a></li><li>Document parsing</li><li>Retrieval and processing of subresources</li><li><a href=https://xsleaks.dev/docs/attacks/timing-attacks/execution-timing/>Code execution</a></li></ul><p>Some of the factors differ in value depending on the application. This means that <a href=https://xsleaks.dev/docs/attacks/timing-attacks/network-timing/>Network Timing</a> might be more significant for pages with more backend processing, while <a href=https://xsleaks.dev/docs/attacks/timing-attacks/execution-timing/>Execution Timing</a> can be more significant in applications processing and displaying data within the browser. Attackers can also eliminate some of these factors to obtain more precise measurements. For example, an attacker could preload all of the subresources by embedding the page as an <code>iframe</code> (forcing the browser to cache the subresources) and then perform a second measurement, which excludes any delay introduced by the retrieval of those subresources.</p><a href=/docs/attacks/timing-attacks/hybrid-timing/>...</a></p></article><article class="markdown book-post"><h2><a href=/docs/attacks/id-attribute/>ID Attribute</a></h2><h5>October 1, 2020</h5><p><p>The <code>id</code> attribute is widely used to identify <code>HTML</code> elements. Unfortunately, cross-origin websites can determine whether a given <code>id</code> is set anywhere on a page by leveraging the <code>focus</code> event and <code>URL</code> fragments. If <code>https://example.com/foo#bar</code> is loaded, the browser attempts to scroll to the element with <code>id="bar"</code>. This can be detected cross-origin by loading <code>https://example.com/foo#bar</code> in an iframe; if there is an element with <code>id="bar"</code>, the <code>focus</code> event fires. The <code>blur</code> event can also be used for the same purpose <sup id=fnref:1><a href=#fn:1 class=footnote-ref role=doc-noteref>1</a></sup>.</p><a href=/docs/attacks/id-attribute/>...</a></p></article><article class="markdown book-post"><h2><a href=/docs/attacks/timing-attacks/connection-pool/>Connection Pool</a></h2><h5>October 1, 2020</h5><p><p>Another way to measure the network timing of a request consists of abusing the socket pool of a browser <sup id=fnref:1><a href=#fn:1 class=footnote-ref role=doc-noteref>1</a></sup>. Browsers use sockets to communicate with servers. As the operating system and the hardware it runs on have limited resources, browsers have to impose a limit. <a href=https://xsinator.com/testing.html#WebSocket%20Leak%20%28GC%29>Run demo (Chrome)</a> <a href=https://xsinator.com/testing.html#WebSocket%20Leak%20%28FF%29>Run demo (Firefox)</a></p><p>To exploit the existence of this limit, attackers can:</p><ol><li>Check what the limit of the browser is, for example 256 global sockets for TCP and 6000 global sockets for UDP. <sup id=fnref:2><a href=#fn:2 class=footnote-ref role=doc-noteref>2</a></sup><sup id=fnref:3><a href=#fn:3 class=footnote-ref role=doc-noteref>3</a></sup></li><li>Block
+<link rel=stylesheet href=/katex/katex.min.css><script defer src=/katex/katex.min.js></script><script defer src=/katex/auto-render.min.js onload=renderMathInElement(document.body)></script><span>\(255\)
+</span>sockets for a long period of time by performing <span>\(255\)
+</span>requests to different hosts that simply hang the connection</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#6272a4>// Client
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span><span style=color:#ff79c6>for</span>(<span style=color:#8be9fd;font-style:italic>let</span> i<span style=color:#ff79c6>=</span><span style=color:#bd93f9>0</span>; i<span style=color:#ff79c6>&lt;</span><span style=color:#bd93f9>255</span>; i<span style=color:#ff79c6>++</span>) fetch(<span style=color:#f1fa8c>&#39;https://&#39;</span><span style=color:#ff79c6>+</span>i<span style=color:#ff79c6>+</span><span style=color:#f1fa8c>&#39;.example.com/&#39;</span>, {mode<span style=color:#ff79c6>:</span> <span style=color:#f1fa8c>&#34;no-cors&#34;</span>, cache<span style=color:#ff79c6>:</span> <span style=color:#f1fa8c>&#34;no-store&#34;</span>});
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#6272a4># Server</span>
+</span></span><span style=display:flex><span><span style=color:#ff79c6>from</span> http.server <span style=color:#ff79c6>import</span> BaseHTTPRequestHandler, HTTPServer
+</span></span><span style=display:flex><span><span style=color:#ff79c6>import</span> time
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#ff79c6>class</span> <span style=color:#50fa7b>handler</span>(BaseHTTPRequestHandler):
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>def</span> <span style=color:#50fa7b>do_GET</span>(self):
+</span></span><span style=display:flex><span>        time<span style=color:#ff79c6>.</span>sleep(<span style=color:#8be9fd;font-style:italic>float</span>(<span style=color:#bd93f9>100000</span>))
+</span></span><span style=display:flex><span>        self<span style=color:#ff79c6>.</span>send_response(<span style=color:#bd93f9>200</span>)
+</span></span><span style=display:flex><span>        self<span style=color:#ff79c6>.</span>send_header(<span style=color:#f1fa8c>&#39;Cache-Control&#39;</span>, <span style=color:#f1fa8c>&#39;no-store&#39;</span>)
+</span></span><span style=display:flex><span>        self<span style=color:#ff79c6>.</span>end_headers()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#ff79c6>with</span> HTTPServer((<span style=color:#f1fa8c>&#39;&#39;</span>, <span style=color:#bd93f9>8000</span>), handler) <span style=color:#ff79c6>as</span> server:
+</span></span><span style=display:flex><span>    server<span style=color:#ff79c6>.</span>serve_forever()
+</span></span></code></pre></div><ol start=3><li>Use the <span>\(256^{th}\)
+</span>socket by performing a request to the target page.</li><li>Perform a <span>\(257^{th}\)
+</span>request to another host. Since all the sockets are being used (in steps 2 and 3), this request must wait until the pool receives an available socket. This waiting period provides the attacker with the network timing of the <span>\(256^{th}\)
+</span>socket, which belongs to the target page. This works because the <span>\(255\)
+</span>sockets in step 2 are still blocked, so if the pool received an available socket, it was caused by the release of the socket in step 3. The time to release the <span>\(256^{th}\)
+</span>socket is directly connected with the time taken to complete the request.</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span>performance.clearResourceTimings();
+</span></span><span style=display:flex><span><span style=color:#ff79c6>await</span> fetch(location.href, {cache<span style=color:#ff79c6>:</span> <span style=color:#f1fa8c>&#34;no-store&#34;</span>});
+</span></span><span style=display:flex><span><span style=color:#ff79c6>await</span> <span style=color:#ff79c6>new</span> <span style=color:#8be9fd;font-style:italic>Promise</span>(r =&gt; setTimeout(r, <span style=color:#bd93f9>1000</span>));
+</span></span><span style=display:flex><span><span style=color:#8be9fd;font-style:italic>let</span> data <span style=color:#ff79c6>=</span> performance.getEntries().pop();
+</span></span><span style=display:flex><span><span style=color:#8be9fd;font-style:italic>let</span> type <span style=color:#ff79c6>=</span> (data.connectStart <span style=color:#ff79c6>===</span> data.startTime) <span style=color:#ff79c6>?</span> <span style=color:#f1fa8c>&#39;reused&#39;</span> <span style=color:#ff79c6>:</span> <span style=color:#f1fa8c>&#39;new&#39;</span>;
+</span></span><span style=display:flex><span>console.log(<span style=color:#f1fa8c>&#39;Time spent: &#39;</span> <span style=color:#ff79c6>+</span> data.duration <span style=color:#ff79c6>+</span> <span style=color:#f1fa8c>&#39; on &#39;</span> <span style=color:#ff79c6>+</span> type <span style=color:#ff79c6>+</span> <span style=color:#f1fa8c>&#39; connection.&#39;</span>);
+</span></span></code></pre></div><h2 id=connection-reuse>Connection reuse
+<a class=anchor href=#connection-reuse>#</a></h2><p>With HTTP/1.1 (TCP) and HTTP/2 (TCP) and HTTP/3 (UDP) requests may reuse an existing connection for a host to improve performance. <sup id=fnref:4><a href=#fn:4 class=footnote-ref role=doc-noteref>4</a></sup><sup id=fnref:5><a href=#fn:5 class=footnote-ref role=doc-noteref>5</a></sup>
+HTTP/2 also has Connection Coalescing which allows different hostnames that are accessible from the same web server to reuse a connection. <sup id=fnref:6><a href=#fn:6 class=footnote-ref role=doc-noteref>6</a></sup>
+This is currently keyed by if credentials are included in the request.
+Since a reused connection is normally faster this could allow for detecting if a site has connected to a host excluding anything that’s been cached and leaking information about the cross-site request by abusing Stream prioritization and HPACK compression. <sup id=fnref:7><a href=#fn:7 class=footnote-ref role=doc-noteref>7</a></sup>
+Connections may get closed if they are left idle or the sockets are exhausted, for example 256 connections for HTTP/2 or 30 seconds idle for HTTP/3. <sup id=fnref1:2><a href=#fn:2 class=footnote-ref role=doc-noteref>2</a></sup><sup id=fnref:8><a href=#fn:8 class=footnote-ref role=doc-noteref>8</a></sup>
+This may also leak when the connection happened and the browser can have per connection limits and on how many connections are allowed per host, for example 6 connections per host. <sup id=fnref2:2><a href=#fn:2 class=footnote-ref role=doc-noteref>2</a></sup></p><a href=/docs/attacks/timing-attacks/connection-pool/>...</a></p></article><ul class="pagination pagination-default"><li class=page-item><a href=/defenses/samesite-cookies/ aria-label=First class=page-link role=button><span aria-hidden=true>&#171;&#171;</span></a></li><li class=page-item><a href=/defenses/samesite-cookies/ aria-label=Previous class=page-link role=button><span aria-hidden=true>&#171;</span></a></li><li class=page-item><a href=/defenses/samesite-cookies/ aria-label="Page 1" class=page-link role=button>1</a></li><li class="page-item active"><a aria-current=page aria-label="Page 2" class=page-link role=button>2</a></li><li class="page-item disabled"><a aria-disabled=true aria-label=Next class=page-link role=button tabindex=-1><span aria-hidden=true>&#187;</span></a></li><li class="page-item disabled"><a aria-disabled=true aria-label=Last class=page-link role=button tabindex=-1><span aria-hidden=true>&#187;&#187;</span></a></li></ul><footer class=book-footer><div class="flex flex-wrap justify-between"></div></footer><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><nav><ul><li class=book-section-flat><strong>Abuse</strong><ul><li class="flex justify-between"><a href=/abuse/downloads/>Downloads</a>
+<span>2</span></li><li class="flex justify-between"><a href=/abuse/window-references/>Abuse/Window References</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/browser-limits/>Abuse/Browser Limits</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/connection-pool/>Abuse/Connection Pool</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/csp-violations/>Abuse/CSP Violations</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/css-injections/>Abuse/CSS Injections</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/event-loop/>Abuse/Event Loop</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/history/>Abuse/History</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/postmessage/>Abuse/PostMessage</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/redirects/>Abuse/Redirects</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/regex-injections/>Abuse/Regex Injections</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/service-workers/>Abuse/Service Workers</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/site-isolation/>Abuse/Site Isolation</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/typemustmatch/>Abuse/TypeMustMatch</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/window.performance/>Abuse/Window.performance</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/window.stop/>Abuse/Window.stop</a>
 <span>1</span></li><li class="flex justify-between"><a href=/abuse/browser-feature/>Browser Feature</a>
-<span>2</span></li><li class="flex justify-between"><a href=/abuse/browser-limits/>Browser Limits</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/connection-pool/>Connection Pool</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/content-type/>Content-Type</a>
-<span>3</span></li><li class="flex justify-between"><a href=/abuse/csp-violations/>CSP Violations</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/css/>CSS</a>
-<span>2</span></li><li class="flex justify-between"><a href=/abuse/css-injections/>CSS Injections</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/error-events/>Error Events</a>
-<span>3</span></li><li class="flex justify-between"><a href=/abuse/event-loop/>Event Loop</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/focus/>Focus</a>
-<span>2</span></li><li class="flex justify-between"><a href=/abuse/history/>History</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/iframes/>Iframes</a>
+<span>2</span></li><li class="flex justify-between"><a href=/abuse/content-type/>Content-Type</a>
+<span>3</span></li><li class="flex justify-between"><a href=/abuse/css/>CSS</a>
+<span>2</span></li><li class="flex justify-between"><a href=/abuse/error-events/>Error Events</a>
+<span>3</span></li><li class="flex justify-between"><a href=/abuse/focus/>Focus</a>
+<span>2</span></li><li class="flex justify-between"><a href=/abuse/iframes/>Iframes</a>
 <span>9</span></li><li class="flex justify-between"><a href=/abuse/nosniff/>Nosniff</a>
 <span>2</span></li><li class="flex justify-between"><a href=/abuse/onblur/>Onblur</a>
-<span>2</span></li><li class="flex justify-between"><a href=/abuse/postmessage/>PostMessage</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/redirects/>Redirects</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/regex-injections/>Regex Injections</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/service-workers/>Service Workers</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/site-isolation/>Site Isolation</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/status-code/>Status Code</a>
-<span>2</span></li><li class="flex justify-between"><a href=/abuse/typemustmatch/>TypeMustMatch</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/window.open/>Window.open</a>
-<span>2</span></li><li class="flex justify-between"><a href=/abuse/window.performance/>Window.performance</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/window.stop/>Window.stop</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/abortcontroller/>AbortController</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/cache/>Cache</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/htmlelement/>HTMLElement</a>
+<span>2</span></li><li class="flex justify-between"><a href=/abuse/status-code/>Status Code</a>
+<span>2</span></li><li class="flex justify-between"><a href=/abuse/window.open/>Window.open</a>
+<span>2</span></li><li class="flex justify-between"><a href=/abuse/abortcontroller/>Abuse/AbortController</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/cache/>Abuse/Cache</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/htmlelement/>Abuse/HTMLElement</a>
 <span>1</span></li></ul></li><li class=book-section-flat><strong>Category</strong><ul><li class="flex justify-between"><a href=/category/historical/>Historical</a>
 <span>3</span></li><li class="flex justify-between"><a href=/category/defense/>Defense</a>
 <span>14</span></li><li class="flex justify-between"><a href=/category/attack/>Attack</a>
-<span>18</span></li><li class="flex justify-between"><a href=/category/attack-principle/>Attack Principle</a>
+<span>18</span></li><li class="flex justify-between"><a href=/category/attack-principle/>Category/Attack Principle</a>
+<span>1</span></li><li class="flex justify-between"><a href=/category/instrument/>Category/Instrument</a>
 <span>1</span></li><li class="flex justify-between"><a href=/category/experiments/>Experiments</a>
-<span>2</span></li><li class="flex justify-between"><a href=/category/instrument/>Instrument</a>
-<span>1</span></li></ul></li><li class=book-section-flat><strong>Defenses</strong><ul><li class="flex justify-between"><a href=/defenses/deprecation/>Deprecation</a>
+<span>2</span></li></ul></li><li class=book-section-flat><strong>Defenses</strong><ul><li class="flex justify-between"><a href=/defenses/deprecation/>Deprecation</a>
 <span>2</span></li><li class="flex justify-between"><a href=/defenses/coop/>COOP</a>
 <span>6</span></li><li class="flex justify-between"><a href=/defenses/fetch-metadata/>Fetch Metadata</a>
 <span>12</span></li><li class="flex justify-between"><a href=/defenses/samesite-cookies/>SameSite Cookies</a>
-<span>15</span></li><li class="flex justify-between"><a href=/defenses/application-fix/>Application Fix</a>
-<span>1</span></li><li class="flex justify-between"><a href=/defenses/browser-fix/>Browser Fix</a>
-<span>1</span></li><li class="flex justify-between"><a href=/defenses/corb/>CORB</a>
+<span>15</span></li><li class="flex justify-between"><a href=/defenses/application-fix/>Defenses/Application Fix</a>
+<span>1</span></li><li class="flex justify-between"><a href=/defenses/browser-fix/>Defenses/Browser Fix</a>
+<span>1</span></li><li class="flex justify-between"><a href=/defenses/corb/>Defenses/CORB</a>
 <span>1</span></li><li class="flex justify-between"><a href=/defenses/document-policies/>Document Policies</a>
 <span>2</span></li><li class="flex justify-between"><a href=/defenses/framing-protections/>Framing Protections</a>
-<span>6</span></li><li class="flex justify-between"><a href=/defenses/subresource-protections/>Subresource Protections</a>
-<span>1</span></li><li class="flex justify-between"><a href=/defenses/vary-sec-fetch-site/>Vary: Sec-Fetch-Site</a>
+<span>6</span></li><li class="flex justify-between"><a href=/defenses/subresource-protections/>Defenses/Subresource Protections</a>
+<span>1</span></li><li class="flex justify-between"><a href=/defenses/vary-sec-fetch-site/>Defenses/Vary: Sec-Fetch-Site</a>
 <span>1</span></li></ul></li></ul></nav></aside></main></body></html>

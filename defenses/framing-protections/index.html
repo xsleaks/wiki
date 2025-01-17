@@ -3,108 +3,101 @@
 <input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><nav><h2 class=book-brand><a href=/><span>XS-Leaks Wiki</span></a></h2><div class=book-search><input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><ul><li class=book-section-flat><span>Attacks</span><ul><li><a href=/docs/attacks/xs-search/>XS-Search</a></li><li><a href=/docs/attacks/window-references/>Window References</a></li><li><a href=/docs/attacks/css-tricks/>CSS Tricks</a></li><li><a href=/docs/attacks/error-events/>Error Events</a></li><li><a href=/docs/attacks/frame-counting/>Frame Counting</a></li><li><a href=/docs/attacks/navigations/>Navigations</a></li><li><a href=/docs/attacks/cache-probing/>Cache Probing</a></li><li><a href=/docs/attacks/element-leaks/>Element leaks</a></li><li><a href=/docs/attacks/id-attribute/>ID Attribute</a></li><li><a href=/docs/attacks/postmessage-broadcasts/>postMessage Broadcasts</a></li><li><span>Browser Features</span><ul><li><a href=/docs/attacks/browser-features/corb/>CORB Leaks</a></li><li><a href=/docs/attacks/browser-features/corp/>CORP Leaks</a></li></ul></li><li><span>Timing Attacks</span><ul><li><a href=/docs/attacks/timing-attacks/clocks/>Clocks</a></li><li><a href=/docs/attacks/timing-attacks/network-timing/>Network Timing</a></li><li><a href=/docs/attacks/timing-attacks/performance-api/>Performance API</a></li><li><a href=/docs/attacks/timing-attacks/execution-timing/>Execution Timing</a></li><li><a href=/docs/attacks/timing-attacks/hybrid-timing/>Hybrid Timing</a></li><li><a href=/docs/attacks/timing-attacks/connection-pool/>Connection Pool</a></li></ul></li><li><a href=/docs/attacks/experiments/ class=collapsed>Experiments</a></li><li><a href=/docs/attacks/css-injection/>CSS Injection</a></li><li><a href=/docs/attacks/historical/ class=collapsed>Historical</a></li></ul></li><li class=book-section-flat><a href=/docs/defenses/>Defense Mechanisms</a><ul><li><a href=/docs/defenses/design-protections/>Application Design</a><ul><li><a href=/docs/defenses/design-protections/cache-protections/>Cache Protections</a></li><li><a href=/docs/defenses/design-protections/subresource-protections/>Subresource Protections</a></li></ul></li><li><a href=/docs/defenses/opt-in/>Opt-In Mechanisms</a><ul><li><a href=/docs/defenses/opt-in/fetch-metadata/>Fetch Metadata</a></li><li><a href=/docs/defenses/opt-in/coop/>Cross-Origin-Opener-Policy</a></li><li><a href=/docs/defenses/opt-in/corp/>Cross-Origin-Resource-Policy</a></li><li><a href=/docs/defenses/opt-in/xfo/>Framing Protections</a></li><li><a href=/docs/defenses/opt-in/same-site-cookies/>SameSite Cookies</a></li><li><a href=/docs/defenses/opt-in/document-policies/>Document Policies</a></li></ul></li><li><a href=/docs/defenses/isolation-policies/>Isolation Policies</a><ul><li><a href=/docs/defenses/isolation-policies/resource-isolation/>Resource Isolation Policy</a></li><li><a href=/docs/defenses/isolation-policies/framing-isolation/>Framing Isolation Policy</a></li><li><a href=/docs/defenses/isolation-policies/navigation-isolation/>Navigation Isolation Policy</a></li><li><a href=/docs/defenses/isolation-policies/strict-isolation/>Strict Isolation Policy</a></li></ul></li><li><a href=/docs/defenses/secure-defaults/>Secure Defaults</a><ul><li><a href=/docs/defenses/secure-defaults/corb/>Cross-Origin Read Blocking</a></li><li><a href=/docs/defenses/secure-defaults/partitioned-cache/>Partitioned HTTP Cache</a></li></ul></li></ul></li><li class=book-section-flat><a href=/docs/contributions/>Contributions</a><ul></ul></li></ul></nav><script>(function(){var e=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/svg/menu.svg class=book-icon alt=Menu>
 </label><strong>Framing Protections</strong>
 <label for=toc-control><img src=/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav><ul><li class=book-section-flat><strong>Abuse</strong><ul><li class="flex justify-between"><a href=/abuse/downloads/>Downloads</a>
-<span>2</span></li><li class="flex justify-between"><a href=/abuse/window-references/>Window References</a>
+<span>2</span></li><li class="flex justify-between"><a href=/abuse/window-references/>Abuse/Window References</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/browser-limits/>Abuse/Browser Limits</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/connection-pool/>Abuse/Connection Pool</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/csp-violations/>Abuse/CSP Violations</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/css-injections/>Abuse/CSS Injections</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/event-loop/>Abuse/Event Loop</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/history/>Abuse/History</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/postmessage/>Abuse/PostMessage</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/redirects/>Abuse/Redirects</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/regex-injections/>Abuse/Regex Injections</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/service-workers/>Abuse/Service Workers</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/site-isolation/>Abuse/Site Isolation</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/typemustmatch/>Abuse/TypeMustMatch</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/window.performance/>Abuse/Window.performance</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/window.stop/>Abuse/Window.stop</a>
 <span>1</span></li><li class="flex justify-between"><a href=/abuse/browser-feature/>Browser Feature</a>
-<span>2</span></li><li class="flex justify-between"><a href=/abuse/browser-limits/>Browser Limits</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/connection-pool/>Connection Pool</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/content-type/>Content-Type</a>
-<span>3</span></li><li class="flex justify-between"><a href=/abuse/csp-violations/>CSP Violations</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/css/>CSS</a>
-<span>2</span></li><li class="flex justify-between"><a href=/abuse/css-injections/>CSS Injections</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/error-events/>Error Events</a>
-<span>3</span></li><li class="flex justify-between"><a href=/abuse/event-loop/>Event Loop</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/focus/>Focus</a>
-<span>2</span></li><li class="flex justify-between"><a href=/abuse/history/>History</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/iframes/>Iframes</a>
+<span>2</span></li><li class="flex justify-between"><a href=/abuse/content-type/>Content-Type</a>
+<span>3</span></li><li class="flex justify-between"><a href=/abuse/css/>CSS</a>
+<span>2</span></li><li class="flex justify-between"><a href=/abuse/error-events/>Error Events</a>
+<span>3</span></li><li class="flex justify-between"><a href=/abuse/focus/>Focus</a>
+<span>2</span></li><li class="flex justify-between"><a href=/abuse/iframes/>Iframes</a>
 <span>9</span></li><li class="flex justify-between"><a href=/abuse/nosniff/>Nosniff</a>
 <span>2</span></li><li class="flex justify-between"><a href=/abuse/onblur/>Onblur</a>
-<span>2</span></li><li class="flex justify-between"><a href=/abuse/postmessage/>PostMessage</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/redirects/>Redirects</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/regex-injections/>Regex Injections</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/service-workers/>Service Workers</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/site-isolation/>Site Isolation</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/status-code/>Status Code</a>
-<span>2</span></li><li class="flex justify-between"><a href=/abuse/typemustmatch/>TypeMustMatch</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/window.open/>Window.open</a>
-<span>2</span></li><li class="flex justify-between"><a href=/abuse/window.performance/>Window.performance</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/window.stop/>Window.stop</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/abortcontroller/>AbortController</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/cache/>Cache</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/htmlelement/>HTMLElement</a>
+<span>2</span></li><li class="flex justify-between"><a href=/abuse/status-code/>Status Code</a>
+<span>2</span></li><li class="flex justify-between"><a href=/abuse/window.open/>Window.open</a>
+<span>2</span></li><li class="flex justify-between"><a href=/abuse/abortcontroller/>Abuse/AbortController</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/cache/>Abuse/Cache</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/htmlelement/>Abuse/HTMLElement</a>
 <span>1</span></li></ul></li><li class=book-section-flat><strong>Category</strong><ul><li class="flex justify-between"><a href=/category/historical/>Historical</a>
 <span>3</span></li><li class="flex justify-between"><a href=/category/defense/>Defense</a>
 <span>14</span></li><li class="flex justify-between"><a href=/category/attack/>Attack</a>
-<span>18</span></li><li class="flex justify-between"><a href=/category/attack-principle/>Attack Principle</a>
+<span>18</span></li><li class="flex justify-between"><a href=/category/attack-principle/>Category/Attack Principle</a>
+<span>1</span></li><li class="flex justify-between"><a href=/category/instrument/>Category/Instrument</a>
 <span>1</span></li><li class="flex justify-between"><a href=/category/experiments/>Experiments</a>
-<span>2</span></li><li class="flex justify-between"><a href=/category/instrument/>Instrument</a>
-<span>1</span></li></ul></li><li class=book-section-flat><strong>Defenses</strong><ul><li class="flex justify-between"><a href=/defenses/deprecation/>Deprecation</a>
+<span>2</span></li></ul></li><li class=book-section-flat><strong>Defenses</strong><ul><li class="flex justify-between"><a href=/defenses/deprecation/>Deprecation</a>
 <span>2</span></li><li class="flex justify-between"><a href=/defenses/coop/>COOP</a>
 <span>6</span></li><li class="flex justify-between"><a href=/defenses/fetch-metadata/>Fetch Metadata</a>
 <span>12</span></li><li class="flex justify-between"><a href=/defenses/samesite-cookies/>SameSite Cookies</a>
-<span>15</span></li><li class="flex justify-between"><a href=/defenses/application-fix/>Application Fix</a>
-<span>1</span></li><li class="flex justify-between"><a href=/defenses/browser-fix/>Browser Fix</a>
-<span>1</span></li><li class="flex justify-between"><a href=/defenses/corb/>CORB</a>
+<span>15</span></li><li class="flex justify-between"><a href=/defenses/application-fix/>Defenses/Application Fix</a>
+<span>1</span></li><li class="flex justify-between"><a href=/defenses/browser-fix/>Defenses/Browser Fix</a>
+<span>1</span></li><li class="flex justify-between"><a href=/defenses/corb/>Defenses/CORB</a>
 <span>1</span></li><li class="flex justify-between"><a href=/defenses/document-policies/>Document Policies</a>
 <span>2</span></li><li class="flex justify-between"><a href=/defenses/framing-protections/>Framing Protections</a>
-<span>6</span></li><li class="flex justify-between"><a href=/defenses/subresource-protections/>Subresource Protections</a>
-<span>1</span></li><li class="flex justify-between"><a href=/defenses/vary-sec-fetch-site/>Vary: Sec-Fetch-Site</a>
-<span>1</span></li></ul></li></ul></nav></aside></header><article class="markdown book-post"><h2><a href=/docs/attacks/css-tricks/>CSS Tricks</a></h2><h5>October 1, 2020</h5><p>CSS Tricks # CSS can be used to trick a user into exposing information such as embedded pixel values by making visual changes that are affected by the embed.
-Retrieving user&rsquo;s history # Using the CSS :visited selector, it’s possible to apply a different style for URLs that have been visited.
-Previously it was possible to use getComputedStyle() to detect this difference, but now browsers prevent this by always returning values as if the link was visited and limiting what styles can be applied using the selector.
-<a href=/docs/attacks/css-tricks/>...</a></p></article><article class="markdown book-post"><h2><a href=/docs/attacks/frame-counting/>Frame Counting</a></h2><h5>October 1, 2020</h5><p>Window references allow cross-origin pages to get access to some of the attributes of other pages. These references become available when using or allowing iframe and window.open. The references provide (limited) information about the window as they still respect the same-origin policy.
-One of the accessible attributes is window.length which provides the number of frames in the window. This attribute can provide valuable information about a page to an attacker.
-<a href=/docs/attacks/frame-counting/>...</a></p></article><article class="markdown book-post"><h2><a href=/docs/attacks/navigations/>Navigations</a></h2><h5>October 1, 2020</h5><p>Detecting if a cross-site page triggered a navigation (or didn&rsquo;t) can be useful to an attacker. For example, a website may trigger a navigation in a certain endpoint depending on the status of the user.
-To detect if any kind of navigation occurred, an attacker can:
-Use an iframe and count the number of times the onload event is triggered. Check the value of history.length, which is accessible through any window reference.
-<a href=/docs/attacks/navigations/>...</a></p></article><article class="markdown book-post"><h2><a href=/docs/attacks/timing-attacks/network-timing/>Network Timing</a></h2><h5>October 1, 2020</h5><p>Network Timing side-channels have been present on the web since its inception 1 2. These attacks have had different levels of impact over time, gaining new attention when browsers started shipping high-precision timers like performance.now().
-To obtain timing measurements, attackers must use a clock, either an implicit or an explicit one. These clocks are usually interchangeable for the purposes of XS-Leaks and only vary in accuracy and availability. For simplicity, this article assumes the use of the performance.
-<a href=/docs/attacks/timing-attacks/network-timing/>...</a></p></article><article class="markdown book-post"><h2><a href=/docs/attacks/timing-attacks/execution-timing/>Execution Timing</a></h2><h5>October 1, 2020</h5><p>Measuring the time of JavaScript execution in a browser can give attackers information on when certain events are triggered, and how long some operations take.
-Timing the Event Loop # JavaScript&rsquo;s concurrency model is based on a single-threaded event loop which means it can only run one task at a time. If, for example, some time-consuming task blocks the event loop, the user can perceive a freeze on a page as a result of the UI thread being starved.
-<a href=/docs/attacks/timing-attacks/execution-timing/>...</a></p></article><article class="markdown book-post"><h2><a href=/docs/attacks/id-attribute/>ID Attribute</a></h2><h5>October 1, 2020</h5><p>The id attribute is widely used to identify HTML elements. Unfortunately, cross-origin websites can determine whether a given id is set anywhere on a page by leveraging the focus event and URL fragments. If https://example.com/foo#bar is loaded, the browser attempts to scroll to the element with id="bar". This can be detected cross-origin by loading https://example.com/foo#bar in an iframe; if there is an element with id="bar", the focus event fires. The blur event can also be used for the same purpose 1.
-<a href=/docs/attacks/id-attribute/>...</a></p></article><footer class=book-footer><div class="flex flex-wrap justify-between"></div></footer><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><nav><ul><li class=book-section-flat><strong>Abuse</strong><ul><li class="flex justify-between"><a href=/abuse/downloads/>Downloads</a>
-<span>2</span></li><li class="flex justify-between"><a href=/abuse/window-references/>Window References</a>
+<span>6</span></li><li class="flex justify-between"><a href=/defenses/subresource-protections/>Defenses/Subresource Protections</a>
+<span>1</span></li><li class="flex justify-between"><a href=/defenses/vary-sec-fetch-site/>Defenses/Vary: Sec-Fetch-Site</a>
+<span>1</span></li></ul></li></ul></nav></aside></header><article class="markdown book-post"><h2><a href=/docs/attacks/css-tricks/>CSS Tricks</a></h2><h5>October 1, 2020</h5><p><h2 id=css-tricks>CSS Tricks
+<a class=anchor href=#css-tricks>#</a></h2><p>CSS can be used to trick a user into exposing information such as embedded pixel values by making visual changes that are affected by the embed.</p><h2 id=retrieving-users-history>Retrieving user&rsquo;s history
+<a class=anchor href=#retrieving-users-history>#</a></h2><p>Using the CSS <a href=https://developer.mozilla.org/en-US/docs/Web/CSS/:visited><code>:visited</code></a> selector, it’s possible to apply a different style for URLs that have been visited.<br>Previously it was possible to use <a href=https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle><code>getComputedStyle()</code></a> to detect this difference, but now browsers prevent this by always returning values as if the link was visited and limiting what styles can be applied using the selector. <sup id=fnref:1><a href=#fn:1 class=footnote-ref role=doc-noteref>1</a></sup><br>So, it may be needed to trick the user into clicking an area that the CSS has affected.
+This can be done using <a href=https://developer.mozilla.org/en-US/docs/Web/CSS/mix-blend-mode><code>mix-blend-mode</code></a>. <sup id=fnref:2><a href=#fn:2 class=footnote-ref role=doc-noteref>2</a></sup><br>There are also ways to do it without user interaction such as by abusing render timings.
+This works because it takes time to paint links in a different color. <sup id=fnref:3><a href=#fn:3 class=footnote-ref role=doc-noteref>3</a></sup><br>A Proof of Concept to this attack can be found in a Chromium report <sup id=fnref:4><a href=#fn:4 class=footnote-ref role=doc-noteref>4</a></sup> and it works by having multiple links to increase the time difference.</p><a href=/docs/attacks/css-tricks/>...</a></p></article><article class="markdown book-post"><h2><a href=/docs/attacks/frame-counting/>Frame Counting</a></h2><h5>October 1, 2020</h5><p><p>Window references allow cross-origin pages to get access to some of the attributes of other pages. These references become available when using or allowing <code>iframe</code> and <code>window.open</code>. The references provide (limited) information about the window as they still respect the same-origin policy.</p><p>One of the accessible attributes is <code>window.length</code> which provides the number of frames in the window. This attribute can provide valuable information about a page to an attacker.</p><a href=/docs/attacks/frame-counting/>...</a></p></article><article class="markdown book-post"><h2><a href=/docs/attacks/navigations/>Navigations</a></h2><h5>October 1, 2020</h5><p><p>Detecting if a cross-site page triggered a navigation (or didn&rsquo;t) can be useful to an attacker. For example, a website may trigger a navigation in a certain endpoint <a href=#case-scenarios>depending on the status of the user</a>.</p><p>To detect if any kind of navigation occurred, an attacker can:</p><ul><li>Use an <code>iframe</code> and count the number of times the <code>onload</code> event is triggered.</li><li>Check the value of <code>history.length</code>, which is accessible through any window reference. This provides the number of entries in the history of a victim that were either changed by <code>history.pushState</code> or by regular navigations. To get the value of <code>history.length</code>, an attacker changes the location of the window reference to the target website, then changes back to same-origin, and finally reads the value. <a href=https://xsinator.com/testing.html#History%20Length%20Leak>Run demo</a></li></ul><h2 id=download-trigger>Download Trigger
+<a class=anchor href=#download-trigger>#</a></h2><p>When an endpoint sets the <a href=https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition><code>Content-Disposition: attachment</code></a> header, it instructs the browser to download the response as an attachment instead of navigating to it. Detecting if this behavior occurred might allow attackers to leak private information if the outcome depends on the state of the victim&rsquo;s account.</p><a href=/docs/attacks/navigations/>...</a></p></article><article class="markdown book-post"><h2><a href=/docs/attacks/timing-attacks/network-timing/>Network Timing</a></h2><h5>October 1, 2020</h5><p><p>Network Timing side-channels have been present on the web since its inception <sup id=fnref:1><a href=#fn:1 class=footnote-ref role=doc-noteref>1</a></sup> <sup id=fnref:2><a href=#fn:2 class=footnote-ref role=doc-noteref>2</a></sup>. These attacks have had different levels of impact over time, gaining new attention when browsers started shipping high-precision timers like <a href=https://xsleaks.dev/docs/attacks/timing-attacks/clocks/#performancenow>performance.now()</a>.</p><p>To obtain timing measurements, attackers must use a <a href=https://xsleaks.dev/docs/attacks/timing-attacks/clocks/>clock</a>, either an implicit or an explicit one. These clocks are usually interchangeable for the purposes of XS-Leaks and only vary in accuracy and availability. For simplicity, this article assumes the use of the <code>performance.now()</code> API, an explicit clock present in all modern browsers.</p><a href=/docs/attacks/timing-attacks/network-timing/>...</a></p></article><article class="markdown book-post"><h2><a href=/docs/attacks/timing-attacks/execution-timing/>Execution Timing</a></h2><h5>October 1, 2020</h5><p><p>Measuring the time of JavaScript execution in a browser can give attackers information on when certain events are triggered, and how long some operations take.</p><h2 id=timing-the-event-loop>Timing the Event Loop
+<a class=anchor href=#timing-the-event-loop>#</a></h2><p>JavaScript&rsquo;s concurrency model is based on a <a href=https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop>single-threaded event loop</a> which means it can only run one task at a time. If, for example, some time-consuming task blocks the event loop, the user can perceive a freeze on a page as a result of the UI thread being starved. Other tasks must wait until the blocking task finishes. Each browser implements different <a href=https://www.chromium.org/developers/design-documents/process-models>process models</a>, which means some web sites might run in different threads (and event loops) depending on their relations.</p><a href=/docs/attacks/timing-attacks/execution-timing/>...</a></p></article><article class="markdown book-post"><h2><a href=/docs/attacks/id-attribute/>ID Attribute</a></h2><h5>October 1, 2020</h5><p><p>The <code>id</code> attribute is widely used to identify <code>HTML</code> elements. Unfortunately, cross-origin websites can determine whether a given <code>id</code> is set anywhere on a page by leveraging the <code>focus</code> event and <code>URL</code> fragments. If <code>https://example.com/foo#bar</code> is loaded, the browser attempts to scroll to the element with <code>id="bar"</code>. This can be detected cross-origin by loading <code>https://example.com/foo#bar</code> in an iframe; if there is an element with <code>id="bar"</code>, the <code>focus</code> event fires. The <code>blur</code> event can also be used for the same purpose <sup id=fnref:1><a href=#fn:1 class=footnote-ref role=doc-noteref>1</a></sup>.</p><a href=/docs/attacks/id-attribute/>...</a></p></article><footer class=book-footer><div class="flex flex-wrap justify-between"></div></footer><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><nav><ul><li class=book-section-flat><strong>Abuse</strong><ul><li class="flex justify-between"><a href=/abuse/downloads/>Downloads</a>
+<span>2</span></li><li class="flex justify-between"><a href=/abuse/window-references/>Abuse/Window References</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/browser-limits/>Abuse/Browser Limits</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/connection-pool/>Abuse/Connection Pool</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/csp-violations/>Abuse/CSP Violations</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/css-injections/>Abuse/CSS Injections</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/event-loop/>Abuse/Event Loop</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/history/>Abuse/History</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/postmessage/>Abuse/PostMessage</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/redirects/>Abuse/Redirects</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/regex-injections/>Abuse/Regex Injections</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/service-workers/>Abuse/Service Workers</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/site-isolation/>Abuse/Site Isolation</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/typemustmatch/>Abuse/TypeMustMatch</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/window.performance/>Abuse/Window.performance</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/window.stop/>Abuse/Window.stop</a>
 <span>1</span></li><li class="flex justify-between"><a href=/abuse/browser-feature/>Browser Feature</a>
-<span>2</span></li><li class="flex justify-between"><a href=/abuse/browser-limits/>Browser Limits</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/connection-pool/>Connection Pool</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/content-type/>Content-Type</a>
-<span>3</span></li><li class="flex justify-between"><a href=/abuse/csp-violations/>CSP Violations</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/css/>CSS</a>
-<span>2</span></li><li class="flex justify-between"><a href=/abuse/css-injections/>CSS Injections</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/error-events/>Error Events</a>
-<span>3</span></li><li class="flex justify-between"><a href=/abuse/event-loop/>Event Loop</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/focus/>Focus</a>
-<span>2</span></li><li class="flex justify-between"><a href=/abuse/history/>History</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/iframes/>Iframes</a>
+<span>2</span></li><li class="flex justify-between"><a href=/abuse/content-type/>Content-Type</a>
+<span>3</span></li><li class="flex justify-between"><a href=/abuse/css/>CSS</a>
+<span>2</span></li><li class="flex justify-between"><a href=/abuse/error-events/>Error Events</a>
+<span>3</span></li><li class="flex justify-between"><a href=/abuse/focus/>Focus</a>
+<span>2</span></li><li class="flex justify-between"><a href=/abuse/iframes/>Iframes</a>
 <span>9</span></li><li class="flex justify-between"><a href=/abuse/nosniff/>Nosniff</a>
 <span>2</span></li><li class="flex justify-between"><a href=/abuse/onblur/>Onblur</a>
-<span>2</span></li><li class="flex justify-between"><a href=/abuse/postmessage/>PostMessage</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/redirects/>Redirects</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/regex-injections/>Regex Injections</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/service-workers/>Service Workers</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/site-isolation/>Site Isolation</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/status-code/>Status Code</a>
-<span>2</span></li><li class="flex justify-between"><a href=/abuse/typemustmatch/>TypeMustMatch</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/window.open/>Window.open</a>
-<span>2</span></li><li class="flex justify-between"><a href=/abuse/window.performance/>Window.performance</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/window.stop/>Window.stop</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/abortcontroller/>AbortController</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/cache/>Cache</a>
-<span>1</span></li><li class="flex justify-between"><a href=/abuse/htmlelement/>HTMLElement</a>
+<span>2</span></li><li class="flex justify-between"><a href=/abuse/status-code/>Status Code</a>
+<span>2</span></li><li class="flex justify-between"><a href=/abuse/window.open/>Window.open</a>
+<span>2</span></li><li class="flex justify-between"><a href=/abuse/abortcontroller/>Abuse/AbortController</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/cache/>Abuse/Cache</a>
+<span>1</span></li><li class="flex justify-between"><a href=/abuse/htmlelement/>Abuse/HTMLElement</a>
 <span>1</span></li></ul></li><li class=book-section-flat><strong>Category</strong><ul><li class="flex justify-between"><a href=/category/historical/>Historical</a>
 <span>3</span></li><li class="flex justify-between"><a href=/category/defense/>Defense</a>
 <span>14</span></li><li class="flex justify-between"><a href=/category/attack/>Attack</a>
-<span>18</span></li><li class="flex justify-between"><a href=/category/attack-principle/>Attack Principle</a>
+<span>18</span></li><li class="flex justify-between"><a href=/category/attack-principle/>Category/Attack Principle</a>
+<span>1</span></li><li class="flex justify-between"><a href=/category/instrument/>Category/Instrument</a>
 <span>1</span></li><li class="flex justify-between"><a href=/category/experiments/>Experiments</a>
-<span>2</span></li><li class="flex justify-between"><a href=/category/instrument/>Instrument</a>
-<span>1</span></li></ul></li><li class=book-section-flat><strong>Defenses</strong><ul><li class="flex justify-between"><a href=/defenses/deprecation/>Deprecation</a>
+<span>2</span></li></ul></li><li class=book-section-flat><strong>Defenses</strong><ul><li class="flex justify-between"><a href=/defenses/deprecation/>Deprecation</a>
 <span>2</span></li><li class="flex justify-between"><a href=/defenses/coop/>COOP</a>
 <span>6</span></li><li class="flex justify-between"><a href=/defenses/fetch-metadata/>Fetch Metadata</a>
 <span>12</span></li><li class="flex justify-between"><a href=/defenses/samesite-cookies/>SameSite Cookies</a>
-<span>15</span></li><li class="flex justify-between"><a href=/defenses/application-fix/>Application Fix</a>
-<span>1</span></li><li class="flex justify-between"><a href=/defenses/browser-fix/>Browser Fix</a>
-<span>1</span></li><li class="flex justify-between"><a href=/defenses/corb/>CORB</a>
+<span>15</span></li><li class="flex justify-between"><a href=/defenses/application-fix/>Defenses/Application Fix</a>
+<span>1</span></li><li class="flex justify-between"><a href=/defenses/browser-fix/>Defenses/Browser Fix</a>
+<span>1</span></li><li class="flex justify-between"><a href=/defenses/corb/>Defenses/CORB</a>
 <span>1</span></li><li class="flex justify-between"><a href=/defenses/document-policies/>Document Policies</a>
 <span>2</span></li><li class="flex justify-between"><a href=/defenses/framing-protections/>Framing Protections</a>
-<span>6</span></li><li class="flex justify-between"><a href=/defenses/subresource-protections/>Subresource Protections</a>
-<span>1</span></li><li class="flex justify-between"><a href=/defenses/vary-sec-fetch-site/>Vary: Sec-Fetch-Site</a>
+<span>6</span></li><li class="flex justify-between"><a href=/defenses/subresource-protections/>Defenses/Subresource Protections</a>
+<span>1</span></li><li class="flex justify-between"><a href=/defenses/vary-sec-fetch-site/>Defenses/Vary: Sec-Fetch-Site</a>
 <span>1</span></li></ul></li></ul></nav></aside></main></body></html>

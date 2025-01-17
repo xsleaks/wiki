@@ -1,9 +1,45 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Isolation Policies on XS-Leaks Wiki</title><link>https://xsleaks.dev/docs/defenses/isolation-policies/</link><description>Recent content in Isolation Policies on XS-Leaks Wiki</description><generator>Hugo</generator><language>en-us</language><atom:link href="https://xsleaks.dev/docs/defenses/isolation-policies/index.xml" rel="self" type="application/rss+xml"/><item><title>Resource Isolation Policy</title><link>https://xsleaks.dev/docs/defenses/isolation-policies/resource-isolation/</link><pubDate>Mon, 30 Nov 2020 00:00:00 +0000</pubDate><guid>https://xsleaks.dev/docs/defenses/isolation-policies/resource-isolation/</guid><description>Resource Isolation Policy prevents external websites from requesting your resources. Blocking such traffic mitigates common web vulnerabilities such as CSRF, XSSI, or XS-Leaks. The policy can be enabled for applications whose endpoints are not intended to be loaded in a cross-site context and will allow resource requests coming from your application as well as direct navigations.
-Implementation with Fetch Metadata # The below snippet showcases an example implementation of the Resource Isolation Policy with the use of Fetch Metadata headers:</description></item><item><title>Framing Isolation Policy</title><link>https://xsleaks.dev/docs/defenses/isolation-policies/framing-isolation/</link><pubDate>Mon, 30 Nov 2020 00:00:00 +0000</pubDate><guid>https://xsleaks.dev/docs/defenses/isolation-policies/framing-isolation/</guid><description>Framing Isolation Policy is a stricter version of Framing Protections where the request gets blocked at the application level rather than by the browser. This is designed to protect against various attacks (e.g. XSSI, CSRF, XS-Leaks) by blocking framing requests to endpoints that are not intended to be framable.
-It can be combined with Resource Isolation Policy to effectively tighten the attack surface within cross-site information leaks.
-tip
-Instead of rejecting all non-framable endpoints, the user could be prompted to confirm the action, e.</description></item><item><title>Navigation Isolation Policy</title><link>https://xsleaks.dev/docs/defenses/isolation-policies/navigation-isolation/</link><pubDate>Mon, 30 Nov 2020 00:00:00 +0000</pubDate><guid>https://xsleaks.dev/docs/defenses/isolation-policies/navigation-isolation/</guid><description>Navigation Isolation Policy is a server-side protection mechanism intended to mitigate CSRF, clickjacking, reflected XSS, and XS-Leaks that make use of cross-site window contexts. This is a strict policy and has the potential to break an application since it blocks all cross-site navigations, including navigations through hyperlinks.
-tip
-Instead of rejecting all cross-site interactions, the user could be prompted to confirm the action, e.g. Confirm that you visited this page from a trusted origin, to mitigate the risk of attacks in the background, and, at the same time, help prevent unintended breakages of an application.</description></item><item><title>Strict Isolation Policy</title><link>https://xsleaks.dev/docs/defenses/isolation-policies/strict-isolation/</link><pubDate>Mon, 30 Nov 2020 00:00:00 +0000</pubDate><guid>https://xsleaks.dev/docs/defenses/isolation-policies/strict-isolation/</guid><description>Strict Isolation Policy is intended to protect against all cross-site interactions (including navigations to the application through hyperlinks). This is a very strict policy that has the potential to prevent applications from functioning properly.
-tip
-Instead of rejecting all cross-site interactions, the user could be prompted to confirm the action, e.g. Confirm that you visited this page from a trusted origin, to mitigate the risk of attacks in the background, and, at the same time, help prevent unintended breakages of an application.</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Isolation Policies on XS-Leaks Wiki</title><link>https://xsleaks.dev/docs/defenses/isolation-policies/</link><description>Recent content in Isolation Policies on XS-Leaks Wiki</description><generator>Hugo</generator><language>en-us</language><atom:link href="https://xsleaks.dev/docs/defenses/isolation-policies/index.xml" rel="self" type="application/rss+xml"/><item><title>Resource Isolation Policy</title><link>https://xsleaks.dev/docs/defenses/isolation-policies/resource-isolation/</link><pubDate>Mon, 30 Nov 2020 00:00:00 +0000</pubDate><guid>https://xsleaks.dev/docs/defenses/isolation-policies/resource-isolation/</guid><description>&lt;p>Resource Isolation Policy prevents external websites from requesting your resources. Blocking such traffic mitigates common web vulnerabilities such as CSRF, XSSI, or XS-Leaks. The policy can be enabled for applications whose endpoints are not intended to be loaded in a cross-site context and will allow resource requests coming from your application as well as direct navigations.&lt;/p>
+&lt;h2 id="implementation-with-fetch-metadata">
+ Implementation with Fetch Metadata
+ &lt;a class="anchor" href="#implementation-with-fetch-metadata">#&lt;/a>
+&lt;/h2>
+&lt;p>The below snippet showcases an example implementation of the Resource Isolation Policy with the use of &lt;a href="https://xsleaks.dev/docs/defenses/opt-in/fetch-metadata/">Fetch Metadata&lt;/a> headers:&lt;/p></description></item><item><title>Framing Isolation Policy</title><link>https://xsleaks.dev/docs/defenses/isolation-policies/framing-isolation/</link><pubDate>Mon, 30 Nov 2020 00:00:00 +0000</pubDate><guid>https://xsleaks.dev/docs/defenses/isolation-policies/framing-isolation/</guid><description>&lt;p>Framing Isolation Policy is a stricter version of &lt;a href="https://xsleaks.dev/docs/defenses/opt-in/xfo/">Framing Protections&lt;/a> where the request gets blocked at the application level rather than by the browser. This is designed to protect against various attacks (e.g. XSSI, CSRF, XS-Leaks) by blocking framing requests to endpoints that are not intended to be framable.&lt;/p>
+&lt;p>It can be combined with &lt;a href="https://xsleaks.dev/docs/defenses/isolation-policies/resource-isolation/">Resource Isolation Policy&lt;/a> to effectively tighten the attack surface within cross-site information leaks.&lt;/p>
+
+ &lt;blockquote class="book-hint2 tip">
+ &lt;p class="hint-title tip">
+ &lt;svg class="book-icon">
+ &lt;use href="https://xsleaks.dev/svg/hint-icons.svg#tip-notice">&lt;/use>
+ &lt;/svg>&lt;span>tip&lt;/span>&lt;/p>
+ Instead of rejecting all non-framable endpoints, the user could be prompted to confirm the action, e.g. &lt;em>Confirm that you visited this page from a trusted origin&lt;/em>, to mitigate the risk of attacks in the background, and, at the same time, help prevent unintended breakages of an application.
+ &lt;/blockquote>
+
+
+
+ &lt;blockquote class="book-hint2 tip">
+ &lt;p class="hint-title tip">
+ &lt;svg class="book-icon">
+ &lt;use href="https://xsleaks.dev/svg/hint-icons.svg#tip-notice">&lt;/use>
+ &lt;/svg>&lt;span>tip&lt;/span>&lt;/p></description></item><item><title>Navigation Isolation Policy</title><link>https://xsleaks.dev/docs/defenses/isolation-policies/navigation-isolation/</link><pubDate>Mon, 30 Nov 2020 00:00:00 +0000</pubDate><guid>https://xsleaks.dev/docs/defenses/isolation-policies/navigation-isolation/</guid><description>&lt;p>Navigation Isolation Policy is a server-side protection mechanism intended to mitigate CSRF, clickjacking, reflected XSS, and XS-Leaks that make use of cross-site window contexts. This is a strict policy and has the potential to break an application since it blocks all cross-site navigations, including navigations through hyperlinks.&lt;/p>
+
+ &lt;blockquote class="book-hint2 tip">
+ &lt;p class="hint-title tip">
+ &lt;svg class="book-icon">
+ &lt;use href="https://xsleaks.dev/svg/hint-icons.svg#tip-notice">&lt;/use>
+ &lt;/svg>&lt;span>tip&lt;/span>&lt;/p>
+ Instead of rejecting all cross-site interactions, the user could be prompted to confirm the action, e.g. &lt;em>Confirm that you visited this page from a trusted origin&lt;/em>, to mitigate the risk of attacks in the background, and, at the same time, help prevent unintended breakages of an application.
+ &lt;/blockquote>
+
+
+&lt;h2 id="implementation-with-fetch-metadata">
+ Implementation with Fetch Metadata
+ &lt;a class="anchor" href="#implementation-with-fetch-metadata">#&lt;/a>
+&lt;/h2>
+&lt;p>The below snippet showcases an example implementation of the Navigation Isolation Policy with the use of &lt;a href="https://xsleaks.dev/docs/defenses/opt-in/fetch-metadata/">Fetch Metadata&lt;/a> headers &lt;sup id="fnref:1">&lt;a href="#fn:1" class="footnote-ref" role="doc-noteref">1&lt;/a>&lt;/sup>:&lt;/p></description></item><item><title>Strict Isolation Policy</title><link>https://xsleaks.dev/docs/defenses/isolation-policies/strict-isolation/</link><pubDate>Mon, 30 Nov 2020 00:00:00 +0000</pubDate><guid>https://xsleaks.dev/docs/defenses/isolation-policies/strict-isolation/</guid><description>&lt;p>Strict Isolation Policy is intended to protect against all cross-site interactions (including navigations to the application through hyperlinks). This is a very strict policy that has the potential to prevent applications from functioning properly.&lt;/p>
+
+ &lt;blockquote class="book-hint2 tip">
+ &lt;p class="hint-title tip">
+ &lt;svg class="book-icon">
+ &lt;use href="https://xsleaks.dev/svg/hint-icons.svg#tip-notice">&lt;/use>
+ &lt;/svg>&lt;span>tip&lt;/span>&lt;/p>
+ &lt;p>Instead of rejecting all cross-site interactions, the user could be prompted to confirm the action, e.g. &lt;em>Confirm that you visited this page from a trusted origin&lt;/em>, to mitigate the risk of attacks in the background, and, at the same time, help prevent unintended breakages of an application.&lt;/p></description></item></channel></rss>
