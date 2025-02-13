@@ -36,6 +36,8 @@ def allow_request(req):
   return True
 ```
 
+IMPORTANT: To ensure the policy works well under caching, you must additionally include `Sec-Fetch-Site` in the `Vary` response header.
+
 ## Implementation with SameSite cookies
 If a server sends a cookie with the [`SameSite=strict`]({{< ref "../opt-in/same-site-cookies/#samesite-cookie-modes" >}}) flag, any returned request that doesn't contain that cookie can be rejected, as showcased in this snippet:
 
