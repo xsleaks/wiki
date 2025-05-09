@@ -8,7 +8,7 @@ category = [
 menu = "main"
 +++
 
-[Fetch Metadata Request Headers](https://www.w3.org/TR/fetch-metadata/) are sent by browsers with HTTPS requests. These headers provide context on how a request was initiated so that applications are able to make more informed decisions on how to respond to them. This allows servers to behave differently when they detect potential attacks (e.g. unexpected cross-origin requests)[^1]. This can be very effective against cross-origin attacks like XSSI, XS-Leaks, Clickjacking, and CSRF if a strict policy is deployed on the server.
+[Fetch Metadata Request Headers](https://www.w3.org/TR/fetch-metadata/) are sent by browsers with HTTPS requests. These headers provide context on how a request was initiated so that applications are able to make more informed decisions on how to respond to them. This allows servers to behave differently when they detect potential attacks (e.g. unexpected cross-origin requests). This can be very effective against cross-origin attacks like XSSI, XS-Leaks, Clickjacking, and CSRF if a strict policy is deployed on the server.
 
 In the XS-Leaks scenario, servers have the ability to know when a request was made cross-origin (e.g. attacker origin) and can return a different response with no user data. This kind of response is not useful to the attacker since it does not carry any information or state about the user. Fetch Metadata can also be used to block framing or even navigational requests.
 

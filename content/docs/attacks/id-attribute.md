@@ -52,7 +52,11 @@ Some examples of `id`-attribute-based attacks are:
 
 ## Defense
 
-{{< hint info>}} As of September 2022, an experiment called Portals exists that could allow the attack to work with Framing Protections [^2] {{< /hint >}}
+{{< hint info>}}
+As of September 2022, an experiment called Portals exists that could allow the attack to work with Framing Protections [^2]
+
+[^2]: Detecting IDs using Portal, [link](https://portswigger.net/research/xs-leak-detecting-ids-using-portal)
+{{< /hint >}}
 
 | [Document Policies]({{< ref "/docs/defenses/opt-in/document-policies.md" >}}) | [SameSite Cookies (Lax)]({{< ref "/docs/defenses/opt-in/same-site-cookies.md" >}}) | [COOP]({{< ref "/docs/defenses/opt-in/coop.md" >}}) | [Framing Protections]({{< ref "/docs/defenses/opt-in/xfo.md" >}}) |                                          [Isolation Policies]({{< ref "/docs/defenses/isolation-policies" >}})                                          |
 | :--------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------: | :-------------------------------------------------: | :---------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------: |
@@ -62,4 +66,3 @@ Some examples of `id`-attribute-based attacks are:
 ## References
 
 [^1]: Leaking IDs using focus, [link](https://portswigger.net/research/xs-leak-leaking-ids-using-focus)
-[^2]: Detecting IDs using Portal, [link](https://portswigger.net/research/xs-leak-detecting-ids-using-portal)
