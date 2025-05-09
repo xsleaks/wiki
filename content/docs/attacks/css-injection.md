@@ -41,7 +41,7 @@ Optionally include the sandbox attribute to isolate the content into its own ori
 | :--------------------------------------------------------------------------------: | :-------------------------------------------------: | :---------------------------------------------------------------: | :-------------------------------------------------------------------: |
 |                                         ❌                                          |                          ❌                          |                                 ❌                                 |                                   ❌                                   |
 ## References
-[^1]: CSS Injection Primitives, [link](https://x-c3ll.github.io/posts/CSS-Injection-Primitives/)
+[^1]: CSS Injection Primitives, [link](https://x-c3ll.github.io/posts/2019/10/16/CSS-Injection-Primitives.html) ([alt](https://web.archive.org/web/20240619225434/https://x-c3ll.github.io/posts/CSS-Injection-Primitives/))
 [^2]: HTTPLeaks, [link](https://github.com/cure53/HTTPLeaks/)
 [^3]: Font ligatures, [link](https://research.securitum.com/stealing-data-in-great-style-how-to-use-css-to-attack-web-application/)
 [^4]: Chrome tab crashes when using gradients in display-p3, rec2020, prophoto-rgb or a98-rgb, [link](https://issues.chromium.org/issues/382086298)

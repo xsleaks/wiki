@@ -44,7 +44,7 @@ You can run a local environment by following these steps:
 We use the [Hugo Book Theme](https://themes.gohugo.io/hugo-book/) with custom modifications.
 
 ### Custom hint shortcode
-We modified the default [Hints](https://themes.gohugo.io/theme/hugo-book/docs/shortcodes/hints/) used by the theme; the modified boxes are listed below:
+We modified the default [Hints](https://hugo-book-demo.netlify.app/docs/shortcodes/hints/) used by the theme; the modified boxes are listed below:
 
 {{< hint info >}}
 This is an *Info* box for the `{{</*/* hint info */*/>}}` shortcode.

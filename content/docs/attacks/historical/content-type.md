@@ -19,7 +19,7 @@ Leaking the Content-Type of a request would provide attackers with a new way of 
 
 ## typeMustMatch
 
-[`typeMustMatch`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLObjectElement/typeMustMatch) is a Boolean that reflects the `typeMustMatch` attribute of the `object` element. It ensures that a certain MIME type must be enforced when loading an object, by verifying if the `Content-Type` of the resource is the same as the one provided in the object. Unfortunately, this enforcement also allowed attackers to leak the `Content-Type` and Status Codes returned by a website [^1].
+[`typeMustMatch`](https://web.archive.org/web/20210421092442/https://developer.mozilla.org/en-US/docs/Web/API/HTMLObjectElement/typeMustMatch) is a Boolean that reflects the `typeMustMatch` attribute of the `object` element. It ensures that a certain MIME type must be enforced when loading an object, by verifying if the `Content-Type` of the resource is the same as the one provided in the object. Unfortunately, this enforcement also allowed attackers to leak the `Content-Type` and Status Codes returned by a website [^1].
 
 ### Root Cause
 

@@ -96,7 +96,7 @@ This can be done by disabling the browser history, or if on Firefox, by setting 
 [^leak-1]: Whack a mole game, [link](https://lcamtuf.coredump.cx/whack/)  
 [^changes-1]: Privacy and the :visited selector, [link](https://developer.mozilla.org/en-US/docs/Web/CSS/Privacy_and_the_:visited_selector)  
 [^blend-mode]: CSS mix-blend-mode is bad for your browsing history, [link](https://lcamtuf.blogspot.com/2016/08/css-mix-blend-mode-is-bad-for-keeping.html)  
-[^render-timings]: Pixel Perfect Timing Attacks with HTML5, [link](https://owasp.org/www-pdf-archive/HackPra_Allstars-Browser_Timing_Attacks_-_Paul_Stone.pdf)  
+[^render-timings]: Pixel Perfect Timing Attacks with HTML5, [link](https://wiki.owasp.org/images/1/10/HackPra_Allstars-Browser_Timing_Attacks_-_Paul_Stone.pdf) ([alt](https://web.archive.org/web/20231226222431/https://owasp.org/www-pdf-archive/HackPra_Allstars-Browser_Timing_Attacks_-_Paul_Stone.pdf))  
 [^exploit-1]: XS-Leaking flags with CSS: A CTFd 0day, [link](https://jorianwoltjer.com/blog/p/hacking/xs-leaking-flags-with-css-a-ctfd-0day)  
 [^render-timings-bug]: Visited links can be detected via redraw timing, [link](https://bugs.chromium.org/p/chromium/issues/detail?id=252165)
 [^leak-2]: The Human Side Channel, [link](https://ronmasas.com/posts/the-human-side-channel)  
