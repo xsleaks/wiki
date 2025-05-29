@@ -38,13 +38,13 @@ Cache Probing with [Error Events]({{< ref "../attacks/error-events.md" >}}) [^2]
 
 1. [Invalidating the resource]({{< ref "#invalidating-the-cache" >}}) from the browser cache. This step is required to make sure the attack does not consider a resource previously cached in another visit.
 2. Performing a request that causes different items to be cached depending on the user's state. For example, loading a page that includes a specific image only if the user is logged in. This request can be triggered by navigating to the target website with `<link rel=prerender..`, embedding the website in an `iframe`, or opening a new window with `window.open`.
-3. Triggering a request that causes the server to reject the request. For example, including an [overlong referer header](https://lists.archive.carbon60.com/apache/users/316239) that  makes the server reject the request. If the resource was cached in step 2, this request succeeds instead of triggering an error event.
+3. Triggering a request that causes the server to reject the request. For example, including an [overlong referer header](https://web.archive.org/web/20240228130427/https://lists.archive.carbon60.com/apache/users/316239) that  makes the server reject the request. If the resource was cached in step 2, this request succeeds instead of triggering an error event.
 
 ### Invalidating the cache with errors
 
 To invalidate a resource from the cache, the attacker must force the server to return an error when fetching that subresource. There are a couple of ways to achieve this:
 
-- A request with an [overlong referer header](https://lists.archive.carbon60.com/apache/users/316239) and `'cache':'reload'`. This might not work as browsers [capped](https://github.com/whatwg/fetch/issues/903) the length of the referrer to prevent this.
+- A request with an [overlong referer header](https://web.archive.org/web/20240228130427/https://lists.archive.carbon60.com/apache/users/316239) and `'cache':'reload'`. This might not work as browsers [capped](https://github.com/whatwg/fetch/issues/903) the length of the referrer to prevent this.
 - Request headers such as Content-Type, Accept, Accept-Language, etc. that may cause the server to fail (more application dependent).
 - Other request properties.
 
@@ -63,7 +63,7 @@ It's also possible to remove resources from cache without server errors. For exa
 Origin reflection is a behavior in which a globally accessible resource is provided with a [Access-Control-Allow-Origin (ACAO)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin) header whose value reflects the origin that initialized the request. This can be considered as CORS misconfiguration [^5] and can be used to detect whether the resource exists in the browser cache.
 
 {{< hint info >}} 
-For example, Flask framework [promotes](https://flask-cors.readthedocs.io/en/latest/api.htm) origin reflection as the default behavior.
+For example, Flask framework [promotes](https://flask-cors.readthedocs.io/en/latest/api.html) origin reflection as the default behavior.
 {{< /hint >}}
 
 If a resource hosted on `server.com` is requested from `target.com` then the origin could be reflected in the response headers as: `Access-Control-Allow-Origin: target.com`. If the resource is cached, this information is stored together with the resource in the browser cache. With that, if `attacker.com` tries to fetch the same resource there are two possible scenarios:
@@ -172,5 +172,5 @@ An attacker using [Error Events Cache Probing]({{< ref "#cache-probing-with-erro
 [^1]: Abusing HTTP Status Codes to Expose Private Information, [link](https://www.grepular.com/Abusing_HTTP_Status_Codes_to_Expose_Private_Information)
 [^2]: HTTP Cache Cross-Site Leaks, [link](http://sirdarckcat.blogspot.com/2019/03/http-cache-cross-site-leaks.html)
 [^3]: Mass XS-Search using Cache Attack, [link](https://terjanq.github.io/Bug-Bounty/Google/cache-attack-06jd2d2mz2r0/index.html#VIII-YouTube-watching-history)
-[^4]: Timing Attacks on Web Privacy, [link](http://www.cs.jhu.edu/~fabian/courses/CS600.424/course_papers/webtiming.pdf)
+[^4]: Timing Attacks on Web Privacy, [link](https://www.cs.jhu.edu/~rubin/courses/fall03/papers/timing.pdf) ([alt](https://web.archive.org/web/20220726203115/https://www.cs.jhu.edu/~fabian/courses/CS600.424/course_papers/webtiming.pdf))
 [^5]: CORS misconfiguration, [link](https://web-in-security.blogspot.com/2017/07/cors-misconfigurations-on-large-scale.html)

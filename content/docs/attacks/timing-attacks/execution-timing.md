@@ -25,7 +25,7 @@ Measuring the time of JavaScript execution in a browser can give attackers infor
 
 ## Timing the Event Loop
 
-JavaScript's concurrency model is based on a [single-threaded event loop](https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop) which means it can only run one task at a time. If, for example, some time-consuming task blocks the event loop, the user can perceive a freeze on a page as a result of the UI thread being starved. Other tasks must wait until the blocking task finishes. Each browser implements different [process models](https://www.chromium.org/developers/design-documents/process-models), which means some web sites might run in different threads (and event loops) depending on their relations.
+JavaScript's concurrency model is based on a [single-threaded event loop](https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop) which means it can only run one task at a time. If, for example, some time-consuming task blocks the event loop, the user can perceive a freeze on a page as a result of the UI thread being starved. Other tasks must wait until the blocking task finishes. Each browser implements different [process models](https://chromium.googlesource.com/chromium/src/+/main/docs/process_model_and_site_isolation.md), which means some web sites might run in different threads (and event loops) depending on their relations.
 
 Some techniques can exploit this model to steal secrets from a cross-origin page:
 
