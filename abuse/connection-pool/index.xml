@@ -20,11 +20,11 @@
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">import&lt;/span> time
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">class&lt;/span> &lt;span style="color:#50fa7b">handler&lt;/span>(BaseHTTPRequestHandler):
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">def&lt;/span> &lt;span style="color:#50fa7b">do_GET&lt;/span>(self):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">def&lt;/span> &lt;span style="color:#50fa7b">do_GET&lt;/span>(&lt;span style="font-style:italic">self&lt;/span>):
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> time&lt;span style="color:#ff79c6">.&lt;/span>sleep(&lt;span style="color:#8be9fd;font-style:italic">float&lt;/span>(&lt;span style="color:#bd93f9">100000&lt;/span>))
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#ff79c6">.&lt;/span>send_response(&lt;span style="color:#bd93f9">200&lt;/span>)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#ff79c6">.&lt;/span>send_header(&lt;span style="color:#f1fa8c">&amp;#39;Cache-Control&amp;#39;&lt;/span>, &lt;span style="color:#f1fa8c">&amp;#39;no-store&amp;#39;&lt;/span>)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#ff79c6">.&lt;/span>end_headers()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="font-style:italic">self&lt;/span>&lt;span style="color:#ff79c6">.&lt;/span>send_response(&lt;span style="color:#bd93f9">200&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="font-style:italic">self&lt;/span>&lt;span style="color:#ff79c6">.&lt;/span>send_header(&lt;span style="color:#f1fa8c">&amp;#39;Cache-Control&amp;#39;&lt;/span>, &lt;span style="color:#f1fa8c">&amp;#39;no-store&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="font-style:italic">self&lt;/span>&lt;span style="color:#ff79c6">.&lt;/span>end_headers()
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">with&lt;/span> HTTPServer((&lt;span style="color:#f1fa8c">&amp;#39;&amp;#39;&lt;/span>, &lt;span style="color:#bd93f9">8000&lt;/span>), handler) &lt;span style="color:#ff79c6">as&lt;/span> server:
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> server&lt;span style="color:#ff79c6">.&lt;/span>serve_forever()
