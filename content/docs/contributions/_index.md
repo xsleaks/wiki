@@ -96,7 +96,7 @@ In addition, we would also like to acknowledge the users who [contributed](https
 
 [Eduardo' Vela" \<Nava> (sirdarckcat)](https://github.com/sirdarckcat), [Ron Masas](https://github.com/masasron),
 [Luan Herrera](https://github.com/lbherrera), [Sigurd](https://github.com/DonSheddow),
-[larson reever](https://github.com/larsonreever), [Frederik Braun](https://github.com/mozfreddyb)
+[larson reever](https://github.com/larsonreever), [Frederik Braun](https://frederikbraun.de)
 [Masato Kinugawa](https://github.com/masatokinugawa), [sroettger](https://github.com/sroettger)
 
 And finally, our thanks go to all other amazing researchers that participate in sharing and exploring the depths of XS-Leaks!
