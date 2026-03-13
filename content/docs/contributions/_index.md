@@ -90,6 +90,7 @@ We would like to thank the following users who [contributed](https://github.com/
 [Chris Fredrickson](https://github.com/cfredric/), [jub0bs](https://github.com/jub0bs),
 [Zeyu (Zayne) Zhang](https://github.com/zeyu2001), [Medi](https://twitter.com/medi_0ne), 
 [Aaron Shim](https://github.com/aaronshim), [Jorian Woltjer](https://jorianwoltjer.com),
+[Tomasz Nowak](https://github.com/tomaszn)
 [Vik Vanderlinden](https://vikvanderlinden.be/), [Ari Chivukula](https://github.com/arichiv)
 
 In addition, we would also like to acknowledge the users who [contributed](https://github.com/xsleaks/xsleaks/wiki/Browser-Side-Channels/_history) to the predecessor of the current XS-Leaks wiki:
