@@ -55,4 +55,4 @@ If both behaviors above can be distinguished by a more reliable XS-Leak than tim
 ## References
 
 [^1]: Cross-Site Search Attacks, [link](https://446h.cybersec.fun/xssearch.pdf)
-[^2]: Cross-Site Search (XS-Search) Attacks - Hemi Leibowitz, OWASP AppSec IL 2015, [link](https://owasp.org/www-pdf-archive/AppSecIL2015_Cross-Site-Search-Attacks_HemiLeibowitz.pdf)
+[^2]: Cross-Site Search (XS-Search) Attacks - Hemi Leibowitz, OWASP AppSec IL 2015, [link](https://wiki.owasp.org/images/a/a7/AppSecIL2015_Cross-Site-Search-Attacks_HemiLeibowitz.pdf) ([alt](https://web.archive.org/web/20231226222426/https://owasp.org/www-pdf-archive/AppSecIL2015_Cross-Site-Search-Attacks_HemiLeibowitz.pdf))   

@@ -36,5 +36,10 @@ def allow_request(req):
   # Allow all other requests
   return True
 ```
+
+{{< hint tip >}} 
+To ensure the policy works well under caching, you must additionally include `Sec-Fetch-Dest`, `Sec-Fetch-Mode`, and `Sec-Fetch-Site` in the `Vary` response header.
+{{< /hint >}}
+
 ## References
 [^secmetadata]: Fetch Metadata Request Headers playground, [link](https://secmetadata.appspot.com/)

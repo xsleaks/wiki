@@ -73,7 +73,7 @@ This wiki is meant to both introduce readers to XS-Leaks and serve as a referenc
 Find out how you can contribute to this wiki and view the list of contributors in the [Contributions]({{< ref "contributions.md" >}}) article.
 
 ## References
-[^side-channel]: Side Channel Vulnerabilities on the Web - Detection and Prevention, [link](https://owasp.org/www-pdf-archive/Side_Channel_Vulnerabilities.pdf)
+[^side-channel]: Side Channel Vulnerabilities on the Web - Detection and Prevention, [link](https://web.archive.org/web/20200924124054/https://owasp.org/www-pdf-archive/Side_Channel_Vulnerabilities.pdf)
 [^csrf]: Cross Site Request Forgery (CSRF), [link](https://owasp.org/www-community/attacks/csrf)
 [^browser-features]: In some cases, these features are maintained to preserve backwards compatibility. But, in other cases, new features are added to browsers regardless of the fact that they introduce potential cross-site leaks (e.g. [Scroll to Text Fragment]({{< ref "scroll-to-text-fragment.md" >}})), as the benefits are considered to outweigh the downsides.
 [^old-wiki]: Browser Side Channels, [link](https://github.com/xsleaks/xsleaks/wiki/Browser-Side-Channels)
