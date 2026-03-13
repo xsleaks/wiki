@@ -9,6 +9,8 @@ menu = "main"
 Randomized Capacity is a security mechanism that prevents attackers from exploiting deterministic capacity limits to learn cross-site information.[^1]
 Chromium is randomizing the capacity of TCP pools as of version 145 (February 10, 2026).[^2]
 
+## Algorithm
+
 The method works by first evaluating limited system resources (e.g., TCP sockets) for two thresholds:
 1. A lower 'soft limit' that, if imposed as a rigid limit, would not impair performance due to scarcity.
 2. A higher 'hard limit' that, if imposed as a rigid limit, would not impair performance due to overtaxing.
