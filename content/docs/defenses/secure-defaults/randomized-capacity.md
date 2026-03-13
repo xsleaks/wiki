@@ -6,9 +6,15 @@ category = "Defense"
 menu = "main"
 +++
 
-Randomized Capacity is a security mechanism that prevents attackers from exploiting deterministic capacity limits to learn cross-site information.
-The goal in developing this mechanism is to cross-site leaks via the connection pool, where an attacking site saturates all but one available socket, then loops checking for the availability of that socket while opening other sites (monitoring the amount of connections established from them).[^1]
+Randomized Capacity is a security mechanism that prevents attackers from exploiting deterministic capacity limits to learn cross-site information.[^1]
 Chromium is randomizing the capacity of TCP pools as of version 145 (February 10, 2026).[^2]
+
+## Intent
+
+The goal in developing this mechanism is to cross-site leaks via the connection pool, where an attacking site saturates all but one available socket, then loops checking for the availability of that socket while opening other sites (monitoring the amount of connections established from them).
+We guarentee a 'soft limit' of resources, while allowing an additional, randomized capacity up to a 'hard limit'.
+By randomizing the points at which the pool becomes 'Capped' or 'Uncapped', an attacker cannot depend on any past observed limits when seeking information on future ones.
+Probabilistic information gleaned via multiple sequential attacks may be possible, but the difficulty/visibility of such actions will significantly increase.
 
 ## Algorithm
 
@@ -57,12 +63,14 @@ Finally, the method imposes a set of rules for a pool:
   4. Complete the release.
   5. Return.
 
-The goal of this method is to guarentee a 'soft limit' of resources, while allowing an additional, randomized capacity up to a 'hard limit'.
-By randomizing the points at which the pool becomes 'Capped' or 'Uncapped', an attacker cannot depend on any past limits when seeking information on future ones.
-
 {{< hint tip >}}
 In Chromium's implementation the state change formula is min(BOUND, NOISE * pow(BASE, CAPACITY)) where BOUND ensures a minimum of 1% chance, NOISE adds extra randomized variance to prevent probabilistic information extraction, BASE is tuned to give around a 10% chance of a state flip at 80% capacity, and CAPACITY is the percentage of the difference between 'soft limit' and 'hard limit'.[^3]
 {{< /hint >}}
+
+## Considerations
+
+The intention of this defense is to prevent cross-site leaks depending on the sockets state.
+This won't prevent attackers from exausting all sockets to block browser usage; per-site/frame/tab limitations (or some sort of alert) would need to be imposed to accomplish that.
 
 ## References
 
