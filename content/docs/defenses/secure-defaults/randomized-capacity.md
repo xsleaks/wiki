@@ -11,7 +11,7 @@ Chromium is randomizing the capacity of TCP pools as of version 145 (February 10
 
 ## Intent
 
-The goal in developing this mechanism is to cross-site leaks via the connection pool, where an attacking site saturates all but one available socket, then loops checking for the availability of that socket while opening other sites (monitoring the amount of connections established from them).
+The goal in developing this mechanism is to mitigate cross-site leaks via the connection pool, where an attacking site saturates all but one available socket, then loops checking for the availability of that socket while opening other sites (monitoring the amount of connections established from them).
 We guarentee a 'soft limit' of resources, while allowing an additional, randomized capacity up to a 'hard limit'.
 By randomizing the points at which the pool becomes 'Capped' or 'Uncapped', an attacker cannot depend on any past observed limits when seeking information on future ones.
 Probabilistic information gleaned via multiple sequential attacks may be possible, but the difficulty/visibility of such actions will significantly increase.
