@@ -63,8 +63,10 @@ Finally, the method imposes a set of rules for a pool:
   4. Complete the release.
   5. Return.
 
-{{< hint tip >}}
-In Chromium's implementation the state change formula is min(BOUND, NOISE * pow(BASE, CAPACITY)) where BOUND ensures a minimum of 1% chance, NOISE adds extra randomized variance to prevent probabilistic information extraction, BASE is tuned to give around a 10% chance of a state flip at 80% capacity, and CAPACITY is the percentage of the difference between 'soft limit' and 'hard limit'.[^3]
+{{< hint note >}}
+In Chromium's implementation the state change formula is `min(BOUND, NOISE * pow(BASE, CAPACITY))` where `BOUND` ensures a minimum of 1% chance, `NOISE` adds extra randomized variance to prevent probabilistic information extraction, `BASE` is tuned to give around a 10% chance of a state flip at 80% capacity, and `CAPACITY` is the percentage of the difference between 'soft limit' and 'hard limit'. [^3]
+
+[^3]: Socket Pool Additional Capacity, [link](https://source.chromium.org/chromium/chromium/src/+/main:net/socket/socket_pool_additional_capacity.cc;drc=431493070130ba3820395e23174a914d8b0473c1;l=226)
 {{< /hint >}}
 
 ## Considerations
@@ -76,5 +78,5 @@ This won't prevent attackers from exausting all sockets to block browser usage; 
 
 [^1]: Connection Pool, [link]({{< ref "../../attacks/timing-attacks/connection-pool.md" >}})
 [^2]: TCP Socket Pool Limit Randomization, [link](https://chromestatus.com/feature/6496757559197696)
-[^3]: Socket Pool Additional Capacity, [link](https://source.chromium.org/chromium/chromium/src/+/main:net/socket/socket_pool_additional_capacity.cc;drc=431493070130ba3820395e23174a914d8b0473c1;l=226)
+
 
