@@ -138,9 +138,9 @@ fetch('https://example.com', {mode: "no-cors", cache: "no-store", method: 'POST'
 ```
 ## Defense
 
-| [Randomized Capacity]({{< ref "/docs/defenses/secure-defaults/randomized-capacity.md" >}}) |
-| :--------------------------------------------------------------------------------: |
-|                                         ✔️                                          |
+| [SameSite Cookies (Lax)]({{< ref "/docs/defenses/opt-in/same-site-cookies.md" >}}) | [COOP]({{< ref "/docs/defenses/opt-in/coop.md" >}}) | [Framing Protections]({{< ref "/docs/defenses/opt-in/xfo.md" >}}) | [Isolation Policies]({{< ref "/docs/defenses/isolation-policies" >}}) | [Randomized Capacity]({{< ref "/docs/defenses/secure-defaults/randomized-capacity.md" >}}) |
+| :--------------------------------------------------------------------------------: | :-------------------------------------------------: | :---------------------------------------------------------------: | :-------------------------------------------------------------------: |  :--------------------------------------------------------------------------------: |
+|                                         ❌                                          |                          ❌                          |                                 ❌                                 |                                   ❌                                   |                                          ✔️                                          |
 
 
 {{< hint info >}}
