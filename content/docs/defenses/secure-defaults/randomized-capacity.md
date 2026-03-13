@@ -6,7 +6,8 @@ category = "Defense"
 menu = "main"
 +++
 
-Randomized Capacity is a security mechanism that prevents attackers from exploiting deterministic capacity limits to learn cross-site information.[^1]
+Randomized Capacity is a security mechanism that prevents attackers from exploiting deterministic capacity limits to learn cross-site information.
+The goal in developing this mechanism is to cross-site leaks via the connection pool, where an attacking site saturates all but one available socket, then loops checking for the availability of that socket while opening other sites (monitoring the amount of connections established from them).[^1]
 Chromium is randomizing the capacity of TCP pools as of version 145 (February 10, 2026).[^2]
 
 ## Algorithm
