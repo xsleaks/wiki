@@ -87,8 +87,10 @@ A custom cursor might not leak data directly but it may help trick the user, as 
 
 ## Defense
 [XFO]({{< ref "/docs/defenses/opt-in/xfo.md" >}}) prevents embeds from being attacked because there's no visual difference as the content does not get shown.
-The *Retrieving user's history* attack can only be prevented by the user.
-This can be done by disabling the browser history, or if on Firefox, by setting the option `layout.css.visited_links_enabled` to `false` in `about:config` panel.  
+The *Retrieving user's history* attack can only be prevented by the user or :visited link partitioning.
+This can be done by disabling the browser history, or if on Firefox, by setting the option `layout.css.visited_links_enabled` to `false` in `about:config` panel.
+Chrome has migrated it by not styling as visited unless the link URL, top-level site, and frame origin match. [^patch]  
+
 | [SameSite Cookies (Lax)]({{< ref "/docs/defenses/opt-in/same-site-cookies.md" >}}) | [COOP]({{< ref "/docs/defenses/opt-in/coop.md" >}}) | [Framing Protections]({{< ref "/docs/defenses/opt-in/xfo.md" >}}) | [Isolation Policies]({{< ref "/docs/defenses/isolation-policies" >}}) |
 | :--------------------------------------------------------------------------------: | :-------------------------------------------------: | :---------------------------------------------------------------: | :-------------------------------------------------------------------: |
 |                                         ❌                                          |                          ❌                          |                                 ✔️                                 |                                   ❌                                   |
@@ -99,3 +101,4 @@ This can be done by disabling the browser history, or if on Firefox, by setting 
 [^exploit-1]: XS-Leaking flags with CSS: A CTFd 0day, [link](https://jorianwoltjer.com/blog/p/hacking/xs-leaking-flags-with-css-a-ctfd-0day)  
 [^render-timings-bug]: Visited links can be detected via redraw timing, [link](https://bugs.chromium.org/p/chromium/issues/detail?id=252165)
 [^leak-2]: The Human Side Channel, [link](https://ronmasas.com/posts/the-human-side-channel)  
+[^patch]: Making :visited more private, [link](https://developer.chrome.com/blog/visited-links)  
