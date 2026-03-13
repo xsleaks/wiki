@@ -30,38 +30,38 @@ The method also establishes a way for the pool to 'Roll' for state changes based
 1. If usage is below the 'soft limit', the result is always 'Uncapped'.
 2. If the usage is above the 'hard limit', the result is always 'Capped'.
 3. If the usage is between the 'soft limit' and the 'hard limit':
-  1. The chance of an 'Uncapped' result should converge to 1 as usage approaches the 'soft limit'.
-  2. The chance of a 'Capped' result should converge to 1 as usage approaches the 'hard limit'.
+    1. The chance of an 'Uncapped' result should converge to 1 as usage approaches the 'soft limit'.
+    2. The chance of a 'Capped' result should converge to 1 as usage approaches the 'hard limit'.
 
 Finally, the method imposes a set of rules for a pool:
 * On allocation:
-  1. If the pool is 'Capped':
-    1. Reject/queue the allocation for later.
-    2. Return.
-  2. If the 'soft limit' has not been reached:
-    1. Permit the allocation.
-    2. Return.
-  3. If the 'hard limit' has been reached:
-    1. Reject/queue the allocation for later.
-    2. Set the state to 'Capped'.
-    3. Return.
-  4. 'Roll' to update the pool state.
-  5. If 'Capped':
-    1. Reject/queue the allocation for later.
-    2. Return.
-  6. Permit the allocation.
-  7. Return.
+    1. If the pool is 'Capped':
+        1. Reject/queue the allocation for later.
+        2. Return.
+    2. If the 'soft limit' has not been reached:
+        1. Permit the allocation.
+        2. Return.
+    3. If the 'hard limit' has been reached:
+        1. Reject/queue the allocation for later.
+        2. Set the state to 'Capped'.
+        3. Return.
+    4. 'Roll' to update the pool state.
+    5. If 'Capped':
+        1. Reject/queue the allocation for later.
+        2. Return.
+    6. Permit the allocation.
+    7. Return.
 * On release:
-  1. If the pool is 'Uncapped':
-    1. Complete the release.
-    2. Return.
-  2. If the 'soft limit' has not been reached:
-    1. Set the state to 'Uncapped'.
-    2. Complete the release.
-    3. Return.
-  3. 'Roll' to update the pool state.
-  4. Complete the release.
-  5. Return.
+    1. If the pool is 'Uncapped':
+        1. Complete the release.
+        2. Return.
+    2. If the 'soft limit' has not been reached:
+        1. Set the state to 'Uncapped'.
+        2. Complete the release.
+        3. Return.
+    3. 'Roll' to update the pool state.
+    4. Complete the release.
+    5. Return.
 
 {{< hint note >}}
 In Chromium's implementation the state change formula is `min(BOUND, NOISE * pow(BASE, CAPACITY))` where `BOUND` ensures a minimum of 1% chance, `NOISE` adds extra randomized variance to prevent probabilistic information extraction, `BASE` is tuned to give around a 10% chance of a state flip at 80% capacity, and `CAPACITY` is the percentage of the difference between 'soft limit' and 'hard limit'. [^3]
