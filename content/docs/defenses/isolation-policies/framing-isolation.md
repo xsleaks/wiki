@@ -51,6 +51,8 @@ def allow_request(req):
   return False
 ```
 
+IMPORTANT: To ensure the policy works well under caching, you must additionally include `Sec-Fetch-Dest`, `Sec-Fetch-Mode`, and `Sec-Fetch-Site` in the `Vary` response header.
+
 ## Considerations
 Framing Isolation Policy cannot be applied if an endpoint allows framing requests from specific origins via  `X-Frame-Options` and/or Content Security Policy's
 `frame-ancestors` directive.
